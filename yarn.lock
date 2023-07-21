@@ -2942,7 +2942,7 @@ eslint-plugin-promise@^6.0.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-6.1.1.tgz#269a3e2772f62875661220631bd4dafcb4083816"
   integrity sha512-tjqWDwVZQo7UIPMeDReOpUgHCmCiH+ePnVT+5zVapL0uuHnegBUs2smM13CzOs2Xb5+MHMRFTs9v24yjba4Oig==
 
-eslint-plugin-vue@^9.15.1, eslint-plugin-vue@^9.4.0:
+eslint-plugin-vue@^9.15.1, eslint-plugin-vue@^9.4.0, eslint-plugin-vue@^9.6.0:
   version "9.15.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.15.1.tgz#3c09e0edab444b5d4d9239a12a645a0e2e2ea5be"
   integrity sha512-CJE/oZOslvmAR9hf8SClTdQ9JLweghT6JCBQNrT2Iel1uVw0W0OLJxzvPd6CxmABKCvLrtyDnqGV37O7KQv6+A==
@@ -2954,6 +2954,14 @@ eslint-plugin-vue@^9.15.1, eslint-plugin-vue@^9.4.0:
     semver "^7.3.5"
     vue-eslint-parser "^9.3.0"
     xml-name-validator "^4.0.0"
+
+eslint-plugin-vuetify@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vuetify/-/eslint-plugin-vuetify-2.0.4.tgz#78e2774219c85bc2759188e51dd4e2dc7d72f966"
+  integrity sha512-I3tjkE/mIPjyvRF2wIUNRtiX1MssKEtWG5GCSaTOezf+M4f6HtGMl5aehYDIVXxVczrLSsI1CUPrijwL9/+qIQ==
+  dependencies:
+    eslint-plugin-vue "^9.6.0"
+    requireindex "^1.2.0"
 
 eslint-scope@^7.1.1, eslint-scope@^7.2.0:
   version "7.2.1"
@@ -5784,6 +5792,11 @@ require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
   integrity sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==
+
+requireindex@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 requires-port@^1.0.0:
   version "1.0.0"
