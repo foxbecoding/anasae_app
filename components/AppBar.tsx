@@ -1,3 +1,5 @@
+import { useTheme } from 'vuetify'
+
 export const AppBarStart = defineComponent({
     name: "AppBarStart",
     render() {
@@ -51,12 +53,54 @@ export const AppBarCenter = defineComponent({
 export const AppBarEnd = defineComponent({
     name: "AppBarEnd",
     render() {
-        const LOGO_TITLE = computed(() => <v-app-bar-title class="nana-logo-title">ANASAE</v-app-bar-title>)
+        const theme = useTheme()
+        
+        const toggleTheme = (): void => {
+            theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
+        }
+        
+        const THEME_ICON = computed((): string => {
+            return theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night'
+        })
+
+        const THEME_TOGGLE_BTN = computed(() => {
+            return (
+                <nana-app-bar-btn 
+                    onClick={ toggleTheme() }
+                    class="rounded-xl mr-2"
+                    variant="plain"
+                    height="38px"
+                    width="38px"
+                    icon
+                >
+                    <v-icon>{ THEME_ICON.value }</v-icon>
+                </nana-app-bar-btn>
+            )
+        })
+
+        const SIGN_IN_BTN = computed(() => {
+            return (
+                <div class="nana-primary-bg-color rounded-xl">
+                    <nana-app-bar-btn 
+                        class="rounded-xl"
+                        variant="plain" 
+                    >
+                        <v-icon class="mr-2" >mdi-account-circle</v-icon>
+                        Sign In
+                    </nana-app-bar-btn>
+                </div>
+            )
+        })
         
         const output = (): any => {
-            return <div id="start" class="d-flex flex-row align-center">
-                {LOGO_TITLE.value}
-            </div>
+            return (
+                <div id="end" class="d-flex flex-row align-center justify-content-end">
+                    <v-toolbar color="background">
+                        {THEME_TOGGLE_BTN.value}
+                        {SIGN_IN_BTN.value}
+                    </v-toolbar>
+                </div>
+            )
         }
 
         return ( output() )
