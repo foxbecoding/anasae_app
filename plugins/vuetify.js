@@ -64,6 +64,7 @@ export default defineNuxtPlugin(nuxtApp => {
         directives,
         aliases: {
             NanaBtn: VBtn,
+            NanaBtnOutlined: VBtn,
             NanaAppBarBtn: VBtn,
         },
         
@@ -78,12 +79,16 @@ export default defineNuxtPlugin(nuxtApp => {
             VCard: { flat: true },
             NanaAppBarBtn: {
                 variant: 'flat',
-                class: ['bg-surface', 'nana-btn-active'],
+                class: ['bg-surface'],
             },
             NanaBtn: {
                 variant: 'flat',
                 class: ['nana-primary-color'],
             },
+            NanaBtnOutlined: {
+                variant: 'flat',
+                class: ['bg-background']
+            }
         },
         theme: {
             defaultTheme: 'anasaeDark',

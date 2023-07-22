@@ -1,9 +1,12 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  "jsxImportSource": "vue",
-  "types": ["vue", "vuetify"],
   "compilerOptions": {
-    "jsx": "preserve"
+      "types" : ["node"]
   }
+  // "jsxImportSource": "vue",
+  // "types": ["vue", "vuetify"],
+  // "compilerOptions": {
+  //   "jsx": "preserve"
+  // }
 }
