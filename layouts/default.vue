@@ -15,7 +15,7 @@ const THEME_ICON = computed((): string => {
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <div id="start" class="d-flex flex-row align-center">
-                    <v-app-bar-title class="title-logo">ANASAE</v-app-bar-title>
+                    <v-app-bar-title class="nana-logo-title">ANASAE</v-app-bar-title>
                 </div>
                 <div id="center" class="d-flex flex-row align-center flex-0-1">
                     <v-toolbar color="background">
@@ -57,14 +57,3 @@ const THEME_ICON = computed((): string => {
         </v-main>
     </v-app>
 </template>
-
-<style scoped>
-.title-logo {
-    /* background: linear-gradient(to right, #9C27B0, #3fabf3); */
-    background: linear-gradient(to right, #9C27B0, #FFC107);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    font-size: 1.7rem;
-}
-</style>
