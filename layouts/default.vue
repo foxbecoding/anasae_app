@@ -50,13 +50,6 @@ const THEME_ICON = computed((): string => {
                         >
                             <v-icon>{{ THEME_ICON }}</v-icon>
                         </nana-app-bar-btn>
-                        <!-- <nana-btn 
-                            class="rounded-xl"
-                            variant="plain" 
-                        >
-                            <v-icon class="mr-2" >mdi-account-circle</v-icon>
-                            Sign In
-                        </nana-btn> -->
                         <div class="nana-primary-bg-color rounded-xl">
                             <nana-app-bar-btn 
                                 class="rounded-xl"
