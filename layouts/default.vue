@@ -8,9 +8,14 @@ const toggleTheme = (): void => {
 
 <template>
     <v-app>
-        <!-- <v-container></v-container> -->
         <v-app-bar>
-            <v-container class="px-4" fluid>LOGO</v-container>
+            <v-container class="px-4 d-flex justify-space-between" fluid>
+                <div id="start" class="d-flex flex-row align-center">Logo</div>
+                <div id="center" class="d-flex flex-row align-center flex-fill">
+                    <v-card rounded="xl"></v-card>
+                </div>
+                <div id="end" class="d-flex flex-row align-center justify-content-end">Toolbar</div>
+            </v-container>
         </v-app-bar>
         <v-main>
             <v-card>

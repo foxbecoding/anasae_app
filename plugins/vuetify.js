@@ -66,6 +66,7 @@ export default defineNuxtPlugin(nuxtApp => {
                 floating: true
             },
             VBtn: { variant: 'flat' },
+            VCard: { flat: true },
             NanaBtn: {
                 variant: 'flat',
                 class: ['v-btn--primary'],
