@@ -2,7 +2,7 @@ import { useTheme } from 'vuetify'
 
 export const AppBarStart = defineComponent({
     name: "AppBarStart",
-    render() {
+    setup() {
         const LOGO_TITLE = computed(() => <v-app-bar-title class="nana-logo-title">ANASAE</v-app-bar-title>)
         
         const output = (): any => {
@@ -11,12 +11,13 @@ export const AppBarStart = defineComponent({
             </div>
         }
 
-        return ( output() )
+        return () => ( output() )
     }
 })
+
 export const AppBarCenter = defineComponent({
     name: "AppBarCenter",
-    render() {
+    setup() {
         const SEARCH_BAR = computed(() => {
             return (
                 <v-toolbar color="background">
@@ -47,12 +48,13 @@ export const AppBarCenter = defineComponent({
             )
         }
 
-        return ( output() )
+        return () => ( output() )
     }
 })
+
 export const AppBarEnd = defineComponent({
     name: "AppBarEnd",
-    render() {
+    setup() {
         const theme = useTheme()
         
         const toggleTheme = (): void => {
@@ -64,9 +66,9 @@ export const AppBarEnd = defineComponent({
         })
 
         const THEME_TOGGLE_BTN = computed(() => {
-            return (
+            return  (
                 <nana-app-bar-btn 
-                    onClick={ toggleTheme() }
+                    onClick={ () => toggleTheme() }
                     class="rounded-xl mr-2"
                     variant="plain"
                     height="38px"
@@ -79,7 +81,7 @@ export const AppBarEnd = defineComponent({
         })
 
         const SIGN_IN_BTN = computed(() => {
-            return (
+            return  (
                 <div class="nana-primary-bg-color rounded-xl">
                     <nana-app-bar-btn 
                         class="rounded-xl"
@@ -103,6 +105,6 @@ export const AppBarEnd = defineComponent({
             )
         }
 
-        return ( output() )
+        return () => ( output() )
     }
 })
