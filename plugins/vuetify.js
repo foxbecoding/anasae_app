@@ -4,8 +4,11 @@ import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
-import { VCol, VContainer, VGrid, VRow, VSpacer  } from 'vuetify/components/VGrid'
+import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
+import { VIcon } from 'vuetify/components/VIcon'
 import { VMain } from 'vuetify/components/VMain'
+import { VTextField } from 'vuetify/components/VTextField'
+import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
 
 export default defineNuxtPlugin(nuxtApp => {
     const anasaeDark = {
@@ -49,14 +52,19 @@ export default defineNuxtPlugin(nuxtApp => {
             VCardSubtitle,
             VCol, 
             VContainer, 
-            VGrid, 
+            VIcon,
             VMain,
             VRow, 
             VSpacer,
+            VTextField,
+            VToolbar, 
+            VToolbarItems, 
+            VToolbarTitle
         },
         directives,
         aliases: {
             NanaBtn: VBtn,
+            NanaAppBarBtn: VBtn,
         },
         
         defaults: {
@@ -68,9 +76,13 @@ export default defineNuxtPlugin(nuxtApp => {
             },
             VBtn: { variant: 'flat' },
             VCard: { flat: true },
+            NanaAppBarBtn: {
+                variant: 'flat',
+                class: ['bg-surface'],
+            },
             NanaBtn: {
                 variant: 'flat',
-                class: ['v-btn--primary'],
+                class: ['nana-primary-color'],
             },
         },
         theme: {
