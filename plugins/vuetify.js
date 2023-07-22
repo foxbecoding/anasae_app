@@ -1,7 +1,7 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import { VApp } from 'vuetify/components/VApp'
-import { VAppBar } from 'vuetify/components/VAppBar'
+import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
 import { VCol, VContainer, VGrid, VRow, VSpacer  } from 'vuetify/components/VGrid'
@@ -39,6 +39,7 @@ export default defineNuxtPlugin(nuxtApp => {
         components: { 
             VApp, 
             VAppBar, 
+            VAppBarTitle, 
             VBtn, 
             VCard,
             VCardActions,

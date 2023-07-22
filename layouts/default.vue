@@ -10,9 +10,11 @@ const toggleTheme = (): void => {
     <v-app>
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
-                <div id="start" class="d-flex flex-row align-center">Logo</div>
-                <div id="center" class="d-flex flex-row align-center flex-fill">
-                    <v-card rounded="xl"></v-card>
+                <div id="start" class="d-flex flex-row align-center">
+                    <v-app-bar-title class="title-logo">ANASAE</v-app-bar-title>
+                </div>
+                <div id="center" class="d-flex flex-row align-center flex-0-1">
+                    <v-card rounded="xl" width="500px"  height="44px"></v-card>
                 </div>
                 <div id="end" class="d-flex flex-row align-center justify-content-end">Toolbar</div>
             </v-container>
@@ -25,3 +27,14 @@ const toggleTheme = (): void => {
         </v-main>
     </v-app>
 </template>
+
+<style scoped>
+.title-logo {
+    background: linear-gradient(to right, #9C27B0, #FFC107);
+    /* background: linear-gradient(to right,#3fabf3, #9C27B0); */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 1.7rem;
+}
+</style>
