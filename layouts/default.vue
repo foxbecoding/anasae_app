@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { AppBarStart, AppBarCenter, AppBarEnd } from '../components/AppBar'
 </script>
 
 <template>
