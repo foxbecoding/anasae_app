@@ -78,7 +78,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VCard: { flat: true },
             NanaAppBarBtn: {
                 variant: 'flat',
-                class: ['bg-surface'],
+                class: ['bg-surface', 'nana-btn-active'],
             },
             NanaBtn: {
                 variant: 'flat',

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
+
 const theme = useTheme()
+
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
 }
@@ -19,12 +21,19 @@ const THEME_ICON = computed((): string => {
                 </div>
                 <div id="center" class="d-flex flex-row align-center flex-0-1">
                     <v-toolbar color="background">
-                        <v-card rounded="xl" width="400px" height="44px">
+                        <v-card 
+                            rounded="xl" 
+                            width="400px" 
+                            height="44px"
+                            density="compact"
+                        >
                             <v-text-field
                                 density="compact"
                                 flat
                                 placeholder="Search for products, brands or clipz"
                                 variant="solo-filled" 
+                                append-inner-icon="mdi-magnify"
+                                bg-color="transparent"
                             />
                         </v-card> 
                     </v-toolbar>
@@ -35,19 +44,28 @@ const THEME_ICON = computed((): string => {
                             @click="toggleTheme()"
                             class="rounded-xl mr-2"
                             variant="plain"
-                            height="36px"
-                            width="36px"
+                            height="38px"
+                            width="38px"
                             icon
                         >
                             <v-icon>{{ THEME_ICON }}</v-icon>
                         </nana-app-bar-btn>
-                        <nana-btn 
+                        <!-- <nana-btn 
                             class="rounded-xl"
                             variant="plain" 
                         >
-                            <v-icon>mdi-account-circle</v-icon>
+                            <v-icon class="mr-2" >mdi-account-circle</v-icon>
                             Sign In
-                        </nana-btn>
+                        </nana-btn> -->
+                        <div class="nana-primary-bg-color rounded-xl">
+                            <nana-app-bar-btn 
+                                class="rounded-xl"
+                                variant="plain" 
+                            >
+                                <v-icon class="mr-2" >mdi-account-circle</v-icon>
+                                Sign In
+                            </nana-app-bar-btn>
+                        </div>
                     </v-toolbar>
                 </div>
             </v-container>
