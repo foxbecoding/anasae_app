@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
+import { AppBarStart } from '@/components/AppBar'
 
 const theme = useTheme()
 
@@ -16,9 +17,10 @@ const THEME_ICON = computed((): string => {
     <v-app>
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
-                <div id="start" class="d-flex flex-row align-center">
+                <AppBarStart />
+                <!-- <div id="start" class="d-flex flex-row align-center">
                     <v-app-bar-title class="nana-logo-title">ANASAE</v-app-bar-title>
-                </div>
+                </div> -->
                 <div id="center" class="d-flex flex-row align-center flex-0-1">
                     <v-toolbar color="background">
                         <v-card 
