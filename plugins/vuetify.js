@@ -1,7 +1,10 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import { VApp } from 'vuetify/components/VApp'
+import { VAppBar } from 'vuetify/components/VAppBar'
 import { VBtn } from 'vuetify/components/VBtn'
+import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
+import { VCol, VContainer, VGrid, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VMain } from 'vuetify/components/VMain'
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -10,7 +13,7 @@ export default defineNuxtPlugin(nuxtApp => {
         colors: {
             background: 'rgb(18,18,18)',
             surface: 'rgb(36,36,36)',
-            'surface-alt': 'rgb(240,240,240)',
+            'surface-alt': 'rgb(241,241,241)',
             primary: '#3fabf3',
             error: '#EF5350',
             info: '#2196F3',
@@ -33,15 +36,39 @@ export default defineNuxtPlugin(nuxtApp => {
     } 
     const vuetify = createVuetify({
         ssr: true,
-        components: { VApp, VBtn, VMain },
+        components: { 
+            VApp, 
+            VAppBar, 
+            VBtn, 
+            VCard,
+            VCardActions,
+            VCardItem, 
+            VCardText, 
+            VCardTitle, 
+            VCardSubtitle,
+            VCol, 
+            VContainer, 
+            VGrid, 
+            VMain,
+            VRow, 
+            VSpacer,
+        },
         directives,
         aliases: {
             NanaBtn: VBtn,
         },
         
         defaults: {
+            VAppBar: {
+                color: 'background',
+                fixed: true,
+                flat: true,
+                floating: true
+            },
+            VBtn: { variant: 'flat' },
             NanaBtn: {
-                class: ['v-btn--primary', 'text-none'],
+                variant: 'flat',
+                class: ['v-btn--primary'],
             },
         },
         theme: {

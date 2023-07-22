@@ -2,17 +2,18 @@
 import { useTheme } from 'vuetify'
 const theme = useTheme()
 const toggleTheme = (): void => {
-    console.log(theme.global.current.value.dark)
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
-    // theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 </script>
 
 <template>
     <v-app>
+        <!-- <v-container></v-container> -->
+        <v-app-bar></v-app-bar>
         <v-main>
-            <nana-btn @click="toggleTheme()" color="surface" :flat="true">TEST</nana-btn>
-            <nana-btn @click="toggleTheme()" color="surface-alt" :flat="true">TEST</nana-btn>
+            <v-card>
+                <v-card-actions></v-card-actions>
+            </v-card>
             <slot></slot>
         </v-main>
     </v-app>
