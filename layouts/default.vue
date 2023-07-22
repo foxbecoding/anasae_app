@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
-import { AppBarStart } from '@/components/AppBar'
+import { AppBarStart, AppBarCenter } from '@/components/AppBar'
 
 const theme = useTheme()
 
@@ -18,25 +18,8 @@ const THEME_ICON = computed((): string => {
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarStart />
-                <div id="center" class="d-flex flex-row align-center flex-0-1">
-                    <v-toolbar color="background">
-                        <v-card 
-                            rounded="xl" 
-                            width="400px" 
-                            height="44px"
-                            density="compact"
-                        >
-                            <v-text-field
-                                density="compact"
-                                flat
-                                placeholder="Search for products, brands or clipz"
-                                variant="solo-filled" 
-                                append-inner-icon="mdi-magnify"
-                                bg-color="transparent"
-                            />
-                        </v-card> 
-                    </v-toolbar>
-                </div>
+                <AppBarCenter />
+                
                 <div id="end" class="d-flex flex-row align-center justify-content-end">
                     <v-toolbar color="background">
                         <nana-app-bar-btn 
