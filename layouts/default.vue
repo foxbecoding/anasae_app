@@ -18,9 +18,6 @@ const THEME_ICON = computed((): string => {
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarStart />
-                <!-- <div id="start" class="d-flex flex-row align-center">
-                    <v-app-bar-title class="nana-logo-title">ANASAE</v-app-bar-title>
-                </div> -->
                 <div id="center" class="d-flex flex-row align-center flex-0-1">
                     <v-toolbar color="background">
                         <v-card 
@@ -65,7 +62,7 @@ const THEME_ICON = computed((): string => {
                 </div>
             </v-container>
         </v-app-bar>
-        <v-main>
+        <v-main class="pt-16">
             <slot></slot>
         </v-main>
     </v-app>
