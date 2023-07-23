@@ -1,14 +1,10 @@
-<script setup lang="ts">
-const nn = useRuntimeConfig()
-</script>
-
 <template>
     <v-app>
         <v-app-bar>
             <v-container class="px-4 d-flex justify-space-between" fluid>
-                <AppBarStart />
-                <AppBarCenter />
-                <AppBarEnd />
+                <AppBarInnerStart />
+                <AppBarInnerCenter />
+                <AppBarInnerEnd />
                 
             </v-container>
         </v-app-bar>
