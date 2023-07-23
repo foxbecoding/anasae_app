@@ -1,21 +1,21 @@
+<script setup lang="ts">
+const CENTER_CLASSES  = computed(() => {
+    return "px-2 d-flex flex-row align-center flex-0-1 search-container"
+})
+</script>
+
 <template>
-    <div id="center" class="d-none d-md-flex flex-row align-center flex-0-1">
-        
-            <v-card 
-                class="w-100"
-                rounded="xl" 
-                height="44px"
-                density="compact"
-            >
-                <v-text-field
-                    density="compact"
-                    flat
-                    placeholder="Search for products, brands or clipz"
-                    variant="solo-filled" 
-                    append-inner-icon="mdi-magnify"
-                    bg-color="transparent"
-                />
-            </v-card> 
-      
+    <div 
+        id="center" 
+        :class="CENTER_CLASSES"
+    >
+        <SearchBar />
     </div>
 </template>
+
+<style scoped>
+#center.search-container{
+    max-width: 400px;
+    width: 100%;
+}
+</style>
