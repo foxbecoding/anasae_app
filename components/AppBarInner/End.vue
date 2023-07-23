@@ -14,7 +14,7 @@ const THEME_ICON = computed((): string => {
 </script>
 
 <template>
-    <div id="end" class="d-flex flex-row align-center justify-content-end">
+    <div id="end" class="d-none d-sm-flex flex-row align-center justify-content-end">
         <v-toolbar color="background">
             <div class="nana-primary-bg-color rounded-xl mr-2">
                 <NanaBtnOutlined

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div id="center" class="d-flex flex-row align-center flex-0-1">
+    <div id="center" class="d-none d-md-flex flex-row align-center flex-0-1">
         <v-toolbar color="background">
             <v-card 
                 rounded="xl" 
