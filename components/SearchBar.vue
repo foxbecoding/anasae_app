@@ -1,8 +1,8 @@
 <template>
     <v-toolbar color="background">
         <v-card 
+            class="w-100"
             rounded="xl" 
-            width="400px" 
             height="44px"
             density="compact"
         >
