@@ -6,6 +6,7 @@ import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VIcon } from 'vuetify/components/VIcon'
+import { VImg } from 'vuetify/components/VImg'
 import { VMain } from 'vuetify/components/VMain'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
@@ -53,6 +54,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VCol, 
             VContainer, 
             VIcon,
+            VImg,
             VMain,
             VRow, 
             VSpacer,
