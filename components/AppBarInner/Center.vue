@@ -5,10 +5,7 @@ const CENTER_CLASSES  = computed(() => {
 </script>
 
 <template>
-    <div 
-        id="center" 
-        :class="CENTER_CLASSES"
-    >
+    <div id="center" :class="CENTER_CLASSES">
         <SearchBar />
     </div>
 </template>
