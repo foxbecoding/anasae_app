@@ -1,6 +1,6 @@
 <template>
     <div id="center" class="d-none d-md-flex flex-row align-center flex-0-1">
-        <v-toolbar color="transparent">
+        
             <v-card 
                 class="w-100"
                 rounded="xl" 
@@ -16,6 +16,6 @@
                     bg-color="transparent"
                 />
             </v-card> 
-        </v-toolbar>
+      
     </div>
 </template>
