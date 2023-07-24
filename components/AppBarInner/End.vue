@@ -11,11 +11,7 @@ const THEME_ICON = computed((): string => {
     return theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night'
 })
 
-const SIGN_IN_BTN_HEIGHT = computed<string>((): string => {
-    let height = name.value == 'xs' ? '30px' : '38px'
-    console.log(name.value)
-    return height
-})
+const SIGN_IN_BTN_HEIGHT = computed((): string => name.value == 'xs' ? '30px' : '38px')
 
 </script>
 
