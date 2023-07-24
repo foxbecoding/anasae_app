@@ -1,3 +1,27 @@
+$background: rgb(var(--v-theme-background));
+$surface: rgb(var(--v-theme-surface));
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $surface $surface;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $background;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $surface;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid $surface;  /* creates padding around scroll thumb */
+}
+
 .nana-primary-color {
     background: linear-gradient(to right, #9C27B0, #FFC107) !important;
     color: rgba(255,255,255, 0.87) !important;

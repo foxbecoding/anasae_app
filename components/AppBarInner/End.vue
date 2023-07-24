@@ -24,7 +24,7 @@ const SIGN_IN_BTN_HEIGHT = computed((): string => name.value == 'xs' ? '30px' : 
             </NanaBtnOutlined>
         </div>
         
-        <div class="d-none d-md-block">
+        <div class="d-none d-sm-block">
             <nana-app-bar-btn 
                 @click="toggleTheme()" 
                 class="rounded-xl mr-2"
