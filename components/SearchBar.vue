@@ -8,7 +8,7 @@
         <v-text-field
             density="compact"
             flat
-            placeholder="Search for products, brands or clipz"
+            placeholder="Search for products & brands"
             variant="solo-filled" 
             append-inner-icon="mdi-magnify"
             bg-color="transparent"
