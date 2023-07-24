@@ -11,5 +11,5 @@ const LOGO = computed<string>((): string => {
 </script>
 
 <template>
-    <v-img :src="LOGO" width="120" />
+    <v-img :src="LOGO"  />
 </template>

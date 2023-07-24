@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const CENTER_CLASSES  = computed<string>((): string => {
-    return "px-2 d-flex flex-row align-center flex-0-1 search-container"
+    return "px-2 d-none d-sm-flex flex-row align-center flex-0-1 search-container"
 })
 </script>
 
