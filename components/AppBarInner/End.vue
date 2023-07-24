@@ -15,7 +15,7 @@ const THEME_ICON = computed((): string => {
 
 <template>
     <div id="end" class="d-flex flex-row align-center justify-content-end">
-        <v-toolbar color="background">
+       
             <div class="nana-primary-bg-color rounded-xl mr-2">
                 <NanaBtnOutlined
                     class="rounded-xl"
@@ -25,24 +25,26 @@ const THEME_ICON = computed((): string => {
                 </NanaBtnOutlined>
             </div>
             
-            <nana-app-bar-btn 
-                @click="toggleTheme()" 
-                class="rounded-xl mr-2"
-                height="38px"
-                width="38px"
-                icon
-            >
-                <v-icon>{{ THEME_ICON }}</v-icon>
-            </nana-app-bar-btn>
+            <div class="d-none d-md-block">
+                <nana-app-bar-btn 
+                    @click="toggleTheme()" 
+                    class="rounded-xl mr-2"
+                    height="38px"
+                    width="38px"
+                    icon
+                >
+                    <v-icon>{{ THEME_ICON }}</v-icon>
+                </nana-app-bar-btn>
 
-            <nana-app-bar-btn 
-                class="rounded-xl"
-                height="38px"
-                width="38px"
-                icon
-            >
-                <v-icon>mdi-cart-outline</v-icon>
-            </nana-app-bar-btn>            
-        </v-toolbar>
+                <nana-app-bar-btn 
+                    class="rounded-xl"
+                    height="38px"
+                    width="38px"
+                    icon
+                >
+                    <v-icon>mdi-cart-outline</v-icon>
+                </nana-app-bar-btn> 
+            </div>           
+     
     </div>
 </template>
