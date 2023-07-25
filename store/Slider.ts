@@ -1,7 +1,7 @@
 import { Slide } from 'utils/types'
 
 export const useSliderStore = defineStore("slider-store", () => {
-    const currentSlide = ref<Slide>()
+    const currentSlide = ref<Slide>({} as Slide)
     const slides = ref<Slide[]>([
         {
             pk: 1,

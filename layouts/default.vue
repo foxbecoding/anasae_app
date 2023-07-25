@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useSliderStore } from '../store/Slider';
+
+const sliderStore = useSliderStore()
 const pageYOffset = ref<number>(0)
 const App_Bar_Color = computed(() => pageYOffset.value !== 0 ? 'app-bar-color' : '')
 const setTransparent = computed(() => pageYOffset.value == 0 ? 'transparent' : '')
@@ -12,12 +15,15 @@ const onScroll = (e: any): void => {
         <v-app-bar :color="setTransparent" class="app-bar" :class="App_Bar_Color">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
+                {{ sliderStore.currentSlide }}
             </v-container>
         </v-app-bar>
         <v-container class="d-md-none app-mobile-search-container py-2" :class="App_Bar_Color" fluid>
             <SearchBar />
         </v-container>
-        <div class="slide1" :style="{backgroundImage: `url(http://192.168.1.235:3058/media/assets/slide1.png)`}"></div>
+        
+        <div class="slide1" :style="{backgroundImage: `url(${sliderStore.currentSlide.src})`}"></div>
+        
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
