@@ -1,7 +1,3 @@
-<script setup lang="ts">
-// const { Asset } = useMediaAsset('/assets/artist.png')
-</script>
-
 <template>
     <v-container class="px-0" fluid>
         <BannerSlider />
