@@ -1,10 +1,19 @@
 <script setup lang="ts">
 
-const pageYOffset = ref<number>(0)
-const App_Bar_Color = computed(() => pageYOffset.value !== 0 ? 'app-bar-color' : '')
-const setTransparent = computed(() => pageYOffset.value == 0 ? 'transparent' : '')
+const scrollY = ref<number>(0)
+const lastScrollTop = ref<number>(0)
+const App_Bar_Color = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
+const setTransparent = computed(() => scrollY.value == 0 ? 'transparent' : '')
 const onScroll = (e: any): void => {
-    pageYOffset.value = window.scrollY
+    
+    var scrollTop = window.scrollY || document.documentElement.scrollTop
+    if (scrollTop > lastScrollTop.value) {
+        console.log(`down ${scrollTop}`)
+    } else if (scrollTop < lastScrollTop.value) {
+        console.log(`up ${scrollTop}`)
+    }
+    lastScrollTop.value = scrollTop <= 0 ? 0 : scrollTop
+    scrollY.value = window.scrollY
 }
 
 </script>
