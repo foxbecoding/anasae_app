@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { Asset } = useMediaAsset('/assets/icon-dark-v1.png') 
+const { Asset } = useMediaAssets('/assets/icon-dark-v1.png') 
 const Icon = Asset.value
 </script>
 

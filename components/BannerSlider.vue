@@ -1,41 +1,45 @@
 <script setup lang="ts">
-const colors = ref<string[]>([
-    'indigo',
-    'warning',
-    'pink darken-2',
-    'red lighten-1',
-    'deep-purple accent-4',
+import { useDisplay } from 'vuetify'
+const { name } = useDisplay()
+const items = ref<{src: string, class: string}[]>([
+    {
+        src: 'http://192.168.1.235:3058/media/assets/slide1.png',
+        class: 'slide1'
+    },
+    {
+        src: 'http://192.168.1.235:3058/media/assets/slide5.png',
+        class: 'slide2'
+    },
+    {
+        src: 'http://192.168.1.235:3058/media/assets/slide3.png',
+        class: 'slide3'
+    },
+    {
+        src: 'http://192.168.1.235:3058/media/assets/slide4.png',
+        class: 'slide4'
+    },
 ])
-const slides = ref<string[]>( [
-    'First',
-    'Second',
-    'Third',
-    'Fourth',
-    'Fifth',
-])
+
+const slideHeight = computed(() => name.value == 'xs' ? 275 : 375)
+const sliderUpdate = (i: any) => {
+    console.log(items.value[i])
+}
 </script>
 
 <template>
     <v-carousel
         cycle
-        height="275"
+        :height="slideHeight"
         hide-delimiter-background
         show-arrows="hover"
+        @update:modelValue="sliderUpdate"
     >
         <v-carousel-item
-            v-for="(slide, i) in slides"
+            v-for="(item,i) in items"
             :key="i"
+            :src="item.src"
+            cover
         >
-            <v-sheet
-                :color="colors[i]"
-                height="100%"
-            >
-                <div class="d-flex fill-height justify-center align-center">
-                    <div class="text-h2">
-                        {{ slide }} Slide
-                    </div>
-                </div>
-            </v-sheet>
         </v-carousel-item>
     </v-carousel>
 </template>

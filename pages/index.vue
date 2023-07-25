@@ -3,13 +3,10 @@ const { Asset } = useMediaAsset('/assets/artist.png')
 </script>
 
 <template>
-    <!-- <v-container class="px-0" fluid>
+    <v-container class="px-0" fluid>
         <BannerSlider />
-    </v-container> -->
-    <v-container fluid>
-        <v-img :src="Asset" />
     </v-container>
-    <!-- <v-container fluid>
+    <v-container fluid>
         <v-row>
             <v-col
                 v-for="n in 12"
@@ -23,5 +20,5 @@ const { Asset } = useMediaAsset('/assets/artist.png')
                 </v-card>
             </v-col>
         </v-row>
-    </v-container> -->
+    </v-container>
 </template>

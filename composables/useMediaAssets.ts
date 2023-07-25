@@ -1,6 +1,6 @@
 import { useTheme } from 'vuetify'
 
-export const useMediaAsset = (asset_path: string = '') => {
+export const useMediaAssets = (asset_path: string = '') => {
     const config = useRuntimeConfig()
     const theme = useTheme()
     const media_asset_path = ref<string>(asset_path)

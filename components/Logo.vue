@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { Logo } = useMediaAsset() 
+const { Logo } = useMediaAssets() 
 </script>
 
 <template>
