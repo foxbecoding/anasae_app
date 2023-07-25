@@ -15,7 +15,6 @@ const onScroll = (e: any): void => {
         <v-app-bar :color="setTransparent" class="app-bar" :class="App_Bar_Color">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
-                {{ sliderStore.currentSlide }}
             </v-container>
         </v-app-bar>
         <v-container class="d-md-none app-mobile-search-container py-2" :class="App_Bar_Color" fluid>
