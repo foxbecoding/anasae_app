@@ -21,6 +21,26 @@ const sliderUpdate = (i: any): void => {
         show-arrows="hover"
         @update:modelValue="sliderUpdate"
     >
+        <template v-slot:prev="{ props }">
+            <v-btn
+                variant="flat"
+                class="rounded-xl mr-2 surface-bg"
+                @click="props.onClick"
+                icon
+            >
+                <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+        </template>
+        <template v-slot:next="{ props }">
+            <v-btn
+                variant="flat"
+                class="rounded-xl mr-2 surface-bg"
+                @click="props.onClick"
+                icon
+            >
+                <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+        </template>
         <v-carousel-item
             v-for="slide in Slides"
             :key="slide.pk"
