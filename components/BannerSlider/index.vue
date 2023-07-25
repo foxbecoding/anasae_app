@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
-import { useSliderStore } from '../store/Slider'
+import { useSliderStore } from '@/store/Slider'
 
 const { name } = useDisplay()
 const sliderStore = useSliderStore()

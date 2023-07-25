@@ -21,8 +21,8 @@ const onScroll = (e: any): void => {
             <SearchBar />
         </v-container>
         
-        <div class="banner-slider" :style="{backgroundImage: `url(${sliderStore.currentSlide.src})`}"></div>
-        
+        <!-- <div class="banner-slider" :style="{backgroundImage: `url(${sliderStore.currentSlide.src})`}"></div> -->
+        <BannerSliderBg />
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
