@@ -1,23 +1,27 @@
 <script setup lang="ts">
+const { Asset } = useMediaAsset('/assets/artist.png')
 </script>
 
 <template>
-    <v-container class="px-0" fluid>
+    <!-- <v-container class="px-0" fluid>
         <BannerSlider />
-    </v-container>
+    </v-container> -->
     <v-container fluid>
+        <v-img :src="Asset" />
+    </v-container>
+    <!-- <v-container fluid>
         <v-row>
             <v-col
                 v-for="n in 12"
                 :key="n"
                 cols="12"
                 sm="6"
-                md="2"
+                md="3"
             >
                 <v-card height="340">
                     {{ n }}
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </v-container> -->
 </template>

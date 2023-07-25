@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
-
-const config = useRuntimeConfig()
-const theme = useTheme()
-const Icon = computed<string>((): string => `${config.public.CDN_MEDIA_URL}/assets/icon-dark-v1.png`) 
+const { Asset } = useMediaAsset('/assets/icon-dark-v1.png') 
+const Icon = Asset.value
 </script>
 
 <template>

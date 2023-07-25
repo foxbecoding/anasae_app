@@ -18,7 +18,7 @@ const slides = ref<string[]>( [
 <template>
     <v-carousel
         cycle
-        height="250"
+        height="275"
         hide-delimiter-background
         show-arrows="hover"
     >
@@ -39,3 +39,7 @@ const slides = ref<string[]>( [
         </v-carousel-item>
     </v-carousel>
 </template>
+
+<style scoped>
+
+</style>
