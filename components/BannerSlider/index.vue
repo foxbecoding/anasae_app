@@ -49,7 +49,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
             :key="slide.pk"
             :src="slide.src"
             cover
-        >{{ Is_Hovering }}
+        >
         </v-carousel-item>
     </v-carousel>
 </template>
