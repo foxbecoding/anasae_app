@@ -79,6 +79,7 @@ export default defineNuxtPlugin(nuxtApp => {
             NanaBtn: VBtn,
             NanaBtnOutlined: VBtn,
             NanaAppBarBtn: VBtn,
+            NanaSliderNavBtn: VBtn
         },
         
         defaults: {
@@ -94,7 +95,11 @@ export default defineNuxtPlugin(nuxtApp => {
             VCard: { flat: true },
             NanaAppBarBtn: {
                 variant: 'flat',
-                class: ['bg-surface'],
+                class: ['surface-bg'],
+            },
+            NanaSliderNavBtn: {
+                variant: 'flat',
+                class: ['surface-bg', 'rounded-xl'],
             },
             NanaBtn: {
                 variant: 'flat',

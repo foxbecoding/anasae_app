@@ -4,13 +4,15 @@ import { useSliderStore } from '@/store/Slider'
 
 const { name } = useDisplay()
 const sliderStore = useSliderStore()
+const hovering = ref<boolean>(false)
 
 const Slide_Height = computed(() => name.value == 'xs' ? 275 : 375)
 const Slides = computed(() => sliderStore.slides)
+const Is_Hovering = computed<boolean>((): boolean => hovering.value)
 
-const sliderUpdate = (i: any): void => {
-    sliderStore.currentSlide = sliderStore.slides[i]
-}
+const sliderUpdate = (i: any): void => { sliderStore.currentSlide = sliderStore.slides[i] }
+const mouseoverHandler = (e: Event): void => { hovering.value = true }
+const mouseleaveHandler = (e: Event): void => { hovering.value = false }
 </script>
 
 <template>
@@ -20,33 +22,34 @@ const sliderUpdate = (i: any): void => {
         hide-delimiter-background
         show-arrows="hover"
         @update:modelValue="sliderUpdate"
-    >
-        <template v-slot:prev="{ props }">
-            <v-btn
-                variant="flat"
-                class="rounded-xl mr-2 surface-bg"
+        @mouseover="mouseoverHandler"
+        @mouseleave="mouseleaveHandler"
+    >   
+        <template  v-slot:prev="{ props }">
+            <NanaSliderNavBtn
+                v-if="Is_Hovering"
                 @click="props.onClick"
                 icon
             >
                 <v-icon>mdi-chevron-left</v-icon>
-            </v-btn>
+            </NanaSliderNavBtn>
         </template>
         <template v-slot:next="{ props }">
-            <v-btn
-                variant="flat"
-                class="rounded-xl mr-2 surface-bg"
+            <NanaSliderNavBtn
+                v-if="Is_Hovering"
                 @click="props.onClick"
                 icon
             >
                 <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
+            </NanaSliderNavBtn>
         </template>
+
         <v-carousel-item
             v-for="slide in Slides"
             :key="slide.pk"
             :src="slide.src"
             cover
-        >
+        >{{ Is_Hovering }}
         </v-carousel-item>
     </v-carousel>
 </template>
