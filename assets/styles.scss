@@ -36,16 +36,16 @@ $surface: rgb(var(--v-theme-surface));
 
 .surface-bg {
   background: rgba(var(--v-theme-surface), 0.5) !important;
-  -webkit-backdrop-filter: blur(5px);
-  -moz-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .background-bg {
   background: rgba(var(--v-theme-background), 0.9) !important;
-  -webkit-backdrop-filter: blur(5px);
-  -moz-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .mask {

@@ -22,7 +22,7 @@ export default defineNuxtPlugin(nuxtApp => {
             background: 'rgb(18,18,18)',
             surface: 'rgb(36,36,36)',
             'surface-alt': 'rgb(241,241,241)',
-            'slider': 'rgb(0,0,0)',
+            'slider': 'rgb(18,18,18)',
             primary: '#3fabf3',
             error: '#EF5350',
             info: '#2196F3',
