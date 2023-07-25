@@ -10,7 +10,6 @@ const Slides = computed(() => sliderStore.slides)
 
 const sliderUpdate = (i: any): void => {
     sliderStore.currentSlide = sliderStore.slides[i]
-    console.log(sliderStore.currentSlide)
 }
 </script>
 
