@@ -1,5 +1,5 @@
 <template>
-    <v-container class="px-0" fluid>
+    <v-container class="pa-0" fluid>
         <BannerSlider />
     </v-container>
     <v-container fluid>
