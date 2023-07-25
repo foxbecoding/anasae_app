@@ -2,6 +2,9 @@
 </script>
 
 <template>
+    <v-container class="px-0" fluid>
+        <BannerSlider />
+    </v-container>
     <v-container fluid>
         <v-row>
             <v-col

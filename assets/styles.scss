@@ -23,15 +23,23 @@ $surface: rgb(var(--v-theme-surface));
 }
 
 .nana-primary-color {
-    background: linear-gradient(to right, #9C27B0, #FFC107) !important;
+    background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
     color: rgba(255,255,255, 0.87) !important;
     opacity: 1 !important;
 }
 
 .nana-primary-bg-color {
-    background: linear-gradient(to right, #9C27B0, #FFC107) !important;
+    background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
     padding: 2px;
-    opacity: 1 !important;
+    opacity: 0.8 !important;
+}
+
+.surface-bg {
+  background: rgba(var(--v-theme-surface), 0.7) !important;
+}
+
+.background-bg {
+  background: rgba(var(--v-theme-background), 0.9) !important;
 }
 
 .mask {

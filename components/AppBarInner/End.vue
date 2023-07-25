@@ -27,7 +27,7 @@ const SIGN_IN_BTN_HEIGHT = computed((): string => name.value == 'xs' ? '30px' : 
         <div class="d-none d-sm-block">
             <nana-app-bar-btn 
                 @click="toggleTheme()" 
-                class="rounded-xl mr-2"
+                class="rounded-xl mr-2 surface-bg"
                 height="38px"
                 width="38px"
                 icon
@@ -36,7 +36,7 @@ const SIGN_IN_BTN_HEIGHT = computed((): string => name.value == 'xs' ? '30px' : 
             </nana-app-bar-btn>
 
             <nana-app-bar-btn 
-                class="rounded-xl"
+                class="rounded-xl surface-bg"
                 height="38px"
                 width="38px"
                 icon

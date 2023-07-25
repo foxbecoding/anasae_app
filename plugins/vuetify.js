@@ -4,12 +4,14 @@ import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
+import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VDialog } from 'vuetify/components/VDialog'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
 import { VMain } from 'vuetify/components/VMain'
+import { VSheet } from 'vuetify/components/VSheet'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
 
@@ -53,6 +55,8 @@ export default defineNuxtPlugin(nuxtApp => {
             VCardText, 
             VCardTitle, 
             VCardSubtitle,
+            VCarousel,
+            VCarouselItem,
             VCol, 
             VContainer, 
             VDialog,
@@ -61,6 +65,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VImg,
             VMain,
             VRow, 
+            VSheet,
             VSpacer,
             VTextField,
             VToolbar, 
@@ -81,7 +86,9 @@ export default defineNuxtPlugin(nuxtApp => {
                 flat: true,
                 floating: true
             },
-            VBtn: { variant: 'flat' },
+            VBtn: { 
+                variant: 'flat' 
+            },
             VCard: { flat: true },
             NanaAppBarBtn: {
                 variant: 'flat',
