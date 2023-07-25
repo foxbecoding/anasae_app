@@ -4,18 +4,19 @@ import { useSliderStore } from '../store/Slider'
 
 const { name } = useDisplay()
 const sliderStore = useSliderStore()
-const slideHeight = computed(() => name.value == 'xs' ? 275 : 375)
-const sliderUpdate = (i: any) => {
-    console.log(i)
-    // console.log(sliderStore.slides[i])
-}
+
+const Slide_Height = computed(() => name.value == 'xs' ? 275 : 375)
 const Slides = computed(() => sliderStore.slides)
+
+const sliderUpdate = (i: any): void => {
+    sliderStore.currentSlide = sliderStore.slides[i]
+}
 </script>
 
 <template>
     <v-carousel
         cycle
-        :height="slideHeight"
+        :height="Slide_Height"
         hide-delimiter-background
         show-arrows="hover"
         @update:modelValue="sliderUpdate"
