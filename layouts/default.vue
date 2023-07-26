@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
 
+const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
 const App_Bar_Color = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
@@ -23,7 +25,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
-        <BottomNav class="d-md-none w-100"/>
+        <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
     </v-app>
 </template>
 
