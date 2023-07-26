@@ -92,5 +92,4 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
     backdrop-filter: blur(10px);
 }
 
-
 </style>
