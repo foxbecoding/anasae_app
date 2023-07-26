@@ -1,22 +1,11 @@
 <script setup lang="ts">
 
 const scrollY = ref<number>(0)
-const lastScrollTop = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
 const App_Bar_Color = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
 const App_Bar_Mobile_Pos = computed(() => appBarMobileClass)
 const setTransparent = computed(() => scrollY.value == 0 ? 'transparent' : '')
-const onScroll = (e: any): void => {
-    
-    var scrollTop = window.scrollY || document.documentElement.scrollTop
-    if (scrollTop > lastScrollTop.value) {
-        console.log(`down ${scrollTop}`)
-    } else if (scrollTop < lastScrollTop.value) {
-        console.log(`up ${scrollTop}`)
-    }
-    lastScrollTop.value = scrollTop <= 0 ? 0 : scrollTop
-    scrollY.value = window.scrollY
-}
+const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
 </script>
 
