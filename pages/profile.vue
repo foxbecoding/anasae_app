@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <h1>Account</h1>
+        <h1>My Profile</h1>
         <v-row>
             <v-col
                 v-for="n in 12"

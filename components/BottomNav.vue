@@ -13,9 +13,9 @@
             Home
         </v-btn>
     
-        <v-btn to="/account" value="account" variant="plain" :ripple="false">
+        <v-btn to="/profile" value="account" variant="plain" :ripple="false">
             <v-icon>mdi-account-circle</v-icon>
-            Account
+            My Profile
         </v-btn>
 
         <div class="nana-primary-bg-color rounded-xl add-btn">
