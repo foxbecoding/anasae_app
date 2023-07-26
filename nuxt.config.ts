@@ -4,8 +4,10 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             BASE_URL: process.env.BASE_URL,
+            CDN_URL: process.env.CDN_URL,
             CDN_MEDIA_URL: process.env.CDN_MEDIA_URL,
-            API_BASE_URL: process.env.API_BASE_URL
+            API_BASE_URL: process.env.API_BASE_URL,
+            API_SLIDER: process.env.API_SLIDER
         }
     },
     app: {

@@ -2,6 +2,7 @@
 import { useDisplay } from 'vuetify'
 import { useSliderStore } from '@/store/Slider'
 
+const config = useRuntimeConfig()
 const { name } = useDisplay()
 const sliderStore = useSliderStore()
 const hovering = ref<boolean>(false)
@@ -47,7 +48,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
         <v-carousel-item
             v-for="slide in Slides"
             :key="slide.pk"
-            :src="slide.src"
+            :src="config.public.CDN_URL+slide.image"
             cover
         >
         </v-carousel-item>

@@ -1,31 +1,14 @@
-import { Slide } from 'utils/types'
+import { Slider, Slide } from 'utils/types'
 
 export const useSliderStore = defineStore("slider-store", () => {
     const currentSlide = ref<Slide>({} as Slide)
-    const slides = ref<Slide[]>([
-        {
-            pk: 1,
-            src: 'http://192.168.1.235:3058/media/assets/slide1.png'
-        },
-        {
-            pk: 2,
-            src: 'http://192.168.1.235:3058/media/assets/slide5.png'
-        },
-        {
-            pk: 3,
-            src: 'http://192.168.1.235:3058/media/assets/slide3.png'
-        },
-        {
-            pk: 4,
-            src: 'http://192.168.1.235:3058/media/assets/slide4.png'
-        }
-    ])
+    const slides = ref<Slide[]>([])
     
-    // const initExploreBeats = async (): Promise<void>  => {
-    //     const res = await fetch(`${process.env.API_BASE_URL}${process.env.API_EXPLORE_BEATS}`)
-    //     const data = await res.json() as Beat[]
-    //     explore_beats.value = data
-    // }
+    const init = async (): Promise<void>  => {
+        const res = await fetch(`${process.env.API_BASE_URL}${process.env.API_SLIDER}1/`)
+        const data = await res.json() as Slider
+        slides.value = data.images
+    }
 
     // const getExploreBeats = async (): Promise<void> => {
     //     const config = useRuntimeConfig()
@@ -43,7 +26,8 @@ export const useSliderStore = defineStore("slider-store", () => {
 
     return { 
         currentSlide,
-        slides
+        slides,
+        init
     }
 })
 
