@@ -16,26 +16,24 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
             Sign In
         </NanaAppBarBtn>
-        
-        <div class="d-none d-sm-block">
-            <nana-app-bar-btn 
-                @click="toggleTheme()" 
-                class="rounded-xl mr-2"
-                height="38px"
-                width="38px"
-                icon
-            >
-                <v-icon>{{ THEME_ICON }}</v-icon>
-            </nana-app-bar-btn>
+          
+        <NanaAppBarBtn 
+            @click="toggleTheme()" 
+            class="rounded-xl mr-2 d-none d-sm-block"
+            height="38px"
+            width="38px"
+            icon
+        >
+            <v-icon>{{ THEME_ICON }}</v-icon>
+        </NanaAppBarBtn>
 
-            <nana-app-bar-btn 
-                class="rounded-xl"
-                height="38px"
-                width="38px"
-                icon
-            >
-                <v-icon>mdi-cart-outline</v-icon>
-            </nana-app-bar-btn> 
-        </div>           
+        <NanaAppBarBtn 
+            class="rounded-xl d-none d-md-block"
+            height="38px"
+            width="38px"
+            icon
+        >
+            <v-icon>mdi-cart-outline</v-icon>
+        </NanaAppBarBtn>   
     </div>
 </template>
