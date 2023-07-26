@@ -23,6 +23,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
+        <BottomNav class="d-md-none w-100"/>
     </v-app>
 </template>
 
