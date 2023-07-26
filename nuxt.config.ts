@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { vuetifyTags } from './vue.compiler.options'
 export default defineNuxtConfig({
     devtools: { enabled: false },
     runtimeConfig: {
@@ -37,7 +38,13 @@ export default defineNuxtConfig({
             'process.env.DEBUG': false,
         }
     },
+    vue: {  
+        compilerOptions: {
+            isCustomElement: (tag) => vuetifyTags.includes(tag),
+        },
+    },
     modules: [
+        'nuxt-vitest',
         [
             '@pinia/nuxt',
             {

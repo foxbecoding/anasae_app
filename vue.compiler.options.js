@@ -1,0 +1,1 @@
+export const vuetifyTags = ['v-img', 'v-card']
