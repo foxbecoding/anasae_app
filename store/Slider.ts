@@ -10,20 +10,6 @@ export const useSliderStore = defineStore("slider-store", () => {
         slides.value = data.images
     }
 
-    // const getExploreBeats = async (): Promise<void> => {
-    //     const config = useRuntimeConfig()
-    //     const {data, error} = await useApi(config.public.API_EXPLORE_BEATS)
-    //     if(error.value){
-    //         console.log(error.value)
-    //         return
-    //     } 
-    //     explore_beats.value = data.value as Beat[]
-    // }
-
-    // const EXPLORE_BEATS = computed(
-    //     () => explore_beats.value
-    // )
-
     return { 
         currentSlide,
         slides,
