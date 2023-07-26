@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 
+const route = useRoute()
 const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
@@ -21,7 +22,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         <v-container class=" mobile-top-bar-container py-2" :class="App_Bar_Color" fluid>
             <MobileTopBar />
         </v-container>
-        <BannerSliderBg />
+        <BannerSliderBg v-if="route.name == 'index'" />
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
