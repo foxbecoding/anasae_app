@@ -12,14 +12,14 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
 
 <template>
     <div id="end" class="d-flex flex-row align-center justify-content-end">
-        <NanaAppBarBtn  class="rounded-xl mr-2" >
+        <NanaAppBarBtn  class="rounded-xl" >
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
             Sign In
         </NanaAppBarBtn>
           
         <NanaAppBarBtn 
             @click="toggleTheme()" 
-            class="rounded-xl mr-2 d-none d-sm-block"
+            class="rounded-xl mx-2 d-none d-sm-block"
             height="38px"
             width="38px"
             icon

@@ -2,6 +2,7 @@ import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
+import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
 import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
@@ -50,6 +51,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VApp, 
             VAppBar, 
             VAppBarTitle, 
+            VBottomNavigation,
             VBtn, 
             VCard,
             VCardActions,

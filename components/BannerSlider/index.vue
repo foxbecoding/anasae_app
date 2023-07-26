@@ -7,7 +7,7 @@ const { name } = useDisplay()
 const sliderStore = useSliderStore()
 const hovering = ref<boolean>(false)
 
-const Slide_Height = computed(() => name.value == 'xs' ? 275 : 375)
+const Slide_Height = computed(() => name.value == 'xs' ? 245 : 375)
 const Slides = computed(() => sliderStore.slides)
 const Is_Hovering = computed<boolean>((): boolean => hovering.value)
 
@@ -18,6 +18,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
 
 <template>
     <v-carousel
+        class="rounded-xl"
         cycle
         :height="Slide_Height"
         hide-delimiter-background
