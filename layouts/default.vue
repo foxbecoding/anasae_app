@@ -2,7 +2,9 @@
 
 const scrollY = ref<number>(0)
 const lastScrollTop = ref<number>(0)
+const appBarMobileClass = ref<string>('app-bar--relative') 
 const App_Bar_Color = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
+const App_Bar_Mobile_Pos = computed(() => appBarMobileClass)
 const setTransparent = computed(() => scrollY.value == 0 ? 'transparent' : '')
 const onScroll = (e: any): void => {
     
@@ -20,7 +22,7 @@ const onScroll = (e: any): void => {
 
 <template>
     <v-app>
-        <v-app-bar :color="setTransparent" class="app-bar" :class="App_Bar_Color">
+        <v-app-bar :color="setTransparent" class="app-bar" :class="[App_Bar_Color, App_Bar_Mobile_Pos]">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
             </v-container>
@@ -37,12 +39,18 @@ const onScroll = (e: any): void => {
 
 <style scoped>
 .app-bar {
-    position: fixed;
+    position: inherit;
 }
 
 @media screen and (max-width:  960px) {
     .app-bar{
         position: relative !important;
+    }
+    .app-bar--relative {
+        position: relative !important;
+    }
+    .app-bar--fixed {
+        position: fixed !important;
     }
 }
 
