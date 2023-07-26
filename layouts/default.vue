@@ -27,8 +27,8 @@ const onScroll = (e: any): void => {
                 <AppBarInner />
             </v-container>
         </v-app-bar>
-        <v-container class="d-md-none app-mobile-search-container py-2" :class="App_Bar_Color" fluid>
-            <SearchBar />
+        <v-container class=" mobile-top-bar-container py-2" :class="App_Bar_Color" fluid>
+            <MobileTopBar />
         </v-container>
         <BannerSliderBg />
         <v-main class="main-adjust-content" v-scroll="onScroll">
@@ -79,13 +79,13 @@ const onScroll = (e: any): void => {
         padding-top: 0px !important;
     }
 }
-.app-mobile-search-container {
+.mobile-top-bar-container {
     position: sticky; 
     top: 0px;
     z-index: 2;
 }
 
-.app-mobile-search-container::before{
+.mobile-top-bar-container::before{
     content: "";
     background: inherit;
     position: absolute;
