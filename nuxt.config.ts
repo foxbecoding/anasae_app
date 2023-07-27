@@ -38,11 +38,11 @@ export default defineNuxtConfig({
             'process.env.DEBUG': false,
         }
     },
-    vue: {  
-        compilerOptions: {
-            isCustomElement: (tag) => vuetifyTags.includes(tag),
-        },
-    },
+    // vue: { compilerOptions: {
+    //         isCustomElement: (tag) => vuetifyTags.includes(tag),
+    //     },
+    // },
+    
     modules: [
         'nuxt-vitest',
         [

@@ -1,1 +1,1 @@
-export const vuetifyTags = ['v-img', 'v-card']
+export const vuetifyTags = ['v-img', 'v-card', 'v-app', 'v-app-bar']
