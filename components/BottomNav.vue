@@ -14,7 +14,7 @@
         </v-btn>
     
         <v-btn to="/profile" value="account" variant="plain" :ripple="false">
-            <v-icon>mdi-account-circle</v-icon>
+            <v-icon>mdi-account</v-icon>
             My Profile
         </v-btn>
 

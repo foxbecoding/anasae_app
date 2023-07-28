@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { mockComponent, mountSuspended, } from 'nuxt-vitest/utils'
-// import { setup } from '@nuxt/test-utils'
 
 import Logo from '..//components/Logo.vue'
 
