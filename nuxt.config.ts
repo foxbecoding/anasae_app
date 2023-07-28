@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     //         isCustomElement: (tag) => vuetifyTags.includes(tag),
     //     },
     // },
+
     
     modules: [
         'nuxt-vitest',

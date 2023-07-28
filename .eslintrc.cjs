@@ -3,5 +3,5 @@ module.exports = {
     'plugin:vue/base',
     'plugin:vuetify/base'
   ],
-  plugins: ['vitest'],
+  plugins: ['vitest', 'vite'],
 }

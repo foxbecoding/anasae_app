@@ -23,7 +23,6 @@ const Icon = Asset.value
                     <v-img :src="Icon" width="24"/>
                 </template>
             </v-text-field>
-        </v-form>
-        
+        </v-form>   
     </v-card> 
 </template>
