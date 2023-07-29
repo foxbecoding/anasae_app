@@ -8,14 +8,14 @@
         grow
     >
         
-        <v-btn to="/" value="home" variant="plain" :ripple="false">
+        <v-btn :to="{name: 'index'}" value="home" variant="plain" :ripple="false">
             <v-icon>mdi-home</v-icon>
             Home
         </v-btn>
     
-        <v-btn to="/profile" value="account" variant="plain" :ripple="false">
+        <v-btn :to="{name: 'profile'}" value="account" variant="plain" :ripple="false">
             <v-icon>mdi-account</v-icon>
-            My Profile
+            Profile
         </v-btn>
 
         <div class="nana-primary-bg-color rounded-xl add-btn">
@@ -32,12 +32,12 @@
             </v-btn>
         </div>
     
-        <v-btn to="/search" value="search" variant="plain" :ripple="false">
+        <v-btn :to="{name: 'search'}" value="search" variant="plain" :ripple="false">
             <v-icon>mdi-magnify</v-icon>
             Search
         </v-btn>
         
-        <v-btn to="/clipz" value="clipz" variant="plain" :ripple="false">
+        <v-btn :to="{name: 'clipz'}" value="clipz" variant="plain" :ripple="false">
             <v-icon>mdi-movie-play</v-icon>
             Clipz
         </v-btn>

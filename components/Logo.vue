@@ -4,7 +4,12 @@ const router = useRouter()
 </script>
 
 <template>
-    <v-img id="logo" :src="Logo" alt="Anasae logo" @click="router.push('/')" />
+    <v-img 
+        id="logo" 
+        :src="Logo" 
+        alt="Anasae logo" 
+        @click="router.push({name: 'index'})" 
+    />
 </template>
 
 <style scoped>

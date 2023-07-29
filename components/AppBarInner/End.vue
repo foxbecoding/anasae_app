@@ -28,6 +28,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
         </NanaAppBarBtn>
 
         <NanaAppBarBtn 
+            active
             class="rounded-xl d-none d-md-block ml-2"
             height="38px"
             width="38px"
