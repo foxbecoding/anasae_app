@@ -4,7 +4,6 @@ import { alias }  from './alias'
 
 export default defineVitestConfig({
     plugins: [
-        // vue(),
         AutoImport({
             imports: ['vue'],
             dirs: [
@@ -12,7 +11,10 @@ export default defineVitestConfig({
             ],
         }),
     ],
-    
-    resolve: { alias },
+    test: {
+        resolve: { alias },
+        globals: true,
+        environment: 'nuxt'
+    }
 
 })

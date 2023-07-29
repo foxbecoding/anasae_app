@@ -1,10 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest'
 import { mockComponent, mountSuspended, } from 'nuxt-vitest/utils'
 
-import AppBarInner from '..//components/AppBarInner'
-import AppBarInnerStart from '..//components/AppBarInner/Start.vue'
-import AppBarInnerCenter from '..//components/AppBarInner/Center.vue'
-import AppBarInnerEnd from '..//components/AppBarInner/End.vue'
+import AppBarInner from '@/components/AppBarInner'
+import AppBarInnerStart from '@/components/AppBarInner/Start.vue'
+import AppBarInnerCenter from '@/components/AppBarInner/Center.vue'
+import AppBarInnerEnd from '@/components/AppBarInner/End.vue'
 
 describe('AppBarInner Component', () => {
   let viAppBarInner, viAppBarInnerStart, viAppBarInnerCenter, viAppBarInnerEnd;
