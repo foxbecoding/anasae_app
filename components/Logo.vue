@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
 const { Logo } = useLogo()
-
 </script>
 
 <template>
