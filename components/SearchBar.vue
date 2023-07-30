@@ -5,7 +5,7 @@ const Icon = Asset.value
 
 <template>
     <v-card 
-        class="w-100 surface-bg"
+        class="w-100 surface-bg--searchbar"
         rounded="pill" 
         height="44px"
         density="compact"

@@ -2,7 +2,7 @@
 import { useRouter } from '#vue-router'
 
 const { Logo } = useMediaAssets() 
-const router = useRouter()
+const router = useRouter() 
 const clickHandler = (): void => {
     router.push({name: 'clipz'})}
 </script>

@@ -1,21 +1,21 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { mockComponent, mountSuspended, mockNuxtImport,} from 'nuxt-vitest/utils'
-// import { setup, $fetch } from '@nuxt/test-utils'
+import { mockComponent, mountSuspended, mockNuxtImport } from 'nuxt-vitest/utils'
 import { useRouter } from 'vue-router'
 import Logo from '@/components/Logo.vue'
+import nopComponent from '/nop-component.vue'
 
 vi.mock('vue-router')
 
 describe('Logo Component', async () => {
-  let VImg, wrapper;
+  let VImg: any, wrapper: any;
+ 
   useRouter.mockReturnValue({
-    push: vi.fn(),
+    push: vi.fn()
   })
 
-  // const _useRouter = vi.fn()
-  
   beforeEach( async () => {
-    wrapper = await mountSuspended(Logo)
+    wrapper =  await mountSuspended(Logo)
+    
+    // useRouter().push({name: 'clipz'})
     VImg = wrapper.find('[data-test-id="logo"]')
     // useRouter().push({name: 'index'})
     // useRouter().push.mockRe
@@ -25,6 +25,7 @@ describe('Logo Component', async () => {
     // expect(wrapper.vm).toBeTruthy() 
     // expect(VImg).toBeTruthy()
     // expect(VImg.attributes().src).not.toBe('')
+    // useRouter().push({name: 'clipz'})
     await VImg.trigger('click')
     expect(useRouter().push).toHaveBeenCalledWith({
       name: 'clipz'

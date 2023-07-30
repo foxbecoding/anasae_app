@@ -23,19 +23,26 @@ $surface: rgb(var(--v-theme-surface));
 }
 
 .nana-primary-color {
-    background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
-    color: rgba(255,255,255, 0.87) !important;
-    opacity: 1 !important;
+  background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
+  color: rgba(255,255,255, 0.87) !important;
+  opacity: 1 !important;
 }
 
 .nana-primary-bg-color {
-    background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
-    padding: 2px;
-    opacity: 0.8 !important;
+  background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
+  padding: 2px;
+  opacity: 0.8 !important;
 }
 
 .surface-bg {
-  background: rgba(var(--v-theme-surface), 0.5) !important;
+  background: rgba(var(--v-theme-glass-bg), 0.07) !important;
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.surface-bg--searchbar {
+  background: rgba(var(--v-theme-glass-bg), 0.07) !important;
   -webkit-backdrop-filter: blur(10px);
   -moz-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);

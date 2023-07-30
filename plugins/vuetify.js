@@ -21,6 +21,7 @@ export default defineNuxtPlugin(nuxtApp => {
         dark: true,
         colors: {
             background: 'rgb(18,18,18)',
+            'glass-bg': 'rgb(255,255,255)',
             surface: 'rgb(36,36,36)',
             'surface-alt': 'rgb(241,241,241)',
             'slider': 'rgb(18,18,18)',
@@ -35,6 +36,7 @@ export default defineNuxtPlugin(nuxtApp => {
         dark: false,
         colors: {
             background: 'rgb(255,255,255)',
+            'glass-bg': 'rgb(0,0,0)',
             surface: 'rgb(220,220,220)',
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',

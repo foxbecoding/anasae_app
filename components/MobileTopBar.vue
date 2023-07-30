@@ -6,6 +6,7 @@
             height="44px"
             width="44px"
             icon
+            active
         >
             <v-icon>mdi-cart-outline</v-icon>
         </NanaAppBarBtn>
