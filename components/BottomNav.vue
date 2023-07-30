@@ -6,6 +6,7 @@
         class="bottom-nav pb-3"
         height="70"
         grow
+        elevation="0"
     >
         
         <v-btn :to="{name: 'index'}" value="home" variant="plain" :ripple="false">
@@ -46,7 +47,7 @@
 
 <style scoped>
 .bottom-nav {
-    background: rgba(255,255,255,0.05);
+    background: rgba(var(--v-theme-background),0.3);
 }
 .bottom-nav::before{
     content: "";
@@ -62,7 +63,7 @@
 
 .add-btn {
     position: relative;
-    top: 6px;
+    top: 10px;
     height: 36px;
     width: 36px;
     padding: 1px !important;

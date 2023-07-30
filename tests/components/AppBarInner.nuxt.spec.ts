@@ -1,4 +1,4 @@
-import { mockComponent, mountSuspended, } from 'nuxt-vitest/utils'
+import { mockComponent, mountSuspended } from 'nuxt-vitest/utils'
 
 import AppBarInner from '@/components/AppBarInner'
 import AppBarInnerStart from '@/components/AppBarInner/Start.vue'
@@ -6,39 +6,41 @@ import AppBarInnerCenter from '@/components/AppBarInner/Center.vue'
 import AppBarInnerEnd from '@/components/AppBarInner/End.vue'
 
 describe('AppBarInner Component', () => {
-  let viAppBarInner, viAppBarInnerStart, viAppBarInnerCenter, viAppBarInnerEnd;
-
-  beforeEach( async () => {
-
-    // const wrapperAppBarInner = await mountSuspended(AppBarInner)
-    // const wrapperAppBarInnerStart = await mountSuspended(AppBarInnerStart)
-    // const wrapperAppBarInnerCenter = await mountSuspended(AppBarInnerCenter)
-    // const wrapperAppBarInnerEnd = await mountSuspended(AppBarInnerEnd)
-
-    // viAppBarInner = wrapperAppBarInner.vm
-    // viAppBarInnerStart = wrapperAppBarInnerStart.vm
-    // viAppBarInnerCenter = wrapperAppBarInnerCenter.vm
-    // viAppBarInnerEnd = wrapperAppBarInnerEnd.vm
-    
-  })
+  beforeEach( async () => {})
 
   describe('Test AppBarInner Component', () => {
     it('renders component instance', async () => { 
-        console.log('test')
-        // expect(viAppBarInner).toBeTruthy() 
+      const wrapper = await mountSuspended(AppBarInner)
+      expect(wrapper.vm).toBeTruthy() 
     })
   })
 
-//   describe('Test AppBarInnerStart Component', () => {
-//       it('renders component instance', async () => { expect(viAppBarInnerStart).toBeTruthy() })
-//   })
+  describe('Test AppBarInnerStart Component', () => {
+    it('renders component instance', async () => { 
+      const wrapper = await mountSuspended(AppBarInnerStart)
+      expect(wrapper.vm).toBeTruthy()  
+    })
+  })
 
-//   describe('Test AppBarInnerCenter Component', () => {
-//       it('renders component instance', async () => { expect(viAppBarInnerCenter).toBeTruthy() })
-//   })
+  describe('Test AppBarInnerCenter Component', () => {
+    it('renders component instance', async () => { 
+      const wrapper = await mountSuspended(AppBarInnerCenter)
+      expect(wrapper.vm).toBeTruthy() 
+    })
+  })
 
-//   describe('Test AppBarInnerEnd Component', () => {
-//       it('renders component instance', async () => { expect(viAppBarInnerEnd).toBeTruthy() })
-//   })
+  describe('Test AppBarInnerEnd Component', () => {
+    it('renders component instance', async () => { 
+      const wrapper = await mountSuspended(AppBarInnerEnd)
+      const signInBtn = wrapper.find('[data-test-id="app-bar-inner-end-sign-btn"]')
+      const themeToggleBtn = wrapper.find('[data-test-id="app-bar-inner-end-theme-toggle-btn"]')
+      const cartBtn = wrapper.find('[data-test-id="app-bar-inner-end-cart-btn"]')
+      
+      expect(wrapper.vm).toBeTruthy() 
+      expect(signInBtn).toBeTruthy()
+      expect(themeToggleBtn).toBeTruthy()
+      expect(cartBtn).toBeTruthy()
+    })
+  })
   
 })
