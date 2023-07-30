@@ -1,7 +1,9 @@
-import { useMediaAssets } from '@/composables/mediaAssets'
+import  { useLogo } from '@/composables/mediaAssets'
 
-describe('useMediaAssets composable', () => {
-    test('composable', () => {
-        expect(useMediaAssets).toBeTruthy()
+describe('useLogo composable', () => {
+    test('composable', async () => {
+        const { Logo } = await useLogo()
+        console.log(Logo)
+        expect(useLogo).toBeTruthy()
     })
 })

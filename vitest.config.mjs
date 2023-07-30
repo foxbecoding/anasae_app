@@ -7,7 +7,7 @@ export default defineVitestConfig({
         AutoImport({
             imports: ['vue'],
             dirs: [
-                './node_modules/vuetifylib/composables/**'
+                './node_modules/vuetify/lib/composables/'
             ],
         }),
     ],
