@@ -5,8 +5,8 @@ const route = useRoute()
 const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
-const App_Bar_Color = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
-const App_Bar_Mobile_Pos = computed(() => appBarMobileClass)
+const AppBarColor = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
+const AppBarMobilePos = computed(() => appBarMobileClass)
 const setTransparent = computed(() => scrollY.value == 0 ? 'transparent' : '')
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
@@ -14,12 +14,12 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
 <template>
     <v-app id="app" data-test-id="app">
-        <v-app-bar :color="setTransparent" class="app-bar" :class="[App_Bar_Color, App_Bar_Mobile_Pos]">
+        <v-app-bar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
             </v-container>
         </v-app-bar>
-        <v-container class=" mobile-top-bar-container py-2" :class="App_Bar_Color" fluid>
+        <v-container class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="route.name == 'index'" />
