@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/components/BannerSlider/index.vue</title>
+    <title>Code coverage report for frontend_app/components/AppBarInner/End.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend_app/components/BannerSlider</a> index.vue</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend_app/components/AppBarInner</a> End.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>45/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>45/47</span>
             </div>
         
             
@@ -109,17 +109,13 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -133,24 +129,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -176,61 +156,51 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script setup lang="ts"&gt;
-import { useDisplay } from 'vuetify'
-import { useSliderStore } from '@/store/Slider'
+import { useTheme } from 'vuetify'
 &nbsp;
-const config = useRuntimeConfig()
-const { name } = useDisplay()
-const sliderStore = useSliderStore()
-const hovering = ref&lt;boolean&gt;(false)
+const theme = useTheme()        
+const toggleTheme = <span class="fstat-no" title="function not covered" >(): void =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-const Slide_Height = computed(() =&gt; name.value == 'xs' ? 245 : 375)
-const Slides = computed(() =&gt; sliderStore.slides)
-const Is_Hovering = computed&lt;boolean&gt;((): boolean =&gt; hovering.value)
+const THEME_ICON = computed((): string =&gt; theme.global.current.value.dark ? <span class="branch-0 cbranch-no" title="branch not covered" >'mdi-weather-sunny' : 'mdi-weather-night')</span>
 &nbsp;
-const sliderUpdate = (i: any): void =&gt; { sliderStore.currentSlide = sliderStore.slides[i] }
-const mouseoverHandler = (e: Event): void =&gt; { hovering.value = true }
-const mouseleaveHandler = (e: Event): void =&gt; { hovering.value = false }
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
-    &lt;v-carousel
-        class="rounded-xl"
-        cycle
-        :height="Slide_Height"
-        hide-delimiter-background
-        show-arrows="hover"
-        @update:modelValue="sliderUpdate"
-        @mouseover="mouseoverHandler"
-        @mouseleave="mouseleaveHandler"
-    &gt;   
-        &lt;template  v-slot:prev="{ props }"&gt;
-            &lt;NanaSliderNavBtn
-                v-if="Is_Hovering"
-                @click="props.onClick"
-                icon
-            &gt;
-                &lt;v-icon&gt;mdi-chevron-left&lt;/v-icon&gt;
-            &lt;/NanaSliderNavBtn&gt;
-        &lt;/template&gt;
-        &lt;template v-slot:next="{ props }"&gt;
-            &lt;NanaSliderNavBtn
-                v-if="Is_Hovering"
-                @click="props.onClick"
-                icon
-            &gt;
-                &lt;v-icon&gt;mdi-chevron-right&lt;/v-icon&gt;
-            &lt;/NanaSliderNavBtn&gt;
-        &lt;/template&gt;
-&nbsp;
-        &lt;v-carousel-item
-            v-for="slide in Slides"
-            :key="slide.pk"
-            :src="config.public.CDN_URL+slide.image"
-            cover
+    &lt;div id="end" class="d-flex flex-row align-center justify-content-end"&gt;
+        &lt;NanaAppBarBtn 
+            data-test-id="app-bar-inner-end-sign-btn" 
+            class="rounded-xl" 
+            active
         &gt;
-        &lt;/v-carousel-item&gt;
-    &lt;/v-carousel&gt;
+            &lt;v-icon class="mr-2"&gt;mdi-account-circle-outline&lt;/v-icon&gt;
+            Sign In
+        &lt;/NanaAppBarBtn&gt;
+          
+        &lt;NanaAppBarBtn 
+            data-test-id="app-bar-inner-end-theme-toggle-btn"       
+            @click<span class="fstat-no" title="function not covered" >="toggleTheme()" </span>
+            class="rounded-xl ml-2 d-none d-sm-block"
+            height="38px"
+            width="38px"
+            icon
+            active
+        &gt;
+            &lt;v-icon&gt;{{ THEME_ICON }}&lt;/v-icon&gt;
+        &lt;/NanaAppBarBtn&gt;
+&nbsp;
+        &lt;NanaAppBarBtn
+            data-test-id="app-bar-inner-end-cart-btn" 
+            class="rounded-xl d-none d-md-block ml-2"
+            height="38px"
+            width="38px"
+            icon
+            active
+        &gt;
+            &lt;v-icon&gt;mdi-cart-outline&lt;/v-icon&gt;
+        &lt;/NanaAppBarBtn&gt;   
+    &lt;/div&gt;
 &lt;/template&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

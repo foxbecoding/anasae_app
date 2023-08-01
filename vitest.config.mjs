@@ -17,10 +17,9 @@ export default defineVitestConfig({
         resolve: { alias },
         globals: true,
         environment: 'nuxt',
-        // exclude: ['**/node_modules/**', '**/.nuxt/**'],
         deps: { inline: ["vuetify"] },
         coverage: {
-            exclude: ['./.nuxt', './node_modules']
+            exclude: ['**/node_modules/**', '**/.nuxt/**']
         }
     }
 })
