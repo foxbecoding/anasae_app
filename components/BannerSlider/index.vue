@@ -18,11 +18,12 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
 
 <template>
     <v-carousel
+        data-test-id="slider"
         class="rounded-xl"
-        cycle
         :height="Slide_Height"
         hide-delimiter-background
         show-arrows="hover"
+        cycle
         @update:modelValue="sliderUpdate"
         @mouseover="mouseoverHandler"
         @mouseleave="mouseleaveHandler"
@@ -30,6 +31,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
         <template  v-slot:prev="{ props }">
             <NanaSliderNavBtn
                 v-if="Is_Hovering"
+                data-test-id="slider-prev-btn"
                 @click="props.onClick"
                 icon
             >
@@ -39,6 +41,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
         <template v-slot:next="{ props }">
             <NanaSliderNavBtn
                 v-if="Is_Hovering"
+                data-test-id="slider-next-btn"
                 @click="props.onClick"
                 icon
             >
@@ -47,6 +50,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
         </template>
 
         <v-carousel-item
+            data-test-id="slider-slides"
             v-for="slide in Slides"
             :key="slide.pk"
             :src="config.public.CDN_URL+slide.image"

@@ -10,6 +10,8 @@ const Slide = computed((): string => config.public.CDN_URL+sliderStore.currentSl
 <template>
     <div 
         class="banner-slider" 
-        :style="{backgroundImage: `url(${Slide})`}">
+        data-test-id="slider-bg"
+        :style="{backgroundImage: `url(${Slide})`}"
+    >
 </div>
 </template>

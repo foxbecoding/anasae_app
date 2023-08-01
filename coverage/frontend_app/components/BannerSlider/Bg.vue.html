@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/components/AppBarInner/Start.vue</title>
+    <title>Code coverage report for frontend_app/components/BannerSlider/Bg.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend_app/components/AppBarInner</a> Start.vue</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend_app/components/BannerSlider</a> Bg.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -79,8 +79,7 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -96,25 +95,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-    &lt;div id="start"<span class="fstat-no" title="function not covered" > c</span>lass="d-flex flex-row align-center logo"&gt;
-        &lt;Logo /&gt;
-    &lt;/div&gt;
-&lt;/template&gt;
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script setup lang="ts"&gt;
+import { useSliderStore } from '@/store/Slider'
 &nbsp;
-&lt;style scoped&gt;
-#start.logo {
-    width: 100%;
-    max-width: 120px;
-}
+const config = useRuntimeConfig()
+const sliderStore = useSliderStore()
+const Slide = computed((): string =&gt; config.public.CDN_URL+sliderStore.currentSlide.image )
 &nbsp;
-@media screen and (max-width:  600px) {
-    #start.logo {
-        max-width: 100px;
-    }
-}
-&lt;/style&gt;</pre></td></tr></table></pre>
+&lt;/script&gt;
+&nbsp;
+&lt;template&gt;
+    &lt;div 
+        class="banner-slider" 
+        data-test-id="slider-bg"
+        :style="{backgroundImage: `url(${Slide})`}"
+    &gt;
+&lt;/div&gt;
+&lt;/template&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

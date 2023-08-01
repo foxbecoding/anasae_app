@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/layouts/default.vue</title>
+    <title>Code coverage report for frontend_app/components/BottomNav.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/layouts</a> default.vue</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/components</a> BottomNav.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>95/95</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>71/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>95/95</span>
+                <span class='fraction'>71/71</span>
             </div>
         
             
@@ -133,55 +133,7 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -252,55 +204,57 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script setup lang="ts"&gt;
-import { useDisplay } from 'vuetify'
-&nbsp;
-const route = useRoute()
-const { smAndDown, platform } = useDisplay()
-const scrollY = ref&lt;number&gt;(0)
-const appBarMobileClass = ref&lt;string&gt;('app-bar--relative') 
-const AppBarColor = computed(() =&gt; scrollY.value !== 0 ? 'app-bar-color' : '')
-const AppBarMobilePos = computed(() =&gt; appBarMobileClass)
-const setTransparent = computed(() =&gt; scrollY.value == 0 ? 'transparent' : '')
-const onScroll = (e: any): void =&gt; { scrollY.value = window.<span class="branch-0 cbranch-no" title="branch not covered" >scrollY }</span>
-&nbsp;
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
-    &lt;v-app id="app" data-test-id="app"&gt;
-        &lt;v-app-bar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]"&gt;
-            &lt;v-container class="px-4 d-flex justify-space-between" fluid&gt;
-                &lt;AppBarInner /&gt;
-            &lt;/v-container&gt;
-        &lt;/v-app-bar&gt;
-        &lt;v-container class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid&gt;
-            &lt;MobileTopBar /&gt;
-        &lt;/v-container&gt;
-        &lt;BannerSliderBg v-if="route.name == 'index'" /&gt;
-        &lt;v-main class="main-adjust-content" v-scroll="onScroll"&gt;
-            &lt;slot&gt;&lt;/slot&gt;
-        &lt;/v-main&gt;
-        &lt;BottomNav v-if="smAndDown" class="d-md-none w-100"/&gt;
-    &lt;/v-app&gt;
+    &lt;v-bottom-navigation 
+        class="bottom-nav pb-3"
+        height="70"
+        grow
+        elevation="0"
+    &gt;
+        
+        &lt;v-btn :to="{name: 'index'}" value="home" variant="plain" :ripple="false"&gt;
+            &lt;v-icon&gt;mdi-home&lt;/v-icon&gt;
+            Home
+        &lt;/v-btn&gt;
+    
+        &lt;v-btn :to="{name: 'profile'}" value="account" variant="plain" :ripple="false"&gt;
+            &lt;v-icon&gt;mdi-account&lt;/v-icon&gt;
+            Profile
+        &lt;/v-btn&gt;
+&nbsp;
+        &lt;div <span class="fstat-no" title="function not covered" >class="nana-primary-bg-color rounded-xl add-btn"&gt;</span>
+            &lt;v-btn 
+                value="add"
+                class="rounded-xl background-bg" 
+                height="34" 
+                width="34"
+                min-width="34" 
+                variant="flat" 
+                icon
+            &gt;
+                &lt;v-icon&gt;mdi-plus&lt;/v-icon&gt;
+            &lt;/v-btn&gt;
+        &lt;/div&gt;
+    
+        &lt;v-btn :to="{name: 'search'}" value="search" variant="plain" :ripple="false"&gt;
+            &lt;v-icon&gt;mdi-magnify&lt;/v-icon&gt;
+            Search
+        &lt;/v-btn&gt;
+        
+        &lt;v-btn :to="{name: 'clipz'}" value="clipz" variant="plain" :ripple="false"&gt;
+            &lt;v-icon&gt;mdi-movie-play&lt;/v-icon&gt;
+            Clipz
+        &lt;/v-btn&gt;
+    &lt;/v-bottom-navigation&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;style scoped&gt;
-.app-bar {
-    position: inherit;
+.bottom-nav {
+    background: rgba(var(--v-theme-background),0.3);
 }
-&nbsp;
-@media screen and (max-width:  960px) {
-    .app-bar{
-        position: relative !important;
-    }
-    .app-bar--relative {
-        position: relative !important;
-    }
-    .app-bar--fixed {
-        position: fixed !important;
-    }
-}
-&nbsp;
-.app-bar::before{
+.bottom-nav::before{
     content: "";
     background: inherit;
     position: absolute;
@@ -312,39 +266,13 @@ const onScroll = (e: any): void =&gt; { scrollY.value = window.<span class="bran
     backdrop-filter: blur(10px);
 }
 &nbsp;
-.app-bar-color {
-    background: rgba(var(--v-theme-background), 0.3) !important;
+.add-btn {
+    position: relative;
+    top: 10px;
+    height: 36px;
+    width: 36px;
+    padding: 1px !important;
 }
-&nbsp;
-.main-adjust-content {
-    padding-top: 64px !important;
-}
-&nbsp;
-@media screen and (max-width:  960px) {
-    .main-adjust-content {
-        padding-top: 0px !important;
-    }
-}
-.mobile-top-bar-container {
-    position: sticky; 
-    top: 0px;
-    z-index: 2;
-}
-&nbsp;
-.mobile-top-bar-container::before{
-    content: "";
-    background: inherit;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width : 100%;
-    height: 100%;
-    z-index: -1;
-    -webkit-backdrop-filter: blur(10px);
-    -moz-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
-&nbsp;
 &lt;/style&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
