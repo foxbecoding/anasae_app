@@ -55,7 +55,3 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
         </v-carousel-item>
     </v-carousel>
 </template>
-
-<style scoped>
-
-</style>
