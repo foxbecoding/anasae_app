@@ -7,7 +7,6 @@ import AppBarInnerEnd from '@/components/AppBarInner/End.vue'
 import layout from '@/layouts/default.vue'
 
 describe('AppBarInner Component', () => {
-  beforeEach( async () => {})
 
   describe('Test AppBarInner Component', () => {
     it('renders component instance', async () => { 
@@ -51,6 +50,7 @@ describe('AppBarInner Component', () => {
       const wrapperClasses = wrapper.find('[data-test-id="app"]').classes()
       expect(wrapperClasses).toContain('v-theme--anasaeLight')
     })
+    
   })
   
 })
