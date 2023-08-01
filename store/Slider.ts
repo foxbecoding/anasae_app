@@ -5,6 +5,7 @@ export const useSliderStore = defineStore("slider-store", () => {
     const slides = ref<Slide[]>([])
     
     const init = async (): Promise<void>  => {
+        console.log('fox')
         const res = await fetch(`${process.env.API_BASE_URL}${process.env.API_SLIDER}1/`)
         const data = await res.json() as Slider
         slides.value = data.images
