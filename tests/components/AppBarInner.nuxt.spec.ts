@@ -1,9 +1,10 @@
-import { mockComponent, mountSuspended } from 'nuxt-vitest/utils'
+import { mountSuspended } from 'nuxt-vitest/utils'
 
-import AppBarInner from '@/components/AppBarInner'
+import AppBarInner from '@/components/AppBarInner/index.vue'
 import AppBarInnerStart from '@/components/AppBarInner/Start.vue'
 import AppBarInnerCenter from '@/components/AppBarInner/Center.vue'
 import AppBarInnerEnd from '@/components/AppBarInner/End.vue'
+import layout from '@/layouts/default.vue'
 
 describe('AppBarInner Component', () => {
   beforeEach( async () => {})
@@ -30,8 +31,9 @@ describe('AppBarInner Component', () => {
   })
 
   describe('Test AppBarInnerEnd Component', () => {
-    it('renders component instance', async () => { 
+    it('renders component instance and buttons', async () => { 
       const wrapper = await mountSuspended(AppBarInnerEnd)
+      
       const signInBtn = wrapper.find('[data-test-id="app-bar-inner-end-sign-btn"]')
       const themeToggleBtn = wrapper.find('[data-test-id="app-bar-inner-end-theme-toggle-btn"]')
       const cartBtn = wrapper.find('[data-test-id="app-bar-inner-end-cart-btn"]')
@@ -40,6 +42,14 @@ describe('AppBarInner Component', () => {
       expect(signInBtn).toBeTruthy()
       expect(themeToggleBtn).toBeTruthy()
       expect(cartBtn).toBeTruthy()
+    })
+
+    it('test themeToggle()', async () => {
+      const wrapper = await mountSuspended(layout)
+      const themeToggleBtn = wrapper.find('[data-test-id="app-bar-inner-end-theme-toggle-btn"]')
+      await themeToggleBtn.trigger('click')
+      const wrapperClasses = wrapper.find('[data-test-id="app"]').classes()
+      expect(wrapperClasses).toContain('v-theme--anasaeLight')
     })
   })
   

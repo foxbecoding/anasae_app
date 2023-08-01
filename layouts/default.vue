@@ -13,7 +13,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 </script>
 
 <template>
-    <v-app>
+    <v-app id="app" data-test-id="app">
         <v-app-bar :color="setTransparent" class="app-bar" :class="[App_Bar_Color, App_Bar_Mobile_Pos]">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
