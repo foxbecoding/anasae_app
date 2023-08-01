@@ -1,6 +1,8 @@
 import { mockComponent, mountSuspended, mockNuxtImport } from 'nuxt-vitest/utils'
 import  { useLogo } from '@/composables/logo'
 
+/** TODO - figure out how to test useLogo() value **/
+
 describe('useLogo composable', async () => {
     afterEach(() => {
         vi.unstubAllGlobals()
