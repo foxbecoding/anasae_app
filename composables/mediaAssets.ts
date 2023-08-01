@@ -1,7 +1,6 @@
-export const useMediaAssets = (asset_path: string = '') => {
+export const useMediaAssets = (assetPath: string = '') => {
     const config = useRuntimeConfig()
-    const media_asset_path = ref<string>(asset_path)
-    const Asset = computed<string>((): string => `${config.public.CDN_URL}${media_asset_path.value}`)
+    const mediaAssetPath = ref<string>(assetPath)
+    const Asset = computed<string>((): string => `${config.public.CDN_URL}${mediaAssetPath.value}`)
     return { Asset }
 }
-

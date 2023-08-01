@@ -9,8 +9,9 @@ describe('useLogo composable', async () => {
         vi.unstubAllGlobals()
     })
     test('composable', async () => {
-        const asset_path = '/media/slider/slide-TBbkyQm0I-1690339280.png'
-        const res = await useMediaAssets(asset_path)
+        const 
+        const assetPath = '/media/slider/slide-TBbkyQm0I-1690339280.png'
+        const res = await useMediaAssets(assetPath)
         console.log(res.Asset.value)
         expect(useMediaAssets).toBeTruthy()
     })
