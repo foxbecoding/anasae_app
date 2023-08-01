@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { vuetifyTags } from './vue.compiler.options'
+
 export default defineNuxtConfig({
     devtools: { enabled: false },
     runtimeConfig: {

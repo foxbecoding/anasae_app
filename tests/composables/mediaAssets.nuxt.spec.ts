@@ -1,18 +1,16 @@
 import { mockComponent, mountSuspended, mockNuxtImport } from 'nuxt-vitest/utils'
 import  { useMediaAssets } from '@/composables/mediaAssets'
 
-describe('useLogo composable', async () => {
-    // beforeEach(() => {
-    //     app = createApp({})
-    //   })
+describe('useMediaAssets composable', async () => {
     afterEach(() => {
         vi.unstubAllGlobals()
     })
     test('composable', async () => {
-        const 
+        const cdnPath = 'http://192.168.1.235:3058'
         const assetPath = '/media/slider/slide-TBbkyQm0I-1690339280.png'
         const res = await useMediaAssets(assetPath)
-        console.log(res.Asset.value)
+        const asset = res.Asset.value
+        expect(asset).toBe(cdnPath+assetPath)
         expect(useMediaAssets).toBeTruthy()
     })
 })
