@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1690907821589" clover="3.2.0">
-  <project timestamp="1690907821590" name="All files">
-    <metrics statements="544" coveredstatements="525" conditionals="18" coveredconditionals="15" methods="5" coveredmethods="2" elements="567" coveredelements="542" complexity="0" loc="544" ncloc="544" packages="9" files="18" classes="18"/>
+<coverage generated="1690911331654" clover="3.2.0">
+  <project timestamp="1690911331655" name="All files">
+    <metrics statements="539" coveredstatements="520" conditionals="16" coveredconditionals="13" methods="4" coveredmethods="1" elements="559" coveredelements="534" complexity="0" loc="539" ncloc="539" packages="9" files="17" classes="17"/>
     <package name="frontend_app">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\app.vue">
@@ -14,9 +14,9 @@
       </file>
     </package>
     <package name="frontend_app.components">
-      <metrics statements="60" coveredstatements="60" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="67" coveredstatements="67" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Logo.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Logo.vue">
-        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="25" coveredstatements="25" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -24,7 +24,7 @@
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="8" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -35,6 +35,13 @@
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
       </file>
       <file name="MobileTopBar.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\MobileTopBar.vue">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -252,22 +259,7 @@
       </file>
     </package>
     <package name="frontend_app.composables">
-      <metrics statements="18" coveredstatements="18" conditionals="5" coveredconditionals="4" methods="2" coveredmethods="2"/>
-      <file name="logo.ts" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\composables\logo.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="8" count="3" type="cond" truecount="0" falsecount="1"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-      </file>
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="mediaAssets.ts" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\composables\mediaAssets.ts">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
@@ -383,24 +375,24 @@
       <metrics statements="74" coveredstatements="74" conditionals="6" coveredconditionals="6" methods="0" coveredmethods="0"/>
       <file name="clipz.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\pages\clipz.vue">
         <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="1" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
       </file>
       <file name="index.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\pages\index.vue">
         <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -427,45 +419,45 @@
       </file>
       <file name="profile.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\pages\profile.vue">
         <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="1" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
       </file>
       <file name="search.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\pages\search.vue">
         <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="1" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
       </file>
     </package>
     <package name="frontend_app.plugins">
