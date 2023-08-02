@@ -25,8 +25,8 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         <BannerSliderBg v-if="route.name == 'index'" />
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
+            <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
         </v-main>
-        <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
     </v-app>
 </template>
 
