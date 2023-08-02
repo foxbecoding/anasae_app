@@ -12,8 +12,3 @@ describe('Logo Component', async () => {
   })
   
 })
-
-// test code for spying on useRouter
-// location = 'clipz'
-//     const spy = vi.spyOn(useRouter(), 'push')
-//     .mockImplementation(async (to): Promise<void> => {to = {name: location}})
