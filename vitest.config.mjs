@@ -16,7 +16,7 @@ export default defineVitestConfig({
     test: {
         resolve: { alias },
         globals: true,
-        environment: 'happy-dom',
+        environment: 'jsdom',
         deps: { inline: ["vuetify"] },
         coverage: {
             exclude: ['**/node_modules/**', '**/.nuxt/**']
