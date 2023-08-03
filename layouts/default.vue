@@ -13,21 +13,21 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 </script>
 
 <template>
-    <v-app id="app" data-test-id="app">
-        <v-app-bar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
+    <VApp id="app" data-test-id="app">
+        <VAppBar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
             <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
             </v-container>
-        </v-app-bar>
-        <v-container class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
+        </VAppBar>
+        <VContainer class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
             <MobileTopBar />
-        </v-container>
+        </VContainer>
         <BannerSliderBg v-if="route.name == 'index'" />
-        <v-main class="main-adjust-content" v-scroll="onScroll">
+        <VMain class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
-            <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
-        </v-main>
-    </v-app>
+        </VMain>
+        <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
+    </VApp>
 </template>
 
 <style scoped>

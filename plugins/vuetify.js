@@ -15,6 +15,7 @@ import { VMain } from 'vuetify/components/VMain'
 import { VSheet } from 'vuetify/components/VSheet'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
+import { VLayout, VLayoutItem } from 'vuetify/components/VLayout'
 
 export default defineNuxtPlugin(nuxtApp => {
     const anasaeDark = {
@@ -69,6 +70,8 @@ export default defineNuxtPlugin(nuxtApp => {
             VForm,
             VIcon,
             VImg,
+            VLayout,
+            VLayoutItem,
             VMain,
             VRow, 
             VSheet,

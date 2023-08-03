@@ -41,6 +41,7 @@
     "@mdi/font": "^7.2.96",
     "@pinia/nuxt": "^0.4.11",
     "@stripe/stripe-js": "^1.54.1",
+    "month-days": "^4.0.0",
     "pinia": "^2.1.4",
     "sass": "^1.64.0",
     "vuetify": "^3.3.9"
