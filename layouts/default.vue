@@ -15,9 +15,9 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 <template>
     <VApp id="app" data-test-id="app">
         <VAppBar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
-            <v-container class="px-4 d-flex justify-space-between" fluid>
+            <VContainer class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
-            </v-container>
+            </VContainer>
         </VAppBar>
         <VContainer class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
             <MobileTopBar />
