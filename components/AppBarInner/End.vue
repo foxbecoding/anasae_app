@@ -16,8 +16,9 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             data-test-id="app-bar-inner-end-sign-btn" 
             class="rounded-xl" 
             active
+            :to="{name: 'auth-login'}"
         >
-            <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
+            <VIcon class="mr-2">mdi-account-circle-outline</VIcon>
             Sign In
         </NanaAppBarBtn>
           
@@ -30,7 +31,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             icon
             active
         >
-            <v-icon>{{ THEME_ICON }}</v-icon>
+            <VIcon>{{ THEME_ICON }}</VIcon>
         </NanaAppBarBtn>
 
         <NanaAppBarBtn
@@ -41,7 +42,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             icon
             active
         >
-            <v-icon>mdi-cart-outline</v-icon>
+            <VIcon>mdi-cart-outline</VIcon>
         </NanaAppBarBtn>   
     </div>
 </template>
