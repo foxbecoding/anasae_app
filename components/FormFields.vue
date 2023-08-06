@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-import ApiData from '@/utils/types/ApiData'
+import { ApiData } from '@/utils/types'
 import { PropType } from 'vue'
 import { FormField } from '@/utils/types'
 
@@ -83,7 +83,7 @@ const props = defineProps({
         type: String,
         required: false
     },
-    apiMethod: String,
+    apiMethod: PropType<"GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE">,
     isSubmitBtn: Boolean
 })
 

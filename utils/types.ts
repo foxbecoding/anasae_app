@@ -15,8 +15,8 @@ export interface FormField {
     items?: any[]
     itemTitle?: string
     itemValue?: string
-    density?: 'default'|'comfortable'|'compact'
-    inputType: 'TEXTFIELD'|'TEXTFIELD-CHIP'|'TEXTAREA'|'SELECT'|'SWITCH'
+    density?: "default" | "comfortable" | "compact" | undefined
+    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
     name: string
     disabled?: boolean
     prependIcon?: string
@@ -25,7 +25,7 @@ export interface FormField {
     appendInnerIcon?: string
 }
 
-export type RouteName = 'auth-login'|'auth-sign-up'|'auth-forgot'
+export type RouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
 export interface Slide {
     pk: string, 
