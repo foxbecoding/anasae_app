@@ -10,3 +10,5 @@ export interface Slider {
     is_active: boolean,
     images: Slide[] 
 }
+
+export type RouteName = 'auth-login'|'auth-sign-up'|'auth-forgot'

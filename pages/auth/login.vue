@@ -4,6 +4,5 @@ import Home from '@/pages/index.vue'
 
 
 <template>
-    <AuthLoginForm />
-    <Home />
+    <component :is="Home"/>
 </template>

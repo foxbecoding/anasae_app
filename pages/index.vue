@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid>
+    <!-- <v-container fluid>
         <BannerSlider />
-    </v-container>
+    </v-container> -->
     <v-container fluid>
         <v-row>
             <v-col

@@ -1,33 +1,43 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
+import { RouteName } from '@/utils/types'
 
 const route = useRoute()
+const { ComponentForm, routeNames } = useAuthFormFactory()
 const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
-const AppBarColor = computed(() => scrollY.value !== 0 ? 'app-bar-color' : '')
-const AppBarMobilePos = computed(() => appBarMobileClass)
-const setTransparent = computed(() => scrollY.value == 0 ? 'transparent' : '')
+const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color' : '')
+const AppBarMobilePos = computed((): string => appBarMobileClass.value)
+const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent' : '')
+const ShowAuthForm = computed((): boolean => routeNames.value.includes(route.name as RouteName) )
+const ShowBannerComps = computed((): boolean => routeNames.value.includes(route.name as RouteName) || route.name == 'index')
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
 </script>
 
 <template>
-    <VApp id="app" data-test-id="app">
-        <VAppBar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
-            <VContainer class="px-4 d-flex justify-space-between" fluid>
+    <v-app id="app" data-test-id="app">
+        <v-app-bar :color="SetTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
+            <v-container class="px-4 d-flex justify-space-between" fluid>
                 <AppBarInner />
-            </VContainer>
-        </VAppBar>
-        <VContainer class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
+            </v-container>
+        </v-app-bar>
+        <v-container class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
             <MobileTopBar />
-        </VContainer>
-        <BannerSliderBg v-if="route.name == 'index'" />
-        <VMain class="main-adjust-content" v-scroll="onScroll">
+        </v-container>
+        <BannerSliderBg v-if="ShowBannerComps" />
+        <v-main class="main-adjust-content" v-scroll="onScroll">
+            <v-container v-if="ShowBannerComps" fluid>
+                <BannerSlider />
+            </v-container>
             <slot></slot>
-        </VMain>
-        <BottomNav v-if="smAndDown" class="d-md-none w-100"/>
-    </VApp>
+        </v-main>
+        <BottomNav v-if="smAndDown" class="d-md-none w-100" />
+        <Auth v-if="ShowAuthForm" title="Login">
+            <component :is="ComponentForm" />
+        </Auth> 
+    </v-app>
 </template>
 
 <style scoped>
