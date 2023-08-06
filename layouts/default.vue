@@ -23,7 +23,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
                 <AppBarInner />
             </v-container>
         </v-app-bar>
-        <v-container class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid>
+        <v-container class="mobile-top-bar-container py-2" :class="AppBarColor" fluid>
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
