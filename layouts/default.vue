@@ -3,15 +3,15 @@ import { useDisplay } from 'vuetify'
 import { RouteName } from '@/utils/types'
 
 const route = useRoute()
-const { ComponentForm, routeNames } = useAuthFormFactory()
+const { AuthFormComponent, AuthFormTitle, authRouteNames } = useAuthFormFactory()
 const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
 const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color' : '')
 const AppBarMobilePos = computed((): string => appBarMobileClass.value)
 const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent' : '')
-const ShowAuthForm = computed((): boolean => routeNames.value.includes(route.name as RouteName) )
-const ShowBannerComps = computed((): boolean => routeNames.value.includes(route.name as RouteName) || route.name == 'index')
+const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) )
+const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) || route.name == 'index')
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
 </script>
@@ -34,8 +34,8 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <slot></slot>
         </v-main>
         <BottomNav v-if="smAndDown" class="d-md-none w-100" />
-        <Auth v-if="ShowAuthForm" title="Login">
-            <component :is="ComponentForm" />
+        <Auth v-if="ShowAuthForm" :title="AuthFormTitle">
+            <component :is="AuthFormComponent" />
         </Auth> 
     </v-app>
 </template>
