@@ -2,11 +2,13 @@ import LoginForm from '@/components/Auth/LoginForm.vue'
 import SignUpForm from '@/components/Auth/SignUpForm/index.vue'
 import ForgotForm from '@/components/Auth/ForgotForm.vue'
 import { AuthRouteName as RouteName } from '@/utils/types'
+import { useAuthStore } from '@/store/Auth'
 
 type ComponentFormType = typeof LoginForm | typeof SignUpForm | typeof ForgotForm
 type FormTitle = 'Login' | 'Sign Up' | 'Forgot Password'
 
 export const useAuthFormFactory = () => {
+    const authStore = useAuthStore()
     const route = useRoute()
     const authRouteNames = shallowRef<RouteName[]>(['auth-login', 'auth-sign-up', 'auth-forgot'])
     const components = shallowRef({
@@ -34,5 +36,10 @@ export const useAuthFormFactory = () => {
         return title
     })
 
-    return { AuthFormComponent, AuthFormTitle, authRouteNames }
+    return { 
+        AuthFormComponent, 
+        AuthFormTitle, 
+        authStore, 
+        authRouteNames
+    }
 }

@@ -3,7 +3,7 @@ import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
 
 const route = useRoute()
-const { AuthFormComponent, AuthFormTitle, authRouteNames } = useAuthFormFactory()
+const { AuthFormComponent, AuthFormTitle, authStore, authRouteNames } = useAuthFormFactory()
 const { smAndDown, platform } = useDisplay()
 const scrollY = ref<number>(0)
 const appBarMobileClass = ref<string>('app-bar--relative') 
@@ -11,7 +11,7 @@ const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color'
 const AppBarMobilePos = computed((): string => appBarMobileClass.value)
 const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent' : '')
 const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) )
-const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) || route.name == 'index')
+const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) && authStore.prevRoute == 'index' || route.name == 'index')
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
 </script>
