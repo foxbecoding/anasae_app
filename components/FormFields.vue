@@ -20,7 +20,7 @@
                 :disabled="field.disabled"
                 :prepend-inner-icon="field.prependInnerIcon"
                 :variant="field.variant"
-                color="primary"
+                :color="field.color"
             />
             <v-textarea 
                 v-if="field.inputType === 'TEXTAREA'" 
@@ -33,7 +33,7 @@
                 :density="field.density"
                 :disabled="field.disabled"
                 :prepend-inner-icon="field.prependInnerIcon"
-                color="primary"
+                :color="field.color"
             />
             <v-select
                 v-if="field.inputType === 'SELECT'" 
@@ -43,13 +43,14 @@
                 :item-title="field.itemTitle"
                 :item-value="field.itemValue"
                 :density="field.density"
+                :color="field.color"
                 return-object
             />
             <v-switch
                 v-if="field.inputType === 'SWITCH'" 
                 v-model="field.model"
                 :label="field.label"
-                color="primary"
+                :color="field.color"
                 hide-details
                 inset
             />
