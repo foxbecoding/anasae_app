@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import Home from '@/pages/index.vue'
-
+const { PageComponent } = useAuthPageFactory()
 </script>
 
 
 <template>
-  <component :is="Home"/>
+    <component :is="PageComponent"/>
 </template>

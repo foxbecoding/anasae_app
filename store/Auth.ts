@@ -1,8 +1,10 @@
 export const useAuthStore = defineStore("auth-store", () => {
     const prevRoute = ref<string>('index')
-
+    const isAuth = ref<boolean>(false)
+    
     return {
-        prevRoute
+        prevRoute,
+        isAuth
     }
 })
 
