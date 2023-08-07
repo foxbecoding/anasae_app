@@ -13,7 +13,10 @@ import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
 import { VMain } from 'vuetify/components/VMain'
 import { VSheet } from 'vuetify/components/VSheet'
+import { VTextarea } from 'vuetify/components/VTextarea'
 import { VTextField } from 'vuetify/components/VTextField'
+import { VSelect } from 'vuetify/components/VSelect'
+import { VSwitch } from 'vuetify/components/VSwitch'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
 import { VLayout, VLayoutItem } from 'vuetify/components/VLayout'
 
@@ -26,7 +29,7 @@ export default defineNuxtPlugin(nuxtApp => {
             surface: 'rgb(36,36,36)',
             'surface-alt': 'rgb(241,241,241)',
             'slider': 'rgb(18,18,18)',
-            primary: '#3fabf3',
+            primary: 'rgb(241,241,241)',
             error: '#EF5350',
             info: '#2196F3',
             success: '#4CAF50',
@@ -41,7 +44,7 @@ export default defineNuxtPlugin(nuxtApp => {
             surface: 'rgb(220,220,220)',
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',
-            primary: '#3fabf3',
+            primary: 'rgb(15,15,15)',
             error: '#EF5350',
             info: '#2196F3',
             success: '#4CAF50',
@@ -74,8 +77,11 @@ export default defineNuxtPlugin(nuxtApp => {
             VLayoutItem,
             VMain,
             VRow, 
+            VSelect,
             VSheet,
             VSpacer,
+            VSwitch,
+            VTextarea,
             VTextField,
             VToolbar, 
             VToolbarItems, 

@@ -3,7 +3,7 @@
     
     <v-btn 
         :to="{name: 'auth-login'}"
-        color="surface-alt"
+        color="primary"
         rounded="pill"
         block
     >

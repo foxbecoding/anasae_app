@@ -1,9 +1,12 @@
+
 export interface ApiData {
     data?:object
     isMultiPart?: boolean
-    method: "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
+    method: ApiMethod
     path: string
 }
+
+export type ApiMethod = "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
 
 export interface FormField {
     id: string|number
@@ -17,6 +20,7 @@ export interface FormField {
     itemValue?: string
     density?: "default" | "comfortable" | "compact" | undefined
     inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
+    variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
     name: string
     disabled?: boolean
     prependIcon?: string

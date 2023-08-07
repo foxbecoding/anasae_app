@@ -19,6 +19,7 @@
                 :density="field.density"
                 :disabled="field.disabled"
                 :prepend-inner-icon="field.prependInnerIcon"
+                :variant="field.variant"
                 color="primary"
             />
             <v-textarea 
@@ -70,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ApiData } from '@/utils/types'
+import { ApiData, ApiMethod } from '@/utils/types'
 import { PropType } from 'vue'
 import { FormField } from '@/utils/types'
 
@@ -83,7 +84,7 @@ const props = defineProps({
         type: String,
         required: false
     },
-    apiMethod: PropType<"GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE">,
+    apiMethod: String as PropType<ApiMethod>,
     isSubmitBtn: Boolean
 })
 
@@ -104,12 +105,12 @@ const submit = async (): Promise<void> => {
 
     let apiData: ApiData = {
         path: `${props.apiPath}`,
-        method: `${props.apiMethod}`,
+        method: `${props.apiMethod}` as ApiMethod,
         data: formData
     }
     
     const { data, error } = await useApi(apiData)
-    emit('submit', {data: data.value, error: error.value})
+    emit('submit', { data: data.value, error: error.value })
     isLoading.value = false
 }
 

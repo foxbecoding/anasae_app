@@ -8,7 +8,14 @@ export default defineNuxtConfig({
             CDN_URL: process.env.CDN_URL,
             CDN_MEDIA_URL: process.env.CDN_MEDIA_URL,
             API_BASE_URL: process.env.API_BASE_URL,
-            API_SLIDER: process.env.API_SLIDER
+            API_AUTH_LOGIN: process.env.API_AUTH_LOGIN,
+            API_AUTH_LOGOUT: process.env.API_AUTH_LOGOUT,
+            API_AUTH_VALIDATE: process.env.API_AUTH_VALIDATE,
+            API_AUTH_VALIDATE_DETAILS: process.env.API_AUTH_VALIDATE_DETAILS,
+            API_AUTH_VALIDATE_PASSWORD: process.env.API_AUTH_VALIDATE_PASSWORD,
+            API_AUTH_VERIFY_EMAIL: process.env.API_AUTH_VERIFY_EMAIL,
+            API_SLIDER: process.env.API_SLIDER,
+            
         }
     },
     app: {
