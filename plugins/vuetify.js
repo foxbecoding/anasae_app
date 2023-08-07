@@ -1,5 +1,6 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
+import colors from 'vuetify/lib/util/colors'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
@@ -30,6 +31,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-alt': 'rgb(241,241,241)',
             'slider': 'rgb(18,18,18)',
             primary: 'rgb(241,241,241)',
+            'form-field-primary': colors.blue.lighten1,
             error: '#EF5350',
             info: '#2196F3',
             success: '#4CAF50',
@@ -45,6 +47,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
+            'form-field-primary': colors.blue,
             error: '#EF5350',
             info: '#2196F3',
             success: '#4CAF50',

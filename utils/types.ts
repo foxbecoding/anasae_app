@@ -12,6 +12,7 @@ export interface FormField {
     id: string|number
     model: any
     counter?: number
+    color?: string
     rules?: any[]
     label?: string
     type?: string
