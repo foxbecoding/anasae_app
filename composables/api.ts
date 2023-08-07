@@ -16,13 +16,20 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         }
     }
 
-    const { data, pending, error, refresh } = await useFetch(apiData.path, {
+    const { data, pending, error, refresh, status } = await useFetch(apiData.path, {
         baseURL: config.public.API_BASE_URL,
         body: apiData.data,
         credentials: 'include',
         headers: requestHeaders,
-        method: apiData.method
+        method: apiData.method,
+        key: apiData.key
     })
+
+    if(status.value == 'error'){
+        //handle error
+        console.log(error.value)
+        return 
+    }
     
     return { data, error }
 }

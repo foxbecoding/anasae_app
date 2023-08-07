@@ -1,12 +1,12 @@
+export type ApiMethod = "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
 
 export interface ApiData {
     data?:object
     isMultiPart?: boolean
     method: ApiMethod
-    path: string
+    path: string,
+    key?: string
 }
-
-export type ApiMethod = "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
 
 export interface FormField {
     id: string|number
