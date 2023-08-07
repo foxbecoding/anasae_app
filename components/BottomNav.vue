@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import { useAuthStore } from '@/store/Auth'
+
+const authStore = useAuthStore()
+const ToProfile = computed((): string => authStore.isAuth ? 'profile' : 'auth-login')
+
+</script>
+
 <template>
     <v-bottom-navigation 
         class="bottom-nav pb-3"
@@ -11,7 +19,13 @@
             Home
         </v-btn>
     
-        <v-btn :to="{name: 'profile'}" value="account" variant="plain" :ripple="false">
+        <v-btn 
+            @click="`${authStore.prevRoute = $route.name as string}`"
+            :to="{name: ToProfile}" 
+            value="profile" 
+            variant="plain" 
+            :ripple="false"
+        >
             <v-icon>mdi-account</v-icon>
             Profile
         </v-btn>

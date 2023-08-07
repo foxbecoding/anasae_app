@@ -12,7 +12,7 @@ const close = async (): Promise<void> => {
     dialog.value = false
     setTimeout(() => {
         useRouter().push({name: authStore.prevRoute})
-    }, 500) 
+    }, 300) 
 }
 </script>
 
