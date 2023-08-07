@@ -11,7 +11,7 @@ const fields = ref<FormField[]>([
         model: '', 
         name:'email', 
         label: 'E-mail', 
-        color: 'input-field-primary',
+        color: 'primary-alt',
         type: 'text', 
         inputType: 'TEXTFIELD',
         variant: 'outlined',
@@ -26,7 +26,7 @@ const fields = ref<FormField[]>([
         model: '', 
         name:'password', 
         label: 'Password', 
-        color: 'input-field-primary',
+        color: 'primary-alt',
         type:'password', 
         inputType: 'TEXTFIELD',
         variant: 'outlined',
@@ -64,7 +64,7 @@ const formSubmission = (e: any): void => {
         :apiPath="apiPath"
         :apiMethod="apiMethod"
     />
-    <p>Don't have an account? 
-        <NuxtLink :to="{name: 'auth-sign-up' }">Sign Up</NuxtLink>
+    <p class="py-8">Don't have an account? 
+        <NuxtLink class="text-decoration-none" :to="{name: 'auth-sign-up' }">Sign Up</NuxtLink>
     </p>
 </template>

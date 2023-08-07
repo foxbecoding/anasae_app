@@ -12,16 +12,14 @@ const Logo = computed<string>((): string => {
 </script>
 
 <template>
-    <NuxtLink :to="{name: 'index'}" class="w-100">
-        <v-img 
-            id="logo" 
-            data-test-id="logo"
-            :src="Logo" 
-            alt="Anasae logo" 
-        />
-    </NuxtLink>
+    <v-img 
+        id="logo" 
+        data-test-id="logo"
+        :src="Logo" 
+        alt="Anasae logo" 
+    />
 </template>
 
 <style scoped>
-#logo:hover { cursor: pointer; }
+
 </style>

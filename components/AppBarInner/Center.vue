@@ -12,7 +12,7 @@ const CENTER_CLASSES  = computed<string>((): string => {
 
 <style scoped>
 #center.search-container{
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
     <div id="start" class="d-flex flex-row align-center logo">
-        <Logo />
+        <NuxtLink :to="{name: 'index'}" class="w-100">
+            <Logo />
+        </NuxtLink>
     </div>
 </template>
 
@@ -15,4 +17,6 @@
         max-width: 100px;
     }
 }
+
+#start.logo:hover { cursor: pointer; }
 </style>
