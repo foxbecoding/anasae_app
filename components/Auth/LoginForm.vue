@@ -65,6 +65,12 @@ const formSubmission = (e: any): void => {
         :apiMethod="apiMethod"
     />
     <p class="py-8">Don't have an account? 
-        <NuxtLink class="text-decoration-none" :to="{name: 'auth-sign-up' }">Sign Up</NuxtLink>
+        <NuxtLink 
+            :to="{name: 'auth-sign-up' }"
+            class="text-decoration-none" 
+            color="primary-alt"
+        >
+            Sign Up
+        </NuxtLink>
     </p>
 </template>
