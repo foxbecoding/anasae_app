@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
+import { useAuthStore } from '@/store/Auth'
 
+const authStore = useAuthStore()
 const theme = useTheme()        
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
@@ -16,6 +18,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             data-test-id="app-bar-inner-end-sign-btn" 
             class="rounded-xl" 
             active
+            @click="`${authStore.prevRoute = $route.name as string}`"
             :to="{name: 'auth-login'}"
         >
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>

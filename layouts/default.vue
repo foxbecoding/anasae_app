@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
-import { RouteName } from '@/utils/types'
+import { AuthRouteName as RouteName } from '@/utils/types'
 
 const route = useRoute()
 const { AuthFormComponent, AuthFormTitle, authRouteNames } = useAuthFormFactory()

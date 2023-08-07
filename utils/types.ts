@@ -8,6 +8,8 @@ export interface ApiData {
     key?: string
 }
 
+export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
+
 export interface FormField {
     appendIcon?: string
     appendInnerIcon?: string
@@ -30,7 +32,6 @@ export interface FormField {
     variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
 }
 
-export type RouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
 export interface Slide {
     image: string, 

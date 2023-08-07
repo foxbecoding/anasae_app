@@ -1,7 +1,7 @@
 import LoginForm from '@/components/Auth/LoginForm.vue'
 import SignUpForm from '@/components/Auth/SignUpForm/index.vue'
 import ForgotForm from '@/components/Auth/ForgotForm.vue'
-import { RouteName } from '@/utils/types'
+import { AuthRouteName as RouteName } from '@/utils/types'
 
 type ComponentFormType = typeof LoginForm | typeof SignUpForm | typeof ForgotForm
 type FormTitle = 'Login' | 'Sign Up' | 'Forgot Password'

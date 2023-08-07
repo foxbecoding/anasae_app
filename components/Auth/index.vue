@@ -1,15 +1,22 @@
 <script lang="ts" setup>
+import { AuthRouteName } from '@/utils/types'
+import { useAuthStore } from '@/store/Auth'
 
 const props = defineProps({
     title: String
 })
 
+const authStore = useAuthStore()
+const route = useRoute()
 const dialog = ref<boolean>(true)
+const authRouteNames = shallowRef<AuthRouteName[]>([
+    "auth-login", "auth-sign-up", "auth-forgot"
+])
 
 const close = async (): Promise<void> => { 
     dialog.value = false
     setTimeout(() => {
-        useRouter().back()
+        useRouter().push({name: authStore.prevRoute})
     }, 500) 
 }
 </script>
@@ -28,7 +35,7 @@ const close = async (): Promise<void> => {
                     </v-btn> 
                     
                     <div class="auth-form-logo-container w-100 mr-4"> 
-                        <Logo @click.stop.prevent="false"/> 
+                        <Logo /> 
                     </div>
                 </div>
                 <v-card-title class="text-h5">

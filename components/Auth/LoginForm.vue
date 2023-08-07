@@ -67,8 +67,7 @@ const formSubmission = (e: any): void => {
     <p class="py-8">Don't have an account? 
         <NuxtLink 
             :to="{name: 'auth-sign-up' }"
-            class="text-decoration-none" 
-            color="primary-alt"
+            class="text-decoration-none text-primary-alt" 
         >
             Sign Up
         </NuxtLink>
