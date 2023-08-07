@@ -16,7 +16,7 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         }
     }
 
-    const { data, error } = await useFetch(apiData.path, {
+    const { data, pending, error, refresh } = await useFetch(apiData.path, {
         baseURL: config.public.API_BASE_URL,
         body: apiData.data,
         credentials: 'include',
