@@ -3,44 +3,44 @@ export type ApiMethod = "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
 export interface ApiData {
     data?:object
     isMultiPart?: boolean
-    method: ApiMethod
     path: string,
+    method: ApiMethod
     key?: string
 }
 
 export interface FormField {
-    id: string|number
-    model: any
-    counter?: number
+    appendIcon?: string
+    appendInnerIcon?: string
     color?: string
-    rules?: any[]
-    label?: string
-    type?: string
+    counter?: number
+    density?: "default" | "comfortable" | "compact" | undefined
+    disabled?: boolean
+    id: string|number
+    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
     items?: any[]
     itemTitle?: string
     itemValue?: string
-    density?: "default" | "comfortable" | "compact" | undefined
-    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
-    variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
+    label?: string
+    model: any
     name: string
-    disabled?: boolean
     prependIcon?: string
     prependInnerIcon?: string
-    appendIcon?: string
-    appendInnerIcon?: string
+    rules?: any[]
+    type?: string
+    variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
 }
 
 export type RouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
 export interface Slide {
-    pk: string, 
     image: string, 
     is_active: boolean
+    pk: string, 
 }
 
 export interface Slider {
-    pk: string | number,
-    name: string,
-    is_active: boolean,
     images: Slide[] 
+    is_active: boolean,
+    name: string,
+    pk: string | number,
 }
