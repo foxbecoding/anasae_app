@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { AuthRouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
 const props = defineProps({
@@ -7,11 +6,7 @@ const props = defineProps({
 })
 
 const authStore = useAuthStore()
-const route = useRoute()
 const dialog = ref<boolean>(true)
-const authRouteNames = shallowRef<AuthRouteName[]>([
-    "auth-login", "auth-sign-up", "auth-forgot"
-])
 
 const close = async (): Promise<void> => { 
     dialog.value = false
