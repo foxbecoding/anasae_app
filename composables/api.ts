@@ -24,11 +24,6 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         method: apiData.method,
         key: apiData.key
     })
-
-    // if(status.value == 'error'){
-    //     console.log(error.value)
-    //     return 
-    // }
     
     return { data, pending, error, refresh, status }
 }
