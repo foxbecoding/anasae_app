@@ -5,6 +5,7 @@ export const useRootStore = defineStore("root", () => {
    
     //methods
     const initServer = async (): Promise<void> => {
+        await fetch(`${process.env.API_BASE_URL}${process.env.API_X_FCT}`)
         await sliderStore.init()
     }
     

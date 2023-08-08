@@ -15,6 +15,7 @@ export default defineNuxtConfig({
             API_AUTH_VALIDATE_PASSWORD: process.env.API_AUTH_VALIDATE_PASSWORD,
             API_AUTH_VERIFY_EMAIL: process.env.API_AUTH_VERIFY_EMAIL,
             API_SLIDER: process.env.API_SLIDER,
+            API_X_FCT: process.env.API_X_FCT
             
         }
     },

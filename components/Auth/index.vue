@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useAuthStore } from '@/store/Auth'
+import { useDisplay } from 'vuetify'
 
 const props = defineProps({
     title: String
@@ -7,6 +8,7 @@ const props = defineProps({
 
 const authStore = useAuthStore()
 const dialog = ref<boolean>(true)
+const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 
 const close = async (): Promise<void> => { 
     dialog.value = false
@@ -19,10 +21,12 @@ const close = async (): Promise<void> => {
 <template>
     <v-dialog
         v-model="dialog"
+        :fullscreen="IsFullscreen"
+        :width="IsFullscreen ? '600px': '500px'"
+        :transition="IsFullscreen ? 'dialog-bottom-transition' : ''"
         persistent
-        width="500px"
     >
-        <v-card height="1000px" rounded="xl">
+        <v-card height="1000px" :rounded="IsFullscreen ? 'none' : 'xl'">
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
                     <v-btn @click="close" size="small" icon>

@@ -25,11 +25,10 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         key: apiData.key
     })
 
-    if(status.value == 'error'){
-        //handle error
-        console.log(error.value)
-        return 
-    }
+    // if(status.value == 'error'){
+    //     console.log(error.value)
+    //     return 
+    // }
     
-    return { data, error }
+    return { data, pending, error, refresh, status }
 }
