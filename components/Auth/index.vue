@@ -26,7 +26,11 @@ const close = async (): Promise<void> => {
         :transition="IsFullscreen ? 'dialog-bottom-transition' : ''"
         persistent
     >
-        <v-card height="1000px" :rounded="IsFullscreen ? 'none' : 'xl'">
+        <v-card 
+            height="1000px" 
+            :rounded="IsFullscreen ? 'none' : 'xl'"
+            :class="IsFullscreen ? 'auth-card' : ''"
+        >
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
                     <v-btn @click="close" size="small" icon>
@@ -45,3 +49,12 @@ const close = async (): Promise<void> => {
         </v-card>
     </v-dialog>
 </template>
+
+<style scoped>
+.auth-card {
+    background: rgba(var(--v-theme-background), 0.8) !important;
+    -webkit-backdrop-filter: blur(5px);
+    -moz-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+</style>

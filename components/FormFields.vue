@@ -109,8 +109,8 @@ const submit = async (): Promise<void> => {
         method: `${props.apiMethod}` as ApiMethod,
         data: formData
     }
-    console.log(apiData)
-    // const { data, pending, error, refresh, status } = await useApi(apiData)
+    
+    const { data, pending, error, refresh, status } = await useApi(apiData)
     // emit('submit', { data: data.value, error: error.value })
     isLoading.value = false
 }
