@@ -33,7 +33,7 @@ const close = async (): Promise<void> => {
         >
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
-                    <v-btn @click="close" size="small" icon>
+                    <v-btn @click="close" color="transparent" size="small" icon>
                         <v-icon>mdi-close</v-icon>
                     </v-btn> 
                     
