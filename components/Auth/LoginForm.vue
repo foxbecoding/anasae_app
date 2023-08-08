@@ -4,6 +4,10 @@ import { FormField } from '@/utils/types'
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_LOGIN) 
 const apiMethod = 'POST'
+const formError = reactive({
+    isError:<boolean> false,
+    message:<string | string[]> ''
+})
 
 const fields = ref<FormField[]>([
     {
@@ -36,6 +40,12 @@ const fields = ref<FormField[]>([
 ])
 
 const formSubmission = (e: any): void => {
+
+    if (e.status == 'error'){
+        formError.isError = true
+        formError.message = e.error.data.errors
+        return 
+    }
     // if(e.error) {
     //     console.log(e.error)
     //     formError.show = true
