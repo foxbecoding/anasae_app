@@ -111,7 +111,7 @@ const submit = async (): Promise<void> => {
     }
 
     const { data, pending, error, refresh, status } = await useApi(apiData)
-    emit('submit', { data: data.value, error: error.value })
+    emit('submit', { data: data.value, status:status.value, error: error.value })
     isLoading.value = false
 }
 
