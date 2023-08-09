@@ -54,9 +54,7 @@ const switchHandler = (e: boolean|any): void => {
         field.name = 'username'
         field.label = 'Username'
         field.prependInnerIcon = 'mdi-account'
-        field.rules = [
-            (v: any) => !! v || 'Username is required'
-        ]
+        field.rules = [ (v: string) => !! v || 'Username is required' ]
     }else if(!e && field){
         authStore.loginForm.isUsername = false
         field.model = authStore.loginForm.email
@@ -64,8 +62,8 @@ const switchHandler = (e: boolean|any): void => {
         field.label = 'E-mail'
         field.prependInnerIcon = 'mdi-email'
         field.rules = [
-            (v: any) => !! v || 'E-mail is required',
-            (v: any) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+            (v: string) => !! v || 'E-mail is required',
+            (v: string) => /.+@.+\..+/.test(v)  || 'E-mail must be valid'
         ]
     }
 }
