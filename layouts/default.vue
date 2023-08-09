@@ -39,7 +39,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <slot></slot>
         </v-main>
         <BottomNav v-if="smAndDown" class="d-md-none w-100" />
-        <Auth v-if="ShowAuthForm" :title="AuthFormTitle">
+        <Auth v-if="ShowAuthForm" :title="''">
             <component :is="AuthFormComponent" />
         </Auth> 
     </v-app>

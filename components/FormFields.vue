@@ -1,76 +1,3 @@
-<template>
-    <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-    >
-        <div 
-            v-for="(field, i ) in props.fields" 
-            :key="field.id"
-        >
-            <v-text-field 
-                v-if="field.inputType === 'TEXTFIELD'" 
-                @keypress.enter="submit()"
-                v-model="field.model" 
-                :label="field.label" 
-                :type="field.type"
-                :rules="field.rules"
-                :counter="field.counter"
-                :density="field.density"
-                :disabled="field.disabled"
-                :prepend-inner-icon="field.prependInnerIcon"
-                :variant="field.variant"
-                :color="field.color"
-            />
-            <v-textarea 
-                v-if="field.inputType === 'TEXTAREA'" 
-                @keypress.enter="submit()"
-                v-model="field.model" 
-                :label="field.label" 
-                :type="field.type"
-                :rules="field.rules"
-                :counter="field.counter"
-                :density="field.density"
-                :disabled="field.disabled"
-                :prepend-inner-icon="field.prependInnerIcon"
-                :color="field.color"
-            />
-            <v-select
-                v-if="field.inputType === 'SELECT'" 
-                v-model="field.model"
-                :label="field.label"
-                :items="field.items"
-                :item-title="field.itemTitle"
-                :item-value="field.itemValue"
-                :density="field.density"
-                :color="field.color"
-                return-object
-            />
-            <v-switch
-                v-if="field.inputType === 'SWITCH'" 
-                v-model="field.model"
-                :label="field.label"
-                :color="field.color"
-                hide-details
-                inset
-            />
-        </div>
-        <v-btn
-            v-if="props.isSubmitBtn"
-            @click="submit()"
-            :disabled="isLoading"
-            :loading="isLoading"
-            class="text-background" 
-            color="primary"
-            rounded="xl" 
-            block 
-            flat
-        >
-            Submit
-        </v-btn>
-    </v-form>
-</template>
-
 <script lang="ts" setup>
 import { ApiData, ApiMethod } from '@/utils/types'
 import { PropType } from 'vue'
@@ -123,3 +50,79 @@ const allow_only_letters_numbers_commas = (e: any) => {
 }
 
 </script>
+
+<template>
+    <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+    >
+        <div 
+            v-for="(field, i ) in props.fields" 
+            :key="field.id"
+        >
+            <v-text-field 
+                v-if="field.inputType === 'TEXTFIELD'" 
+                @keypress.enter="submit()"
+                v-model="field.model" 
+                :label="field.label" 
+                :type="field.type"
+                :rules="field.rules"
+                :counter="field.counter"
+                :density="field.density"
+                :disabled="field.disabled"
+                :error-messages="field.errorMessages"
+                :prepend-inner-icon="field.prependInnerIcon"
+                :variant="field.variant"
+                :color="field.color"
+            />
+            <v-textarea 
+                v-if="field.inputType === 'TEXTAREA'" 
+                @keypress.enter="submit()"
+                v-model="field.model" 
+                :label="field.label" 
+                :type="field.type"
+                :rules="field.rules"
+                :counter="field.counter"
+                :density="field.density"
+                :disabled="field.disabled"
+                :error-messages="field.errorMessages"
+                :prepend-inner-icon="field.prependInnerIcon"
+                :color="field.color"
+            />
+            <v-select
+                v-if="field.inputType === 'SELECT'" 
+                v-model="field.model"
+                :label="field.label"
+                :items="field.items"
+                :item-title="field.itemTitle"
+                :item-value="field.itemValue"
+                :density="field.density"
+                :color="field.color"
+                return-object
+            />
+            <v-switch
+                v-if="field.inputType === 'SWITCH'" 
+                v-model="field.model"
+                :label="field.label"
+                :color="field.color"
+                hide-details
+                inset
+            />
+        </div>
+        <v-btn
+            v-if="props.isSubmitBtn"
+            @click="submit()"
+            :disabled="isLoading"
+            :loading="isLoading"
+            class="text-background" 
+            color="primary"
+            rounded="xl" 
+            block 
+            flat
+        >
+            Submit
+        </v-btn>
+    </v-form>
+</template>
+

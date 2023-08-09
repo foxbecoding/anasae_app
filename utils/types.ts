@@ -17,6 +17,7 @@ export interface FormField {
     counter?: number
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
+    errorMessages?: string | string[]
     id: string|number
     inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
     items?: any[]

@@ -3,6 +3,7 @@ import * as directives from 'vuetify/directives'
 import colors from 'vuetify/lib/util/colors'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
+import { VAlert } from 'vuetify/components/VAlert'
 import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
@@ -32,7 +33,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'slider': 'rgb(18,18,18)',
             primary: 'rgb(241,241,241)',
             'primary-alt': '#42A5F5',
-            error: '#EF5350',
+            error: '#F44336',
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FB8C00',
@@ -47,7 +48,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
-            'primary-alt': '#1976D2',
+            'primary-alt': '#1565C0',
             error: '#B71C1C',
             info: '#2196F3',
             success: '#4CAF50',
@@ -59,7 +60,8 @@ export default defineNuxtPlugin(nuxtApp => {
         components: { 
             VApp, 
             VAppBar, 
-            VAppBarTitle, 
+            VAppBarTitle,
+            VAlert, 
             VBottomNavigation,
             VBtn, 
             VCard,
