@@ -137,4 +137,3 @@ const allow_only_letters_numbers_commas = (e: any) => {
         </v-btn>
     </v-form>
 </template>
-
