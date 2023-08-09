@@ -21,8 +21,7 @@ const props = defineProps({
         default: {},
         required: false
     },
-    apiMethod: String as PropType<ApiMethod>,
-    isSubmitBtn: Boolean
+    apiMethod: String as PropType<ApiMethod>
 })
 
 const emit = defineEmits(['submit'])
