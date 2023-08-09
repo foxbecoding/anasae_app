@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormField } from '@/utils/types'
+import { FormField, FormFieldButton } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
 const config = useRuntimeConfig()
@@ -14,6 +14,15 @@ const formError = reactive({
 
 const EmailOrUsername = computed((): string => authStore.loginForm.isUsername ? authStore.loginForm.username : authStore.loginForm.email)
 
+const fieldButton = reactive<FormFieldButton>({
+    show: true,
+    label: 'Submit',
+    class: "tex-background", 
+    color: "primary",
+    rounded:"pill", 
+    block: true, 
+    flat: true
+})
 const fields = ref<FormField[]>([
     {
         id: 1, 
@@ -106,9 +115,9 @@ onMounted(() => {
     </v-card-title>
     <FormFields 
         @submit="formSubmission"
-        isSubmitBtn 
         :store="authStore.loginForm"
         :fields="fields" 
+        :fieldButton="fieldButton"
         :apiPath="apiPath"
         :apiMethod="apiMethod"
     />
