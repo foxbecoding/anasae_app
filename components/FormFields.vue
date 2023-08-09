@@ -12,6 +12,11 @@ const props = defineProps({
         type: String,
         required: false
     },
+    store: {
+        type: Object,
+        default: {},
+        required: false
+    },
     apiMethod: String as PropType<ApiMethod>,
     isSubmitBtn: Boolean
 })
@@ -21,6 +26,10 @@ const emit = defineEmits(['submit'])
 const form = ref()
 const valid = ref<boolean>(true)
 const isLoading = ref<boolean>(false)
+
+watch(props.fields, (a, b) => {
+    props.fields.map(x => props.store[`${x.name}`] = x.model)
+})
 
 const submit = async (): Promise<void> => {
     isLoading.value = true

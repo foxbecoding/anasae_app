@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { FormField } from '@/utils/types'
+import { useAuthStore } from '@/store/Auth'
 
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_LOGIN) 
 const apiMethod = 'POST'
-const switchModel = ref<boolean>(false)
+const authStore = useAuthStore()
+const switchModel = ref<boolean>(authStore.loginForm.isUsername)
 const formError = reactive({
     isError: false,
     message:''
 })
 
+const EmailOrUsername = computed((): string => authStore.loginForm.isUsername ? authStore.loginForm.username : authStore.loginForm.email)
+
 const fields = ref<FormField[]>([
     {
         id: 1, 
-        model: '', 
+        model: EmailOrUsername.value, 
         name:'email', 
         label: 'E-mail', 
         color: 'primary-alt',
@@ -29,7 +33,7 @@ const fields = ref<FormField[]>([
     },
     {
         id: 2, 
-        model: '', 
+        model: authStore.loginForm.password, 
         name:'password', 
         label: 'Password', 
         color: 'primary-alt',
@@ -42,9 +46,11 @@ const fields = ref<FormField[]>([
     }
 ])
 
-const switchHandler = (e: any): void => {
+const switchHandler = (e: boolean|any): void => {
     let field = fields.value.find(x => x.id === 1)
     if(e && field){
+        authStore.loginForm.isUsername = true
+        field.model = authStore.loginForm.username
         field.name = 'username'
         field.label = 'Username'
         field.prependInnerIcon = 'mdi-account'
@@ -52,6 +58,8 @@ const switchHandler = (e: any): void => {
             (v: any) => !! v || 'Username is required'
         ]
     }else if(!e && field){
+        authStore.loginForm.isUsername = false
+        field.model = authStore.loginForm.email
         field.name = 'email'
         field.label = 'E-mail'
         field.prependInnerIcon = 'mdi-email'
@@ -87,6 +95,11 @@ const formSubmission = (e: any): void => {
     // adminStore.set_auth_data(e.data, true)
     // router.replace('/dashboard')
 }
+
+onMounted(() => {
+    switchHandler(authStore.loginForm.isUsername)
+})
+
 </script>
 
 <template>
@@ -96,6 +109,7 @@ const formSubmission = (e: any): void => {
     <FormFields 
         @submit="formSubmission"
         isSubmitBtn 
+        :store="authStore.loginForm"
         :fields="fields" 
         :apiPath="apiPath"
         :apiMethod="apiMethod"
