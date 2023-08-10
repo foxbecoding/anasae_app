@@ -3,7 +3,7 @@ import { FormField, FormFieldButton } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
 const config = useRuntimeConfig()
-const apiPath = shallowRef<string>(config.public.API_AUTH_VALIDATE) 
+const apiPath = shallowRef<string>(config.public.API_AUTH_VALIDATE_DETAILS) 
 const apiMethod = 'POST'
 const authStore = useAuthStore()
 const formError = reactive({
@@ -24,32 +24,29 @@ const fieldButton = reactive<FormFieldButton>({
 const fields = ref<FormField[]>([
     {
         id: 1, 
-        model: authStore.signUpForm.email, 
-        name:'email', 
-        label: 'E-mail', 
+        model: authStore.signUpForm.first_name, 
+        name:'first_name', 
+        label: 'First name', 
         color: 'primary-alt',
         type: 'text', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        prependInnerIcon: 'mdi-email',
-        rules: [
-            (v: any) => !! v || 'E-mail is required',
-            (v: any) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-        ],
+        prependInnerIcon: 'mdi-account',
+        rules: [ (v: any) => !! v || 'First name is required' ]
     },
     {
         id: 2, 
-        model: authStore.signUpForm.username, 
-        name:'username', 
-        label: 'Username', 
+        model: authStore.signUpForm.last_name, 
+        name:'last_name', 
+        label: 'Last name', 
         color: 'primary-alt',
-        type:'text', 
+        type: 'text', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
         prependInnerIcon: 'mdi-account',
-        rules: [ (v: any) => !! v || 'Username is required' ],
+        rules: [ (v: any) => !! v || 'Last name is required' ]
     }
 ])
 

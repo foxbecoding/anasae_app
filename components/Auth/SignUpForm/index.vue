@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store/Auth'
+// import { } from '@/components/Auth/SignUpForm/StepOne.vue'
+import { AuthSignUpFormStepOne, AuthSignUpFormStepTwo } from '@/components/Auth/SignUpForm/'
 
 const authStore = useAuthStore()
-
+const signUpSteps = shallowRef([ 
+    { id: 1, component: AuthSignUpFormStepOne }, 
+    { id: 2, component: AuthSignUpFormStepTwo } 
+])
 </script>
 <template>
     <div class="d-flex justify-space-between align-center">
@@ -14,17 +19,12 @@ const authStore = useAuthStore()
         </h3>
     </div>
     <v-window v-model="authStore.signUpFormStep">
-        <v-window-item :value="1">
-            <AuthSignUpFormStepOne class="mt-2"/>
-        </v-window-item>
-        <v-window-item :value="2">
-            2
-        </v-window-item>
-        <v-window-item :value="3">
-            3
-        </v-window-item>
-        <v-window-item :value="4">
-            4
+        <v-window-item 
+            v-for="(step, s) in signUpSteps" 
+            :key="step.id"
+            :value="step.id"
+        >
+            <component :is="step.component" class="mt-2"/>
         </v-window-item>
     </v-window>
     <p v-if="authStore.signUpFormStep == 1" class="py-8">Have an account? 

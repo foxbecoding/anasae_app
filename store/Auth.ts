@@ -10,7 +10,9 @@ export const useAuthStore = defineStore("auth-store", () => {
 
     const signUpForm = reactive({
         email: '',
-        username: ''    
+        username: '',
+        first_name: '',    
+        last_name: ''    
     })
 
     const signUpFormStep = ref<number>(1)
