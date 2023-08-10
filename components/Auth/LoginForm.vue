@@ -86,7 +86,7 @@ const submitEmitter = (e: any): void => {
             formError.message = errors.toString()
         }else{
             fields.value.map(x => {
-                if(x.name in e.error.data){ 
+                if(x.name && x.name in e.error.data){ 
                     let errors: string[] = e.error.data[x.name]
                     x.errorMessages = errors
                 }
@@ -110,11 +110,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-card-title class="text-h5 px-0">
+    <v-card-title class="text-h5 px-0 mb-2">
         Login
     </v-card-title>
     <FormFields 
-        class="mt-2"
         @submit="submitEmitter"
         :store="authStore.loginForm"
         :fields="fields" 
