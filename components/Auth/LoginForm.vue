@@ -114,6 +114,7 @@ onMounted(() => {
         Login
     </v-card-title>
     <FormFields 
+        class="mt-2"
         @submit="submitEmitter"
         :store="authStore.loginForm"
         :fields="fields" 
