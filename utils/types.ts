@@ -17,6 +17,7 @@ export interface FormField {
     name: string
     appendIcon?: string
     appendInnerIcon?: string
+    class?: string
     color?: string
     counter?: number
     density?: "default" | "comfortable" | "compact" | undefined
@@ -33,7 +34,7 @@ export interface FormField {
     variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
 }
 
-export interface FormFieldButton {
+export interface FormButton {
     show: boolean
     label: string
     class?: string 

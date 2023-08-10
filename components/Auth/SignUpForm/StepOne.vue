@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { FormField, FormFieldButton } from '@/utils/types'
+import { FormField, FormButton } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
 const config = useRuntimeConfig()
@@ -11,7 +11,7 @@ const formError = reactive({
     message:''
 })
 
-const fieldButton = reactive<FormFieldButton>({
+const formButton = reactive<FormButton>({
     show: true,
     label: 'Next',
     class: "tex-background", 
@@ -85,7 +85,7 @@ const submitEmitter = (e: any): void => {
         @submit="submitEmitter"
         :store="authStore.signUpForm"
         :fields="fields" 
-        :fieldButton="fieldButton"
+        :formButton="formButton"
         :apiPath="apiPath"
         :apiMethod="apiMethod"
     />

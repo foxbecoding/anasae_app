@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { ApiData, ApiMethod } from '@/utils/types'
 import { PropType } from 'vue'
-import { FormField, FormFieldButton } from '@/utils/types'
+import { FormField, FormButton } from '@/utils/types'
 
 const props = defineProps({
     fields: {
         type: Array as PropType<FormField[]>,
         required: true
     },
-    fieldButton: {
-        type: Object as PropType<FormFieldButton>,
+    formButton: {
+        type: Object as PropType<FormButton>,
         required: false
     },
     apiPath: {
@@ -122,18 +122,18 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 inset
             />
         </div>
-        <v-btn
-            v-if="props.fieldButton?.show || false"
-            @click="submit()"
-            :disabled="isLoading"
-            :loading="isLoading"
-            :class="props.fieldButton?.class" 
-            :color="props.fieldButton?.color"
-            :rounded="props.fieldButton?.rounded" 
-            :block="props.fieldButton?.block" 
-            :flat="props.fieldButton?.flat"
-        >
-            {{ props.fieldButton?.label }}
-        </v-btn>
     </v-form>
+    <v-btn
+        v-if="props.formButton?.show || false"
+        @click="submit()"
+        :disabled="isLoading"
+        :loading="isLoading"
+        :class="props.formButton?.class" 
+        :color="props.formButton?.color"
+        :rounded="props.formButton?.rounded" 
+        :block="props.formButton?.block" 
+        :flat="props.formButton?.flat"
+    >
+        {{ props.formButton?.label }}
+    </v-btn>
 </template>
