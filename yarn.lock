@@ -4731,6 +4731,11 @@ lazystream@^1.0.0:
   dependencies:
     readable-stream "^2.0.5"
 
+leap-year@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/leap-year/-/leap-year-4.0.0.tgz#e18a9001d45a393c6d5cc5f3e7bbf9b238fe068b"
+  integrity sha512-+GveCBnhFmRjFf04Nj/2Z/w5lNC4bRXpecIRz5QkK+LnWBwuf9jAaNEfbybrU+e2ls8J6p+FZMjiq1aEh+gPAw==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"

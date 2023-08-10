@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store/Auth'
-import { AuthSignUpFormStepOne, AuthSignUpFormStepTwo } from '@/components/Auth/SignUpForm/'
+import { 
+    AuthSignUpFormStepOne, 
+    AuthSignUpFormStepTwo 
+} from '@/components/Auth/SignUpForm/components'
 
 const authStore = useAuthStore()
 const signUpSteps = shallowRef([ 

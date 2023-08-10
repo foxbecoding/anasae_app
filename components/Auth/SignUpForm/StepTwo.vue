@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { FormField, FormButton } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
+import monthDays from 'month-days'
+import leapYearChecker from 'leap-year'
 
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_VALIDATE_DETAILS) 
@@ -58,37 +60,34 @@ const fields = ref<FormField[]>([
     },
     {
         id: 4, 
+        model: authStore.signUpForm.birth_month,
         inputType: 'SELECT',
         class: 'flex-1-0', 
-        model: authStore.signUpForm.birth_month,
-        label: "Month",
+        label: "Birth Month",
         items: [],
         // itemTitle: "field.itemTitle",
         // itemValue: "field.itemValue",
         color: "primary-alt",
-        variant: 'outlined'
+        variant: 'outlined',
+        rules: [ (v: any) => !! v || 'Month required' ]
     },
     {
         id: 5, 
+        model: authStore.signUpForm.birth_day,
         inputType: 'SELECT',
         class: 'flex-1-0 px-1', 
-        model: authStore.signUpForm.birth_day,
-        label: "Day",
+        label: "Birth Day",
         items: [],
-        // itemTitle: "field.itemTitle",
-        // itemValue: "field.itemValue",
         color: "primary-alt",
         variant: 'outlined'
     },
     {
         id: 6, 
+        model: authStore.signUpForm.birth_year,
         inputType: 'SELECT',
         class: 'flex-1-0', 
-        model: authStore.signUpForm.birth_year,
-        label: "Year",
+        label: "Birth Year",
         items: [],
-        // itemTitle: "field.itemTitle",
-        // itemValue: "field.itemValue",
         color: "primary-alt",
         variant: 'outlined'
     }
@@ -117,11 +116,31 @@ const submitEmitter = (e: any): void => {
     formError.isError = false
     formError.message = ''
 }
+
+const updatedEmitter = (e: any): void => {
+    console.log(e)
+}
+
+onMounted(() => {
+    const months = [0,1,2,3,4,5,6,7,8,9,10,11]
+    const years: number[] = []
+    const leapYears: number[] = []
+    const currentYear =  new Date().getFullYear()
+    let startYear = currentYear - 120
+    while ( startYear <= currentYear ) {
+        years.push(startYear++);
+    }   
+    let days = monthDays({month: 1, year: 2016})
+    
+    years.map(year => leapYearChecker(year) ? leapYears.push(year) : '')
+    console.log(leapYears)
+})
 </script>
 
 <template>
     <FormFields 
         @submit="submitEmitter"
+        @updated="updatedEmitter"
         formClass="d-flex flex-wrap"
         :store="authStore.signUpForm"
         :fields="fields" 

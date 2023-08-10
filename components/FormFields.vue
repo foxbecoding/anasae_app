@@ -25,7 +25,7 @@ const props = defineProps({
     apiMethod: String as PropType<ApiMethod>
 })
 
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit', 'updated'])
 
 const form = ref()
 const valid = ref<boolean>(true)
@@ -33,6 +33,7 @@ const isLoading = ref<boolean>(false)
 
 watch(props.fields, (a, b) => {
     props.fields.map(x => props.store[`${x.name}`] = x.model)
+    emit('updated', props.fields)
 })
 
 const submit = async (): Promise<void> => {
@@ -116,6 +117,7 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 :density="field.density"
                 :color="field.color"
                 :variant="field.variant"
+                :rules="field.rules"
                 return-object
             />
             <v-switch
