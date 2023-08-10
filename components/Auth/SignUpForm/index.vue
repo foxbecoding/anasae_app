@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/store/Auth'
-// import { } from '@/components/Auth/SignUpForm/StepOne.vue'
 import { AuthSignUpFormStepOne, AuthSignUpFormStepTwo } from '@/components/Auth/SignUpForm/'
 
 const authStore = useAuthStore()
