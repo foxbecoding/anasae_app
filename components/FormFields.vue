@@ -8,6 +8,7 @@ const props = defineProps({
         type: Array as PropType<FormField[]>,
         required: true
     },
+    formClass: String,
     formButton: {
         type: Object as PropType<FormButton>,
         required: false
@@ -68,10 +69,12 @@ const allow_only_letters_numbers_commas = (e: any) => {
         ref="form"
         v-model="valid"
         lazy-validation
+        :class="props.formClass"
     >
         <div 
             v-for="(field, i ) in props.fields" 
             :key="field.id"
+            :class="field.class"
         >
             <v-text-field 
                 v-if="field.inputType === 'TEXTFIELD'" 
