@@ -6,6 +6,7 @@ const props = defineProps({
     title: String
 })
 
+const route = useRoute()
 const authStore = useAuthStore()
 const dialog = ref<boolean>(true)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
@@ -16,6 +17,19 @@ const close = async (): Promise<void> => {
         useRouter().push({name: authStore.prevRoute})
     }, 300) 
 }
+
+const prevStep = (): void => {
+    authStore.signUpFormStep--
+}
+
+const DialogButtonFunc = computed((): Function => {
+    if (route.name == 'auth-sign-up' && authStore.signUpFormStep > 1){
+        return prevStep
+    }
+    return close
+})
+
+const DialogButtonIcon = computed((): string => route.name == 'auth-sign-up' && authStore.signUpFormStep > 1 ? 'mdi-arrow-left' : 'mdi-close')
 </script>
 
 <template>
@@ -33,17 +47,19 @@ const close = async (): Promise<void> => {
         >
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
-                    <v-btn @click="close" color="transparent" size="small" icon>
-                        <v-icon>mdi-close</v-icon>
+                    <v-btn 
+                        @click="DialogButtonFunc" 
+                        color="transparent" 
+                        size="small" 
+                        icon
+                    >
+                        <v-icon :icon="DialogButtonIcon" />
                     </v-btn> 
                     
                     <div class="auth-form-logo-container w-100 mr-4"> 
                         <Logo /> 
                     </div>
                 </div>
-                <v-card-title class="text-h5">
-                    {{props.title}} 
-                </v-card-title>
                 <v-card-text> <slot /> </v-card-text>
             </v-container>
         </v-card>

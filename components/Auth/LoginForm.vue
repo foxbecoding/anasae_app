@@ -77,7 +77,7 @@ const switchHandler = (e: boolean|any): void => {
     }
 }
 
-const formSubmission = (e: any): void => {
+const submitEmitter = (e: any): void => {
 
     if (e.status == 'error'){
         if('errors' in e.error.data){
@@ -114,7 +114,7 @@ onMounted(() => {
         Login
     </v-card-title>
     <FormFields 
-        @submit="formSubmission"
+        @submit="submitEmitter"
         :store="authStore.loginForm"
         :fields="fields" 
         :fieldButton="fieldButton"

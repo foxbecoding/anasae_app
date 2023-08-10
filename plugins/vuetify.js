@@ -20,7 +20,7 @@ import { VTextField } from 'vuetify/components/VTextField'
 import { VSelect } from 'vuetify/components/VSelect'
 import { VSwitch } from 'vuetify/components/VSwitch'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
-import { VLayout, VLayoutItem } from 'vuetify/components/VLayout'
+import { VWindow, VWindowItem } from 'vuetify/components/VWindow'
 
 export default defineNuxtPlugin(nuxtApp => {
     const anasaeDark = {
@@ -78,8 +78,6 @@ export default defineNuxtPlugin(nuxtApp => {
             VForm,
             VIcon,
             VImg,
-            VLayout,
-            VLayoutItem,
             VMain,
             VRow, 
             VSelect,
@@ -90,7 +88,9 @@ export default defineNuxtPlugin(nuxtApp => {
             VTextField,
             VToolbar, 
             VToolbarItems, 
-            VToolbarTitle
+            VToolbarTitle,
+            VWindow,
+            VWindowItem
         },
         directives,
         aliases: {
