@@ -62,7 +62,7 @@ const submitEmitter = (e: any): void => {
             formError.message = errors.toString()
         }else{
             fields.value.map(x => {
-                if(x.name in e.error.data){ 
+                if(x.name && x.name in e.error.data){ 
                     let errors: string[] = e.error.data[x.name]
                     x.errorMessages = errors
                 }

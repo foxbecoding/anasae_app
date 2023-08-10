@@ -124,6 +124,12 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 hide-details
                 inset
             />
+            <p
+                v-if="field.inputType === 'FORMTEXT'"
+                :class="field.class"
+            >
+                {{ field.formText }}
+            </p>
         </div>
     </v-form>
     <v-btn

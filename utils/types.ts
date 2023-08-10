@@ -12,9 +12,9 @@ export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
 export interface FormField {
     id: string|number
-    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH"
-    model: any
-    name: string
+    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH" | "FORMTEXT"
+    model?: any
+    name?: string
     appendIcon?: string
     appendInnerIcon?: string
     class?: string
@@ -23,6 +23,7 @@ export interface FormField {
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
     errorMessages?: string | string[]
+    formText?: string
     items?: any[]
     itemTitle?: string
     itemValue?: string

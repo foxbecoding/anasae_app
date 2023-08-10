@@ -23,8 +23,9 @@ const signUpSteps = shallowRef([
             v-for="(step, s) in signUpSteps" 
             :key="step.id"
             :value="step.id"
+            class="mt-2"
         >
-            <component :is="step.component" class="mt-2"/>
+            <component :is="step.component" />
         </v-window-item>
     </v-window>
     <p v-if="authStore.signUpFormStep == 1" class="py-8">Have an account? 

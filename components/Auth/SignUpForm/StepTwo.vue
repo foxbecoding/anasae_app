@@ -47,6 +47,11 @@ const fields = ref<FormField[]>([
         variant: 'outlined',
         prependInnerIcon: 'mdi-account',
         rules: [ (v: any) => !! v || 'Last name is required' ]
+    },
+    {
+        id: 3, 
+        inputType: 'FORMTEXT',
+        formText: 'This information is only used as confirmation and will not be displayed publicly.'
     }
 ])
 
@@ -59,7 +64,7 @@ const submitEmitter = (e: any): void => {
             formError.message = errors.toString()
         }else{
             fields.value.map(x => {
-                if(x.name in e.error.data){ 
+                if(x.name && x.name in e.error.data){ 
                     let errors: string[] = e.error.data[x.name]
                     x.errorMessages = errors
                 }
