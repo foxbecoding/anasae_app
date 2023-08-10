@@ -12,7 +12,13 @@ export const useAuthStore = defineStore("auth-store", () => {
         email: '',
         username: '',
         first_name: '',    
-        last_name: ''    
+        last_name: '',
+        birth_month: '',    
+        birth_day: '',    
+        birth_year: '',
+        otp_code: '',
+        password: '',    
+        confirm_password: ''    
     })
 
     const signUpFormStep = ref<number>(1)

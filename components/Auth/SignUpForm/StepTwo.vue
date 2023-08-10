@@ -25,6 +25,7 @@ const fields = ref<FormField[]>([
     {
         id: 1, 
         model: authStore.signUpForm.first_name, 
+        class: 'flex-1-0-100',
         name:'first_name', 
         label: 'First name', 
         color: 'primary-alt',
@@ -38,6 +39,7 @@ const fields = ref<FormField[]>([
     {
         id: 2, 
         model: authStore.signUpForm.last_name, 
+        class: 'flex-1-0-100',
         name:'last_name', 
         label: 'Last name', 
         color: 'primary-alt',
@@ -50,8 +52,45 @@ const fields = ref<FormField[]>([
     },
     {
         id: 3, 
+        class: 'flex-1-0-100 mt-3 mb-2',
         inputType: 'FORMTEXT',
         formText: 'This information is only used as confirmation and will not be displayed publicly.'
+    },
+    {
+        id: 4, 
+        inputType: 'SELECT',
+        class: 'flex-1-0', 
+        model: authStore.signUpForm.birth_month,
+        label: "Month",
+        items: [],
+        // itemTitle: "field.itemTitle",
+        // itemValue: "field.itemValue",
+        color: "primary-alt",
+        variant: 'outlined'
+    },
+    {
+        id: 5, 
+        inputType: 'SELECT',
+        class: 'flex-1-0 px-1', 
+        model: authStore.signUpForm.birth_day,
+        label: "Day",
+        items: [],
+        // itemTitle: "field.itemTitle",
+        // itemValue: "field.itemValue",
+        color: "primary-alt",
+        variant: 'outlined'
+    },
+    {
+        id: 6, 
+        inputType: 'SELECT',
+        class: 'flex-1-0', 
+        model: authStore.signUpForm.birth_year,
+        label: "Year",
+        items: [],
+        // itemTitle: "field.itemTitle",
+        // itemValue: "field.itemValue",
+        color: "primary-alt",
+        variant: 'outlined'
     }
 ])
 
@@ -83,6 +122,7 @@ const submitEmitter = (e: any): void => {
 <template>
     <FormFields 
         @submit="submitEmitter"
+        formClass="d-flex flex-wrap"
         :store="authStore.signUpForm"
         :fields="fields" 
         :formButton="formButton"

@@ -103,6 +103,7 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 :disabled="field.disabled"
                 :error-messages="field.errorMessages"
                 :prepend-inner-icon="field.prependInnerIcon"
+                :variant="field.variant"
                 :color="field.color"
             />
             <v-select
@@ -114,6 +115,7 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 :item-value="field.itemValue"
                 :density="field.density"
                 :color="field.color"
+                :variant="field.variant"
                 return-object
             />
             <v-switch
