@@ -8,6 +8,7 @@ const signUpSteps = shallowRef([
     { id: 2, component: AuthSignUpFormStepTwo } 
 ])
 </script>
+
 <template>
     <div class="d-flex justify-space-between align-center">
         <v-card-title class="text-h5 px-0">
