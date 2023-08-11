@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { FormField, FormButton } from '@/utils/types'
+import { FormTextField, FormButton } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
 const config = useRuntimeConfig()
@@ -19,9 +19,9 @@ const formButton = reactive<FormButton>({
     rounded:"pill", 
     block: true, 
     flat: true
-})
+} as FormButton)
 
-const fields = ref<FormField[]>([
+const fields = ref<FormTextField[]>([
     {
         id: 1, 
         model: authStore.signUpForm.email, 

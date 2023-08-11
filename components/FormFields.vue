@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import { ApiData, ApiMethod } from '@/utils/types'
 import { PropType } from 'vue'
-import { FormField, FormButton } from '@/utils/types'
+import { FormTextField, FormSelectField, FormButton, FormCustomText, FormSwitchField } from '@/utils/types'
 
 const props = defineProps({
     fields: {
-        type: Array as PropType<FormField[]>,
+        type: Array as PropType<
+            FormTextField[] 
+            & FormSelectField[] 
+            & FormCustomText[] 
+            & FormSwitchField[]
+        >,
         required: true
     },
     formClass: String,
@@ -112,27 +117,27 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 v-model="field.model"
                 :label="field.label"
                 :items="field.items"
-                :item-title="field.itemTitle"
-                :item-value="field.itemValue"
+                :item-title="field.title"
+                :item-value="field.value"
                 :density="field.density"
                 :color="field.color"
                 :variant="field.variant"
                 :rules="field.rules"
-                return-object
+                :return-object="field.returnObject"
             />
             <v-switch
                 v-if="field.inputType === 'SWITCH'" 
                 v-model="field.model"
                 :label="field.label"
                 :color="field.color"
-                hide-details
-                inset
+                :hide-details="field.hideDetails"
+                :inset="field.inset"
             />
             <p
                 v-if="field.inputType === 'FORMTEXT'"
                 :class="field.class"
             >
-                {{ field.formText }}
+                {{ field.text }}
             </p>
         </div>
     </v-form>

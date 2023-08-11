@@ -10,36 +10,48 @@ export interface ApiData {
 
 export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
-export interface FormField {
+export interface FormInputBase {
     id: string|number
     inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH" | "FORMTEXT"
-    model?: any
-    name?: string
     appendIcon?: string
     appendInnerIcon?: string
+    prependIcon?: string
+    prependInnerIcon?: string
+    model?: any
+    name?: string
     class?: string
     color?: string
-    counter?: number
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
     errorMessages?: string | string[]
-    formText?: string
-    items?: any[]
-    itemTitle?: string
-    itemValue?: string
     label?: string
-    prependIcon?: string
-    prependInnerIcon?: string
     rules?: any[]
     type?: string
     variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
 }
 
-export interface FormButton {
+export interface FormCustomText extends FormInputBase {
+    text?: string
+}
+
+export interface FormTextField extends FormInputBase {
+    counter?: number
+}
+
+export interface FormSelectField extends FormInputBase {
+    items?: any[]
+    title?: string 
+    value?: string 
+    returnObject?: boolean
+}
+
+export interface FormSwitchField extends FormInputBase {
+    hideDetails?: boolean
+    inset?: boolean
+}
+
+export interface FormButton extends FormInputBase {
     show: boolean
-    label: string
-    class?: string 
-    color?: string
     rounded?: string 
     block?: boolean 
     flat?: boolean
