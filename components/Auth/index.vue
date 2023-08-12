@@ -23,13 +23,22 @@ const prevStep = (): void => {
 }
 
 const DialogButtonFunc = computed((): Function => {
-    if (route.name == 'auth-sign-up' && authStore.signUpFormStep > 1){
+    if (route.name == 'auth-sign-up' 
+    && authStore.signUpFormStep > 1 
+    && !authStore.signUpCompleted){
         return prevStep
     }
     return close
 })
 
-const DialogButtonIcon = computed((): string => route.name == 'auth-sign-up' && authStore.signUpFormStep > 1 ? 'mdi-arrow-left' : 'mdi-close')
+const DialogButtonIcon = computed((): string => {
+    if(route.name == 'auth-sign-up' 
+    && authStore.signUpFormStep > 1 
+    && !authStore.signUpCompleted){
+        return 'mdi-arrow-left'
+    }
+    return 'mdi-close'
+})
 </script>
 
 <template>

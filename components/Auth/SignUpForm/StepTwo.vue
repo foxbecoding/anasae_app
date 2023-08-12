@@ -80,6 +80,7 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         id: 1, 
         model: authStore.signUpForm.first_name, 
         class: 'flex-1-0-100',
+        density: 'comfortable',
         name:'first_name', 
         label: 'First name', 
         color: 'primary-alt',
@@ -94,6 +95,7 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         id: 2, 
         model: authStore.signUpForm.last_name, 
         class: 'flex-1-0-100',
+        density: 'comfortable',
         name:'last_name', 
         label: 'Last name', 
         color: 'primary-alt',
@@ -106,22 +108,36 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
     } as FormTextField,
     {
         id: 3, 
+        model: authStore.signUpForm.birth_month,
+        name: 'gender',
+        inputType: 'SELECT',
+        density: 'comfortable',
+        class: 'flex-1-0-100', 
+        label: "Gender",
+        items: authStore.signUpFormGenderOptions,
+        color: "primary-alt",
+        variant: 'outlined',
+        rules: [ (v: any) => !! v || 'Gender required' ]
+    } as FormSelectField,
+    {
+        id: 4, 
         class: 'flex-1-0-100 mt-1 text-h6',
         inputType: 'FORMTEXT',
         text: 'Date of birth'
     } as FormCustomText,
     {
-        id: 4, 
+        id: 5, 
         class: 'flex-1-0-100 mb-2',
         inputType: 'FORMTEXT',
         text: 'Please confirm your age. This information is will not be displayed publicly.'
     } as FormCustomText,
     {
-        id: 5, 
+        id: 6, 
         model: authStore.signUpForm.birth_month,
         name: 'birth_month',
+        density: 'comfortable',
         inputType: 'SELECT',
-        class: 'flex-1-0', 
+        class: 'flex-1-0-100 flex-sm-1-0', 
         label: "Month",
         items: dobMonths.value,
         color: "primary-alt",
@@ -129,9 +145,10 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         rules: [ (v: any) => !! v || 'Month required' ]
     } as FormSelectField,
     {
-        id: 6, 
+        id: 7, 
         model: authStore.signUpForm.birth_day,
         name: 'birth_day',
+        density: 'comfortable',
         inputType: 'SELECT',
         class: 'flex-1-0 px-1', 
         label: "Day",
@@ -141,9 +158,10 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         rules: [ (v: any) => !! v || 'Day required' ]
     } as FormSelectField,
     {
-        id: 7, 
+        id: 8, 
         model: authStore.signUpForm.birth_year,
         name: 'birth_year',
+        density: 'comfortable',
         inputType: 'SELECT',
         class: 'flex-1-0', 
         label: "Year",

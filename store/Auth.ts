@@ -1,3 +1,5 @@
+import { FormSelectField } from '@/utils/types'
+
 export const useAuthStore = defineStore("auth-store", () => {
     const prevRoute = ref<string>('index')
     const isAuth = ref<boolean>(false)
@@ -7,6 +9,8 @@ export const useAuthStore = defineStore("auth-store", () => {
         password: '',
         isUsername: false
     })
+
+    const signUpCompleted = ref<boolean>(false)
 
     const signUpForm = reactive({
         email: '',
@@ -22,13 +26,17 @@ export const useAuthStore = defineStore("auth-store", () => {
     })
 
     const signUpFormStep = ref<number>(1)
+
+    const signUpFormGenderOptions = ref<{id: string | number, title: string, value: string | number}[]>([])
     
     return {
         isAuth,
         loginForm,
         prevRoute,
         signUpForm,
-        signUpFormStep
+        signUpFormStep,
+        signUpFormGenderOptions,
+        signUpCompleted
     }
 })
 

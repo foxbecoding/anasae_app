@@ -96,7 +96,18 @@ const allow_only_letters_numbers_commas = (e: any) => {
                 :prepend-inner-icon="field.prependInnerIcon"
                 :variant="field.variant"
                 :color="field.color"
-            />
+            >
+                <template 
+                    v-if="field.appendInnerIcon && field.appendInnerIconFunction" 
+                    v-slot:append-inner
+                >
+                    <v-icon 
+                        @click="field.appendInnerIconFunction()"
+                        :color="field.appendInnerIconColor"
+                        :icon="field.appendInnerIcon"
+                    />
+                </template>
+            </v-text-field>
             <v-textarea 
                 v-if="field.inputType === 'TEXTAREA'" 
                 @keypress.enter="submit()"

@@ -15,6 +15,8 @@ export interface FormInputBase {
     inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH" | "FORMTEXT"
     appendIcon?: string
     appendInnerIcon?: string
+    appendInnerIconColor?: string
+    appendInnerIconFunction?: Function
     prependIcon?: string
     prependInnerIcon?: string
     model?: any
@@ -68,4 +70,10 @@ export interface Slider {
     is_active: boolean,
     name: string,
     pk: string | number,
+}
+
+export interface UserGender {
+    pk: string | number
+    gender: string
+    is_active: boolean
 }

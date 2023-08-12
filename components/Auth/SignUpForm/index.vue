@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UserGender } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 import { 
     AuthSignUpFormStepOne, 
@@ -8,6 +9,7 @@ import {
  
 } from '@/components/Auth/SignUpForm/components'
 
+const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const signUpSteps = shallowRef([ 
     { id: 1, component: AuthSignUpFormStepOne }, 
@@ -15,6 +17,20 @@ const signUpSteps = shallowRef([
     { id: 3, component: AuthSignUpFormStepThree }, 
     { id: 4, component: AuthSignUpFormStepStepFour } 
 ])
+
+const setUserGenders = async (): Promise<void> => {
+    if (authStore.signUpFormGenderOptions.length === 0){
+        let {data, status, error, refresh} = await useApi({
+            method: 'GET',
+            path: `${config.public.API_USER_GENDER}`
+        })
+        const genderOptions = data.value as UserGender[]
+        genderOptions.map(x => authStore.signUpFormGenderOptions.push({ id: x.pk, title: x.gender, value: x.pk })) 
+    }
+}
+
+onMounted(() => {  setUserGenders() })
+
 </script>
 
 <template>
