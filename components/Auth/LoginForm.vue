@@ -70,7 +70,7 @@ const switchHandler = (e: boolean|any): void => {
         authStore.loginForm.isUsername = false
         field.model = authStore.loginForm.email
         field.name = 'email'
-        field.label = 'E-mail'
+        field.label = 'Email'
         field.prependInnerIcon = 'mdi-email'
         field.rules = [
             (v: string) => !! v || 'E-mail is required',

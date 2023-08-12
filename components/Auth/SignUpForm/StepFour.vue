@@ -79,7 +79,7 @@ const submitEmitter = (e: any): void => {
         return 
     }
 
-    console.log()
+    console.log(authStore.signUpForm)
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
@@ -88,7 +88,7 @@ const submitEmitter = (e: any): void => {
 </script>
 
 <template>
-    <div v-if="!isSignUpComplete">
+    <div v-if="!authStore.signUpCompleted">
         <FormFields 
             @submit="submitEmitter"
             formClass="d-flex flex-wrap"
@@ -109,6 +109,7 @@ const submitEmitter = (e: any): void => {
         <p class="mb-4 text-h6">You can now sign in.</p>
         <div class="nana-primary-bg-color rounded-xl sign-in-btn">
             <v-btn 
+                @click="authStore.signUpCompleted = false"
                 :to="{name: 'auth-login'}" 
                 color="background"
                 rounded="pill" 

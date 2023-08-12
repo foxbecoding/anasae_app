@@ -108,7 +108,7 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
     } as FormTextField,
     {
         id: 3, 
-        model: authStore.signUpForm.birth_month,
+        model: authStore.signUpForm.gender,
         name: 'gender',
         inputType: 'SELECT',
         density: 'comfortable',

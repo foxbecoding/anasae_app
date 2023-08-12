@@ -21,7 +21,8 @@ export const useAuthStore = defineStore("auth-store", () => {
         birth_day: null,    
         birth_year: null,
         otp_code: '',
-        password: '',    
+        password: '', 
+        gender: '',   
         confirm_password: ''    
     })
 
