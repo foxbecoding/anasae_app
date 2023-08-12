@@ -4,12 +4,6 @@ import { useAuthStore } from '@/store/Auth'
 import monthDays from 'month-days'
 import leapYearChecker from 'leap-year'
 
-interface SelectedDOBType {
-    month: number | null,
-    day: number | null,
-    year: number | null
-}
-
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_VALIDATE_DETAILS) 
 const apiMethod = 'POST'
@@ -29,14 +23,6 @@ const dobMonths = shallowRef([
     {id: 11, title: 'December', value: 12},
 ])
 
-// const dobDays = ref<number[]>([])
-// const dobYears = ref<number[]>([])
-const selectedDOB = reactive<SelectedDOBType>({
-    month: null,
-    day: null,
-    year: null
-})
-
 const DOBYears = computed<number[]>(()  => {
     const currentYear = new Date().getFullYear()
     let startYear = currentYear - 120
@@ -48,11 +34,10 @@ const DOBYears = computed<number[]>(()  => {
 
     if(authStore.signUpForm.birth_month == 2 && authStore.signUpForm.birth_day == 29){
         authStore.signUpForm.birth_year = null
-        // years.map(year => leapYearChecker(year) ? years.push(year) : '')
-        return leapYears
+        return leapYears.reverse()
     }
     
-    return years
+    return years.reverse()
 })
 
 const DOBDays = computed(() => {
@@ -121,41 +106,47 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
     } as FormTextField,
     {
         id: 3, 
-        class: 'flex-1-0-100 mt-3 mb-2',
+        class: 'flex-1-0-100 mt-1 text-h6',
         inputType: 'FORMTEXT',
-        text: 'This information is only used as confirmation and will not be displayed publicly.'
+        text: 'Date of birth'
     } as FormCustomText,
     {
         id: 4, 
+        class: 'flex-1-0-100 mb-2',
+        inputType: 'FORMTEXT',
+        text: 'Please confirm your age. This information is will not be displayed publicly.'
+    } as FormCustomText,
+    {
+        id: 5, 
         model: authStore.signUpForm.birth_month,
         name: 'birth_month',
         inputType: 'SELECT',
         class: 'flex-1-0', 
-        label: "Birth Month",
+        label: "Month",
         items: dobMonths.value,
         color: "primary-alt",
         variant: 'outlined',
         rules: [ (v: any) => !! v || 'Month required' ]
     } as FormSelectField,
     {
-        id: 5, 
+        id: 6, 
         model: authStore.signUpForm.birth_day,
         name: 'birth_day',
         inputType: 'SELECT',
         class: 'flex-1-0 px-1', 
-        label: "Birth Day",
+        label: "Day",
         items: DOBDays.value,
         color: "primary-alt",
         variant: 'outlined',
         rules: [ (v: any) => !! v || 'Day required' ]
     } as FormSelectField,
     {
-        id: 6, 
+        id: 7, 
         model: authStore.signUpForm.birth_year,
         name: 'birth_year',
         inputType: 'SELECT',
         class: 'flex-1-0', 
-        label: "Birth Year",
+        label: "Year",
         items: DOBYears.value,
         color: "primary-alt",
         variant: 'outlined',
@@ -164,7 +155,6 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
 ]) 
 
 const submitEmitter = (e: any): void => {
-    authStore.signUpFormStep++
     if (e.status == 'error'){
         if('errors' in e.error.data){
             formError.isError = true
@@ -178,45 +168,24 @@ const submitEmitter = (e: any): void => {
                 }
             })
         }
-         
         return 
     }
 
+    authStore.signUpFormStep++
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
 }
 
-const updatedEmitter = <T>(e: T[]): void => {
+const updatedEmitter = (e: any): void => {
     const keys: string[] = ['birth_month', 'birth_day', 'birth_year']
     let [ birth_month, birth_day, birth_year ] = e.filter((e: any) => keys.includes(e.name))
-    console.log(birth_month, birth_day, birth_year)
+    birth_day.items = DOBDays.value
+    while(birth_day.model > birth_day.items.length){
+        birth_day.model--
+    }
+    birth_year.items = DOBYears.value
 }
-
-// const setDOBData = async () => { 
-//     const currentYear = new Date().getFullYear()
-//     let startYear = currentYear - 120
-//     let startDay = 1
-//     let endDay = 31
-//     const setData = (start: number, end: number, arr: number[]) => {
-//         let count = start
-//         while ( count <= end ) {
-//             arr.push(count++);
-//         }  
-//     } 
-//     await setData(startYear, currentYear, dobYears.value)
-//     dobYears.value.reverse()
-//     setData(startDay, endDay, dobDays.value)
-    
-//     // let days = monthDays({month: 11})
-//     // years.map(year => leapYearChecker(year) ? dobYears.value.push(year) : '')
-//     // console.log(leapYears)
-// }
-
-
-onMounted(async () => {
-    // await setDOBData()
-})
 </script>
 
 <template>

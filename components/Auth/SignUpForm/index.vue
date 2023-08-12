@@ -2,13 +2,18 @@
 import { useAuthStore } from '@/store/Auth'
 import { 
     AuthSignUpFormStepOne, 
-    AuthSignUpFormStepTwo 
+    AuthSignUpFormStepTwo,
+    AuthSignUpFormStepThree,
+    AuthSignUpFormStepStepFour
+ 
 } from '@/components/Auth/SignUpForm/components'
 
 const authStore = useAuthStore()
 const signUpSteps = shallowRef([ 
     { id: 1, component: AuthSignUpFormStepOne }, 
-    { id: 2, component: AuthSignUpFormStepTwo } 
+    { id: 2, component: AuthSignUpFormStepTwo }, 
+    { id: 3, component: AuthSignUpFormStepThree }, 
+    { id: 4, component: AuthSignUpFormStepStepFour } 
 ])
 </script>
 

@@ -37,7 +37,7 @@ const DialogButtonIcon = computed((): string => route.name == 'auth-sign-up' && 
         v-model="dialog"
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"
-        :transition="IsFullscreen ? 'dialog-bottom-transition' : ''"
+        :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
         persistent
     >
         <v-card 

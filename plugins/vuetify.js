@@ -1,6 +1,7 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import colors from 'vuetify/lib/util/colors'
+import { VOtpInput } from 'vuetify/labs/VOtpInput'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VAlert } from 'vuetify/components/VAlert'
@@ -48,7 +49,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
-            'primary-alt': '#1565C0',
+            'primary-alt': '#1E88E5',
             error: '#B71C1C',
             info: '#2196F3',
             success: '#4CAF50',
@@ -79,6 +80,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VIcon,
             VImg,
             VMain,
+            VOtpInput,
             VRow, 
             VSelect,
             VSheet,
