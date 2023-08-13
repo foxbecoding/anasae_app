@@ -25,6 +25,7 @@ const setRequestCodeTimer = () => {
         requestCodeTimer.value--
         if (requestCodeTimer.value === 0){ 
             clearInterval(interval) 
+            requestCodeTimer.value = 30
             isRequestCodeBtnDisabled.value = false
             requestCodeBtnLabel.value = 'Request code'
         }
