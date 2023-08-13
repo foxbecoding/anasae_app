@@ -60,11 +60,6 @@ const DOBDays = computed(() => {
     return days
 })
 
-const formError = reactive({
-    isError: false,
-    message:''
-})
-
 const formButton = reactive<FormButton>({
     show: true,
     label: 'Next',
@@ -174,25 +169,17 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
 
 const submitEmitter = (e: any): void => {
     if (e.status == 'error'){
-        if('errors' in e.error.data){
-            formError.isError = true
-            let errors: string[] = e.error.data.errors
-            formError.message = errors.toString()
-        }else{
-            fields.value.map(x => {
-                if(x.name && x.name in e.error.data){ 
-                    let errors: string[] = e.error.data[x.name]
-                    x.errorMessages = errors
-                }
-            })
-        }
+        fields.value.map(x => {
+            if(x.name && x.name in e.error.data){ 
+                let errors: string[] = e.error.data[x.name]
+                x.errorMessages = errors
+            }
+        })
         return 
     }
 
     authStore.signUpFormStep++
     fields.value.map(x =>  x.errorMessages = '')
-    formError.isError = false
-    formError.message = ''
 }
 
 const updatedEmitter = (e: any): void => {

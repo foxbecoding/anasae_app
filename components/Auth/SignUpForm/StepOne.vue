@@ -56,7 +56,6 @@ const fields = ref<FormTextField[]>([
 ])
 
 const submitEmitter = (e: any): void => {
-    authStore.signUpFormStep++
     if (e.status == 'error'){
         if('errors' in e.error.data){
             formError.isError = true
@@ -70,15 +69,13 @@ const submitEmitter = (e: any): void => {
                 }
             })
         }
-         
         return 
     }
 
+    authStore.signUpFormStep++
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
-    // adminStore.set_auth_data(e.data, true)
-    // router.replace('/dashboard')
 }
 </script>
 

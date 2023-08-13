@@ -53,6 +53,17 @@ const fields = ref<FormTextField[]>([
         inputType: 'TEXTFIELD',
         variant: 'outlined',
         prependInnerIcon: 'mdi-lock',
+        appendInnerIcon: 'mdi-eye',
+        appendInnerIconColor: 'primary-alt',
+        appendInnerIconFunction: function(){
+            if(this.appendInnerIcon == 'mdi-eye'){
+                this.appendInnerIcon = 'mdi-eye-off'
+                this.type = 'text'
+            }else{
+                this.appendInnerIcon = 'mdi-eye'
+                this.type = 'password'
+            }
+        },
         rules: [ (v: any) => !! v || 'Password is required' ],
     }
 ])

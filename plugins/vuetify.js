@@ -49,7 +49,7 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-alt': 'rgb(15,15,15)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
-            'primary-alt': '#1E88E5',
+            'primary-alt': '#1565C0',
             error: '#B71C1C',
             info: '#2196F3',
             success: '#4CAF50',

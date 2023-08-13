@@ -22,7 +22,7 @@ export const useAuthStore = defineStore("auth-store", () => {
         birth_year: null,
         otp_code: '',
         password: '', 
-        gender: '',   
+        gender: null,   
         confirm_password: ''    
     })
 
