@@ -3,30 +3,30 @@ export type ApiMethod = "GET" | "HEAD" | "PATCH" | "POST" | "PUT" | "DELETE"
 export interface ApiData {
     data?:object
     isMultiPart?: boolean
-    path: string,
-    method: ApiMethod
     key?: string
+    method: ApiMethod
+    path: string,
 }
 
 export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
 export interface FormInputBase {
-    id: string|number
-    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH" | "FORMTEXT"
     appendIcon?: string
     appendInnerIcon?: string
     appendInnerIconColor?: string
     appendInnerIconFunction?: Function
-    prependIcon?: string
-    prependInnerIcon?: string
-    model?: any
-    name?: string
     class?: string
     color?: string
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
     errorMessages?: string | string[]
+    id: string|number
+    inputType: "TEXTFIELD" | "TEXTFIELD-CHIP" | "TEXTAREA" | "SELECT" | "SWITCH" | "FORMTEXT"
     label?: string
+    model?: any
+    name?: string
+    prependIcon?: string
+    prependInnerIcon?: string
     rules?: any[]
     type?: string
     variant?: "outlined" | "plain" | "filled" | "underlined" | "solo" | "solo-inverted" | "solo-filled" | undefined
@@ -42,9 +42,9 @@ export interface FormTextField extends FormInputBase {
 
 export interface FormSelectField extends FormInputBase {
     items?: any[]
+    returnObject?: boolean
     title?: string 
     value?: string 
-    returnObject?: boolean
 }
 
 export interface FormSwitchField extends FormInputBase {
@@ -53,27 +53,43 @@ export interface FormSwitchField extends FormInputBase {
 }
 
 export interface FormButton extends FormInputBase {
-    show: boolean
-    rounded?: string 
     block?: boolean 
     flat?: boolean
+    rounded?: string 
+    show: boolean
 }
 
 export interface Slide {
-    image: string, 
     is_active: boolean
+    image: string, 
     pk: string, 
 }
 
 export interface Slider {
-    images: Slide[] 
     is_active: boolean,
+    images: Slide[] 
     name: string,
     pk: string | number,
 }
 
-export interface UserGender {
+
+export interface User {
+    addresses: string[]
+    display_name: string
+    email: string
+    first_name: string
+    image: string | null
+    last_name: string
+    logins: {pk: string | number, created: string}[]
+    payment_methods: string[]
     pk: string | number
+    stripe_customer_id: string
+    uid: string
+    username: string
+}
+
+export interface UserGender {
     gender: string
     is_active: boolean
+    pk: string | number
 }

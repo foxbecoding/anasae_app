@@ -112,8 +112,15 @@ const submitEmitter = (e: any): void => {
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
-    // adminStore.set_auth_data(e.data, true)
-    // router.replace('/dashboard')
+    authStore.isAuth = true
+    authStore.loginForm = {
+        email: '',
+        username: '',
+        password: '',
+        isUsername: false
+    }
+    useRouter().replace({name: authStore.prevRoute})
+    console.log(e.data)
 }
 
 onMounted(() => {
