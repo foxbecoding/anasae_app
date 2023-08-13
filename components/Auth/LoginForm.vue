@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { FormTextField, FormButton } from '@/utils/types'
-import { useAuthStore } from '@/store/Auth'
+import { useAuthStore, useUserStore } from "@/store"
 
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_LOGIN) 
 const apiMethod = 'POST'
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const switchModel = ref<boolean>(authStore.loginForm.isUsername)
 const formError = reactive({
     isError: false,
@@ -23,6 +24,7 @@ const formButton = reactive<FormButton>({
     block: true, 
     flat: true
 } as FormButton)
+
 const fields = ref<FormTextField[]>([
     {
         id: 1, 
@@ -120,7 +122,8 @@ const submitEmitter = (e: any): void => {
         isUsername: false
     }
     useRouter().replace({name: authStore.prevRoute})
-    console.log(e.data)
+    userStore.user = e.data
+    console.log(userStore.user)
 }
 
 onMounted(() => {

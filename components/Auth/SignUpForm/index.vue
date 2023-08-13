@@ -1,21 +1,15 @@
 <script setup lang="ts">
 import { UserGender } from '@/utils/types'
-import { useAuthStore } from '@/store/Auth'
-import { 
-    AuthSignUpFormStepOne, 
-    AuthSignUpFormStepTwo,
-    AuthSignUpFormStepThree,
-    AuthSignUpFormStepStepFour
- 
-} from '@/components/Auth/SignUpForm/components'
+import { useAuthStore } from '@/store'
+import * as authSteps from '@/components/Auth/SignUpForm/components'
 
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const signUpSteps = shallowRef([ 
-    { id: 1, component: AuthSignUpFormStepOne }, 
-    { id: 2, component: AuthSignUpFormStepTwo }, 
-    { id: 3, component: AuthSignUpFormStepThree }, 
-    { id: 4, component: AuthSignUpFormStepStepFour } 
+    { id: 1, component: authSteps.AuthSignUpFormStepOne }, 
+    { id: 2, component: authSteps.AuthSignUpFormStepTwo }, 
+    { id: 3, component: authSteps.AuthSignUpFormStepThree }, 
+    { id: 4, component: authSteps.AuthSignUpFormStepStepFour } 
 ])
 
 const setUserGenders = async (): Promise<void> => {

@@ -1,8 +1,10 @@
+import { User } from '@/utils/types'
+
 export const useUserStore = defineStore("user-store", () => {
-    const is_authenticated = ref<boolean>(false)
+    const user = ref<User>({} as User)
 
     return {
-        is_authenticated
+        user
     }
 })
 
