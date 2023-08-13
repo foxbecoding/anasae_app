@@ -23,35 +23,40 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[]>([
     {
+        color: 'primary-alt',
+        density: 'comfortable',
+        errorMessages: '',
         id: 1, 
+        inputType: 'TEXTFIELD',
+        label: 'Email', 
         model: authStore.signUpForm.email, 
         name:'email', 
-        density: 'comfortable',
-        label: 'Email', 
-        color: 'primary-alt',
-        type: 'text', 
-        errorMessages: '',
-        inputType: 'TEXTFIELD',
-        variant: 'outlined',
         prependInnerIcon: 'mdi-email',
         rules: [
             (v: any) => !! v || 'E-mail is required',
             (v: any) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
         ],
+        type: 'text', 
+        variant: 'outlined',
     },
     {
+        color: 'primary-alt',
+        counter: 30,
+        density: 'comfortable',
+        errorMessages: '',
         id: 2, 
+        inputType: 'TEXTFIELD',
+        label: 'Username', 
         model: authStore.signUpForm.username, 
         name:'username', 
-        label: 'Username', 
-        density: 'comfortable',
-        color: 'primary-alt',
-        type:'text', 
-        errorMessages: '',
-        inputType: 'TEXTFIELD',
-        variant: 'outlined',
         prependInnerIcon: 'mdi-account',
-        rules: [ (v: any) => !! v || 'Username is required' ],
+        rules: [ 
+            (v: any) => !! v || 'Username is required', 
+            (v: any) => v.length <= 30 || 'Must be 30 characters or less', 
+            (v: any) => /^\w+$/.test(v) || 'Only letters, numbers and underscores allowed' 
+        ],
+        type:'text', 
+        variant: 'outlined',
     }
 ])
 
