@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
-import { useAuthStore } from '@/store/Auth'
+import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
 const theme = useTheme()        
@@ -14,7 +14,8 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
 
 <template>
     <div id="end" class="d-flex flex-row align-center justify-content-end">
-        <NanaAppBarBtn 
+        <NanaAppBarBtn
+            v-if="!authStore.isAuth" 
             data-test-id="app-bar-inner-end-sign-btn" 
             class="rounded-xl" 
             active
@@ -24,8 +25,20 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
             Sign In
         </NanaAppBarBtn>
-          
         <NanaAppBarBtn 
+            v-else
+            data-test-id="app-bar-inner-end-profile-btn"
+            class="rounded-xl ml-2"
+            height="38px"
+            width="38px"
+            icon
+            active
+        >
+            <v-icon>mdi-account-circle-outline</v-icon>
+        </NanaAppBarBtn>
+        
+        <NanaAppBarBtn 
+            v-if="!authStore.isAuth"
             data-test-id="app-bar-inner-end-theme-toggle-btn"       
             @click="toggleTheme()" 
             class="rounded-xl ml-2 d-none d-sm-block"
@@ -49,3 +62,4 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
         </NanaAppBarBtn>   
     </div>
 </template>
+

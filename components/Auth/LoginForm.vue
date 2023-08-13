@@ -123,7 +123,6 @@ const submitEmitter = (e: any): void => {
     }
     useRouter().replace({name: authStore.prevRoute})
     userStore.user = e.data
-    console.log(userStore.user)
 }
 
 onMounted(() => {
