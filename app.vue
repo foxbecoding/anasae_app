@@ -1,9 +1,18 @@
 <script lang="ts" setup>
-import { useSliderStore } from '@/store/Slider'
+import { useAuthStore, useSliderStore, useUserStore } from '@/store'
 
 const config = useRuntimeConfig()
+const authStore = useAuthStore()
 const sliderStore = useSliderStore()
-sliderStore.init()
+const userStore = useUserStore()
+
+const initialize = async (): Promise<void> => {
+  userStore.init()
+  sliderStore.init()
+}
+
+initialize()
+
 onMounted(async () => {
   nextTick(() => {
     useFetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)
