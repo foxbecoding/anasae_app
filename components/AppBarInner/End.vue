@@ -25,8 +25,24 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
             Sign In
         </NanaAppBarBtn>
+        <div 
+            v-if="authStore.isAuth" 
+            class="nana-primary-bg-color rounded-xl d-none d-md-block"
+        >
+            <v-btn 
+                value="add"
+                class="rounded-xl background-bg" 
+                height="34" 
+                width="34"
+                min-width="34" 
+                variant="flat" 
+                icon
+            >
+                <v-icon>mdi-plus</v-icon>
+            </v-btn>
+        </div>
         <NanaAppBarBtn 
-            v-else
+            v-if="authStore.isAuth"
             data-test-id="app-bar-inner-end-profile-btn"
             class="rounded-xl ml-2"
             height="38px"
@@ -62,4 +78,3 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
         </NanaAppBarBtn>   
     </div>
 </template>
-
