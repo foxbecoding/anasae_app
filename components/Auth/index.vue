@@ -44,6 +44,7 @@ const DialogButtonIcon = computed((): string => {
 <template>
     <v-dialog
         v-model="dialog"
+        data-test-id="auth" 
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"
         :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"

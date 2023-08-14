@@ -3,11 +3,11 @@ import { useDisplay } from 'vuetify'
 import { useSliderStore } from '@/store/Slider'
 
 const config = useRuntimeConfig()
-const { smAndDown } = useDisplay()
+const { smAndDown, xs, width } = useDisplay()
 const sliderStore = useSliderStore()
 const hovering = ref<boolean>(false)
 
-const Slide_Height = computed(() => smAndDown.value  ? 245 : 375)
+const Slider_Height = computed(() => xs.value  ? width.value/1.78 : width.value/2.78 )
 const Slides = computed(() => sliderStore.slides)
 const Is_Hovering = computed<boolean>((): boolean => hovering.value)
 
@@ -20,7 +20,7 @@ const mouseleaveHandler = (e: Event): void => { hovering.value = false }
     <v-carousel
         data-test-id="slider"
         class="rounded-xl"
-        :height="Slide_Height"
+        :height="Slider_Height"
         hide-delimiter-background
         show-arrows="hover"
         cycle

@@ -8,7 +8,7 @@ const userStore = useUserStore()
 const initialize =  (): void => {
   userStore.init()
   sliderStore.init()
-  nextTick(() => {
+  nextTick( () => {
     $fetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)
   }) 
 }

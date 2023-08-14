@@ -11,6 +11,7 @@ export const useSliderStore = defineStore("slider-store", () => {
             method: 'GET',
         }
         const { data, error, status, refresh, pending } = await useApi(apiData)
+        if(data.value == null) return;
         slides.value = data.value.images
     }
 

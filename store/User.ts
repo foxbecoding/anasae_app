@@ -11,6 +11,7 @@ export const useUserStore = defineStore("user-store", () => {
             path: `${config.public.API_USER}`
         }
         const { data, error } = await useApi(apiData)
+        if(data.value == null) return;
         useAuthStore().isAuth = data.value.status
         user.value = data.value.user
     }
