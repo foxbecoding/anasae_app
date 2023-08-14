@@ -5,14 +5,11 @@ const config = useRuntimeConfig()
 const sliderStore = useSliderStore()
 const userStore = useUserStore()
 
-const initialize = async (): Promise<void> => {
+const initialize =  (): void => {
   userStore.init()
   sliderStore.init()
-  nextTick(async () => {
-    await useApi({
-      method: 'GET',
-      path: `${config.public.API_X_FCT}`
-    })
+  nextTick(() => {
+    $fetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)
   }) 
 }
 
