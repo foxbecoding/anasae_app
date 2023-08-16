@@ -1,5 +1,8 @@
+<script setup lang="ts">
+</script>
+
 <template>
-    <v-container fluid>
+    <v-container class="layout-px" fluid>
         <h1>Search</h1>
         <v-row>
             <v-col

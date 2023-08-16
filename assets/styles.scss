@@ -90,3 +90,15 @@ $scrollbar: rgba(var(--v-theme-primary), 0.85);
 .auth-form-logo-container {
   max-width: 120px;
 }
+
+.layout-px {
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+}
+
+@media screen and (max-width: 599px) {
+  .layout-px {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}

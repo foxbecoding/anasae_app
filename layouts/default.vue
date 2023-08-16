@@ -5,7 +5,6 @@ import { useAuthStore } from '@/store/Auth'
 
 const authStore = useAuthStore()
 const route = useRoute()
-const { Layout_PX } = useLayout()
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
 const { smAndDown, platform } = useDisplay()
 
@@ -25,16 +24,16 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 <template>
     <v-app id="app" data-test-id="app">
         <v-app-bar :color="SetTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
-            <v-container class="d-flex justify-space-between" :class="Layout_PX" fluid>
+            <v-container class="d-flex justify-space-between layout-px" fluid>
                 <AppBarInner />
             </v-container>
         </v-app-bar>
-        <v-container class="mobile-top-bar-container py-2" :class="[AppBarColor, Layout_PX]" fluid>
+        <v-container class="mobile-top-bar-container py-2 layout-px" :class="AppBarColor" fluid>
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
         <v-main class="main-adjust-content" v-scroll="onScroll">
-            <v-container v-if="ShowBannerComps" :class="Layout_PX" fluid>
+            <v-container v-if="ShowBannerComps" class="layout-px" fluid>
                 <BannerSlider />
             </v-container>
             <slot></slot>

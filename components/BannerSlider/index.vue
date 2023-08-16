@@ -3,11 +3,16 @@ import { useDisplay } from 'vuetify'
 import { useSliderStore } from '@/store/Slider'
 
 const config = useRuntimeConfig()
-const { smAndDown, xs, width } = useDisplay()
+const { smAndDown, sm, xs, width } = useDisplay()
 const sliderStore = useSliderStore()
 const hovering = ref<boolean>(false)
 
-const Slider_Height = computed(() => xs.value  ? width.value/1.78 : width.value/2.78 )
+const Slider_Height = computed(() => {
+    if (xs.value) return 225;
+    else if(sm.value) return 300;
+    return 350;
+} )
+// const Slider_Height = computed(() => xs.value  ? width.value/1.78 : width.value/3.5 )
 const Slides = computed(() => sliderStore.slides)
 const Is_Hovering = computed<boolean>((): boolean => hovering.value)
 

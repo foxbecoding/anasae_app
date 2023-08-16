@@ -1,5 +1,10 @@
+<script setup lang="ts">
+const route = useRoute()
+console.log(route)
+</script>
+
 <template>
-    <v-container fluid>
+    <v-container class="layout-px" fluid>
         <h1>My Profile</h1>
         <v-row>
             <v-col
