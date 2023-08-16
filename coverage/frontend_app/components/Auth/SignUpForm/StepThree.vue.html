@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/plugins/vuetify.js</title>
+    <title>Code coverage report for frontend_app/components/Auth/SignUpForm/StepThree.vue</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/plugins</a> vuetify.js</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend_app/components/Auth/SignUpForm</a> StepThree.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>141/141</span>
+                <span class='fraction'>134/134</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>141/141</span>
+                <span class='fraction'>134/134</span>
             </div>
         
             
@@ -196,14 +196,7 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -336,154 +329,140 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { createVuetify } from 'vuetify'
-import * as directives from 'vuetify/directives'
-import colors from 'vuetify/lib/util/colors'
-import { VOtpInput } from 'vuetify/labs/VOtpInput'
-import { VApp } from 'vuetify/components/VApp'
-import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
-import { VAlert } from 'vuetify/components/VAlert'
-import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
-import { VBtn } from 'vuetify/components/VBtn'
-import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
-import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
-import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
-import { VDialog } from 'vuetify/components/VDialog'
-import { VForm } from 'vuetify/components/VForm'
-import { VIcon } from 'vuetify/components/VIcon'
-import { VImg } from 'vuetify/components/VImg'
-import { VMain } from 'vuetify/components/VMain'
-import { VSheet } from 'vuetify/components/VSheet'
-import { VTextarea } from 'vuetify/components/VTextarea'
-import { VTextField } from 'vuetify/components/VTextField'
-import { VSelect } from 'vuetify/components/VSelect'
-import { VSwitch } from 'vuetify/components/VSwitch'
-import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
-import { VWindow, VWindowItem } from 'vuetify/components/VWindow'
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script lang="ts" setup&gt;
+import { useAuthStore } from '@/store/Auth'
 &nbsp;
-export default defineNuxtPlugin(nuxtApp =&gt; {
-    const anasaeDark = {
-        dark: true,
-        colors: {
-            background: 'rgb(18,18,18)',
-            'glass-bg': 'rgb(255,255,255)',
-            surface: 'rgb(36,36,36)',
-            'surface-alt': 'rgb(241,241,241)',
-            'slider': 'rgb(18,18,18)',
-            primary: 'rgb(241,241,241)',
-            'primary-alt': '#42A5F5',
-            error: '#F44336',
-            info: '#2196F3',
-            success: '#4CAF50',
-            warning: '#FB8C00',
+const config = useRuntimeConfig()
+const authStore = useAuthStore()
+const form = ref()
+const isFormValid = ref&lt;boolean&gt;(true)
+const otp = ref('')
+const otpPk = ref('')
+const isOtpCodeFinish = ref(false)
+const isOtpRequest = ref&lt;boolean&gt;(false)
+const isValidatingOtp = ref&lt;boolean&gt;(false)
+const requestCodeTimer = ref&lt;number&gt;(30)
+const requestCodeBtnLabel = ref&lt;string&gt;('request code')
+const isRequestCodeBtnDisabled = ref&lt;boolean&gt;(false)
+const formError = reactive({
+    isError: false,
+    message:''
+})
+&nbsp;
+const setRequestCodeTimer = () =&gt; {
+    requestCodeBtnLabel.value = 'Request again in'
+    isRequestCodeBtnDisabled.value = true
+    var interval = setInterval(function(){
+        requestCodeTimer.value--
+        if (requestCodeTimer.value === 0){ 
+            clearInterval(interval) 
+            requestCodeTimer.value = 30
+            isRequestCodeBtnDisabled.value = false
+            requestCodeBtnLabel.value = 'Request code'
         }
-    } 
-    const anasaeLight = {
-        dark: false,
-        colors: {
-            background: 'rgb(255,255,255)',
-            'glass-bg': 'rgb(0,0,0)',
-            surface: 'rgb(220,220,220)',
-            'surface-alt': 'rgb(15,15,15)',
-            'slider': 'rgb(255,255,255)',
-            primary: 'rgb(15,15,15)',
-            'primary-alt': '#1565C0',
-            error: '#B71C1C',
-            info: '#2196F3',
-            success: '#4CAF50',
-            warning: '#FB8C00',
-        }
-    } 
-    const vuetify = createVuetify({
-        ssr: true,
-        components: { 
-            VApp, 
-            VAppBar, 
-            VAppBarTitle,
-            VAlert, 
-            VBottomNavigation,
-            VBtn, 
-            VCard,
-            VCardActions,
-            VCardItem, 
-            VCardText, 
-            VCardTitle, 
-            VCardSubtitle,
-            VCarousel,
-            VCarouselItem,
-            VCol, 
-            VContainer, 
-            VDialog,
-            VForm,
-            VIcon,
-            VImg,
-            VMain,
-            VOtpInput,
-            VRow, 
-            VSelect,
-            VSheet,
-            VSpacer,
-            VSwitch,
-            VTextarea,
-            VTextField,
-            VToolbar, 
-            VToolbarItems, 
-            VToolbarTitle,
-            VWindow,
-            VWindowItem
-        },
-        directives,
-        aliases: {
-            NanaBtn: VBtn,
-            NanaBtnOutlined: VBtn,
-            NanaAppBarBtn: VBtn,
-            NanaSliderNavBtn: VBtn
-        },
-        
-        defaults: {
-            VAppBar: {
-                color: 'background',
-                fixed: true,
-                flat: true,
-                floating: true
-            },
-            VBtn: { 
-                variant: 'flat' 
-            },
-            VCard: { flat: true },
-            NanaAppBarBtn: {
-                variant: 'flat',
-                class: ['surface-bg'],
-            },
-            NanaSliderNavBtn: {
-                variant: 'flat',
-                class: ['surface-bg', 'rounded-xl'],
-            },
-            NanaBtn: {
-                variant: 'flat',
-                class: ['nana-primary-color'],
-            },
-            NanaBtnOutlined: {
-                variant: 'flat',
-                class: ['bg-background']
-            }
-        },
-        theme: {
-            defaultTheme: 'anasaeDark',
-            themes: {
-                anasaeDark, anasaeLight
-            }
+    }, 1000);
+}
+&nbsp;
+const RequestCodeTimer = computed(() =&gt; requestCodeTimer.value)
+&nbsp;
+const requestOtp = async () =&gt; {
+    const { data, pending, error, refresh, status } = await useApi({
+        method: 'POST',
+        path: config.public.API_AUTH_VERIFY_EMAIL,
+        data: {email: authStore.signUpForm.email}
+    })
+  
+    if (status.value == 'error'){
+        formError.isError = true
+        formError.message = 'Please try again.'
+        return 
+    }
+&nbsp;
+    otpPk.value = data.value.pk
+    isOtpRequest.value = true
+    formError.isError = false
+    formError.message = ''
+    setRequestCodeTimer()
+}
+&nbsp;
+const validateCode = async () =&gt; {
+    isValidatingOtp.value = true
+    const { data, pending, error, refresh, status } = await useApi({
+        method: 'PUT',
+        path: `${config.public.API_AUTH_VERIFY_EMAIL}/${otpPk.value}/`,
+        data: {
+            email: authStore.signUpForm.email,
+            otp_code: otp.value,
+            pk: otpPk.value
         }
     })
-    nuxtApp.vueApp.use(vuetify)
-})</pre></td></tr></table></pre>
+  
+    if (status.value == 'error'){
+        formError.isError = true
+        formError.message = 'Please try again.'
+        isValidatingOtp.value = false
+        return 
+    }
+    
+    authStore.signUpFormStep++
+    isValidatingOtp.value = false
+    formError.isError = false
+    formError.message = ''
+}
+&nbsp;
+&lt;/script&gt;
+&nbsp;
+&lt;template&gt;
+    &lt;div class="text-center"&gt;
+        &lt;h3 class="text-h5"&gt;Verify your email&lt;/h3&gt;
+        &lt;p&gt;{{ authStore.signUpForm.email }}&lt;/p&gt;
+        &lt;p&gt;Request a code and we will send it to your email.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;v-form 
+        ref="form"
+        v-model="isFormValid"
+        lazy-validation
+    &gt;
+        &lt;v-otp-input
+            v-model="otp"
+            @finish="isOtpCodeFinish = true"
+        &gt;&lt;/v-otp-input&gt;
+    &lt;/v-form&gt;
+    &lt;v-btn 
+        @click="requestOtp()"
+        class="d-block mx-auto"   
+        color="primary-alt" 
+        rounded="pill"
+        variant="outlined"
+        flat
+        :disabled="isRequestCodeBtnDisabled"
+    &gt;
+        {{ !isRequestCodeBtnDisabled ? requestCodeBtnLabel : requestCodeBtnLabel+' '+RequestCodeTimer }}
+    &lt;/v-btn&gt;
+    &lt;p class="text-center mt-2 mb-4"&gt;
+        Didn't receive a code? Please try again.
+    &lt;/p&gt;
+    
+    &lt;v-btn
+        @click="isOtpRequest &amp;&amp; isOtpCodeFinish ? validateCode() : ''"
+        rounded="pill"
+        color="primary"
+        block
+        :loading="isValidatingOtp"
+        :disabled="!isOtpRequest  || !isOtpCodeFinish"
+    &gt;
+        Next
+    &lt;/v-btn&gt;
+    &lt;v-alert
+        v-model="formError.isError"
+        :closable="true"
+        class="mt-4"
+        type="error"
+        title="Something went wrong"
+        rounded="xl"
+        :text="formError.message"
+    &gt;&lt;/v-alert&gt;
+&lt;/template&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
@@ -492,14 +471,14 @@ export default defineNuxtPlugin(nuxtApp =&gt; {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2023-08-16T01:30:01.704Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

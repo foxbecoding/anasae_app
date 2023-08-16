@@ -18,6 +18,7 @@ const setUserGenders = async (): Promise<void> => {
             method: 'GET',
             path: `${config.public.API_USER_GENDER}`
         })
+        if (data.value == null) { return }
         const genderOptions = data.value as UserGender[]
         genderOptions.map(x => authStore.signUpFormGenderOptions.push({ id: x.pk, title: x.gender, value: x.pk })) 
     }

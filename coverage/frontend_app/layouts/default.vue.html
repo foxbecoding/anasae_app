@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>95/95</span>
+                <span class='fraction'>110/110</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>95/95</span>
+                <span class='fraction'>110/110</span>
             </div>
         
             
@@ -157,7 +157,32 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -182,6 +207,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -253,34 +283,49 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script setup lang="ts"&gt;
 import { useDisplay } from 'vuetify'
+import { AuthRouteName as RouteName } from '@/utils/types'
+import { useAuthStore } from '@/store/Auth'
 &nbsp;
+const authStore = useAuthStore()
 const route = useRoute()
+const { AuthFormComponent, AuthFormTitle, authRouteNames } = useAuthFormFactory()
 const { smAndDown, platform } = useDisplay()
+&nbsp;
 const scrollY = ref&lt;number&gt;(0)
 const appBarMobileClass = ref&lt;string&gt;('app-bar--relative') 
-const AppBarColor = computed(() =&gt; scrollY.value !== 0 ? 'app-bar-color' : '')
-const AppBarMobilePos = computed(() =&gt; appBarMobileClass)
-const setTransparent = computed(() =&gt; scrollY.value == 0 ? 'transparent' : '')
+&nbsp;
+const AppBarColor = computed((): string =&gt; scrollY.value !== 0 ? 'app-bar-color' : '')
+const AppBarMobilePos = computed((): string =&gt; appBarMobileClass.value)
+const SetTransparent = computed((): string =&gt; scrollY.value == 0 ? 'transparent' : '')
+const ShowAuthForm = computed((): boolean =&gt; authRouteNames.value.includes(route.name as RouteName) )
+const ShowBannerComps = computed((): boolean =&gt; authRouteNames.value.includes(route.name as RouteName) &amp;&amp; authStore.prevRoute == 'index' || route.name == 'index')
+&nbsp;
 const onScroll = (e: any): void =&gt; { scrollY.value = window.<span class="branch-0 cbranch-no" title="branch not covered" >scrollY }</span>
 &nbsp;
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
-    &lt;VApp id="app" data-test-id="app"&gt;
-        &lt;VAppBar :color="setTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]"&gt;
+    &lt;v-app id="app" data-test-id="app"&gt;
+        &lt;v-app-bar :color="SetTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]"&gt;
             &lt;v-container class="px-4 d-flex justify-space-between" fluid&gt;
                 &lt;AppBarInner /&gt;
             &lt;/v-container&gt;
-        &lt;/VAppBar&gt;
-        &lt;VContainer class=" mobile-top-bar-container py-2" :class="AppBarColor" fluid&gt;
+        &lt;/v-app-bar&gt;
+        &lt;v-container class="mobile-top-bar-container py-2" :class="AppBarColor" fluid&gt;
             &lt;MobileTopBar /&gt;
-        &lt;/VContainer&gt;
-        &lt;BannerSliderBg v-if="route.name == 'index'" /&gt;
-        &lt;VMain class="main-adjust-content" v-scroll="onScroll"&gt;
+        &lt;/v-container&gt;
+        &lt;BannerSliderBg v-if="ShowBannerComps" /&gt;
+        &lt;v-main class="main-adjust-content" v-scroll="<span class="branch-0 cbranch-no" title="branch not covered" >onScroll"&gt;</span>
+            &lt;v-container v-if="ShowBannerComps" <span class="branch-0 cbranch-no" title="branch not covered" >fluid&gt;</span>
+                &lt;BannerSlider /&gt;
+            &lt;/v-container&gt;
             &lt;slot&gt;&lt;/slot&gt;
-        &lt;/VMain&gt;
-        &lt;BottomNav v-if="smAndDown" class="d-md-none w-100"/&gt;
-    &lt;/VApp&gt;
+        &lt;/v-main&gt;
+        &lt;BottomNav v-if="smAndDown" class="d-md-none w-100" /&gt;
+        &lt;Auth v-if="ShowAuthForm" &gt;
+            &lt;component :is="AuthFormComponent" /&gt;
+        &lt;/Auth&gt; 
+    &lt;/v-app&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;style scoped&gt;
@@ -352,7 +397,7 @@ const onScroll = (e: any): void =&gt; { scrollY.value = window.<span class="bran
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-02T18:24:51.325Z
+                at 2023-08-16T01:30:01.704Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

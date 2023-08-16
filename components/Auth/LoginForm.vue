@@ -93,7 +93,6 @@ const switchHandler = (e: boolean|any): void => {
 }
 
 const submitEmitter = (e: any): void => {
-
     if (e.status == 'error'){
         if('errors' in e.error.data){
             formError.isError = true
@@ -132,10 +131,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-card-title class="text-h5 px-0 mb-2">
+    <v-card-title 
+        data-test-id="AuthLoginForm--title"  
+        class="text-h5 px-0 mb-2"
+    >
         Login
     </v-card-title>
     <FormFields 
+        data-test-id="AuthLoginForm--fields" 
         @submit="submitEmitter"
         :store="authStore.loginForm"
         :fields="fields" 
@@ -144,6 +147,7 @@ onMounted(() => {
         :apiMethod="apiMethod"
     />
     <v-switch
+        data-test-id="AuthLoginForm--switch" 
         v-model="switchModel"
         class="mt-4"
         color="primary-alt"
@@ -164,8 +168,13 @@ onMounted(() => {
         :text="formError.message"
         :icon="false"
     ></v-alert>
-    <p class="py-8">Don't have an account? 
+    <p 
+        data-test-id="AuthLoginForm--have-an-account" 
+        class="py-8"
+    >
+        Don't have an account? 
         <NuxtLink 
+            data-test-id="AuthLoginForm--have-an-account-link"
             :to="{name: 'auth-sign-up' }"
             class="text-decoration-none text-primary-alt" 
         >
