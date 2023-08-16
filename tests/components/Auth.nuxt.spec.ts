@@ -51,7 +51,6 @@ describe('Auth components', () => {
     describe('AuthSignUpForm component', () => {
         it('render AuthSignUpForm ', async () => {
             const wrapper =  await mountSuspended(AuthSignUpForm)
-            console.log(wrapper.html())
             expect(wrapper.vm).toBeTruthy()
         })
     })

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1692149401868" clover="3.2.0">
-  <project timestamp="1692149401869" name="All files">
-    <metrics statements="2081" coveredstatements="1932" conditionals="99" coveredconditionals="73" methods="37" coveredmethods="11" elements="2217" coveredelements="2016" complexity="0" loc="2081" ncloc="2081" packages="12" files="38" classes="38"/>
+<coverage generated="1692198337910" clover="3.2.0">
+  <project timestamp="1692198337910" name="All files">
+    <metrics statements="2081" coveredstatements="1929" conditionals="103" coveredconditionals="76" methods="42" coveredmethods="13" elements="2226" coveredelements="2018" complexity="0" loc="2081" ncloc="2081" packages="12" files="38" classes="38"/>
     <package name="frontend_app">
       <metrics statements="24" coveredstatements="24" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
       <file name="app.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\app.vue">
@@ -508,7 +508,7 @@
       </file>
     </package>
     <package name="frontend_app.components.Auth">
-      <metrics statements="280" coveredstatements="228" conditionals="22" coveredconditionals="12" methods="14" coveredmethods="2"/>
+      <metrics statements="279" coveredstatements="227" conditionals="22" coveredconditionals="12" methods="14" coveredmethods="2"/>
       <file name="ForgotForm.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\ForgotForm.vue">
         <metrics statements="9" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -522,7 +522,7 @@
         <line num="9" count="1" type="stmt"/>
       </file>
       <file name="LoginForm.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\LoginForm.vue">
-        <metrics statements="185" coveredstatements="147" conditionals="9" coveredconditionals="9" methods="9" coveredmethods="2"/>
+        <metrics statements="184" coveredstatements="146" conditionals="9" coveredconditionals="9" methods="9" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -619,8 +619,8 @@
         <line num="94" count="1" type="stmt"/>
         <line num="95" count="1" type="stmt"/>
         <line num="96" count="2" type="stmt"/>
-        <line num="97" count="2" type="stmt"/>
-        <line num="98" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="101" count="0" type="stmt"/>
@@ -650,7 +650,7 @@
         <line num="125" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
         <line num="127" count="0" type="stmt"/>
-        <line num="128" count="0" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
         <line num="129" count="1" type="stmt"/>
         <line num="130" count="1" type="stmt"/>
         <line num="131" count="1" type="stmt"/>
@@ -707,7 +707,6 @@
         <line num="182" count="1" type="stmt"/>
         <line num="183" count="1" type="stmt"/>
         <line num="184" count="1" type="stmt"/>
-        <line num="185" count="1" type="stmt"/>
       </file>
       <file name="index.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\index.vue">
         <metrics statements="86" coveredstatements="75" conditionals="13" coveredconditionals="3" methods="4" coveredmethods="0"/>
@@ -800,7 +799,7 @@
       </file>
     </package>
     <package name="frontend_app.components.Auth.SignUpForm">
-      <metrics statements="701" coveredstatements="701" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="702" coveredstatements="699" conditionals="6" coveredconditionals="5" methods="6" coveredmethods="3"/>
       <file name="StepFour.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\SignUpForm\StepFour.vue">
         <metrics statements="188" coveredstatements="188" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -993,7 +992,7 @@
         <line num="188" count="1" type="stmt"/>
       </file>
       <file name="StepOne.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\SignUpForm\StepOne.vue">
-        <metrics statements="96" coveredstatements="96" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="96" coveredstatements="96" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -1030,7 +1029,7 @@
         <line num="34" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="37" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="38" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
         <line num="40" count="1" type="stmt"/>
@@ -1048,7 +1047,7 @@
         <line num="52" count="1" type="stmt"/>
         <line num="53" count="1" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
+        <line num="55" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
@@ -1461,7 +1460,7 @@
         <line num="11" count="1" type="stmt"/>
       </file>
       <file name="index.vue" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\components\Auth\SignUpForm\index.vue">
-        <metrics statements="57" coveredstatements="57" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="58" coveredstatements="55" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -1477,16 +1476,16 @@
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="16" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
@@ -1519,6 +1518,7 @@
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
       </file>
     </package>
     <package name="frontend_app.components.BannerSlider">
@@ -1615,32 +1615,32 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="12" type="stmt"/>
-        <line num="5" count="12" type="stmt"/>
-        <line num="6" count="12" type="stmt"/>
-        <line num="7" count="12" type="stmt"/>
-        <line num="8" count="12" type="stmt"/>
-        <line num="9" count="12" type="stmt"/>
-        <line num="10" count="12" type="stmt"/>
-        <line num="11" count="12" type="stmt"/>
-        <line num="12" count="12" type="stmt"/>
-        <line num="13" count="12" type="cond" truecount="0" falsecount="1"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="12" count="13" type="stmt"/>
+        <line num="13" count="13" type="cond" truecount="0" falsecount="1"/>
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="18" count="12" type="stmt"/>
-        <line num="19" count="12" type="stmt"/>
-        <line num="20" count="12" type="stmt"/>
-        <line num="21" count="12" type="stmt"/>
-        <line num="22" count="12" type="stmt"/>
-        <line num="23" count="12" type="stmt"/>
-        <line num="24" count="12" type="stmt"/>
-        <line num="25" count="12" type="stmt"/>
-        <line num="26" count="12" type="stmt"/>
-        <line num="27" count="12" type="stmt"/>
-        <line num="28" count="12" type="stmt"/>
-        <line num="29" count="12" type="stmt"/>
+        <line num="18" count="13" type="stmt"/>
+        <line num="19" count="13" type="stmt"/>
+        <line num="20" count="13" type="stmt"/>
+        <line num="21" count="13" type="stmt"/>
+        <line num="22" count="13" type="stmt"/>
+        <line num="23" count="13" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+        <line num="25" count="13" type="stmt"/>
+        <line num="26" count="13" type="stmt"/>
+        <line num="27" count="13" type="stmt"/>
+        <line num="28" count="13" type="stmt"/>
+        <line num="29" count="13" type="stmt"/>
       </file>
       <file name="auth.ts" path="C:\Users\desmo\OneDrive\Desktop\code\projects\anasae\frontend_app\composables\auth.ts">
         <metrics statements="61" coveredstatements="33" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="1"/>

@@ -14,7 +14,6 @@ const initialize =  (): void => {
 }
 
 initialize()
-
 </script>
 
 <template>
