@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useAuthStore } from '@/store/Auth'
+import { useAuthStore, useUserStore } from '@/store'
 
 const authStore = useAuthStore()
-const ToProfile = computed((): string => authStore.isAuth ? 'profile' : 'auth-login')
+const ToProfile = computed((): string => authStore.isAuth ? `/profile/${useUserStore().user.uid}` :  '/auth/login')
 
 </script>
 
@@ -20,8 +20,8 @@ const ToProfile = computed((): string => authStore.isAuth ? 'profile' : 'auth-lo
         </v-btn>
     
         <v-btn 
-            @click="`${authStore.prevRoute = $route.name as string}`"
-            :to="{name: ToProfile}" 
+            @click="`${ authStore.prevRoute = $route.fullPath }`"
+            :to="{path: ToProfile}" 
             value="profile" 
             variant="plain" 
             :ripple="false"

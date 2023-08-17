@@ -14,7 +14,7 @@ const IsFullscreen = computed((): boolean => useDisplay().xs.value )
 const close = async (): Promise<void> => { 
     dialog.value = false
     setTimeout(() => {
-        useRouter().push({name: authStore.prevRoute})
+        useRouter().push({path: authStore.prevRoute})
     }, 300) 
 }
 

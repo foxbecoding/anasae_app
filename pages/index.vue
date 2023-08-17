@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const { Layout_PX } = useLayout()
 </script>
 
 <template>
-    <v-container :class="Layout_PX" fluid>
+    <v-container class="layout-px" fluid>
         <v-row>
             <v-col
                 v-for="n in 12"

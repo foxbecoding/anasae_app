@@ -1,5 +1,12 @@
 <script setup lang="ts">
-navigateTo('/')
+import { useAuthStore, useUserStore } from '@/store'
+
+if (useAuthStore().isAuth){
+    navigateTo(`/profile/${useUserStore().user.uid}`)
+}else{
+    navigateTo('/')
+}
+
 </script>
 
 <template>

@@ -1,23 +1,39 @@
 <script setup lang="ts">
+import { User } from '@/utils/types'
+import { useAuthStore } from '@/store'
+
+const config = useRuntimeConfig()
 const route = useRoute()
-console.log(route)
+const profile = ref<User>()
+const isOwner = ref<boolean>()
+
+const getProfile = async (): Promise<void> => {
+    const { data: cacheData } = useNuxtData(`${route.params.uid}`)
+    profile.value = cacheData?.value?.user
+    isOwner.value = cacheData?.value?.owner
+
+    const { data, pending, error, refresh } = await useApi({
+        path: `${config.public.API_USER_PROFILE}${route.params.uid}/`,
+        method: 'GET',
+        key: `${route.params.uid}`
+    })
+    profile.value = data.value.user
+    isOwner.value = data.value.owner
+    
+}
+getProfile()
+
 </script>
 
 <template>
     <v-container class="layout-px" fluid>
-        <h1>My Profile</h1>
-        <v-row>
-            <v-col
-                v-for="n in 12"
-                :key="n"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-card height="340">
-                    {{ n }}
-                </v-card>
-            </v-col>
-        </v-row>
+        <!-- <div v-if="userProfile">{{userProfile}}</div> -->
+        <h1 v-show="profile">{{profile.username}}</h1>
+        <div>{{ isOwner }}</div>
+        <!-- <v-skeleton-loader v-else
+          color="background"
+          max-width="500"
+          type="avatar, list-item, text@3" 
+        /> -->
     </v-container>
 </template>

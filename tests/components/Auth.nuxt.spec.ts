@@ -25,7 +25,6 @@ describe('Auth components', () => {
         it('test AuthLoginForm content', async () => {
             const wrapper = await mountSuspended(AuthLoginForm)
             const title = wrapper.find('[data-test-id="AuthLoginForm--title"]')
-            const formFields = wrapper.find('[data-test-id="AuthLoginForm--fields"]')
             const switchField = wrapper.find('[data-test-id="AuthLoginForm--switch"]')
             const pText = wrapper.find('[data-test-id="AuthLoginForm--have-an-account"]')
             const link = wrapper.find('[data-test-id="AuthLoginForm--have-an-account-link"]')
@@ -33,7 +32,6 @@ describe('Auth components', () => {
             expect(wrapper.vm).toBeTruthy()
             expect(title).toBeTruthy()
             expect(title.text()).toBe('Login')
-            expect(formFields).toBeTruthy()
             expect(switchField).toBeTruthy()
             expect(pText).toBeTruthy()
             expect(link).toBeTruthy()

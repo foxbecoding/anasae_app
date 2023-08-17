@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useUserStore } from '@/store'
 
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const theme = useTheme()        
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
@@ -19,7 +20,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             data-test-id="app-bar-inner-end-sign-btn" 
             class="rounded-xl" 
             active
-            @click="`${authStore.prevRoute = $route.name as string}`"
+            @click="`${authStore.prevRoute = $route.fullPath}`"
             :to="{name: 'auth-login'}"
         >
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
@@ -43,6 +44,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
         </div>
         <NanaAppBarBtn 
             v-if="authStore.isAuth"
+            :to="{ path: `/profile/${userStore.user.uid}` }"
             data-test-id="app-bar-inner-end-profile-btn"
             class="rounded-xl ml-2"
             height="38px"

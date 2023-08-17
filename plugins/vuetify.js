@@ -2,6 +2,7 @@ import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import colors from 'vuetify/lib/util/colors'
 import { VOtpInput } from 'vuetify/labs/VOtpInput'
+import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VAlert } from 'vuetify/components/VAlert'
@@ -84,6 +85,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VRow, 
             VSelect,
             VSheet,
+            VSkeletonLoader,
             VSpacer,
             VSwitch,
             VTextarea,

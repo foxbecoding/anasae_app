@@ -1,5 +1,5 @@
 export const useAuthStore = defineStore("auth-store", () => {
-    const prevRoute = ref<string>('index')
+    const prevRoute = ref<string>('/')
     const isAuth = ref<boolean>(false)
     const loginForm = reactive({
         email: '',

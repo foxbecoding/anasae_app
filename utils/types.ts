@@ -74,16 +74,16 @@ export interface Slider {
 
 
 export interface User {
-    addresses: string[]
-    display_name: string
-    email: string
+    addresses?: string[]
+    display_name?: string
+    email?: string
     first_name: string
     image: string | null
     last_name: string
-    logins: {pk: string | number, created: string}[]
-    payment_methods: string[]
+    logins?: {pk: string | number, created: string}[]
+    payment_methods?: string[]
     pk: string | number
-    stripe_customer_id: string
+    stripe_customer_id?: string
     uid: string
     username: string
 }

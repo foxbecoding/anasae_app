@@ -120,7 +120,7 @@ const submitEmitter = (e: any): void => {
         password: '',
         isUsername: false
     }
-    useRouter().replace({name: authStore.prevRoute})
+    useRouter().replace({ path: authStore.prevRoute })
     userStore.user = e.data
 }
 
@@ -137,8 +137,7 @@ onMounted(() => {
     >
         Login
     </v-card-title>
-    <FormFields 
-        data-test-id="AuthLoginForm--fields" 
+    <FormFields
         @submit="submitEmitter"
         :store="authStore.loginForm"
         :fields="fields" 
