@@ -12,6 +12,7 @@ import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } 
 import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VDialog } from 'vuetify/components/VDialog'
+import { VDivider } from 'vuetify/components/VDivider'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
@@ -77,6 +78,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VCol, 
             VContainer, 
             VDialog,
+            VDivider,
             VForm,
             VIcon,
             VImg,

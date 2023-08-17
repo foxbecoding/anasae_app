@@ -78,7 +78,7 @@ export interface User {
     display_name?: string
     email?: string
     first_name: string
-    image: string | null
+    image: string 
     last_name: string
     logins?: {pk: string | number, created: string}[]
     payment_methods?: string[]

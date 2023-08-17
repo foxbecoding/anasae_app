@@ -3,7 +3,11 @@
 
 <template>
     <v-container class="px-sm-8" fluid>
-        <v-row>
+        <UserProfileDetails />
+    </v-container>
+    <v-container class="px-sm-8" fluid>
+        <v-divider />
+        <v-row class="pt-4">
             <v-col
                 v-for="n in 12"
                 :key="n"
