@@ -18,9 +18,7 @@ const DefaultProfileImg = computed<string>((): string => {
     return `${config.public.CDN_MEDIA_URL}${theme_color}`
 })
 
-const loadEmmiter = (e): void => {
-    showAddImgBtn.value = true
-}
+const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const getProfile = async (): Promise<void> => {
     const { data: cacheData } = useNuxtData(`${route.params.uid}`)
