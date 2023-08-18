@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import { User } from '@/utils/types'
-import { useAuthStore } from '@/store'
-import { useDisplay, useTheme } from 'vuetify'
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const vTheme = useTheme()
 const profile = ref<User>( )
 const isOwner = ref<boolean>()
 const showAddImgBtn = ref<boolean>(false)
-const { xs, sm, width: vWidth } = useDisplay()
 
-const DefaultProfileImg = computed<string>((): string => {
-    const lightImg = '/assets/default-profile-image-light.png'
-    const darkImg = '/assets/default-profile-image-dark.png'
-    const theme_color = vTheme.global.current.value.dark ? darkImg : lightImg
-    return `${config.public.CDN_MEDIA_URL}${theme_color}`
-})
+const { DefaultProfileImg } =  useDefaultProfileImg()
 
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
