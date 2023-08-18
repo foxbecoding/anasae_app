@@ -41,15 +41,19 @@ const {
     <v-divider />
     <v-list density="compact" :bg-color="ListBgColor">
         <v-list-item 
+            v-for="(item, i) in homeSiteConfigItems"
+            :key="i"
+            :value="item"
             title=""
+            :to="item?.to"
         >
-            <v-switch
-                v-model="isLightTheme"
-                hide-details
-                inset
-                color="primary-alt"
-                :label="`Theme: ${isLightTheme.toString()}`"
-            ></v-switch>
+            <template v-slot:prepend>
+                <v-icon :icon="item.prependIcon"></v-icon>
+            </template>
+            <v-list-item-title v-text="item.text" />
+            <template v-slot:append>
+                <v-icon :icon="item?.appendIcon"></v-icon>
+            </template>
         </v-list-item>
     </v-list>
     

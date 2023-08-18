@@ -5,11 +5,12 @@ import { useAuthStore } from '@/store'
 const authStore = useAuthStore()
 const theme = useTheme()        
 const { isOpen: profileMenu } = useUserMenu()
+
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
 }
 
-const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')
+const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')
 
 </script>
 
@@ -78,7 +79,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             icon
             active
         >
-            <v-icon>{{ THEME_ICON }}</v-icon>
+            <v-icon>{{ ThemeIcon }}</v-icon>
         </NanaAppBarBtn>
 
         <NanaAppBarBtn

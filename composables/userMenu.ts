@@ -20,8 +20,9 @@ export const useUserMenu = () => {
         theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
     }
     
-    const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')
+    const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny')
     
+    const CurrentTheme = computed((): string => theme.global.current.value.dark ? 'Dark' : 'Light')
     const ListBgColor = computed((): string => theme.global.current.value.dark ? 'surface' : 'background')
     
 
@@ -35,9 +36,9 @@ export const useUserMenu = () => {
     const homeSiteConfigItems = ref<MenuItem[]>([
         { 
             id: 1, 
-            prependIcon: `${THEME_ICON.value}`, 
+            prependIcon: `${ThemeIcon.value}`, 
             appendIcon: 'mdi-chevron-right',
-            text: 'Your brands'
+            text: `Theme: ${CurrentTheme.value}`
         },
     ])
 
