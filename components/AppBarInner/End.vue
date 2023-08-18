@@ -5,6 +5,7 @@ import { useAuthStore, useUserStore } from '@/store'
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const theme = useTheme()        
+const { DefaultProfileImg } = useDefaultProfileImg()
 const profileMenu = ref<boolean>(false) 
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
@@ -67,7 +68,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
             <v-card width="300" rounded="xl">
                 <v-list>
                     <v-list-item
-                        prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+                        :prepend-avatar="userStore.user?.image ? userStore.user?.image : DefaultProfileImg"
                         :title="userStore.user?.username"
                         :subtitle="userStore.user?.email"
                     >
