@@ -19,7 +19,6 @@ const DefaultProfileImg = computed<string>((): string => {
 })
 
 const loadEmmiter = (e): void => {
-    console.log(e)
     showAddImgBtn.value = true
 }
 
