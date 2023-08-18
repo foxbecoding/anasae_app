@@ -111,6 +111,7 @@ getProfile()
 
 .profile-image-size {
     width: 126px;
+    height: 126px;
 }
 
 @media screen and (max-width: 1279px) {
@@ -122,6 +123,7 @@ getProfile()
 @media screen and (max-width: 959px) {
     .profile-image-size {
         width: 108px;
+        height: 108px;
     }
     .content-wrapper {
         max-width: 450px
@@ -131,6 +133,7 @@ getProfile()
 @media screen and (max-width: 599px) {
     .profile-image-size {
         width: 60px;
+        height: 60px;
     }
     .content-wrapper {
         max-width: 250px
