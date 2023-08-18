@@ -66,12 +66,14 @@ getProfile()
                     {{ profile?.username }}
                 </h2>
                 <v-btn 
-                    color="primary-alt" 
+                    :color="!isOwner ? 'primary-alt' : 'surface'" 
                     class="ma-4 d-none d-sm-block" 
                     rounded="pill"
+                    flat
                 >
-                    <v-icon>mdi-plus</v-icon>
-                    Follow
+                    <v-icon v-if="!isOwner">mdi-plus</v-icon>
+                    <v-icon v-else>mdi-pencil</v-icon>
+                    {{ !isOwner ? 'Follow' : 'Edit Profile'  }}
                 </v-btn>
             </div>
             <div class="d-flex">
@@ -85,12 +87,15 @@ getProfile()
                 </div>
             </div>
             <v-btn 
+                :color="!isOwner ? 'primary-alt' : 'surface'" 
                 class="ma-4 d-sm-none" 
-                color="primary-alt" 
                 rounded="pill"
+                size="small"
+                flat
             >
-                <v-icon>mdi-plus</v-icon>
-                Follow
+                <v-icon v-if="!isOwner">mdi-plus</v-icon>
+                <v-icon v-else>mdi-pencil</v-icon>
+                {{ !isOwner ? 'Follow' : 'Edit Profile'  }}
             </v-btn>
         </div>
     </div>

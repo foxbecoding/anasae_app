@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <v-container class="layout-px" fluid>
+    <v-container class="px-sm-8" fluid>
         <h1>Search</h1>
         <v-row>
             <v-col
