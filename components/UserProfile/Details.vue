@@ -47,7 +47,7 @@ getProfile()
             <v-img 
                 class="rounded-circle profile-image-size" 
                 :src="profile?.image ? profile.image : DefaultProfileImg" 
-                :alt="`${profile.username} profile image`"
+                :alt="`${profile?.username} profile image`"
                 @load="loadEmmiter"
             />
             <v-btn 
@@ -65,7 +65,7 @@ getProfile()
         <div class="d-block align-center">
             <div class="d-flex align-center">
                 <h2 class="px-4 text-h5 text-sm-h4">
-                    {{ profile.username }}
+                    {{ profile?.username }}
                 </h2>
                 <v-btn 
                     color="primary-alt" 

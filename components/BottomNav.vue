@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { useAuthStore, useUserStore } from '@/store'
-
-const authStore = useAuthStore()
-const ToProfile = computed((): string => authStore.isAuth ? `/profile/${useUserStore().user.uid}` :  '/auth/login')
-
 </script>
 
 <template>
@@ -19,15 +14,9 @@ const ToProfile = computed((): string => authStore.isAuth ? `/profile/${useUserS
             Home
         </v-btn>
     
-        <v-btn 
-            @click="`${ authStore.prevRoute = $route.fullPath }`"
-            :to="{path: ToProfile}" 
-            value="profile" 
-            variant="plain" 
-            :ripple="false"
-        >
-            <v-icon>mdi-account</v-icon>
-            Profile
+        <v-btn :to="{name: 'cart'}" value="cart" variant="plain" :ripple="false">
+            <v-icon>mdi-cart</v-icon>
+            Cart
         </v-btn>
 
         <div class="nana-primary-bg-color rounded-xl add-btn">

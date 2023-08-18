@@ -4,6 +4,7 @@ import ForgotForm from '@/components/Auth/ForgotForm.vue'
 import Home from '@/pages/index.vue'
 import Clipz from '@/pages/clipz.vue'
 import Search from '@/pages/search.vue'
+import Cart from '@/pages/cart.vue'
 import { AuthRouteName as RouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
@@ -46,13 +47,14 @@ export const useAuthFormFactory = () => {
 }
 
 export const useAuthPageFactory = () => {
-    type PageComponentType = typeof Home | typeof Clipz | typeof Search
-    type PageName = 'index' | 'clipz' | 'search'
+    type PageComponentType = typeof Home | typeof Clipz | typeof Search | typeof Cart
+    type PageName = 'index' | 'clipz' | 'search' | 'cart'
     const authStore = useAuthStore()
     const pageComponents = shallowReactive({
         "index": Home,
         "clipz": Clipz,
-        "search": Search
+        "search": Search,
+        "cart": Cart
     })
 
     const PageComponent = computed((): PageComponentType => pageComponents[authStore.prevRoute as PageName])

@@ -70,7 +70,8 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
 
         <NanaAppBarBtn
             data-test-id="app-bar-inner-end-cart-btn" 
-            class="rounded-xl d-none d-md-block ml-2"
+            class="rounded-xl d-none d-md-flex ml-2"
+            :to="{name: 'cart'}"
             height="38px"
             width="38px"
             icon
