@@ -5,6 +5,7 @@ import { useAuthStore, useUserStore } from '@/store'
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const theme = useTheme()        
+const profileMenu = ref<boolean>(false) 
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
 }
@@ -42,19 +43,59 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
         </div>
-        <NanaAppBarBtn 
-            v-if="authStore.isAuth"
-            :to="{ path: `/profile/${userStore.user.uid}` }"
-            data-test-id="app-bar-inner-end-profile-btn"
-            class="rounded-xl ml-2"
-            height="38px"
-            width="38px"
-            icon
-            active
+
+        <v-menu
+            v-model="profileMenu"
+            :close-on-content-click="false"
+            location="end"
         >
-            <v-icon>mdi-account-circle-outline</v-icon>
-        </NanaAppBarBtn>
-        
+            <template v-slot:activator="{ props }">
+                <NanaAppBarBtn 
+                    v-if="authStore.isAuth"
+                    v-bind="props"
+                    
+                    data-test-id="app-bar-inner-end-profile-btn"
+                    class="rounded-xl ml-2"
+                    height="38px"
+                    width="38px"
+                    icon
+                    active
+                >
+                    <v-icon>mdi-account-circle-outline</v-icon>
+                </NanaAppBarBtn>
+            </template>
+            <v-card width="300" rounded="xl">
+                <v-list>
+                    <v-list-item
+                        prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+                        :title="userStore.user?.username"
+                        :subtitle="userStore.user?.email"
+                    >
+                    </v-list-item>
+                </v-list>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        variant="text"
+                        @click="profileMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="primary"
+                        variant="text"
+                        @click="profileMenu = false"
+                    >
+                        Save
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-menu>
+
         <NanaAppBarBtn 
             v-if="!authStore.isAuth"
             data-test-id="app-bar-inner-end-theme-toggle-btn"       
