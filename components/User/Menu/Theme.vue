@@ -2,10 +2,8 @@
  
 const { DefaultProfileImg } = useDefaultProfileImg()
 const { 
-    homeAccountItems, 
-    isLightTheme, 
-    ListBgColor, 
-    homeSiteConfigItems 
+    ListBgColor,
+    themeItems
 } = useUserMenu()
 
 </script>
@@ -20,7 +18,7 @@ const {
     <v-divider />
     <v-list density="compact" :bg-color="ListBgColor">
         <v-list-item 
-            v-for="(item, i) in homeAccountItems"
+            v-for="(item, i) in themeItems"
             :key="i"
             :value="item"
             title=""
@@ -30,6 +28,9 @@ const {
                 <v-icon :icon="item.prependIcon"></v-icon>
             </template>
             <v-list-item-title v-text="item.text" />
+            <template v-slot:append>
+                <v-icon :icon="item?.appendIcon"></v-icon>
+            </template>
         </v-list-item>
     </v-list>
     

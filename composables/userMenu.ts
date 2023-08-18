@@ -42,6 +42,21 @@ export const useUserMenu = () => {
         },
     ])
 
+    const themeItems = ref<MenuItem[]>([
+        { 
+            id: 1, 
+            prependIcon: 'mdi-weather-night', 
+            appendIcon: 'mdi-check',
+            text: 'Dark theme'
+        },
+        { 
+            id: 2, 
+            prependIcon: 'mdi-weather-sunny', 
+            appendIcon: 'mdi-check',
+            text: 'Light theme'
+        },
+    ])
+
     watch(isLightTheme, (newValue) => {
         if(newValue){
             theme.global.name.value = 'anasaeLight'
@@ -55,7 +70,8 @@ export const useUserMenu = () => {
         homeSiteConfigItems,
         isOpen,
         isLightTheme,
-        ListBgColor
+        ListBgColor,
+        themeItems
     }
 
 }
