@@ -1,6 +1,5 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
-import colors from 'vuetify/lib/util/colors'
 import { VOtpInput } from 'vuetify/labs/VOtpInput'
 import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 import { VApp } from 'vuetify/components/VApp'
