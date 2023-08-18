@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
-import { useAuthStore, useUserStore } from '@/store'
+import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
-const userStore = useUserStore()
 const theme = useTheme()        
-const { DefaultProfileImg } = useDefaultProfileImg()
-const profileMenu = ref<boolean>(false) 
+const { isOpen: profileMenu } = useUserMenu()
 const toggleTheme = (): void => {
     theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
 }
@@ -66,34 +64,7 @@ const THEME_ICON = computed((): string => theme.global.current.value.dark ? 'mdi
                 </NanaAppBarBtn>
             </template>
             <v-card width="300" rounded="xl">
-                <v-list>
-                    <v-list-item
-                        :prepend-avatar="userStore.user?.image ? userStore.user?.image : DefaultProfileImg"
-                        :title="userStore.user?.username"
-                        :subtitle="userStore.user?.email"
-                    >
-                    </v-list-item>
-                </v-list>
-
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn
-                        variant="text"
-                        @click="profileMenu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        color="primary"
-                        variant="text"
-                        @click="profileMenu = false"
-                    >
-                        Save
-                    </v-btn>
-                </v-card-actions>
+                <UserMenu />
             </v-card>
         </v-menu>
 
