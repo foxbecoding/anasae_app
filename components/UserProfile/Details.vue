@@ -18,7 +18,6 @@ const DefaultProfileImg = computed<string>((): string => {
     return `${config.public.CDN_MEDIA_URL}${theme_color}`
 })
 
-
 const loadEmmiter = (e): void => {
     console.log(e)
     showAddImgBtn.value = true
