@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useAuthStore, useUserStore } from '@/store'
+import { useUserStore } from '@/store'
 
 const userStore = useUserStore() 
 const { DefaultProfileImg } = useDefaultProfileImg()
