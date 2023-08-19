@@ -2,7 +2,9 @@
  
 const { DefaultProfileImg } = useDefaultProfileImg()
 const { 
+    goBack,
     ListBgColor,
+    isLightTheme,
     themeItems
 } = useUserMenu()
 
@@ -10,9 +12,15 @@ const {
 
 <template>
     <v-list :bg-color="ListBgColor">
-        <v-list-item
-            title="Theme settings"
-        >
+        <v-list-item class="pl-1" title="Theme settings">
+            <template v-slot:prepend>
+                <v-btn 
+                    @click="goBack"
+                    icon="mdi-arrow-left"
+                    variant="plain"
+                >
+                </v-btn>
+            </template>
         </v-list-item>
     </v-list>
     <v-divider />
@@ -22,14 +30,18 @@ const {
             :key="i"
             :value="item"
             title=""
+            @click="item?.action"
             :to="item?.to"
         >
             <template v-slot:prepend>
                 <v-icon :icon="item.prependIcon"></v-icon>
             </template>
             <v-list-item-title v-text="item.text" />
-            <template v-slot:append>
-                <v-icon :icon="item?.appendIcon"></v-icon>
+            <template v-slot:append v-if="item.text == 'Light theme' && isLightTheme">
+                <v-icon icon="mdi-check"></v-icon>
+            </template>
+            <template v-slot:append v-if="item.text == 'Dark theme' && !isLightTheme">
+                <v-icon icon="mdi-check"></v-icon>
             </template>
         </v-list-item>
     </v-list>

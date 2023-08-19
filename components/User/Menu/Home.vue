@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useAuthStore, useUserStore } from '@/store'
+import { UserMenuTheme } from '../Menu/components.ts'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
@@ -9,7 +10,8 @@ const {
     homeAccountItems, 
     isLightTheme, 
     ListBgColor, 
-    homeSiteConfigItems 
+    homeSiteConfigItems,
+    selectedView
 } = useUserMenu()
 
 </script>
@@ -31,6 +33,7 @@ const {
             :value="item"
             title=""
             :to="item?.to"
+            @click="item?.action"
         >
             <template v-slot:prepend>
                 <v-icon :icon="item.prependIcon"></v-icon>
@@ -46,6 +49,7 @@ const {
             :value="item"
             title=""
             :to="item?.to"
+            @click="item?.action"
         >
             <template v-slot:prepend>
                 <v-icon :icon="item.prependIcon"></v-icon>

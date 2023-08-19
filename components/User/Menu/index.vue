@@ -1,15 +1,7 @@
 <script lang="ts" setup>
-import UserMenuHome from './Home'
-
-const { 
-    homeAccountItems, 
-    isLightTheme, 
-    ListBgColor, 
-    homeSiteConfigItems 
-} = useUserMenu()
-
+const {  selectedView } = useUserMenu()
 </script>
 
 <template>
-    <component :is="UserMenuHome" />
+    <component :is="selectedView" />
 </template>
