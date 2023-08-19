@@ -42,6 +42,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         <Auth v-if="ShowAuthForm" >
             <component :is="AuthFormComponent" />
         </Auth> 
+        <UserMenuMobile />
     </v-app>
 </template>
 

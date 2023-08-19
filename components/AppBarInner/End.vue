@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
+import { useTheme, useDisplay } from 'vuetify'
 import { useAuthStore } from '@/store'
 import UserMenu from '../User/Menu/index.vue'
 
 const authStore = useAuthStore()
-const theme = useTheme()        
+const vTheme = useTheme()  
+const { mdAndUp } = useDisplay()      
 const { isOpen: profileMenu, updateMenu } = useUserMenu()
 
 const toggleTheme = (): void => {
-    theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
+    vTheme.global.name.value = vTheme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
 }
 
-const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')
+const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')
 
 </script>
 
@@ -46,6 +47,7 @@ const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-
         </div>
 
         <v-menu
+            v-if="mdAndUp"
             v-model="profileMenu"
             :close-on-content-click="false"
             location="end"
@@ -56,7 +58,7 @@ const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-
                     v-if="authStore.isAuth"
                     v-bind="props"
                     data-test-id="app-bar-inner-end-profile-btn"
-                    class="rounded-xl ml-2"
+                    class="rounded-xl ml-2 d-none d-md-flex"
                     height="38px"
                     width="38px"
                     icon
@@ -69,6 +71,19 @@ const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-
                 <UserMenu />
             </v-card>
         </v-menu>
+
+        <NanaAppBarBtn 
+            v-if="authStore.isAuth && !mdAndUp"
+            @click="profileMenu = true"
+            data-test-id="app-bar-inner-end-profile-btn"
+            class="rounded-xl ml-2"
+            height="38px"
+            width="38px"
+            icon
+            active
+        >
+            <v-icon>mdi-account-circle-outline</v-icon>
+        </NanaAppBarBtn>
 
         <NanaAppBarBtn 
             v-if="!authStore.isAuth"

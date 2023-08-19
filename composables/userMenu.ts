@@ -20,9 +20,8 @@ export const useUserMenu = () => {
 
     const theme = useTheme()
     const userStore = useUserStore()
-    const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny') 
     const CurrentTheme = computed((): string => theme.global.current.value.dark ? 'Dark' : 'Light')
-    const ListBgColor = computed((): string => theme.global.current.value.dark ? 'surface' : 'background')
+    const BackgroundColor = computed((): string => theme.global.current.value.dark ? 'surface' : 'background')
 
     const homeAccountItems = ref<MenuItem[]>([
         { 
@@ -83,7 +82,7 @@ export const useUserMenu = () => {
         homeSiteConfigItems,
         isLightTheme,
         isOpen,
-        ListBgColor,
+        BackgroundColor,
         themeItems,
         selectedView
     }

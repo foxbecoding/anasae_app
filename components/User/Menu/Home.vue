@@ -1,23 +1,18 @@
 <script lang="ts" setup>
 import { useAuthStore, useUserStore } from '@/store'
-import { UserMenuTheme } from '../Menu/components.ts'
 
-const authStore = useAuthStore()
-const userStore = useUserStore()
- 
+const userStore = useUserStore() 
 const { DefaultProfileImg } = useDefaultProfileImg()
 const { 
-    homeAccountItems, 
-    isLightTheme, 
-    ListBgColor, 
-    homeSiteConfigItems,
-    selectedView
+    homeAccountItems,
+    BackgroundColor, 
+    homeSiteConfigItems
 } = useUserMenu()
 
 </script>
 
 <template>
-    <v-list :bg-color="ListBgColor">
+    <v-list :bg-color="BackgroundColor">
         <v-list-item
             :prepend-avatar="userStore.user?.image ? userStore.user?.image : DefaultProfileImg"
             :title="userStore.user?.username"
@@ -26,7 +21,7 @@ const {
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="ListBgColor">
+    <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
             v-for="(item, i) in homeAccountItems"
             :key="i"
@@ -42,7 +37,7 @@ const {
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="ListBgColor">
+    <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
             v-for="(item, i) in homeSiteConfigItems"
             :key="i"

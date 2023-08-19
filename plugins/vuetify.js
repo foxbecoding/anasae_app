@@ -18,6 +18,7 @@ import { VImg } from 'vuetify/components/VImg'
 import { VList, VListItem, VListItemTitle } from 'vuetify/components/VList'
 import { VMain } from 'vuetify/components/VMain'
 import { VMenu } from 'vuetify/components/VMenu'
+import { VOverlay } from 'vuetify/components/VOverlay'
 import { VSheet } from 'vuetify/components/VSheet'
 import { VTextarea } from 'vuetify/components/VTextarea'
 import { VTextField } from 'vuetify/components/VTextField'
@@ -89,6 +90,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VMain,
             VMenu,
             VOtpInput,
+            VOverlay,
             VRow, 
             VSelect,
             VSheet,

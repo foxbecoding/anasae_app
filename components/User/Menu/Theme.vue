@@ -3,7 +3,7 @@
 const { DefaultProfileImg } = useDefaultProfileImg()
 const { 
     goBack,
-    ListBgColor,
+    BackgroundColor,
     isLightTheme,
     themeItems
 } = useUserMenu()
@@ -11,7 +11,7 @@ const {
 </script>
 
 <template>
-    <v-list :bg-color="ListBgColor">
+    <v-list :bg-color="BackgroundColor">
         <v-list-item class="pl-1" title="Theme settings">
             <template v-slot:prepend>
                 <v-btn 
@@ -24,7 +24,7 @@ const {
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="ListBgColor">
+    <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
             v-for="(item, i) in themeItems"
             :key="i"
