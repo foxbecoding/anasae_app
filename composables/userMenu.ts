@@ -2,7 +2,6 @@ import { useUserStore } from '@/store'
 import { useTheme } from 'vuetify'
 import { UserMenuHome, UserMenuTheme } from '@/components/User/Menu/components'
 
-
 type ViewType = typeof UserMenuHome | typeof UserMenuTheme
 const isLightTheme = ref<boolean>(false)
 const selectedView = shallowRef<ViewType>(UserMenuHome)
@@ -21,13 +20,7 @@ export const useUserMenu = () => {
 
     const theme = useTheme()
     const userStore = useUserStore()
-
-    const toggleTheme = (): void => {
-        theme.global.name.value = theme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
-    }
-    
-    const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny')
-    
+    const ThemeIcon = computed((): string => theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny') 
     const CurrentTheme = computed((): string => theme.global.current.value.dark ? 'Dark' : 'Light')
     const ListBgColor = computed((): string => theme.global.current.value.dark ? 'surface' : 'background')
 
