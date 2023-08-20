@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { useDisplay } from 'vuetify'
 const { isOpen, BackgroundColor } = useUserMenu()
 </script>
 
 <template>
     <ActionSheet 
-        v-if="$vuetify.display.smAndDown"
+        v-if="useDisplay().smAndDown.value"
         v-model="isOpen" 
         fullscreen
         :background-color="BackgroundColor"

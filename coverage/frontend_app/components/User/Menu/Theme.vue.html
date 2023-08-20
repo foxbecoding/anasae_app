@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/components/BottomNav.vue</title>
+    <title>Code coverage report for frontend_app/components/User/Menu/Theme.vue</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/components</a> BottomNav.vue</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend_app/components/User/Menu</a> Theme.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/71</span>
+                <span class='fraction'>49/49</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/71</span>
+                <span class='fraction'>49/49</span>
             </div>
         
             
@@ -111,51 +111,7 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -204,76 +160,54 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script lang="ts" setup&gt;
+ 
+const { DefaultProfileImg } = useDefaultProfileImg()
+const { 
+    goBack,
+    BackgroundColor,
+    isLightTheme,
+    themeItems
+} = useUserMenu()
+&nbsp;
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
-    &lt;v-bottom-navigation 
-        class="bottom-nav pb-3"
-        height="70"
-        grow
-        elevation="0"
-    &gt;
-        
-        &lt;v-btn :to="{name: 'index'}" value="home" variant="plain" :ripple="false"&gt;
-            &lt;v-icon&gt;mdi-home&lt;/v-icon&gt;
-            Home
-        &lt;/v-btn&gt;
+    &lt;v-list :bg-color="BackgroundColor"&gt;
+        &lt;v-list-item class="pl-1" title="Theme settings"&gt;
+            &lt;template v-slot:prepend&gt;
+                &lt;v-btn 
+                    @click="goBack"
+                    icon="mdi-arrow-left"
+                    variant="plain"
+                &gt;
+                &lt;/v-btn&gt;
+            &lt;/template&gt;
+        &lt;/v-list-item&gt;
+    &lt;/v-list&gt;
+    &lt;v-divider /&gt;
+    &lt;v-list density="compact" :bg-color="BackgroundColor"&gt;
+        &lt;v-list-item 
+            v-for="(item, i) in themeItems"
+            :key="i"
+            :value="item"
+            title=""
+            @click="item?.action"
+            :to="item?.to"
+        &gt;
+            &lt;template v-slot:prepend&gt;
+                &lt;v-icon :icon="item.prependIcon"&gt;&lt;/v-icon&gt;
+            &lt;/template&gt;
+            &lt;v-list-item-title v-text="item.text" /&gt;
+            &lt;template v-slot:append v-if="item.text == 'Light theme' &amp;&amp; isLightTheme"&gt;
+                &lt;v-icon icon="mdi-check"&gt;&lt;/v-icon&gt;
+            &lt;/template&gt;
+            &lt;template v-slot:append v-if="item.text == 'Dark theme' &amp;&amp; !isLightTheme"&gt;
+                &lt;v-icon icon="mdi-check"&gt;&lt;/v-icon&gt;
+            &lt;/template&gt;
+        &lt;/v-list-item&gt;
+    &lt;/v-list&gt;
     
-        &lt;v-btn :to="{name: 'cart'}" value="cart" variant="plain" :ripple="false"&gt;
-            &lt;v-icon&gt;mdi-cart&lt;/v-icon&gt;
-            Cart
-        &lt;/v-btn&gt;
-&nbsp;
-        &lt;div <span class="fstat-no" title="function not covered" >class="nana-primary-bg-color rounded-xl add-btn"&gt;</span>
-            &lt;v-btn 
-                value="add"
-                class="rounded-xl background-bg" 
-                height="34" 
-                width="34"
-                min-width="34" 
-                variant="flat" 
-                icon
-            &gt;
-                &lt;v-icon&gt;mdi-plus&lt;/v-icon&gt;
-            &lt;/v-btn&gt;
-        &lt;/div&gt;
-    
-        &lt;v-btn :to="{name: 'search'}" value="search" variant="plain" :ripple="false"&gt;
-            &lt;v-icon&gt;mdi-magnify&lt;/v-icon&gt;
-            Search
-        &lt;/v-btn&gt;
-        
-        &lt;v-btn :to="{name: 'clipz'}" value="clipz" variant="plain" :ripple="false"&gt;
-            &lt;v-icon&gt;mdi-movie-play&lt;/v-icon&gt;
-            Clipz
-        &lt;/v-btn&gt;
-    &lt;/v-bottom-navigation&gt;
-&lt;/template&gt;
-&nbsp;
-&lt;style scoped&gt;
-.bottom-nav {
-    background: rgba(var(--v-theme-background),0.3);
-}
-.bottom-nav::before{
-    content: "";
-    background: inherit;
-    position: absolute;
-    width : 100%;
-    height: 100%;
-    z-index: -1;
-    -webkit-backdrop-filter: blur(10px);
-    -moz-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
-&nbsp;
-.add-btn {
-    position: relative;
-    top: 10px;
-    height: 36px;
-    width: 36px;
-    padding: 1px !important;
-}
-&lt;/style&gt;</pre></td></tr></table></pre>
+&lt;/template&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
@@ -282,14 +216,14 @@
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2023-08-20T21:39:06.084Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

@@ -10,7 +10,7 @@ const {
 } = useUserMenu()
 
 const ProfileImage = computed(() => { 
-    if (userStore.user?.image['image']) {
+    if (userStore.user?.image?.image) {
         const { Asset } = useMediaAssets(userStore.user?.image['image'])  
         return Asset.value
     }

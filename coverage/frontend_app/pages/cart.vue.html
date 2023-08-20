@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend_app/components/SearchBar.vue</title>
+    <title>Code coverage report for frontend_app/pages/cart.vue</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/components</a> SearchBar.vue</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend_app/pages</a> cart.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -83,21 +83,7 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -118,32 +104,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script setup lang="ts"&gt;
-const { Asset } = useMediaAssets('/media/assets/icon-dark-v1.png') 
-const Icon = Asset.value
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
-    &lt;v-card 
-        class="w-100 surface-bg--searchbar"
-        rounded="pill" 
-        height="44px"
-        density="compact"
-    &gt;
-        &lt;v-form&gt;
-            &lt;v-text-field
-                density="compact"
-                flat
-                placeholder="Search for products &amp; brands"
-                variant="solo-filled" 
-                append-inner-icon="mdi-magnify"
-                bg-color="transparent"
+    &lt;v-container class="px-sm-8" fluid&gt;
+        &lt;h1&gt;Cart&lt;/h1&gt;
+        &lt;v-row&gt;
+            &lt;v-col
+                v-for="n in 12"
+                :key="n"
+                cols="12"
+                sm="6"
+                md="3"
             &gt;
-                &lt;template v-slot:prepend-inner&gt;
-                    &lt;v-img :src="Icon" width="24"/&gt;
-                &lt;/template&gt;
-            &lt;/v-text-field&gt;
-        &lt;/v-form&gt;   
-    &lt;/v-card&gt; 
+                &lt;v-card height="340"&gt;
+                    {{ n }}
+                &lt;/v-card&gt;
+            &lt;/v-col&gt;
+        &lt;/v-row&gt;
+    &lt;/v-container&gt;
 &lt;/template&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

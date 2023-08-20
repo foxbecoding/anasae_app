@@ -75,7 +75,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
         <NanaAppBarBtn 
             v-if="authStore.isAuth && !mdAndUp"
             @click="profileMenu = true"
-            data-test-id="app-bar-inner-end-profile-btn"
+            data-test-id="app-bar-inner-end-mobile-profile-btn"
             class="rounded-xl ml-2"
             height="38px"
             width="38px"
