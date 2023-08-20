@@ -17,6 +17,7 @@ export default defineNuxtConfig({
             API_SLIDER: process.env.API_SLIDER,
             API_USER: process.env.API_USER,
             API_USER_GENDER: process.env.API_USER_GENDER,
+            API_USER_IMAGE: process.env.API_USER_IMAGE,
             API_USER_PROFILE: process.env.API_USER_PROFILE,
             API_X_FCT: process.env.API_X_FCT
             

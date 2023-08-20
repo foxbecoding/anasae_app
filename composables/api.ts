@@ -1,13 +1,15 @@
 import { ApiData } from '@/utils/types'
+import { UseFetchOptions } from '#app'
+import { NitroFetchRequest } from 'nitropack'
 
-export const useApi = async (apiData: ApiData): Promise<any> => {
+export const useApi = async <T>(apiData: ApiData): Promise<any> => {
     const config = useRuntimeConfig()
     const csrftoken: any = useCookie('csrftoken')
 
     const requestHeaders = ref<HeadersInit>({
         'accept': 'application/json' ,
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken.value
+        'X-CSRFToken': csrftoken.value 
     })
     
     if(apiData.isMultiPart){
@@ -16,7 +18,13 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         }
     }
 
-    const { data, pending, error, refresh, status } = await useFetch(apiData.path, {
+    const options = ref<
+    |
+        UseFetchOptions<
+            T extends void ? unknown : T,
+            (res: T extends void ? unknown : T) => T extends void ? unknown : T
+        >
+    | undefined>({
         baseURL: config.public.API_BASE_URL,
         body: apiData.data,
         credentials: 'include',
@@ -24,6 +32,9 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
         method: apiData.method,
         key: apiData.key
     })
+
+  
+    const { data, pending, error, refresh, status } = await useFetch(apiData.path, options.value)
     
     return { data, pending, error, refresh, status }
 }

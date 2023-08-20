@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { User } from '@/utils/types'
+import { useUserStore } from '@/store'
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const profile = ref<User>( )
+const { DefaultProfileImg } = useDefaultProfileImg()
+const profile = ref<User>()
+const profileImgFile = ref()
+const profileImgFileRef = ref()
 const isOwner = ref<boolean>()
 const showAddImgBtn = ref<boolean>(false)
 
-const { DefaultProfileImg } =  useDefaultProfileImg()
+const ProfileImage = computed(() => {
+    if (profile.value?.image) {
+        const { Asset } = useMediaAssets(profile.value.image.image)  
+        return Asset.value
+    }
+    return DefaultProfileImg.value 
+})
 
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
@@ -28,19 +38,40 @@ const getProfile = async (): Promise<void> => {
 
 getProfile()
 
+const uploadImage = async (file: File): Promise<void> => {
+    let formData = new FormData();
+    formData.append("image", file);
+    const { data, pending, error, refresh } = await useApi({
+        path: `${config.public.API_USER_IMAGE}`,
+        method: 'POST',
+        data: formData,
+        isMultiPart: true 
+    })
+    profile.value = data.value
+    useUserStore().user = data.value
+}
+
+watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
 </script>
 
 <template>
     <div class="d-flex justify-space-between content-wrapper">
+        <v-file-input
+            v-model="profileImgFile" 
+            class="d-none" 
+            ref="profileImgFileRef" 
+            accept="image/png, image/jpeg, image/bmp"
+        />
         <div class="profile-image-size" style="position: relative">
             <v-img 
-                class="rounded-circle profile-image-size" 
-                :src="profile?.image ? profile.image : DefaultProfileImg" 
+                class="rounded-circle profile-image-size border" 
+                :src="ProfileImage" 
                 :alt="`${profile?.username} profile image`"
                 @load="loadEmmiter"
             />
             <v-btn 
                 v-if="isOwner && showAddImgBtn"
+                @click="profileImgFileRef.click()"
                 class="add-profile-image-btn"
                 color="primary-alt" 
                 size="18" 

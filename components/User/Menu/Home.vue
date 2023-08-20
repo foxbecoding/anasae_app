@@ -9,15 +9,31 @@ const {
     homeSiteConfigItems
 } = useUserMenu()
 
+const ProfileImage = computed(() => { 
+    if (userStore.user?.image['image']) {
+        const { Asset } = useMediaAssets(userStore.user?.image['image'])  
+        return Asset.value
+    }
+    return DefaultProfileImg.value 
+})
+
 </script>
 
 <template>
     <v-list :bg-color="BackgroundColor">
         <v-list-item
-            :prepend-avatar="userStore.user?.image ? userStore.user?.image : DefaultProfileImg"
+            :prepend-avatar="ProfileImage"
             :title="userStore.user?.username"
             :subtitle="userStore.user?.email"
         >
+            <template v-slot:prepend>
+                <v-avatar class="border">
+                    <v-img  
+                        :src="ProfileImage" 
+                        :alt="`${userStore.user?.username} profile image`"
+                    />
+                </v-avatar>   
+            </template>
         </v-list-item>
     </v-list>
     <v-divider />
@@ -55,5 +71,4 @@ const {
             </template>
         </v-list-item>
     </v-list>
-    
 </template>

@@ -5,6 +5,7 @@ import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
 import { VAlert } from 'vuetify/components/VAlert'
+import { VAvatar } from 'vuetify/components/VAvatar'
 import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
@@ -12,6 +13,7 @@ import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VDialog } from 'vuetify/components/VDialog'
 import { VDivider } from 'vuetify/components/VDivider'
+import { VFileInput } from 'vuetify/components/VFileInput'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
@@ -67,6 +69,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VAppBar, 
             VAppBarTitle,
             VAlert, 
+            VAvatar,
             VBottomNavigation,
             VBtn, 
             VCard,
@@ -81,6 +84,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VContainer, 
             VDialog,
             VDivider,
+            VFileInput,
             VForm,
             VIcon,
             VImg,

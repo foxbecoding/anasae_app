@@ -5,7 +5,7 @@ export interface ApiData {
     isMultiPart?: boolean
     key?: string
     method: ApiMethod
-    path: string,
+    path: string
 }
 
 export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
@@ -78,7 +78,7 @@ export interface User {
     display_name?: string
     email?: string
     first_name: string
-    image: string 
+    image: {pk: string | number, image: string} 
     last_name: string
     logins?: {pk: string | number, created: string}[]
     payment_methods?: string[]
