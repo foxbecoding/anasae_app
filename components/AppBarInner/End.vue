@@ -20,7 +20,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
     <div id="end" class="d-flex flex-row align-center justify-content-end">
         <NanaAppBarBtn
             v-if="!authStore.isAuth" 
-            data-test-id="app-bar-inner-end-sign-btn" 
+            data-test-id="app-bar-inner-end-sign-in-btn" 
             class="rounded-xl" 
             active
             @click="`${authStore.prevRoute = $route.fullPath}`"
@@ -32,6 +32,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
         <div 
             v-if="authStore.isAuth" 
             class="nana-primary-bg-color rounded-xl d-none d-md-block"
+            data-test-id="app-bar-inner-add-post-btn"
         >
             <v-btn 
                 value="add"

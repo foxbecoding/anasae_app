@@ -2,9 +2,6 @@ import { mockComponent, mountSuspended, mockNuxtImport } from 'nuxt-vitest/utils
 import  { useMediaAssets } from '@/composables/mediaAssets'
 
 describe('useMediaAssets composable', async () => {
-    afterEach(() => {
-        vi.unstubAllGlobals()
-    })
     test('composable', async () => {
         const cdnPath = 'http://cdn.anasae.local'
         const assetPath = '/media/slider/slide-TBbkyQm0I-1690339280.png'
