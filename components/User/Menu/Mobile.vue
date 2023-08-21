@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import { useDisplay } from 'vuetify'
-const { isOpen, BackgroundColor } = useUserMenu()
+import { useUserMenuStore } from '@/store'
+import { useTheme } from 'vuetify'
+
+const vTheme = useTheme()
+const userMenuStore = useUserMenuStore()
+const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 </script>
 
 <template>
     <ActionSheet 
         v-if="useDisplay().smAndDown.value"
-        v-model="isOpen" 
+        v-model="userMenuStore.isOpen" 
         fullscreen
         :background-color="BackgroundColor"
         closeBtnColor="primary"

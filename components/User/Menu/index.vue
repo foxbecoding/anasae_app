@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-const {  selectedView } = useUserMenu()
+import { useUserMenuStore } from '@/store'
+
+const userMenuStore = useUserMenuStore()
 </script>
 
 <template>
-    <component :is="selectedView" />
+    <component :is="userMenuStore.CurrentView" />
 </template>

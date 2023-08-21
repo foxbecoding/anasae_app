@@ -1,13 +1,40 @@
 <script lang="ts" setup>
-import { useUserStore } from '@/store'
+import { UserMenuTheme } from '@/components/User/Menu/components'
+import { useUserStore, useUserMenuStore } from '@/store'
+import { useTheme } from 'vuetify'
+import { UserMenuItem } from '@/utils/types'
 
+const vTheme = useTheme()
 const userStore = useUserStore() 
+const userMenuStore = useUserMenuStore()
+const CurrentTheme = computed((): string => vTheme.global.current.value.dark ? 'Dark' : 'Light')
+const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 const { DefaultProfileImg } = useDefaultProfileImg()
-const { 
-    homeAccountItems,
-    BackgroundColor, 
-    homeSiteConfigItems
-} = useUserMenu()
+
+const accountItems = ref<UserMenuItem[]>([
+    { 
+        id: 1, 
+        prependIcon: 'mdi-account-circle-outline', 
+        text: 'Your profile', 
+        to: `/profile/${userStore.user.uid}`,
+        action: () => { userMenuStore.isOpen = false }
+    },
+    { id: 2, prependIcon: 'mdi-storefront-outline', text: 'Your brands'},
+    { id: 3, prependIcon: 'mdi-storefront-plus-outline', text: 'Create a brand'},
+    { id: 4, prependIcon: 'mdi-logout-variant', text: 'Sign out'}
+])
+
+const siteConfigItems = ref<UserMenuItem[]>([
+    { 
+        id: 1, 
+        prependIcon: 'mdi-theme-light-dark', 
+        appendIcon: 'mdi-chevron-right',
+        text: `Theme: ${CurrentTheme.value}`, 
+        action: function() {
+            userMenuStore.selectedView = UserMenuTheme
+        }
+    },
+])
 
 const ProfileImage = computed(() => { 
     if (userStore.user?.image?.image) {
@@ -39,7 +66,7 @@ const ProfileImage = computed(() => {
     <v-divider />
     <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
-            v-for="(item, i) in homeAccountItems"
+            v-for="(item, i) in accountItems"
             :key="i"
             :value="item"
             title=""
@@ -55,7 +82,7 @@ const ProfileImage = computed(() => {
     <v-divider />
     <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
-            v-for="(item, i) in homeSiteConfigItems"
+            v-for="(item, i) in siteConfigItems"
             :key="i"
             :value="item"
             title=""

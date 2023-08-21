@@ -1,21 +1,36 @@
 <script lang="ts" setup>
- 
-const { DefaultProfileImg } = useDefaultProfileImg()
-const { 
-    goBack,
-    BackgroundColor,
-    isLightTheme,
-    themeItems
-} = useUserMenu()
+import { useUserMenuStore } from '@/store'
+import { UserMenuItem } from '@/utils/types'
+import { useTheme } from 'vuetify'
 
+const vTheme = useTheme()
+const userMenuStore = useUserMenuStore()
+const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
+const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => { vTheme.global.name.value = theme}
+const themeItems = ref<UserMenuItem[]>([
+    { 
+        id: 1, 
+        prependIcon: 'mdi-weather-night',
+        text: 'Dark theme',
+        action: () => { setTheme('anasaeDark') },
+        custom: true
+    },
+    { 
+        id: 2, 
+        prependIcon: 'mdi-weather-sunny', 
+        text: 'Light theme',
+        action: () => { setTheme('anasaeLight') },
+        custom: false
+    },
+])
 </script>
 
 <template>
-    <v-list :bg-color="BackgroundColor">
+    <v-list class="py-0" density="compact" :bg-color="BackgroundColor">
         <v-list-item class="pl-1" title="Theme settings">
             <template v-slot:prepend>
                 <v-btn 
-                    @click="goBack"
+                    @click="userMenuStore.goBack"
                     icon="mdi-arrow-left"
                     variant="plain"
                 >
@@ -37,10 +52,7 @@ const {
                 <v-icon :icon="item.prependIcon"></v-icon>
             </template>
             <v-list-item-title v-text="item.text" />
-            <template v-slot:append v-if="item.text == 'Light theme' && isLightTheme">
-                <v-icon icon="mdi-check"></v-icon>
-            </template>
-            <template v-slot:append v-if="item.text == 'Dark theme' && !isLightTheme">
+            <template v-slot:append v-if="item?.custom == vTheme.global.current.value.dark">
                 <v-icon icon="mdi-check"></v-icon>
             </template>
         </v-list-item>

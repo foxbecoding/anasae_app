@@ -1,5 +1,5 @@
 import { useAuthStore } from "./Auth"
 import { useSliderStore } from "./Slider"
-import { useUserStore } from "./User"
+import { useUserStore, useUserMenuStore } from "./User"
 
-export { useAuthStore, useSliderStore, useUserStore }
+export { useAuthStore, useSliderStore, useUserStore, useUserMenuStore }

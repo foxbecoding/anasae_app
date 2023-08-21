@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useTheme, useDisplay } from 'vuetify'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useUserMenuStore } from '@/store'
 import UserMenu from '../User/Menu/index.vue'
 
 const authStore = useAuthStore()
 const vTheme = useTheme()  
+const userMenuStore = useUserMenuStore()
 const { mdAndUp } = useDisplay()      
-const { isOpen: profileMenu, updateMenu } = useUserMenu()
 
 const toggleTheme = (): void => {
     vTheme.global.name.value = vTheme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
@@ -49,10 +49,10 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
 
         <v-menu
             v-if="mdAndUp"
-            v-model="profileMenu"
+            v-model="userMenuStore.isOpen"
             :close-on-content-click="false"
             location="end"
-            @update:modelValue="updateMenu"
+            @update:modelValue="userMenuStore.updateMenu"
         >
             <template v-slot:activator="{ props }">
                 <NanaAppBarBtn 
@@ -75,7 +75,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
 
         <NanaAppBarBtn 
             v-if="authStore.isAuth && !mdAndUp"
-            @click="profileMenu = true"
+            @click="userMenuStore.isOpen = true"
             data-test-id="app-bar-inner-end-mobile-profile-btn"
             class="rounded-xl ml-2"
             height="38px"

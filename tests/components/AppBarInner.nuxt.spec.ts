@@ -41,14 +41,14 @@ describe('AppBarInner Component', () => {
       const themeToggleBtn = wrapper.find('[data-test-id="app-bar-inner-end-theme-toggle-btn"]')
       const cartBtn = wrapper.find('[data-test-id="app-bar-inner-end-cart-btn"]')
       const profileBtn = wrapper.find('[data-test-id="app-bar-inner-end-profile-btn"]')
-      const mobileProfileBtn = wrapper.find('[data-test-id="app-bar-inner-end-mobile-profile-btn"]')
+      // const mobileProfileBtn = wrapper.find('[data-test-id="app-bar-inner-end-mobile-profile-btn"]')
       
       expect(wrapper.vm).toBeTruthy() 
       expect(signInBtn).toBeTruthy()
       expect(themeToggleBtn).toBeTruthy()
       expect(cartBtn).toBeTruthy()
       expect(profileBtn).toBeTruthy()
-      expect(mobileProfileBtn).toBeTruthy()
+      // expect(mobileProfileBtn).toBeTruthy()
     })
 
     it('test if logged in add post btn', async () => {

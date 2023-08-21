@@ -1,5 +1,7 @@
 import { User, ApiData } from '@/utils/types'
 import { useAuthStore } from './'
+import { UserMenuHome, UserMenuTheme } from '@/components/User/Menu/components'
+
 
 export const useUserStore = defineStore("user-store", () => {
     const user = ref<User>({} as User)
@@ -22,6 +24,28 @@ export const useUserStore = defineStore("user-store", () => {
     }
 })
 
+export const useUserMenuStore = defineStore("user-menu-store", () => {
+    type ViewType = typeof UserMenuHome | typeof UserMenuTheme
+    const isLightTheme = ref<boolean>(false)
+    const selectedView = shallowRef<ViewType>()
+    const isOpen = ref<boolean>(false)
+    const goBack = (): void => { selectedView.value = UserMenuHome }
+    const updateMenu = (e: boolean): void => { if (e) goBack() }
+    const CurrentView = computed((): ViewType => {
+        if (!selectedView.value) return UserMenuHome
+        return selectedView.value
+    })
+    return {
+        CurrentView,
+        isLightTheme,
+        isOpen,
+        selectedView,
+        goBack,
+        updateMenu,
+    }
+})
+
 if (import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useUserMenuStore, import.meta.hot));
 }
