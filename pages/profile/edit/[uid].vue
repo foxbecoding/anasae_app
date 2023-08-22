@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-await clearNuxtData()
 </script>
 
 <template>

@@ -10,16 +10,17 @@ const userMenuStore = useUserMenuStore()
 const CurrentTheme = computed((): string => vTheme.global.current.value.dark ? 'Dark' : 'Light')
 const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 const { DefaultProfileImg } = useDefaultProfileImg()
+const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
 const accountItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-account-circle-outline', 
-        text: 'Your profile', 
+        text: 'My profile', 
         to: `/profile/${userStore.user.uid}`,
         action: () => { userMenuStore.isOpen = false }
     },
-    { id: 2, prependIcon: 'mdi-storefront-outline', text: 'Your brands'},
+    { id: 2, prependIcon: 'mdi-storefront-outline', text: 'My brands'},
     { id: 3, prependIcon: 'mdi-storefront-plus-outline', text: 'Create a brand'},
     { id: 4, prependIcon: 'mdi-logout-variant', text: 'Sign out'}
 ])
@@ -34,29 +35,27 @@ const siteConfigItems = ref<UserMenuItem[]>([
     },
 ])
 
-const ProfileImage = computed(() => { 
-    if (userStore.user?.image?.image) {
-        const { Asset } = useMediaAssets(userStore.user?.image['image'])  
-        return Asset.value
-    }
-    return DefaultProfileImg.value 
-})
 
 </script>
 
 <template>
     <v-list :bg-color="BackgroundColor">
         <v-list-item
-            :prepend-avatar="ProfileImage"
             :title="userStore.user?.username"
             :subtitle="userStore.user?.email"
         >
             <template v-slot:prepend>
-                <v-avatar class="border">
+                <v-avatar
+                    :color="!ProfileImage ? 'primary-alt' : ''"
+                    size="38px" 
+                    class="border"
+                >
                     <v-img  
+                        v-if="ProfileImage"
                         :src="ProfileImage" 
                         :alt="`${userStore.user?.username} profile image`"
                     />
+                    <span v-else class="text-h5">{{ ProfileInitials }}</span>
                 </v-avatar>   
             </template>
         </v-list-item>

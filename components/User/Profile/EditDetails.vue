@@ -78,7 +78,6 @@ const fields = ref<FormTextField[]>([
 const close = async (): Promise<void> => { 
     dialog.value = false
     setTimeout(() => {
-        // useRouter().push({path: `/profile/${userStore.user.uid}`})
         navigateTo(`/profile/${userStore.user.uid}`)
     }, 300) 
 }

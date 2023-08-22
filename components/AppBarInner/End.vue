@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useTheme, useDisplay } from 'vuetify'
-import { useAuthStore, useUserMenuStore } from '@/store'
+import { useAuthStore, useUserMenuStore, useUserStore } from '@/store'
 import UserMenu from '../User/Menu/index.vue'
 
-const authStore = useAuthStore()
 const vTheme = useTheme()  
-const userMenuStore = useUserMenuStore()
 const { mdAndUp } = useDisplay()      
+const authStore = useAuthStore()
+const userMenuStore = useUserMenuStore()
+const userStore = useUserStore()
+const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
 const toggleTheme = (): void => {
     vTheme.global.name.value = vTheme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
@@ -59,13 +61,24 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
                     v-if="authStore.isAuth"
                     v-bind="props"
                     data-test-id="app-bar-inner-end-profile-btn"
-                    class="rounded-xl ml-2 d-none d-md-flex"
+                    class="ml-2 d-none d-md-flex"
                     height="38px"
                     width="38px"
                     icon
                     active
                 >
-                    <v-icon>mdi-account-circle-outline</v-icon>
+                    <v-avatar
+                        :color="!ProfileImage ? 'primary-alt' : ''"
+                        size="38px" 
+                    >
+                        
+                        <v-img  
+                            v-if="ProfileImage"
+                            :src="ProfileImage" 
+                            :alt="`${userStore.user?.username} profile image`"
+                        />
+                        <span v-else class="text-h5">{{ ProfileInitials }}</span>
+                    </v-avatar>
                 </NanaAppBarBtn>
             </template>
             <v-card width="300" rounded="xl">
@@ -83,7 +96,17 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
             icon
             active
         >
-            <v-icon>mdi-account-circle-outline</v-icon>
+            <v-avatar
+                :color="!ProfileImage ? 'primary-alt' : ''"
+                size="38px" 
+            >
+                <v-img  
+                    v-if="ProfileImage"
+                    :src="ProfileImage" 
+                    :alt="`${userStore.user?.username} profile image`"
+                />
+                <span v-else class="text-h5">{{ ProfileInitials }}</span>
+            </v-avatar>
         </NanaAppBarBtn>
 
         <NanaAppBarBtn 

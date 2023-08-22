@@ -148,7 +148,7 @@ const submitEmitter = async (e: any): Promise<void> => {
             :apiMethod="apiMethod"
         />
         <p class="text-center mt-4">By creating an account with us you agree to our 
-            <NuxtLink class="text-primary-alt text-decoration-none" to="#">
+            <NuxtLink class="text-primary-alt text-decoration-none" to="/terms">
                 terms of agreement
             </NuxtLink>.
         </p>

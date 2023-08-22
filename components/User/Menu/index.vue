@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useUserMenuStore } from '@/store'
+import { useUserMenuStore , useAuthStore } from '@/store'
 
 const userMenuStore = useUserMenuStore()
 </script>
 
 <template>
-    <component :is="userMenuStore.CurrentView" />
+    <component v-if="useAuthStore().isAuth" :is="userMenuStore.CurrentView" />
 </template>

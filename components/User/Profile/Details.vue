@@ -4,6 +4,7 @@ import { useUserStore } from '@/store'
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const userStore = useUserStore()
 const { DefaultProfileImg } = useDefaultProfileImg()
 const profile = ref<User>()
 const profileImgFile = ref()
@@ -23,19 +24,16 @@ const ProfileImage = computed(() => {
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const getProfile = async (): Promise<void> => {
-    // const { data: cacheData } = useNuxtData(`${route.params.uid}`)
-    // profile.value = cacheData?.value?.user
-    // isOwner.value = cacheData?.value?.owner
-    
+    const { data: cacheData } = useNuxtData(`${route.params.uid}`)
+    profile.value = cacheData?.value?.user
+    isOwner.value = cacheData?.value?.owner
+
     const { data, pending, error, refresh } = await useApi({
         path: `${config.public.API_USER_PROFILE}${route.params.uid}/`,
         method: 'GET',
         key: `${route.params.uid}`
     })
 
-    // console.log(cacheData?.value)
-    console.log(data.value)
-    // console.log('store: '+useUserStore().user.username)
     isOwner.value = data.value.owner
     profile.value = data.value.user
 }
@@ -52,7 +50,7 @@ const uploadImage = async (file: File): Promise<void> => {
         isMultiPart: true 
     })
     profile.value = data.value
-    useUserStore().user = data.value
+    userStore.user = data.value
 }
 
 watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
@@ -127,7 +125,6 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             </v-btn>
         </div>
     </div>
-    <!-- <UserProfileEditDetails v-model="isEditDialogOpen" /> -->
 </template>
 
 <style scoped>
