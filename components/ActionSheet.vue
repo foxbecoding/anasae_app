@@ -67,7 +67,6 @@ const setSheetHeight = (value: any) => {
 }
 
 const touchPosition = (event: any) => event.touches ? event.touches[0] : event
-
 const onDragStart = (event: any) => dragPosition.value = touchPosition(event).pageY
 
 const onDragMove = (event: any) => {
@@ -154,7 +153,7 @@ const onScrimUpdate = (e: any): void => { if (!e && props.modelValue) updatedMod
     left: 0;
     z-index: 2023;
     width: 100%;
-    touch-action: none;
+    touch-action: none !important;
 }
 
 .action-content{

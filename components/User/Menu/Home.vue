@@ -30,9 +30,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
         prependIcon: 'mdi-theme-light-dark', 
         appendIcon: 'mdi-chevron-right',
         text: `Theme: ${CurrentTheme.value}`, 
-        action: function() {
-            userMenuStore.selectedView = UserMenuTheme
-        }
+        action: function() { userMenuStore.selectedView = UserMenuTheme }
     },
 ])
 
@@ -67,6 +65,7 @@ const ProfileImage = computed(() => {
     <v-list density="compact" :bg-color="BackgroundColor">
         <v-list-item 
             v-for="(item, i) in accountItems"
+            :data-test-id="`user-menu-home-account-item${i}`"
             :key="i"
             :value="item"
             title=""

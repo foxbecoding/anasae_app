@@ -1,10 +1,6 @@
 <script lang="ts" setup>
-import { useAuthStore } from '@/store/Auth'
+import { useAuthStore } from '@/store'
 import { useDisplay } from 'vuetify'
-
-const props = defineProps({
-    title: String
-})
 
 const route = useRoute()
 const authStore = useAuthStore()
@@ -18,9 +14,7 @@ const close = async (): Promise<void> => {
     }, 300) 
 }
 
-const prevStep = (): void => {
-    authStore.signUpFormStep--
-}
+const prevStep = (): void => { authStore.signUpFormStep-- }
 
 const DialogButtonFunc = computed((): Function => {
     if (route.name == 'auth-sign-up' 
@@ -53,7 +47,7 @@ const DialogButtonIcon = computed((): string => {
         <v-card 
             height="1000px" 
             :rounded="IsFullscreen ? 'none' : 'xl'"
-            :class="IsFullscreen ? 'auth-card' : ''"
+            :class="IsFullscreen ? 'mobile-dialog-card' : ''"
         >
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
@@ -77,10 +71,4 @@ const DialogButtonIcon = computed((): string => {
 </template>
 
 <style scoped>
-.auth-card {
-    background: rgba(var(--v-theme-background), 0.8) !important;
-    -webkit-backdrop-filter: blur(5px);
-    -moz-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-}
 </style>

@@ -33,6 +33,7 @@ const themeItems = ref<UserMenuItem[]>([
                     @click="userMenuStore.goBack"
                     icon="mdi-arrow-left"
                     variant="plain"
+                    size="small"
                 >
                 </v-btn>
             </template>

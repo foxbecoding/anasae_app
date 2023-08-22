@@ -10,6 +10,7 @@ const profileImgFile = ref()
 const profileImgFileRef = ref()
 const isOwner = ref<boolean>()
 const showAddImgBtn = ref<boolean>(false)
+const isEditDialogOpen = ref<boolean>(false)
 
 const ProfileImage = computed(() => {
     if (profile.value?.image) {
@@ -22,18 +23,21 @@ const ProfileImage = computed(() => {
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const getProfile = async (): Promise<void> => {
-    const { data: cacheData } = useNuxtData(`${route.params.uid}`)
-    profile.value = cacheData?.value?.user
-    isOwner.value = cacheData?.value?.owner
-
+    // const { data: cacheData } = useNuxtData(`${route.params.uid}`)
+    // profile.value = cacheData?.value?.user
+    // isOwner.value = cacheData?.value?.owner
+    
     const { data, pending, error, refresh } = await useApi({
         path: `${config.public.API_USER_PROFILE}${route.params.uid}/`,
         method: 'GET',
         key: `${route.params.uid}`
     })
 
-    profile.value = data.value.user
+    // console.log(cacheData?.value)
+    console.log(data.value)
+    // console.log('store: '+useUserStore().user.username)
     isOwner.value = data.value.owner
+    profile.value = data.value.user
 }
 
 getProfile()
@@ -88,8 +92,9 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                     {{ profile?.username }}
                 </h2>
                 <v-btn 
+                    :to="{path: `/profile/edit/${profile?.uid}`}"
                     :color="!isOwner ? 'primary-alt' : 'surface'" 
-                    class="ma-4 d-none d-sm-block" 
+                    class="ma-4 d-none d-sm-flex" 
                     rounded="pill"
                     flat
                 >
@@ -109,6 +114,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 </div>
             </div>
             <v-btn 
+                @click="isEditDialogOpen = true"
                 :color="!isOwner ? 'primary-alt' : 'surface'" 
                 class="ma-4 d-sm-none" 
                 rounded="pill"
@@ -121,6 +127,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             </v-btn>
         </div>
     </div>
+    <!-- <UserProfileEditDetails v-model="isEditDialogOpen" /> -->
 </template>
 
 <style scoped>
