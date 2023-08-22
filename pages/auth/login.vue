@@ -4,9 +4,10 @@ definePageMeta({
 })
 
 const { PageComponent } = useAuthPageFactory()
+console.log(PageComponent)
 </script>
 
 
 <template>
-    <component :is="PageComponent"/>
+  <component :is="PageComponent"/>
 </template>

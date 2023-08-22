@@ -25,6 +25,7 @@ import { VSheet } from 'vuetify/components/VSheet'
 import { VTextarea } from 'vuetify/components/VTextarea'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VSelect } from 'vuetify/components/VSelect'
+import { VSnackbar } from 'vuetify/components/VSnackbar'
 import { VSwitch } from 'vuetify/components/VSwitch'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
 import { VWindow, VWindowItem } from 'vuetify/components/VWindow'
@@ -99,6 +100,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VSelect,
             VSheet,
             VSkeletonLoader,
+            VSnackbar,
             VSpacer,
             VSwitch,
             VTextarea,

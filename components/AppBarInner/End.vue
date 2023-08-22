@@ -113,7 +113,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
             v-if="!authStore.isAuth"
             data-test-id="app-bar-inner-end-theme-toggle-btn"       
             @click="toggleTheme()" 
-            class="rounded-xl ml-2 d-none d-sm-block"
+            class="rounded-xl ml-2"
             height="38px"
             width="38px"
             icon

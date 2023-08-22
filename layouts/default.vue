@@ -15,7 +15,7 @@ const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color'
 const AppBarMobilePos = computed((): string => appBarMobileClass.value)
 const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent' : '')
 const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) )
-const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) && authStore.prevRoute == 'index' || route.name == 'index')
+const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) && authStore.prevRoute == '/' || route.name == 'index')
 
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
@@ -38,6 +38,8 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             </v-container>
             <slot></slot>
         </v-main>
+
+        <Snackbar />
         <BottomNav v-if="smAndDown" class="d-md-none w-100" />
         <Auth v-if="ShowAuthForm" >
             <component :is="AuthFormComponent" />

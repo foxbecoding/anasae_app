@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { FormTextField, FormButton } from '@/utils/types'
-import { useAuthStore, useUserStore } from "@/store"
+import { useAuthStore, useUserStore, useSnackbarStore } from "@/store"
 
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_LOGIN) 
 const apiMethod = 'POST'
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const snackbarStore = useSnackbarStore()
 const switchModel = ref<boolean>(authStore.loginForm.isUsername)
 const formError = reactive({
     isError: false,
@@ -122,6 +123,7 @@ const submitEmitter = (e: any): void => {
     }
     useRouter().replace({ path: authStore.prevRoute })
     userStore.user = e.data
+    snackbarStore.setSnackbar('Signed in', true)
 }
 
 onMounted(() => {

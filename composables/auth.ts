@@ -47,17 +47,31 @@ export const useAuthFormFactory = () => {
 }
 
 export const useAuthPageFactory = () => {
-    type PageComponentType = typeof Home | typeof Clipz | typeof Search | typeof Cart
-    type PageName = 'index' | 'clipz' | 'search' | 'cart'
+    const compType = () => Home
+    type PageComponentType = ReturnType<typeof compType>
     const authStore = useAuthStore()
-    const pageComponents = shallowReactive({
-        "index": Home,
-        "clipz": Clipz,
-        "search": Search,
-        "cart": Cart
+ 
+    const PageComponent = computed((): PageComponentType => {
+        let component 
+        switch (authStore.prevRoute) {
+            case '/':
+                component = Home  
+                break;
+            case '/clipz':
+                component = Clipz  
+                break;
+            case '/search':
+                component = Search  
+                break;
+            case '/cart':
+                component = Cart  
+                break;
+            default:
+                component = Home
+                break;
+        }
+        return component 
     })
-
-    const PageComponent = computed((): PageComponentType => pageComponents[authStore.prevRoute as PageName])
 
     return { PageComponent }
 }

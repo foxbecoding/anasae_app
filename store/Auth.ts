@@ -1,3 +1,6 @@
+import { useUserStore, useSnackbarStore } from '@/store'
+import { User } from '@/utils/types'
+
 export const useAuthStore = defineStore("auth-store", () => {
     const prevRoute = ref<string>('/')
     const isAuth = ref<boolean>(false)
@@ -25,9 +28,20 @@ export const useAuthStore = defineStore("auth-store", () => {
     })
 
     const signUpFormStep = ref<number>(1)
-
     const signUpFormGenderOptions = ref<{id: string | number, title: string, value: string | number}[]>([])
     
+    const signOut = async (): Promise<void> => {
+        const config = useRuntimeConfig()
+        await useApi({
+            path: `${config.public.API_AUTH_LOGOUT}`,
+            method: 'POST'
+        })
+        navigateTo('/', {replace: true})
+        isAuth.value = false
+        useUserStore().user = {} as User
+        useSnackbarStore().setSnackbar('Signed out', true)
+    }
+
     return {
         isAuth,
         loginForm,
@@ -35,7 +49,8 @@ export const useAuthStore = defineStore("auth-store", () => {
         signUpForm,
         signUpFormStep,
         signUpFormGenderOptions,
-        signUpCompleted
+        signUpCompleted,
+        signOut
     }
 })
 

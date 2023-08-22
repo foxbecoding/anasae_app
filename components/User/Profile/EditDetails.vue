@@ -1,22 +1,11 @@
 <script lang="ts" setup>
 import { FormTextField, FormButton } from '@/utils/types'
 import { useDisplay } from 'vuetify'
-import { useUserStore } from '@/store'
-
-// const props = defineProps({
-//     modelValue: {
-//         type: Boolean,
-//         required: true,
-//         default: false
-//     },
-// })
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
+import { useUserStore, useSnackbarStore } from '@/store'
 
 const dialog = ref<boolean>(true)
 const userStore = useUserStore()
+const snackbarStore = useSnackbarStore() 
 const config = useRuntimeConfig()
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const formError = reactive({ isError: false, message:'' })
@@ -105,6 +94,7 @@ const submitEmitter = (e: any): void => {
     formError.message = ''
     userStore.user = e.data
     close()
+    snackbarStore.setSnackbar('Profile edited', true)
 }
 
 </script>
