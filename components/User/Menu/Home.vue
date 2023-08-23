@@ -26,7 +26,10 @@ const accountItems = ref<UserMenuItem[]>([
         id: 4, 
         prependIcon: 'mdi-logout-variant', 
         text: 'Sign out',
-        action: () => authStore.signOut()
+        action: () => {
+            userMenuStore.isOpen = false
+            authStore.signOut()
+        }
     }
 ])
 

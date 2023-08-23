@@ -4,7 +4,6 @@ definePageMeta({
 })
 
 const { PageComponent } = useAuthPageFactory()
-console.log(PageComponent)
 </script>
 
 

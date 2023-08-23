@@ -11,7 +11,7 @@
                 sm="6"
                 md="3"
             >
-                <v-card height="340">
+                <v-card height="340" elevation="1">
                     {{ n }}
                 </v-card>
             </v-col>
