@@ -53,9 +53,9 @@ export default defineNuxtPlugin(nuxtApp => {
         colors: {
             background: 'rgb(255,255,255)',
             'glass-bg': 'rgb(0,0,0)',
-            surface: 'rgb(220,220,220)',
+            surface: 'rgb(255,255,255)',
             'surface-alt': 'rgb(15,15,15)',
-            'surface-el': 'rgb(255,255,255)',
+            'surface-el': 'rgb(220,220,220)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
             'primary-alt': '#1E88E5',

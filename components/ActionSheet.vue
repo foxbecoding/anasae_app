@@ -119,7 +119,7 @@ const onScrimUpdate = (e: any): void => { if (!e && props.modelValue) updatedMod
                 height: `${sheetHeight}vh`
             }"
         >
-            <v-toolbar :color="props?.backgroundColor">
+            <v-toolbar :color="props?.backgroundColor" height="30">
                 <div class="action-draggable-area py-4 mx-auto">
                     <div 
                         v-if="props.actionChip" 
@@ -127,21 +127,22 @@ const onScrimUpdate = (e: any): void => { if (!e && props.modelValue) updatedMod
                         class="rounded-pill action-draggable-chip"
                     ></div>
                 </div>
-                <v-btn 
-                    v-if="props.isCloseBtn"
-                    @click="close()"
-                    class="action-close-btn" 
-                    :color="props.closeBtnColor"
-                    variant="text" 
-                    icon="mdi-close-circle"
-                >
-                </v-btn>
-            </v-toolbar>
+                
+            </v-toolbar>     
             <slot name="topContent"></slot>
             <v-card-title v-if="props.title">{{ props.title }}</v-card-title>
             <v-card-text class="pa-0 action-content">
                 <slot></slot>
             </v-card-text>
+            <v-btn 
+                v-if="props.isCloseBtn"
+                @click="close()"
+                class="action-close-btn" 
+                :color="props.closeBtnColor"
+                variant="text" 
+                size="x-small"
+                icon="mdi-close-circle"
+            />
         </v-card>
     </div>  
 </template>
@@ -177,8 +178,8 @@ const onScrimUpdate = (e: any): void => { if (!e && props.modelValue) updatedMod
 
 .action-close-btn{
     position: absolute;
-    top: 0px;
-    right: 0;
+    top: 5px;
+    right: 10px;
 }
 
 .action-sheet--open {

@@ -48,7 +48,6 @@ const DialogButtonIcon = computed((): string => {
             height="1000px" 
             :rounded="IsFullscreen ? 'none' : 'xl'"
             :class="IsFullscreen ? 'mobile-dialog-card' : ''"
-            color="surface-el"
         >
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">

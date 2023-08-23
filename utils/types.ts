@@ -75,6 +75,7 @@ export interface Slider {
 
 export interface User {
     addresses?: string[]
+    brands?: any[] 
     display_name?: string
     email?: string
     first_name: string

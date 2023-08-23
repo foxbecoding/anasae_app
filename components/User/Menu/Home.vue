@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { UserMenuTheme } from '@/components/User/Menu/components'
+import { UserMenuTheme, UserMenuBrands } from '@/components/User/Menu/components'
 import { useUserStore, useUserMenuStore, useAuthStore } from '@/store'
 import { useTheme } from 'vuetify'
 import { UserMenuItem } from '@/utils/types'
@@ -9,7 +9,6 @@ const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const authStore = useAuthStore()
 const CurrentTheme = computed((): string => vTheme.global.current.value.dark ? 'Dark' : 'Light')
-const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
 const accountItems = ref<UserMenuItem[]>([
@@ -20,10 +19,15 @@ const accountItems = ref<UserMenuItem[]>([
         to: `/profile/${userStore.user.uid}`,
         action: () => { userMenuStore.isOpen = false }
     },
-    { id: 2, prependIcon: 'mdi-storefront-outline', text: 'My brands'},
-    { id: 3, prependIcon: 'mdi-storefront-plus-outline', text: 'Create a brand'},
     { 
-        id: 4, 
+        id: 2, 
+        prependIcon: 'mdi-storefront-outline', 
+        appendIcon: 'mdi-chevron-right',
+        text: 'My brands',
+        action: function() { userMenuStore.selectedView = UserMenuBrands }
+    },
+    { 
+        id: 3, 
         prependIcon: 'mdi-logout-variant', 
         text: 'Sign out',
         action: () => {
@@ -31,6 +35,11 @@ const accountItems = ref<UserMenuItem[]>([
             authStore.signOut()
         }
     }
+])
+
+const productDataItems = ref<UserMenuItem[]>([
+    { id: 1, prependIcon: 'mdi-shopping-outline', text: 'My orders' },
+    { id: 2, prependIcon: 'mdi-heart-outline', text: 'Wishlist'}
 ])
 
 const siteConfigItems = ref<UserMenuItem[]>([
@@ -47,7 +56,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
 </script>
 
 <template>
-    <v-list :bg-color="BackgroundColor">
+    <v-list>
         <v-list-item
             :title="userStore.user?.username"
             :subtitle="userStore.user?.email"
@@ -69,39 +78,45 @@ const siteConfigItems = ref<UserMenuItem[]>([
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="BackgroundColor">
+    <v-list density="compact">
         <v-list-item 
             v-for="(item, i) in accountItems"
+            :prepend-icon="item.prependIcon"
+            :append-icon="item?.appendIcon"
             :data-test-id="`user-menu-home-account-item${i}`"
             :key="i"
             :value="item"
-            title=""
+            :title="item.text"
             :to="item?.to"
             @click="item?.action"
         >
-            <template v-slot:prepend>
-                <v-icon :icon="item.prependIcon"></v-icon>
-            </template>
-            <v-list-item-title v-text="item.text" />
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="BackgroundColor">
+    <v-list density="compact">
         <v-list-item 
-            v-for="(item, i) in siteConfigItems"
+            v-for="(item, i) in productDataItems"
+            :prepend-icon="item.prependIcon"
+            :append-icon="item?.appendIcon"
+            :data-test-id="`user-menu-home-product-data-item${i}`"
             :key="i"
             :value="item"
-            title=""
+            :title="item.text"
+        >
+        </v-list-item>
+    </v-list>
+    <v-divider />
+    <v-list density="compact">
+        <v-list-item 
+            v-for="(item, i) in siteConfigItems"
+            :prepend-icon="item.prependIcon"
+            :append-icon="item?.appendIcon"
+            :key="i"
+            :value="item"
+            :title="item.text"
             :to="item?.to"
             @click="item?.action"
         >
-            <template v-slot:prepend>
-                <v-icon :icon="item.prependIcon"></v-icon>
-            </template>
-            <v-list-item-title v-text="item.text" />
-            <template v-slot:append>
-                <v-icon :icon="item?.appendIcon"></v-icon>
-            </template>
         </v-list-item>
     </v-list>
 </template>

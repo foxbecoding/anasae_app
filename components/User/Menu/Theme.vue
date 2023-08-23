@@ -5,7 +5,6 @@ import { useTheme } from 'vuetify'
 
 const vTheme = useTheme()
 const userMenuStore = useUserMenuStore()
-const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => { vTheme.global.name.value = theme}
 const themeItems = ref<UserMenuItem[]>([
     { 
@@ -26,7 +25,7 @@ const themeItems = ref<UserMenuItem[]>([
 </script>
 
 <template>
-    <v-list class="py-0" density="compact" :bg-color="BackgroundColor">
+    <v-list class="py-0" density="compact">
         <v-list-item class="pl-1" title="Theme settings">
             <template v-slot:prepend>
                 <v-btn 
@@ -40,7 +39,7 @@ const themeItems = ref<UserMenuItem[]>([
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list density="compact" :bg-color="BackgroundColor">
+    <v-list density="compact">
         <v-list-item 
             v-for="(item, i) in themeItems"
             :key="i"

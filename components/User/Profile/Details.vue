@@ -91,7 +91,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 </h2>
                 <v-btn 
                     :to="{path: `/profile/edit/${profile?.uid}`}"
-                    :color="!isOwner ? 'primary-alt' : 'surface'" 
+                    :color="!isOwner ? 'primary-alt' : 'surface-el'" 
                     class="ma-4 d-none d-sm-flex" 
                     rounded="pill"
                     flat
@@ -113,7 +113,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             </div>
             <v-btn 
                 @click="isEditDialogOpen = true"
-                :color="!isOwner ? 'primary-alt' : 'surface'" 
+                :color="!isOwner ? 'primary-alt' : 'surface-el'" 
                 class="ma-4 d-sm-none" 
                 rounded="pill"
                 size="small"

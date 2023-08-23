@@ -5,7 +5,6 @@ import { useTheme } from 'vuetify'
 
 const vTheme = useTheme()
 const userMenuStore = useUserMenuStore()
-const BackgroundColor = computed((): string => vTheme.global.current.value.dark ? 'surface' : 'background')
 const closeSheet = (e: any) => {
     if (!e){
         userMenuStore.isOpen = false
@@ -20,10 +19,10 @@ const closeSheet = (e: any) => {
         v-model="userMenuStore.isOpen" 
         fullscreen
         @update:modelValue="closeSheet"
-        background-color="surface-el"
+        background-color="surface"
         closeBtnColor="primary"
         isCloseBtn
-        :maxHeight="100"
+        :maxHeight="95"
         :start-height="100"
         rounded="xl"
     >

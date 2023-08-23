@@ -170,7 +170,7 @@ const submitEmitter = async (e: any): Promise<void> => {
                 @click="authStore.signUpCompleted = false"
                 :to="{name: 'auth-login'}" 
                 :replace="true"
-                color="surface"
+                color="surface-el"
                 rounded="pill" 
                 block 
                 flat 

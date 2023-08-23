@@ -1,6 +1,5 @@
 <template>
     <v-snackbar
-        color="surface-el"
         v-model="snackbarStore.show"
         rounded="pill"
         z-index="2050"

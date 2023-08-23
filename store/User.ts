@@ -1,6 +1,6 @@
 import { User, ApiData } from '@/utils/types'
 import { useAuthStore } from './'
-import { UserMenuHome, UserMenuTheme } from '@/components/User/Menu/components'
+import { UserMenuHome, UserMenuTheme, UserMenuBrands } from '@/components/User/Menu/components'
 
 
 export const useUserStore = defineStore("user-store", () => {
@@ -25,7 +25,8 @@ export const useUserStore = defineStore("user-store", () => {
 })
 
 export const useUserMenuStore = defineStore("user-menu-store", () => {
-    type ViewType = typeof UserMenuHome | typeof UserMenuTheme
+    const compType = () => UserMenuHome
+    type ViewType = ReturnType<typeof compType> 
     const isLightTheme = ref<boolean>(false)
     const selectedView = shallowRef<ViewType>()
     const isOpen = ref<boolean>(false)
