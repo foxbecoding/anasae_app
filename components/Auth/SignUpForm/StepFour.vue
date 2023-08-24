@@ -147,10 +147,13 @@ const submitEmitter = async (e: any): Promise<void> => {
             :apiPath="apiPath"
             :apiMethod="apiMethod"
         />
-        <p class="text-center mt-4">By creating an account with us you agree to our 
-            <NuxtLink class="text-primary-alt text-decoration-none" to="/terms">
-                terms of agreement
-            </NuxtLink>.
+        <p class="text-center text-caption mt-4">By creating an account with us you agree to our 
+            <NuxtLink 
+                class="text-primary-alt text-decoration-none" 
+                to="/terms"
+            >
+                terms of agreement.
+            </NuxtLink>
         </p>
         <v-alert
             v-model="formError.isError"

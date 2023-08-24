@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useUserMenuStore, useUserStore } from '@/store'
 import { UserMenuBrandsAdd } from '../components'
+import { Brand } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
 const userStore = useUserStore()
-
+const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands))
 </script>
 
 <template>
@@ -22,11 +23,19 @@ const userStore = useUserStore()
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-container 
-        v-if="userStore.user.brands && userStore.user.brands.length === 0" 
-        class="no-brands-container" 
-    >
-        <div class="text-center no-brands-content">
+    <v-list  v-if="userStore.user.owned_brands.length > 0" density="compact">
+        <v-list-item 
+            v-for="(brand, i) in brands"
+            :key="i"
+            :value="brand"
+            prepend-icon="mdi-storefront-outline"
+            :title="brand.name"
+            :to="{name: `brand-uid`, params: {uid: brand.uid}}"
+        >
+        </v-list-item>
+    </v-list>
+    <v-container class="no-brands-container" v-else>
+        <div class="text-center">
             <v-icon color="primary-alt" size="60">mdi-storefront-outline</v-icon>
             <p class="text-body-1 py-4">Add your brand and start selling today!</p>
             <v-btn 
@@ -38,19 +47,12 @@ const userStore = useUserStore()
                 <v-icon>mdi-plus</v-icon>
                 Add brand
             </v-btn>
-        </div>
-    </v-container>    
+        </div>  
+    </v-container>  
 </template>
 
 <style scoped>
 .no-brands-container {
-    position: relative;
-    min-height: 200px;
-}
-.no-brands-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 200px;
 }
 </style>

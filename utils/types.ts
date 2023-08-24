@@ -10,6 +10,23 @@ export interface ApiData {
 
 export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 
+export interface Brand {
+    bio: string
+    followers: number
+    logo: string | null
+    name: string
+    owners: BrandOwner[]
+    pk:string | number
+    stripe_account_id: string
+    uid: string
+}
+
+export interface BrandOwner {
+    pk: string|number, 
+    brand: string|number, 
+    user: string|number
+}
+
 export interface FormInputBase {
     appendIcon?: string
     appendInnerIcon?: string
@@ -75,7 +92,7 @@ export interface Slider {
 
 export interface User {
     addresses?: string[]
-    brands?: any[] 
+    owned_brands: string[] | number[] 
     display_name?: string
     email?: string
     first_name: string
