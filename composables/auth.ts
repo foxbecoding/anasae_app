@@ -5,6 +5,10 @@ import Home from '@/pages/index.vue'
 import Clipz from '@/pages/clipz.vue'
 import Search from '@/pages/search.vue'
 import Cart from '@/pages/cart.vue'
+import Profile from '@/pages/profile/index.vue'
+import ProfileUID from '@/pages/profile/[uid].vue'
+import Brand from '@/pages/brand/index.vue' 
+import BrandUID from '@/pages/brand/[uid].vue' 
 import { AuthRouteName as RouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
@@ -53,18 +57,30 @@ export const useAuthPageFactory = () => {
  
     const PageComponent = computed((): PageComponentType => {
         let component 
-        switch (authStore.prevRoute) {
-            case '/':
+        switch (authStore.prevRouteName) {
+            case 'index':
                 component = Home  
                 break;
-            case '/clipz':
+            case 'clipz':
                 component = Clipz  
                 break;
-            case '/search':
+            case 'search':
                 component = Search  
                 break;
-            case '/cart':
+            case 'cart':
                 component = Cart  
+                break;
+            case 'profile':
+                component = Profile  
+                break;
+            case 'profile-uid':
+                component = ProfileUID  
+                break;
+            case 'brand':
+                component = Brand
+                break;
+            case 'brand-uid':
+                component = BrandUID  
                 break;
             default:
                 component = Home

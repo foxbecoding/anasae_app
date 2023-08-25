@@ -38,17 +38,20 @@ const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands)
         <div class="text-center">
             <v-icon color="primary-alt" size="60">mdi-storefront-outline</v-icon>
             <p class="text-body-1 py-4">Add your brand and start selling today!</p>
-            <v-btn 
-                color="primary-alt text-surface" 
-                rounded="pill" 
-                flat
-                @click="userMenuStore.selectedView = UserMenuBrandsAdd"
-            >
-                <v-icon>mdi-plus</v-icon>
-                Add brand
-            </v-btn>
         </div>  
     </v-container>  
+    <v-container>
+        <v-btn 
+            color="primary-alt text-surface" 
+            rounded="pill" 
+            flat
+            block
+            @click="userMenuStore.selectedView = UserMenuBrandsAdd"
+        >
+            <v-icon>mdi-plus</v-icon>
+            Add brand
+        </v-btn>
+    </v-container>
 </template>
 
 <style scoped>

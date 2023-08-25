@@ -1,8 +1,10 @@
 import { useUserStore, useSnackbarStore } from '@/store'
 import { User } from '@/utils/types'
+import { RouteRecordName } from 'vue-router'
 
 export const useAuthStore = defineStore("auth-store", () => {
     const prevRoute = ref<string>('/')
+    const prevRouteName = ref<RouteRecordName | null | undefined>('index')
     const isAuth = ref<boolean>(false)
     const loginForm = reactive({
         email: '',
@@ -30,6 +32,11 @@ export const useAuthStore = defineStore("auth-store", () => {
     const signUpFormStep = ref<number>(1)
     const signUpFormGenderOptions = ref<{id: string | number, title: string, value: string | number}[]>([])
     
+    const setPrevRouteData = (routePath: string, routeName: RouteRecordName | null | undefined) => {
+        prevRoute.value = routePath
+        prevRouteName.value = routeName
+    } 
+
     const signOut = async (): Promise<void> => {
         const config = useRuntimeConfig()
         await useApi({
@@ -46,10 +53,12 @@ export const useAuthStore = defineStore("auth-store", () => {
         isAuth,
         loginForm,
         prevRoute,
+        prevRouteName,
         signUpForm,
         signUpFormStep,
         signUpFormGenderOptions,
         signUpCompleted,
+        setPrevRouteData,
         signOut
     }
 })

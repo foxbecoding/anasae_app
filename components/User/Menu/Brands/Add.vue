@@ -105,7 +105,7 @@ const submitEmitter = (e: any): void => {
             :apiPath="`${config.public.API_BRAND}`"
             apiMethod="POST"
         />
-        <p class="text-center mt-4 text-caption">By adding brand you agree to our 
+        <p class="text-center mt-4 text-caption">By adding your brand you agree to our 
             <NuxtLink 
                 @click="userMenuStore.close"
                 class="text-primary-alt text-decoration-none" 

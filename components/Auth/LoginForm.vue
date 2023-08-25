@@ -157,7 +157,7 @@ onMounted(() => {
         density="compact"
         inset
         :centerAffix="false"
-        :label="`Login with: ${switchModel ? 'email' : 'username'}`"
+        :label="`Login with: ${switchModel ? 'username' : 'email'}`"
     ></v-switch>
     <v-alert
         v-model="formError.isError"

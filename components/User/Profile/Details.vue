@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { User } from '@/utils/types'
-import { useUserStore } from '@/store'
+import { useUserStore, useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const authStore = useAuthStore()
 const userStore = useUserStore()
 const { DefaultProfileImg } = useDefaultProfileImg()
 const profile = ref<User>()
@@ -11,7 +12,6 @@ const profileImgFile = ref()
 const profileImgFileRef = ref()
 const isOwner = ref<boolean>()
 const showAddImgBtn = ref<boolean>(false)
-const isEditDialogOpen = ref<boolean>(false)
 
 const ProfileImage = computed(() => {
     if (profile.value?.image) {
@@ -21,17 +21,26 @@ const ProfileImage = computed(() => {
     return DefaultProfileImg.value 
 })
 
+
+const UID = computed(() => {
+    if (route.fullPath.includes('auth')){
+        return authStore.prevRoute.split('/').slice(-1)[0]   
+    }
+    return route.params.uid
+})
+
+
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const getProfile = async (): Promise<void> => {
-    const { data: cacheData } = useNuxtData(`${route.params.uid}`)
+    const { data: cacheData } = useNuxtData(`${UID.value}`)
     profile.value = cacheData?.value?.user
     isOwner.value = cacheData?.value?.owner
 
     const { data, pending, error, refresh } = await useApi({
-        path: `${config.public.API_USER_PROFILE}${route.params.uid}/`,
+        path: `${config.public.API_USER_PROFILE}${UID.value}/`,
         method: 'GET',
-        key: `${route.params.uid}`
+        key: `${UID.value}`
     })
 
     isOwner.value = data.value.owner
@@ -57,14 +66,14 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
 </script>
 
 <template>
-    <div class="d-flex justify-space-between content-wrapper">
+    <div class="d-sm-flex justify-space-between content-wrapper text-center text-sm-left">
         <v-file-input
             v-model="profileImgFile" 
             class="d-none" 
             ref="profileImgFileRef" 
             accept="image/png, image/jpeg, image/bmp"
         />
-        <div class="profile-image-size" style="position: relative">
+        <div class="profile-image-size mx-auto mx-sm-0" style="position: relative">
             <v-img 
                 class="rounded-circle profile-image-size border" 
                 :src="ProfileImage" 
@@ -84,25 +93,14 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        
-        <div class="d-block align-center">
-            <div class="d-flex align-center">
-                <h2 class="px-4 text-h5 text-sm-h4">
-                    {{ profile?.username }}
-                </h2>
-                <v-btn 
-                    :to="{path: `/profile/edit/${profile?.uid}`}"
-                    :color="!isOwner ? 'primary-alt' : 'surface-el'" 
-                    class="ma-4 d-none d-sm-flex" 
-                    rounded="pill"
-                    flat
-                >
-                    <v-icon v-if="!isOwner">mdi-plus</v-icon>
-                    <v-icon v-else>mdi-pencil</v-icon>
-                    {{ !isOwner ? 'Follow' : 'Edit Profile'  }}
-                </v-btn>
-            </div>
-            <div class="d-flex">
+        <h2 class="text-h6 text-sm-h5 d-sm-none">
+            @{{ profile?.username }}
+        </h2>
+        <div class="d-block text-center">
+            <h2 class="d-none text-left pl-4 d-sm-block text-sm-h5">
+                @{{ profile?.username }}
+            </h2>
+            <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
                     <span class="text-body-1">post</span>
@@ -112,20 +110,27 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                     <span class="text-body-1">followers</span>
                 </div>
             </div>
-            <v-btn 
-                @click="isEditDialogOpen = true"
-                :color="!isOwner ? 'primary-alt' : 'surface-el'" 
-                class="ma-4 d-sm-none" 
-                rounded="pill"
-                size="small"
-                flat
-            >
-                <v-icon v-if="!isOwner">mdi-plus</v-icon>
-                <v-icon v-else>mdi-pencil</v-icon>
-                {{ !isOwner ? 'Follow' : 'Edit Profile'  }}
-            </v-btn>
+            
         </div>
+        <v-btn 
+            :to="{path: `/profile/edit/${profile?.uid}`}"
+            color="primary" 
+            class="d-none d-sm-flex" 
+            rounded="pill"
+            flat
+            :text="!isOwner ? 'Follow' : 'Edit Profile'"
+        />
     </div>
+    <v-btn 
+        :to="{path: `/profile/edit/${profile?.uid}`}"
+        color="primary" 
+        class="d-sm-none mt-4" 
+        rounded="pill"
+        block
+        flat
+        :text="!isOwner ? 'Follow' : 'Edit Profile'"
+    />
+    
 </template>
 
 <style scoped>
@@ -146,7 +151,8 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
 
 @media screen and (max-width: 1279px) {
     .content-wrapper {
-        max-width: 550px
+        /* max-width: 550px */
+        max-width: 100%
     }
 }
 
@@ -156,7 +162,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
         height: 108px;
     }
     .content-wrapper {
-        max-width: 450px
+        max-width: 100%
     }
 }
 
@@ -166,7 +172,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
         height: 60px;
     }
     .content-wrapper {
-        max-width: 250px
+        max-width: 100%
     }
     
     .add-profile-image-btn {

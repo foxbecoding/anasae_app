@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useAuthStore, useUserStore } from '@/store'
+import { BrandOwner } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -8,15 +9,23 @@ const userStore = useUserStore()
 const brandLogoFile = ref()
 const brandLogoFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)
+
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
-const { data: brand, refresh } = await useApi({
-    path: `${config.public.API_BRAND_PAGE}${route.params.uid}/`,
-    method: 'GET',
-    key: `${route.params.uid}`
+const UID = computed(() => {
+    if (route.fullPath.includes('auth')){
+        return authStore.prevRoute.split('/').slice(-1)[0]   
+    }
+    return route.params.uid
 })
 
-const IsOwner = computed(() => brand.value.owners.find(x => x.user == userStore.user.pk) ? true : false)
+const { data: brand, refresh } = await useApi({
+    path: `${config.public.API_BRAND_PAGE}${UID.value}/`,
+    method: 'GET',
+    key: `${UID.value}`
+})
+
+const IsOwner = computed(() => brand.value.owners.find((x: BrandOwner) => x.user == userStore.user.pk) ? true : false)
 
 const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo.image) )
 
@@ -31,7 +40,6 @@ const uploadImage = async (file: File): Promise<void> => {
         isMultiPart: true 
     })
     brand.value = data.value
-    // userStore.user = data.value
 }
 
 watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
@@ -39,14 +47,14 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
 </script>
 
 <template>
-    <div class="d-flex justify-space-between content-wrapper">
+    <div class="d-sm-flex justify-space-between content-wrapper text-center text-sm-left">
         <v-file-input
             v-model="brandLogoFile" 
             class="d-none" 
             ref="brandLogoFileRef" 
             accept="image/png, image/jpeg, image/bmp"
         />
-        <div class="brand-logo-size" style="position: relative">
+        <div class="brand-logo-size mx-auto mx-sm-0" style="position: relative">
             <v-img 
                 class="rounded-circle brand-logo-size border" 
                 :src="BrandLogo" 
@@ -66,25 +74,14 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        
-        <div class="d-block align-center">
-            <div class="d-flex align-center">
-                <h2 class="px-4 text-h6 text-sm-h5">
-                    {{ brand.name }}
-                </h2>
-                <v-btn 
-                    :to="{path: `/brand/edit/${brand.uid}`}"
-                    color="primary" 
-                    class="ma-4 d-none d-sm-flex" 
-                    rounded="pill"
-                    flat
-                >
-                    <v-icon v-if="!IsOwner">mdi-plus</v-icon>
-                    <v-icon v-else>mdi-pencil</v-icon>
-                    {{ !IsOwner ? 'Follow' : 'Edit'  }}
-                </v-btn>
-            </div>
-            <div class="d-flex">
+        <h2 class="text-h6 text-sm-h5 d-sm-none">
+            {{ brand.name }}
+        </h2>
+        <div class="d-block text-center">
+            <h2 class="d-none text-left pl-9 d-sm-block text-sm-h5">
+                {{ brand.name }}
+            </h2>
+            <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
                     <span class="text-body-1">post</span>
@@ -94,20 +91,26 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                     <span class="text-body-1">followers</span>
                 </div>
             </div>
-            <v-btn 
-                @click="isEditDialogOpen = true"
-                color="primary" 
-                class="ma-4 d-sm-none" 
-                rounded="pill"
-                size="small"
-                flat
-            >
-                <v-icon v-if="!IsOwner">mdi-plus</v-icon>
-                <v-icon v-else>mdi-pencil</v-icon>
-                {{ !IsOwner ? 'Follow' : 'Edit'  }}
-            </v-btn>
         </div>
+        <v-btn 
+            :to="{path: `/brand/edit/${brand.uid}`}"
+            color="primary" 
+            class="ma-4 d-none d-sm-flex" 
+            rounded="pill"
+            flat
+            :text="!IsOwner ? 'Follow' : 'Edit'"
+        />
     </div>
+    <v-btn 
+        :to="{path: `/brand/edit/${brand.uid}`}"
+        color="primary" 
+        class="d-sm-none mt-4" 
+        rounded="pill"
+        block
+        size="small"
+        flat
+        :text="!IsOwner ? 'Follow' : 'Edit'"
+    />
 </template>
 
 <style scoped>
@@ -128,7 +131,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
 
 @media screen and (max-width: 1279px) {
     .content-wrapper {
-        max-width: 550px
+        max-width: 100%
     }
 }
 
@@ -138,7 +141,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         height: 108px;
     }
     .content-wrapper {
-        max-width: 450px
+        max-width: 100%
     }
 }
 
@@ -148,7 +151,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         height: 60px;
     }
     .content-wrapper {
-        max-width: 250px
+        max-width: 100%
     }
     
     .add-brand-logo-btn {

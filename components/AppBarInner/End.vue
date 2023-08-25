@@ -25,7 +25,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
             data-test-id="app-bar-inner-end-sign-in-btn" 
             class="rounded-xl" 
             active
-            @click="`${authStore.prevRoute = $route.fullPath}`"
+            @click="`${authStore.setPrevRouteData($route.fullPath, $route.name) }`"
             :to="{name: 'auth-login'}"
         >
             <v-icon class="mr-2">mdi-account-circle-outline</v-icon>

@@ -4,7 +4,7 @@
 
 <template>
     <v-container class="px-sm-8" fluid>
-        <h1>Explore</h1>
+        <h1>Brand explorer</h1>
         <v-row>
             <v-col
                 v-for="n in 12"
