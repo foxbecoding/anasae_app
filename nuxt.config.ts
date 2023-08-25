@@ -9,6 +9,7 @@ export default defineNuxtConfig({
             CDN_MEDIA_URL: process.env.CDN_MEDIA_URL,
             API_BASE_URL: process.env.API_BASE_URL,
             API_BRAND: process.env.API_BRAND,
+            API_BRAND_LOGO: process.env.API_BRAND_LOGO,
             API_BRAND_OWNER: process.env.API_BRAND_OWNER,
             API_BRAND_PAGE: process.env.API_BRAND_PAGE,
             API_AUTH_LOGIN: process.env.API_AUTH_LOGIN,

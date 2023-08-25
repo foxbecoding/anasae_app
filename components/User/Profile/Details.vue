@@ -70,6 +70,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 :src="ProfileImage" 
                 :alt="`${profile?.username} profile image`"
                 @load="loadEmmiter"
+                cover
             />
             <v-btn 
                 v-if="isOwner && showAddImgBtn"

@@ -18,3 +18,12 @@ export const useGetOwnerBrands = async (pks: string[] | number[]) => {
     })
     return brands as Brand[]
 }
+
+export const useGetBrandLogo = (logo: string) => {
+    const config = useRuntimeConfig()
+    if (logo){
+        const {Asset} = useMediaAssets(logo)
+        return Asset.value
+    }
+    return `${config.public.CDN_MEDIA_URL}/assets/default-brand-logo.png`
+}

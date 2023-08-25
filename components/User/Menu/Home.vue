@@ -24,7 +24,7 @@ const accountItems = ref<UserMenuItem[]>([
         prependIcon: 'mdi-storefront-outline', 
         appendIcon: 'mdi-chevron-right',
         text: 'My brands',
-        action: function() { userMenuStore.selectedView = UserMenuBrands }
+        action: () => { userMenuStore.selectedView = UserMenuBrands }
     },
     { 
         id: 3, 
@@ -48,7 +48,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
         prependIcon: 'mdi-theme-light-dark', 
         appendIcon: 'mdi-chevron-right',
         text: `Theme: ${CurrentTheme.value}`, 
-        action: function() { userMenuStore.selectedView = UserMenuTheme }
+        action: () => { userMenuStore.selectedView = UserMenuTheme }
     },
 ])
 
