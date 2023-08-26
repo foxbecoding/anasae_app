@@ -19,13 +19,11 @@ const UID = computed(() => {
     return route.params.uid
 })
 
-const { data: brand, refresh } = await useApi({
+const { data: brand, refresh, pending, error } = await useApi({
     path: `${config.public.API_BRAND_PAGE}${UID.value}/`,
     method: 'GET',
     key: `${UID.value}`
 })
-
-const IsOwner = computed(() => brand.value.owners.find((x: BrandOwner) => x.user == userStore.user.pk) ? true : false)
 
 const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo.image) )
 
@@ -63,7 +61,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                 cover
             />
             <v-btn 
-                v-if="IsOwner && showAddImgBtn"
+                v-if="brand.isOwner && showAddImgBtn"
                 @click="brandLogoFileRef.click()"
                 class="add-brand-logo-btn"
                 color="primary-alt" 
@@ -74,13 +72,13 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        <h2 class="text-h6 text-sm-h5 d-sm-none">
+        <h1 class="text-h6 my-4 d-sm-none">
             {{ brand.name }}
-        </h2>
+        </h1>
         <div class="d-block text-center">
-            <h2 class="d-none text-left pl-9 d-sm-block text-sm-h5">
+            <h1 class="d-none text-left pl-5 d-sm-block text-h6">
                 {{ brand.name }}
-            </h2>
+            </h1>
             <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
@@ -90,6 +88,10 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                     <span class="text-body-1">{{ brand.followers }}</span>
                     <span class="text-body-1">followers</span>
                 </div>
+                <div class="px-4 d-flex flex-column">
+                    <span class="text-body-1">15</span>
+                    <span class="text-body-1">products</span>
+                </div>
             </div>
         </div>
         <v-btn 
@@ -98,7 +100,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             class="d-none d-sm-flex" 
             rounded="pill"
             flat
-            :text="!IsOwner ? 'Follow' : 'Edit'"
+            :text="!brand.isOwner ? 'Follow' : 'Edit'"
         />
     </div>
     <v-btn 
@@ -109,7 +111,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         block
         size="small"
         flat
-        :text="!IsOwner ? 'Follow' : 'Edit'"
+        :text="!brand.isOwner ? 'Follow' : 'Edit'"
     />
 </template>
 

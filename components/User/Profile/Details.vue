@@ -93,11 +93,11 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        <h2 class="text-h6 text-sm-h5 d-sm-none">
+        <h2 class="text-h6 d-sm-none">
             @{{ profile?.username }}
         </h2>
         <div class="d-block text-center">
-            <h2 class="d-none text-left pl-4 d-sm-block text-sm-h5">
+            <h2 class="d-none text-left pl-4 d-sm-block text-h6">
                 @{{ profile?.username }}
             </h2>
             <div class="d-flex justify-center">

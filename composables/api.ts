@@ -34,7 +34,7 @@ export const useApi = async <T>(apiData: ApiData): Promise<any> => {
     })
 
   
-    const { data, pending, error, refresh, status } = await useFetch(apiData.path, options.value)
+    const { data, pending, error, status, refresh, execute } = await useFetch(apiData.path, options.value)
     
-    return { data, pending, error, refresh, status }
+    return { data, pending, error, status, refresh, execute }
 }
