@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useTheme, useDisplay } from 'vuetify'
 import { useAuthStore, useUserMenuStore, useUserStore } from '@/store'
-import UserMenu from '../User/Menu/index.vue'
 
 const vTheme = useTheme()  
 const { mdAndUp } = useDisplay()      
