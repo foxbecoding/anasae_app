@@ -135,7 +135,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
 
 <style scoped>
 .content-wrapper {
-    max-width: 700px
+    max-width: 100%
 }
 
 .add-profile-image-btn {
@@ -149,20 +149,11 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
     height: 126px;
 }
 
-@media screen and (max-width: 1279px) {
-    .content-wrapper {
-        /* max-width: 550px */
-        max-width: 100%
-    }
-}
 
 @media screen and (max-width: 959px) {
     .profile-image-size {
         width: 108px;
         height: 108px;
-    }
-    .content-wrapper {
-        max-width: 100%
     }
 }
 
@@ -170,9 +161,6 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
     .profile-image-size {
         width: 60px;
         height: 60px;
-    }
-    .content-wrapper {
-        max-width: 100%
     }
     
     .add-profile-image-btn {

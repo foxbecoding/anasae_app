@@ -95,7 +95,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         <v-btn 
             :to="{path: `/brand/edit/${brand.uid}`}"
             color="primary" 
-            class="ma-4 d-none d-sm-flex" 
+            class="d-none d-sm-flex" 
             rounded="pill"
             flat
             :text="!IsOwner ? 'Follow' : 'Edit'"
@@ -115,7 +115,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
 
 <style scoped>
 .content-wrapper {
-    max-width: 700px
+    max-width: 100%
 }
 
 .add-brand-logo-btn {
@@ -129,29 +129,20 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
     height: 126px;
 }
 
-@media screen and (max-width: 1279px) {
-    .content-wrapper {
-        max-width: 100%
-    }
-}
+
 
 @media screen and (max-width: 959px) {
     .brand-logo-size {
         width: 108px;
         height: 108px;
     }
-    .content-wrapper {
-        max-width: 100%
-    }
+
 }
 
 @media screen and (max-width: 599px) {
     .brand-logo-size {
         width: 60px;
         height: 60px;
-    }
-    .content-wrapper {
-        max-width: 100%
     }
     
     .add-brand-logo-btn {
