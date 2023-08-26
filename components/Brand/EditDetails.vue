@@ -1,14 +1,27 @@
 <script lang="ts" setup>
 import { FormTextField, FormButton } from '@/utils/types'
 import { useDisplay } from 'vuetify'
-import { useUserStore, useSnackbarStore } from '@/store'
+import { useSnackbarStore } from '@/store'
 
-const dialog = ref<boolean>(true)
-const userStore = useUserStore()
-const snackbarStore = useSnackbarStore() 
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
+
 const config = useRuntimeConfig()
+const router = useRouter()
+const route = useRoute()
+const snackbarStore = useSnackbarStore() 
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const formError = reactive({ isError: false, message:'' })
+
+const { data: cacheData } = useNuxtData(`${route.params.uid}`)
 
 const formButton = reactive<FormButton>({
     show: true,
@@ -23,52 +36,44 @@ const formButton = reactive<FormButton>({
 const fields = ref<FormTextField[]>([
     {
         id: 1, 
-        model: userStore.user.username || '', 
-        name:'username', 
-        label: 'Username', 
+        model: cacheData.value.name || '', 
+        name:'name', 
+        label: 'Brand name', 
         density: 'comfortable',
         color: 'primary-alt',
         type: 'text', 
+        counter: 30,
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        rules: [ (v: any) => !! v || 'Username is required' ],
+        rules: [ 
+            (v: any) => !! v || 'Brand name is required',
+            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
+        ],
     },
     
     {
         id: 2, 
-        model: userStore.user.first_name || '', 
-        name:'first_name', 
-        label: 'First name', 
+        model: cacheData.value.bio || '', 
+        name:'bio', 
+        label: 'Bio', 
         density: 'comfortable',
         color: 'primary-alt',
         type: 'text', 
+        counter: 300,
         errorMessages: '',
-        inputType: 'TEXTFIELD',
+        inputType: 'TEXTAREA',
         variant: 'outlined',
-        rules: [ (v: any) => !! v || 'First name is required' ],
-    },
-
-    {
-        id: 3, 
-        model: userStore.user.last_name || '', 
-        name:'last_name', 
-        label: 'Last name', 
-        density: 'comfortable',
-        color: 'primary-alt',
-        type: 'text', 
-        errorMessages: '',
-        inputType: 'TEXTFIELD',
-        variant: 'outlined',
-        rules: [ (v: any) => !! v || 'Last name is required' ],
-    },
+        rules: [ 
+            (v: any) => !! v || 'Bio is required',
+            (v: any) => v.length <= 300 || 'Must be 300 characters or less'
+        ],
+    }
 ])
 
 const close = async (): Promise<void> => { 
-    dialog.value = false
-    setTimeout(() => {
-        navigateTo(`/profile/${userStore.user.uid}`)
-    }, 300) 
+    emit('update:modelValue', false)
+    setTimeout(() => { router.back() }, 300) 
 }
 
 const submitEmitter = (e: any): void => {
@@ -92,17 +97,16 @@ const submitEmitter = (e: any): void => {
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
-    userStore.user = e.data
     close()
-    snackbarStore.setSnackbar('Profile edited', true)
+    snackbarStore.setSnackbar('Brand edited', true)
 }
 
 </script>
 
 <template>
     <v-dialog
-        v-model="dialog"
-        data-test-id="profile-edit-dialog" 
+        v-model="props.modelValue"
+        data-test-id="brand-edit-dialog" 
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"
         :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
@@ -129,15 +133,15 @@ const submitEmitter = (e: any): void => {
                     </div>
                 </div>
                 <v-card-title class="text-h5 py-4">
-                    Edit Profile
+                    Edit Brand
                 </v-card-title>
                 <v-card-text>
                     <FormFields
                         @submit="submitEmitter"
                         :fields="fields" 
                         :formButton="formButton"
-                        :apiPath="`${config.public.API_USER}/${useUserStore().user.pk}/`"
-                        apiMethod="PATCH"
+                        :apiPath="`${config.public.API_BRAND}/${cacheData.pk}/`"
+                        apiMethod="PUT"
                     />
                 </v-card-text>
                 <v-alert

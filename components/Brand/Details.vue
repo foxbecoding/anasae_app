@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { useAuthStore, useUserStore } from '@/store'
-import { BrandOwner } from '@/utils/types'
+import { useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const authStore = useAuthStore()
-const userStore = useUserStore()
 const brandLogoFile = ref()
 const brandLogoFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)

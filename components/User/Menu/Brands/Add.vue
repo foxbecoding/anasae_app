@@ -51,7 +51,7 @@ const fields = ref<FormTextField[]>([
         variant: 'outlined',
         rules: [ 
             (v: any) => !! v || 'Bio is required',
-            (v: any) => v.length <= 300 || 'Must be 30 characters or less'
+            (v: any) => v.length <= 300 || 'Must be 300 characters or less'
         ],
     },
 ])

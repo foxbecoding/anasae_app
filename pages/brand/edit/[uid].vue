@@ -2,10 +2,15 @@
 definePageMeta({
   middleware: ["brand-edit"]
 })
+const model = ref<boolean>(false)
+onMounted(() => {
+  model.value = true
+})
 </script>
 
 <template>
-    <Brand />
+  <BrandEditDetails v-model="model" @update:model-value="model = false"/>
+  <Brand  />
 </template>
 
 <style scoped>

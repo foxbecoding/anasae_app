@@ -5,8 +5,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         method: 'GET',
         key: `${to.params.uid}`
     })
-    if(status.value == 'error') navigateTo('/') 
-    if(!brand.value.isOwner) navigateTo('/')
-    return 
+    if(status.value == 'error' || !brand.value.isOwner) return navigateTo('/');
 });
   
