@@ -3,12 +3,22 @@ import { FormTextField, FormButton } from '@/utils/types'
 import { useDisplay } from 'vuetify'
 import { useUserStore, useSnackbarStore } from '@/store'
 
-const dialog = ref<boolean>(true)
 const userStore = useUserStore()
 const snackbarStore = useSnackbarStore() 
 const config = useRuntimeConfig()
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const formError = reactive({ isError: false, message:'' })
+
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
 
 const formButton = reactive<FormButton>({
     show: true,
@@ -65,10 +75,8 @@ const fields = ref<FormTextField[]>([
 ])
 
 const close = async (): Promise<void> => { 
-    dialog.value = false
-    setTimeout(() => {
-        navigateTo(`/profile/${userStore.user.uid}`)
-    }, 300) 
+    emit('update:modelValue', false)
+    setTimeout(() => { useRouter().back() }, 300) 
 }
 
 const submitEmitter = (e: any): void => {
@@ -101,7 +109,7 @@ const submitEmitter = (e: any): void => {
 
 <template>
     <v-dialog
-        v-model="dialog"
+        v-model="props.modelValue"
         data-test-id="profile-edit-dialog" 
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"

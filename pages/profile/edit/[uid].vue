@@ -2,10 +2,16 @@
 definePageMeta({
   middleware: ["profile"]
 })
+
+const model = ref<boolean>(false)
+onMounted(() => {
+  model.value = true
+})
+
 </script>
 
 <template>
-    <UserProfileEditDetails />
+    <UserProfileEditDetails v-model="model" @update:model-value="model = false"/>
     <UserProfile />
 </template>
 

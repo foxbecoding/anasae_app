@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { User } from '@/utils/types'
 import { useUserStore, useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
@@ -7,20 +6,11 @@ const route = useRoute()
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const { DefaultProfileImg } = useDefaultProfileImg()
-const profile = ref<User>()
 const profileImgFile = ref()
 const profileImgFileRef = ref()
-const isOwner = ref<boolean>()
 const showAddImgBtn = ref<boolean>(false)
 
-const ProfileImage = computed(() => {
-    if (profile.value?.image) {
-        const { Asset } = useMediaAssets(profile.value.image.image)  
-        return Asset.value
-    }
-    return DefaultProfileImg.value 
-})
-
+const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const UID = computed(() => {
     if (route.fullPath.includes('auth')){
@@ -29,25 +19,19 @@ const UID = computed(() => {
     return route.params.uid
 })
 
+const { data: profile, pending, error, refresh } = await useApi({
+    path: `${config.public.API_USER_PROFILE}${UID.value}/`,
+    method: 'GET',
+    key: `${UID.value}`
+})
 
-const loadEmmiter = (): void => { showAddImgBtn.value = true }
-
-const getProfile = async (): Promise<void> => {
-    const { data: cacheData } = useNuxtData(`${UID.value}`)
-    profile.value = cacheData?.value?.user
-    isOwner.value = cacheData?.value?.owner
-
-    const { data, pending, error, refresh } = await useApi({
-        path: `${config.public.API_USER_PROFILE}${UID.value}/`,
-        method: 'GET',
-        key: `${UID.value}`
-    })
-
-    isOwner.value = data.value.owner
-    profile.value = data.value.user
-}
-
-getProfile()
+const ProfileImage = computed(() => {
+    if (profile.value?.image) {
+        const { Asset } = useMediaAssets(profile.value.image.image)  
+        return Asset.value
+    }
+    return DefaultProfileImg.value 
+})
 
 const uploadImage = async (file: File): Promise<void> => {
     let formData = new FormData();
@@ -82,7 +66,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 cover
             />
             <v-btn 
-                v-if="isOwner && showAddImgBtn"
+                v-if="profile.isOwner && showAddImgBtn"
                 @click="profileImgFileRef.click()"
                 class="add-profile-image-btn"
                 color="primary-alt" 
@@ -93,13 +77,13 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        <h2 class="text-h6 d-sm-none">
+        <h1 class="text-h6 my-2 d-sm-none">
             @{{ profile?.username }}
-        </h2>
+        </h1>
         <div class="d-block text-center">
-            <h2 class="d-none text-left pl-4 d-sm-block text-h6">
+            <h1 class="d-none text-left pl-4 d-sm-block text-h6">
                 @{{ profile?.username }}
-            </h2>
+            </h1>
             <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
@@ -118,7 +102,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             class="d-none d-sm-flex" 
             rounded="pill"
             flat
-            :text="!isOwner ? 'Follow' : 'Edit Profile'"
+            :text="!profile.isOwner ? 'Follow' : 'Edit'"
         />
     </div>
     <v-btn 
@@ -128,7 +112,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
         rounded="pill"
         block
         flat
-        :text="!isOwner ? 'Follow' : 'Edit Profile'"
+        :text="!profile.isOwner ? 'Follow' : 'Edit'"
     />
     
 </template>

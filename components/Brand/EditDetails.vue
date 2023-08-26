@@ -15,7 +15,6 @@ const emit = defineEmits<{
 }>()
 
 const config = useRuntimeConfig()
-const router = useRouter()
 const route = useRoute()
 const snackbarStore = useSnackbarStore() 
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
@@ -73,7 +72,7 @@ const fields = ref<FormTextField[]>([
 
 const close = async (): Promise<void> => { 
     emit('update:modelValue', false)
-    setTimeout(() => { router.back() }, 300) 
+    setTimeout(() => { useRouter().back() }, 300) 
 }
 
 const submitEmitter = (e: any): void => {

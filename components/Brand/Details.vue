@@ -70,7 +70,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        <h1 class="text-h6 my-4 d-sm-none">
+        <h1 class="text-h6 my-2 d-sm-none">
             {{ brand.name }}
         </h1>
         <div class="d-block text-center">
