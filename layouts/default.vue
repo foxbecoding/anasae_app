@@ -6,13 +6,15 @@ import { useAuthStore } from '@/store/Auth'
 const authStore = useAuthStore()
 const route = useRoute()
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
-const { smAndDown, platform } = useDisplay()
+const { smAndDown } = useDisplay()
 
 const scrollY = ref<number>(0)
-const appBarMobileClass = ref<string>('app-bar--relative') 
 
 const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color' : '')
-const AppBarMobilePos = computed((): string => appBarMobileClass.value)
+const AppBarMobilePos = computed((): string => {
+    if (!authStore.isAuth && smAndDown.value) return 'app-bar--relative'
+    return 'mobile-top-bar-container'
+})
 const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent' : '')
 const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) )
 const ShowBannerComps = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) && authStore.prevRoute == '/' || route.name == 'index')
@@ -24,11 +26,17 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 <template>
     <v-app id="app" data-test-id="app">
         <v-app-bar :color="SetTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]">
-            <v-container class="d-flex justify-space-between px-sm-8" fluid>
+            <v-container class="d-none d-md-flex justify-space-between px-sm-8" fluid>
                 <AppBarInner />
             </v-container>
+            <v-container v-if="!authStore.isAuth" class="d-flex d-md-none justify-space-between px-sm-8" fluid>
+                <AppBarInner />
+            </v-container>
+            <v-container v-else class="d-md-none px-sm-8" fluid>
+                <MobileTopBar />
+            </v-container>
         </v-app-bar>
-        <v-container class="mobile-top-bar-container py-2 px-sm-8" :class="AppBarColor" fluid>
+        <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container  px-sm-8" :class="AppBarColor" fluid>
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
@@ -82,16 +90,16 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 }
 
 .main-adjust-content {
-    padding-top: 64px !important;
+    padding-top: 0px !important;
 }
 
-@media screen and (max-width:  960px) {
+/* @media screen and (max-width:  960px) {
     .main-adjust-content {
         padding-top: 0px !important;
     }
-}
+} */
 .mobile-top-bar-container {
-    position: sticky; 
+    position: sticky !important; 
     top: 0px;
     z-index: 2;
 }

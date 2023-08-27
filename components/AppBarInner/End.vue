@@ -11,6 +11,11 @@ const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
 const toggleTheme = (): void => {
     vTheme.global.name.value = vTheme.global.current.value.dark ? 'anasaeLight' : 'anasaeDark'
+    useCookie('theme', {
+        path: '/',
+        maxAge: 1000000,
+        sameSite: 'lax'
+    }).value = vTheme.global.name.value
 }
 
 const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night')

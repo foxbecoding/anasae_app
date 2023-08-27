@@ -36,9 +36,8 @@ const { Asset: logoIcon } = useMediaAssets('/media/assets/icon-dark-v1.png')
                         variant="plain"
                         active
                     >
-                        <v-avatar size="30px">
+                        <v-avatar class="pa-1" size="34px">
                             <v-img  
-                                class="pa-1"
                                 :src="logoIcon" 
                                 alt="Anasae logo"
                             />
@@ -47,7 +46,7 @@ const { Asset: logoIcon } = useMediaAssets('/media/assets/icon-dark-v1.png')
                 </template>
                 <template v-slot:append-inner>
                     <v-btn 
-                        v-if="authStore.isAuth && !$vuetify.display.mdAndUp"
+                        v-if="authStore.isAuth && !$vuetify?.display.mdAndUp"
                         @click="userMenuStore.isOpen = true"
                         data-test-id="search-bar-mobile-profile-btn"
                         class="rounded-xl ml-2 search-bar-btn-right"

@@ -5,7 +5,14 @@ import { useTheme } from 'vuetify'
 
 const vTheme = useTheme()
 const userMenuStore = useUserMenuStore()
-const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => { vTheme.global.name.value = theme}
+const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => { 
+    vTheme.global.name.value = theme
+    useCookie('theme', {
+        path: '/',
+        maxAge: 1000000,
+        sameSite: 'lax'
+    }).value = vTheme.global.name.value
+}
 const themeItems = ref<UserMenuItem[]>([
     { 
         id: 1, 

@@ -26,6 +26,7 @@ const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands)
     <v-list  v-if="userStore.user.owned_brands.length > 0" density="compact">
         <v-list-item 
             v-for="(brand, i) in brands"
+            @click="userMenuStore.close"
             :key="i"
             :value="brand"
             prepend-icon="mdi-storefront-outline"

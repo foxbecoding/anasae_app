@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>111/111</span>
+                <span class='fraction'>121/121</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>111/111</span>
+                <span class='fraction'>121/121</span>
             </div>
         
             
@@ -173,7 +173,17 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -201,19 +211,29 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -291,38 +311,48 @@ import { useAuthStore } from '@/store/Auth'
 const authStore = useAuthStore()
 const route = useRoute()
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
-const { smAndDown, platform } = useDisplay()
+const { smAndDown } = useDisplay()
 &nbsp;
 const scrollY = ref&lt;number&gt;(0)
-const appBarMobileClass = ref&lt;string&gt;('app-bar--relative') 
 &nbsp;
 const AppBarColor = computed((): string =&gt; scrollY.value !== 0 ? 'app-bar-color' : '')
-const AppBarMobilePos = computed((): string =&gt; appBarMobileClass.value)
+const AppBarMobilePos = computed((): string =&gt; {
+    if (!authStore.isAuth &amp;&amp; smAndDown.value) return 'app-bar--relative'
+    return 'mobile-top-bar-container'
+})
 const SetTransparent = computed((): string =&gt; scrollY.value == 0 ? 'transparent' : '')
 const ShowAuthForm = computed((): boolean =&gt; authRouteNames.value.includes(route.name as RouteName) )
-const ShowBannerComps = computed((): boolean =&gt; authRouteNames.value.includes(route.name as RouteName) &amp;&amp; authStore.prevRoute == 'index' || route.name == 'index')
+const ShowBannerComps = computed((): boolean =&gt; authRouteNames.<span class="branch-0 cbranch-no" title="branch not covered" >value.includes(route.n</span>ame as RouteName) &amp;&amp; authStore.prevRoute == '/' || route.name == 'index')
 &nbsp;
-const onScroll = (e: any): void =&gt; { scrollY.value = window.scrollY <span class="branch-0 cbranch-no" title="branch not covered" >}</span>
+const onScroll = (e: any): void =&gt; { scrollY.value = window.scrollY }
 &nbsp;
 &lt;/script&gt;
 &nbsp;
 &lt;template&gt;
     &lt;v-app id="app" data-test-id="app"&gt;
         &lt;v-app-bar :color="SetTransparent" class="app-bar" :class="[AppBarColor, AppBarMobilePos]"&gt;
-            &lt;v-container class="d-flex justify-space-between px-sm-8" fluid&gt;
+            &lt;v-container class="d-none d-md-flex justify-space-between px-sm-8" fluid&gt;
                 &lt;AppBarInner /&gt;
             &lt;/v-container&gt;
+            &lt;v-container v-if="!authStore.isAuth" class="d-flex d-md-none justify-space-between px-sm-8" fluid&gt;
+                &lt;AppBarInner /&gt;
+            &lt;/v-container&gt;
+            &lt;v-container v-else class="d-md-none px-sm-8" fluid&gt;
+                &lt;MobileTopBar /&gt;
+            &lt;/v-container&gt;
         &lt;/v-app-bar&gt;
-        &lt;v-container class="mobile-top-bar-container py-2 px-sm-8" :class="AppBarColor" fluid&gt;
+        &lt;v-container v-if="!authStore.isAuth" class="mobile-top-bar-container  px-sm-8" :class="AppBarColor" fluid&gt;
             &lt;MobileTopBar /&gt;
         &lt;/v-container&gt;
         &lt;BannerSliderBg v-if="ShowBannerComps" /&gt;
-        &lt;v-main class="main-adjust-content" v-scroll="onScroll<span class="branch-0 cbranch-no" title="branch not covered" >"&gt;</span>
-            &lt;v-container v-if="ShowBannerComps" class="px-sm-8" <span class="branch-0 cbranch-no" title="branch not covered" >fluid&gt;</span>
+        &lt;v-main class="main-adjust-content" v-scroll="onScroll"&gt;
+            &lt;v-container v-if="ShowBannerComps" class="px-sm-8" fluid&gt;
                 &lt;BannerSlider /&gt;
             &lt;/v-container&gt;
             &lt;slot&gt;&lt;/slot&gt;
         &lt;/v-main&gt;
+&nbsp;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Snackbar /&gt;</span>
         &lt;BottomNav v-if="smAndDown" class="d-md-none w-100" /&gt;
         &lt;Auth v-if="ShowAuthForm" &gt;
             &lt;component :is="AuthFormComponent" /&gt;
@@ -365,16 +395,16 @@ const onScroll = (e: any): void =&gt; { scrollY.value = window.scrollY <span cla
 }
 &nbsp;
 .main-adjust-content {
-    padding-top: 64px !important;
+    padding-top: 0px !important;
 }
 &nbsp;
-@media screen and (max-width:  960px) {
+/* @media screen and (max-width:  960px) {
     .main-adjust-content {
         padding-top: 0px !important;
     }
-}
+} */
 .mobile-top-bar-container {
-    position: sticky; 
+    position: sticky !important; 
     top: 0px;
     z-index: 2;
 }
@@ -400,7 +430,7 @@ const onScroll = (e: any): void =&gt; { scrollY.value = window.scrollY <span cla
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-22T17:04:12.030Z
+                at 2023-08-27T14:39:25.441Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
