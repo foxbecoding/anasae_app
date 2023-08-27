@@ -13,7 +13,7 @@ export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
 export interface Brand {
     bio: string
     followers: number
-    logo: string | null
+    logo: {pk: number | string, image: string}
     name: string
     owners: BrandOwner[]
     pk:string | number

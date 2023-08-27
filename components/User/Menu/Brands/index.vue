@@ -33,6 +33,11 @@ const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands)
             :title="brand.name"
             :to="{name: `brand-uid`, params: {uid: brand.uid}}"
         >
+            <template v-slot:prepend>
+                <v-avatar>
+                    <v-img cover :src="useGetBrandLogo(brand.logo.image)" />
+                </v-avatar>
+            </template>
         </v-list-item>
     </v-list>
     <v-container class="no-brands-container" v-else>
