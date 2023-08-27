@@ -101,6 +101,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             :text="!brand.isOwner ? 'Follow' : 'Edit'"
         />
     </div>
+    <v-container fluid>{{ brand.bio }}</v-container>
     <v-btn 
         :to="{path: `/brand/edit/${brand.uid}`}"
         color="primary" 

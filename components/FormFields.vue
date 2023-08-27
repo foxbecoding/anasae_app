@@ -61,12 +61,6 @@ const submit = async (): Promise<void> => {
     isLoading.value = false
 }
 
-const allow_only_letters_numbers_commas = (e: any) => {
-    //Limit username field to only accept 'letters', 'numbers', and 'underscores'
-    let char = String.fromCharCode(e.keyCode);
-    if(/^[A-Za-z0-9]+$/.test(char)) return true; 
-    else e.preventDefault();
-}
 
 </script>
 
@@ -110,7 +104,6 @@ const allow_only_letters_numbers_commas = (e: any) => {
             </v-text-field>
             <v-textarea 
                 v-if="field.inputType === 'TEXTAREA'" 
-                @keypress.enter="submit()"
                 v-model="field.model" 
                 :label="field.label" 
                 :type="field.type"

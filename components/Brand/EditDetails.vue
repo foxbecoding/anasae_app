@@ -72,7 +72,9 @@ const fields = ref<FormTextField[]>([
 
 const close = async (): Promise<void> => { 
     emit('update:modelValue', false)
-    setTimeout(() => { useRouter().back() }, 300) 
+    setTimeout(() => { 
+        navigateTo(`/brand/${cacheData.value.uid}`) 
+    }, 300) 
 }
 
 const submitEmitter = (e: any): void => {
