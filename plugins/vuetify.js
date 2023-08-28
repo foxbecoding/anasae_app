@@ -17,7 +17,7 @@ import { VFileInput } from 'vuetify/components/VFileInput'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
-import { VList, VListItem, VListItemTitle } from 'vuetify/components/VList'
+import { VList, VListItem, VListItemTitle, VListItemSubtitle } from 'vuetify/components/VList'
 import { VMain } from 'vuetify/components/VMain'
 import { VMenu } from 'vuetify/components/VMenu'
 import { VOverlay } from 'vuetify/components/VOverlay'
@@ -94,6 +94,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VList,
             VListItem,
             VListItemTitle,
+            VListItemSubtitle,
             VMain,
             VMenu,
             VOtpInput,

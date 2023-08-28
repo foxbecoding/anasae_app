@@ -1,154 +1,66 @@
 <script lang="ts" setup>
-import { useAuthStore } from '@/store'
+import { Brand } from '@/utils/types'
+import { PropType } from 'vue'
+import { useDisplay } from 'vuetify'
 
-const config = useRuntimeConfig()
-const route = useRoute()
-const authStore = useAuthStore()
-const brandLogoFile = ref()
-const brandLogoFileRef = ref()
-const showAddImgBtn = ref<boolean>(false)
+const props = defineProps({
+    brand: {} as PropType<Brand>,
+    maxBioHeight: Number
+})
 
-const loadEmmiter = (): void => { showAddImgBtn.value = true }
+const emit = defineEmits<{
+  (e: 'openMobileBio', value: boolean): void
+}>()
 
-const UID = computed(() => {
-    if (route.fullPath.includes('auth')){
-        return authStore.prevRoute.split('/').slice(-1)[0]   
+const bio = ref()
+const isBioBlur = ref<boolean>(false)
+
+onMounted(() => {
+    if(bio.value.$el.offsetHeight >= 76){
+        isBioBlur.value = true
     }
-    return route.params.uid
 })
 
-const { data: brand, refresh, pending, error } = await useApi({
-    path: `${config.public.API_BRAND_PAGE}${UID.value}/`,
-    method: 'GET',
-    key: `${UID.value}`
+
+watch(useDisplay().xs, (newValue) => {
+    if(newValue){
+        isBioBlur.value = bio.value.$el.offsetHeight >= 76 ? true : false
+    }
 })
-
-const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo.image) )
-
-const uploadImage = async (file: File): Promise<void> => {
-    let formData = new FormData();
-    formData.append("image", file);
-    formData.append("brand", brand.value.pk);
-    const { data, pending, error, refresh } = await useApi({
-        path: `${config.public.API_BRAND_LOGO}`,
-        method: 'POST',
-        data: formData,
-        isMultiPart: true 
-    })
-    brand.value = data.value
-}
-
-watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
 
 </script>
 
 <template>
-    <div class="d-sm-flex justify-space-between content-wrapper text-center text-sm-left">
-        <v-file-input
-            v-model="brandLogoFile" 
-            class="d-none" 
-            ref="brandLogoFileRef" 
-            accept="image/png, image/jpeg, image/bmp"
-        />
-        <div class="brand-logo-size mx-auto mx-sm-0" style="position: relative">
-            <v-img 
-                class="rounded-circle brand-logo-size border" 
-                :src="BrandLogo" 
-                :alt="`${brand?.name} logo`"
-                @load="loadEmmiter"
-                cover
-            />
-            <v-btn 
-                v-if="brand.isOwner && showAddImgBtn"
-                @click="brandLogoFileRef.click()"
-                class="add-brand-logo-btn"
-                color="primary-alt" 
-                size="18" 
-                flat 
-                icon
-            >
-                <v-icon size="16">mdi-plus</v-icon>
-            </v-btn>
+    <v-card 
+        max-width="500" 
+        :max-height="props.maxBioHeight" 
+        color="background" 
+        class="mx-auto mx-sm-0 overflow-y-hidden"
+        :class="isBioBlur ? 'mb-2' : 'mb-0'"
+        style="position: relative"
+    >
+        <v-card-title class="text-center text-sm-left text-h6">
+            {{ props.brand?.name }}
+        </v-card-title>
+        <v-card-text ref="bio" class="text-left">
+            {{ props.brand?.bio }}
+        </v-card-text>
+        <div 
+            v-if="isBioBlur"
+            @click="emit('openMobileBio', true)"
+            style="position: absolute; bottom: 0; height: 20px;" 
+            class="details-overflow w-100 d-sm-none"
+        >
+            <v-icon icon="mdi-chevron-down" size="15"></v-icon>
         </div>
-        <h1 class="text-h6 my-2 d-sm-none">
-            {{ brand.name }}
-        </h1>
-        <div class="d-block text-center">
-            <h1 class="d-none text-left pl-5 d-sm-block text-h6">
-                {{ brand.name }}
-            </h1>
-            <div class="d-flex justify-center">
-                <div class="px-4 d-flex flex-column">
-                    <span class="text-body-1">369</span>
-                    <span class="text-body-1">post</span>
-                </div>
-                <div class="px-4 d-flex flex-column">
-                    <span class="text-body-1">{{ brand.followers }}</span>
-                    <span class="text-body-1">followers</span>
-                </div>
-                <div class="px-4 d-flex flex-column">
-                    <span class="text-body-1">15</span>
-                    <span class="text-body-1">products</span>
-                </div>
-            </div>
-        </div>
-        <v-btn 
-            :to="{path: `/brand/edit/${brand.uid}`}"
-            color="primary" 
-            class="d-none d-sm-flex" 
-            rounded="pill"
-            flat
-            :text="!brand.isOwner ? 'Follow' : 'Edit'"
-        />
-    </div>
-    <v-container fluid>{{ brand.bio }}</v-container>
-    <v-btn 
-        :to="{path: `/brand/edit/${brand.uid}`}"
-        color="primary" 
-        class="d-sm-none mt-4" 
-        rounded="pill"
-        block
-        size="small"
-        flat
-        :text="!brand.isOwner ? 'Follow' : 'Edit'"
-    />
+    </v-card>
 </template>
 
 <style scoped>
-.content-wrapper {
-    max-width: 100%
-}
-
-.add-brand-logo-btn {
-  position: absolute;
-  bottom: 5px;
-  right: 15px;
-}
-
-.brand-logo-size {
-    width: 126px;
-    height: 126px;
-}
-
-
-
-@media screen and (max-width: 959px) {
-    .brand-logo-size {
-        width: 108px;
-        height: 108px;
-    }
-
-}
-
-@media screen and (max-width: 599px) {
-    .brand-logo-size {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .add-brand-logo-btn {
-        bottom: 0;
-        right: 0;
-    }
+.details-overflow {
+    background: rgba(var(--v-theme-background), 0.4) !important;
+    -webkit-backdrop-filter: blur(3px);
+    -moz-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);      
 }
 </style>

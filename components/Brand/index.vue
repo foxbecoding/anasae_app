@@ -2,7 +2,7 @@
 
 <template>
     <v-container class="px-sm-8" fluid>
-        <BrandDetails />
+        <BrandContent />
     </v-container>
     <v-container class="px-sm-8" fluid>
         <v-divider />
