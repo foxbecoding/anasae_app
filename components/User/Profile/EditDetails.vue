@@ -42,7 +42,10 @@ const fields = ref<FormTextField[]>([
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        rules: [ (v: any) => !! v || 'Username is required' ],
+        rules: [ 
+            (v: any) => !! v || 'Username is required',
+            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
+        ],
     },
     
     {
@@ -53,10 +56,14 @@ const fields = ref<FormTextField[]>([
         density: 'comfortable',
         color: 'primary-alt',
         type: 'text', 
+        counter: 30,
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        rules: [ (v: any) => !! v || 'First name is required' ],
+        rules: [ 
+            (v: any) => !! v || 'First name is required',
+            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
+        ]
     },
 
     {
@@ -67,16 +74,35 @@ const fields = ref<FormTextField[]>([
         density: 'comfortable',
         color: 'primary-alt',
         type: 'text', 
+        counter: 30,
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        rules: [ (v: any) => !! v || 'Last name is required' ],
+        rules: [ 
+            (v: any) => !! v || 'Last name is required', 
+            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
+        ],
+    },
+    
+    {
+        id: 4, 
+        model: userStore.user.display_name || '', 
+        name:'display_name', 
+        label: 'Display name', 
+        density: 'comfortable',
+        color: 'primary-alt',
+        type: 'text', 
+        counter: 30,
+        errorMessages: '',
+        inputType: 'TEXTFIELD',
+        variant: 'outlined',
+        rules: [ (v: any) => v.length <= 30 || 'Must be 30 characters or less' ],
     },
 ])
 
 const close = async (): Promise<void> => { 
     emit('update:modelValue', false)
-    setTimeout(() => { useRouter().back() }, 300) 
+    setTimeout(() => { navigateTo(`/profile/${userStore.user.uid}`) }, 300) 
 }
 
 const submitEmitter = (e: any): void => {

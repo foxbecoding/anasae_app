@@ -35,6 +35,7 @@ const { Asset: logoIcon } = useMediaAssets('/media/assets/icon-dark-v1.png')
                         flat
                         variant="plain"
                         active
+                        to="/"
                     >
                         <v-avatar class="pa-1" size="34px">
                             <v-img  
