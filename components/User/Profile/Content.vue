@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUserStore, useAuthStore } from '@/store'
+import { User } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -9,6 +10,7 @@ const { DefaultProfileImg } = useDefaultProfileImg()
 const profileImgFile = ref()
 const profileImgFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)
+const isProfileExist = ref<boolean>(true)
 
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
@@ -19,14 +21,30 @@ const UID = computed(() => {
     return route.params.uid
 })
 
-const { data: profile, pending, error, refresh } = await useApi({
+const { data: profile, status } = await useApi({
     path: `${config.public.API_USER_PROFILE}${UID.value}/`,
     method: 'GET',
     key: `${UID.value}`
 })
 
+if(status.value == 'error'){
+    isProfileExist.value = false
+    let userData: User = {
+        pk: 0,
+        username: 'Profile does not exist',
+        first_name: '',
+        last_name: '',
+        uid: '',
+        owned_brands: [],
+        image: {pk: 0, image: ''},
+        display_name: ''
+
+    }
+    profile.value = userData
+}
+
 const ProfileImage = computed(() => {
-    if (profile.value?.image) {
+    if (profile.value?.image.image) {
         const { Asset } = useMediaAssets(profile.value.image.image)  
         return Asset.value
     }
@@ -77,13 +95,14 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
         </div>
-        <h1 class="text-h6 my-2 d-sm-none">
-            @{{ profile?.username }}
-        </h1>
-        <div class="d-block text-center">
-            <h1 class="d-none text-left pl-4 d-sm-block text-h6">
-                @{{ profile?.username }}
-            </h1>
+        <v-card 
+            class="d-sm-none"
+            max-width="500" 
+            color="background"
+            :title="isProfileExist ? `@${ profile?.username }` : `${ profile?.username }`"
+            :subtitle="`${profile.display_name}`"
+        />
+        <div v-if="isProfileExist" class="d-block text-center">
             <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
@@ -94,9 +113,9 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                     <span class="text-body-1">followers</span>
                 </div>
             </div>
-            
         </div>
         <v-btn 
+            v-if="isProfileExist"
             :to="{path: `/profile/edit/${profile?.uid}`}"
             color="primary" 
             class="d-none d-sm-flex" 
@@ -105,7 +124,15 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             :text="!profile.isOwner ? 'Follow' : 'Edit'"
         />
     </div>
-    <v-btn 
+    <v-card 
+        class="d-none d-sm-block"
+        max-width="500" 
+        color="background"
+        :title="isProfileExist ? `@${ profile?.username }` : `${ profile?.username }`"
+        :subtitle="`${profile.display_name}`"
+    />
+    <v-btn
+        v-if="isProfileExist" 
         :to="{path: `/profile/edit/${profile?.uid}`}"
         color="primary" 
         class="d-sm-none mt-4" 

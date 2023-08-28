@@ -3,7 +3,7 @@
 
 <template>
     <v-container class="px-sm-8" fluid>
-        <UserProfileDetails />
+        <UserProfileContent />
     </v-container>
     <v-container class="px-sm-8" fluid>
         <v-divider />

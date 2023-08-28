@@ -15,17 +15,14 @@ const emit = defineEmits<{
 const bio = ref()
 const isBioBlur = ref<boolean>(false)
 
+
 onMounted(() => {
-    if(bio.value.$el.offsetHeight >= 76){
-        isBioBlur.value = true
-    }
+    isBioBlur.value = bio.value.$el.offsetHeight >= 7 ? true : false
 })
 
 
 watch(useDisplay().xs, (newValue) => {
-    if(newValue){
-        isBioBlur.value = bio.value.$el.offsetHeight >= 76 ? true : false
-    }
+    isBioBlur.value = newValue && bio.value.$el.offsetHeight >= 76 ? true : false
 })
 
 </script>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useAuthStore } from '@/store'
+import { Brand } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -8,6 +9,7 @@ const brandLogoFile = ref()
 const brandLogoFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)
 const isMobileBioOpen = ref<boolean>(false)
+const isBrandExist = ref<boolean>(true)
 
 const loadEmmiter = (): void => { showAddImgBtn.value = true }
 
@@ -18,11 +20,26 @@ const UID = computed(() => {
     return route.params.uid
 })
 
-const { data: brand, refresh, pending, error } = await useApi({
+const { data: brand, status } = await useApi({
     path: `${config.public.API_BRAND_PAGE}${UID.value}/`,
     method: 'GET',
     key: `${UID.value}`
 })
+
+if(status.value == 'error'){
+    let brandData: Brand = {
+        name: 'Brand does not exist',
+        followers: 0,
+        pk: 0,
+        bio: '',
+        uid: '',
+        owners: [],
+        logo: {pk: 0, image: ''},
+        stripe_account_id: ''
+    } 
+    isBrandExist.value = false
+    brand.value = brandData
+}
 
 const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo.image) )
 
@@ -78,7 +95,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             :maxBioHeight="110" 
             :brand="brand" 
         />
-        <div class="d-block text-center">
+        <div v-if="isBrandExist" class="d-block text-center">
             <div class="d-flex justify-center">
                 <div class="px-4 d-flex flex-column">
                     <span class="text-body-1">369</span>
@@ -95,6 +112,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             </div>
         </div>
         <v-btn 
+            v-if="isBrandExist"
             :to="{path: `/brand/edit/${brand.uid}`}"
             color="primary" 
             class="d-none d-sm-flex" 
@@ -109,6 +127,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         :brand="brand" 
     />
     <v-btn 
+        v-if="isBrandExist"
         :to="{path: `/brand/edit/${brand.uid}`}"
         color="primary" 
         class="d-sm-none mt-4" 
