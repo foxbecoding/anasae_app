@@ -1,10 +1,8 @@
-import { Brand, BrandOwner } from '@/utils/types'
-import { useAuthStore } from './'
+import { Brand } from '@/utils/types'
 
 
 export const useBrandStore = defineStore("brand-store", () => {
     const brands = ref<Brand[]>([])
-
 
     return {
         brands

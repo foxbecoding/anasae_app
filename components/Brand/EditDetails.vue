@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { FormTextField, FormButton } from '@/utils/types'
 import { useDisplay } from 'vuetify'
-import { useSnackbarStore } from '@/store'
+import { useSnackbarStore, useBrandStore } from '@/store'
 
 const props = defineProps({
     modelValue: {
@@ -17,6 +17,7 @@ const emit = defineEmits<{
 const config = useRuntimeConfig()
 const route = useRoute()
 const snackbarStore = useSnackbarStore() 
+const brandStore = useBrandStore()
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const formError = reactive({ isError: false, message:'' })
 
@@ -98,6 +99,8 @@ const submitEmitter = (e: any): void => {
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
+    let brand = brandStore.brands.find(x => x.pk == cacheData.value.pk)
+    if(brand){ brand = e.data }
     close()
     snackbarStore.setSnackbar('Brand edited', true)
 }

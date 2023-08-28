@@ -2,13 +2,15 @@ import { Brand, BrandOwner } from '@/utils/types'
 
 export const useGetOwnerBrands = async (pks: string[] | number[]) => {
     const config = useRuntimeConfig()
-    
+  
+    if (pks.length === 0) return []
     const {data: ownedBrands} = await useApi({
         path: `${config.public.API_BRAND_OWNER}${pks.toString()}/`,
         method: 'GET'
     })
     
-    if (ownedBrands.length === 0) return []
+    if (ownedBrands.length === 0 || ownedBrands.value == null) return []
+    
     let brandPks = ownedBrands.value.map((x: BrandOwner) => x.brand)
     
     const {data: brands} = await useApi({

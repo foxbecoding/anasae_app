@@ -44,7 +44,7 @@ if(status.value == 'error'){
 }
 
 const ProfileImage = computed(() => {
-    if (profile.value?.image.image) {
+    if (profile.value?.image) {
         const { Asset } = useMediaAssets(profile.value.image.image)  
         return Asset.value
     }
@@ -60,6 +60,7 @@ const uploadImage = async (file: File): Promise<void> => {
         data: formData,
         isMultiPart: true 
     })
+    data.value['isOwner'] = true
     profile.value = data.value
     userStore.user = data.value
 }

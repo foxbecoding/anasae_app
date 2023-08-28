@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { useUserMenuStore, useUserStore } from '@/store'
+import { useUserMenuStore, useBrandStore } from '@/store'
 import { UserMenuBrandsAdd } from '../components'
-import { Brand } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
-const userStore = useUserStore()
-const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands))
+const brandStore = useBrandStore()
+
 </script>
 
 <template>
@@ -23,9 +22,9 @@ const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands)
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list  v-if="userStore.user.owned_brands.length > 0" density="compact">
+    <v-list  v-if="brandStore.brands.length > 0" density="compact">
         <v-list-item 
-            v-for="(brand, i) in brands"
+            v-for="(brand, i) in brandStore.brands"
             @click="userMenuStore.close"
             :key="i"
             :value="brand"
@@ -35,7 +34,7 @@ const brands = ref<Brand[]>(await useGetOwnerBrands(userStore.user.owned_brands)
         >
             <template v-slot:prepend>
                 <v-avatar>
-                    <v-img cover :src="useGetBrandLogo(brand.logo.image)" />
+                    <v-img cover :src="useGetBrandLogo(brand.logo?.image)" />
                 </v-avatar>
             </template>
         </v-list-item>

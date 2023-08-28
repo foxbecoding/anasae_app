@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { useUserMenuStore, useSnackbarStore } from '@/store'
+import { useUserMenuStore, useSnackbarStore, useBrandStore, useUserStore } from '@/store'
 import UserMenuBrands  from './index.vue'
 import { FormTextField, FormButton } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const userMenuStore = useUserMenuStore()
 const snackbarStore = useSnackbarStore()
+const brandStore = useBrandStore()
 const formError = reactive({ isError: false, message:'' })
 
 const formButton = reactive<FormButton>({
@@ -77,6 +78,8 @@ const submitEmitter = (e: any): void => {
     formError.isError = false
     formError.message = '' 
     userMenuStore.selectedView = UserMenuBrands
+    brandStore.brands.push(e.data)
+    useUserStore().init()
     snackbarStore.setSnackbar('Brand added', true)
 }
 

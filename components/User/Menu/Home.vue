@@ -71,6 +71,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
                         v-if="ProfileImage"
                         :src="ProfileImage" 
                         :alt="`${userStore.user?.username} profile image`"
+                        cover
                     />
                     <span v-else class="text-h5">{{ ProfileInitials }}</span>
                 </v-avatar>   

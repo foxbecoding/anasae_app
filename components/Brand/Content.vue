@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { useAuthStore } from '@/store'
+import { useAuthStore, useBrandStore } from '@/store'
 import { Brand } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const authStore = useAuthStore()
+const brandStore = useBrandStore()
 const brandLogoFile = ref()
 const brandLogoFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)
@@ -41,7 +42,7 @@ if(status.value == 'error'){
     brand.value = brandData
 }
 
-const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo.image) )
+const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo?.image) )
 
 const uploadImage = async (file: File): Promise<void> => {
     let formData = new FormData();
@@ -53,7 +54,13 @@ const uploadImage = async (file: File): Promise<void> => {
         data: formData,
         isMultiPart: true 
     })
+    data.value['isOwner'] = true
     brand.value = data.value
+    let updatedBrands = brandStore.brands.map(x => {
+        if(x.uid == UID.value) { x = data.value }
+        return x
+    })
+    brandStore.brands = updatedBrands
 }
 
 watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
