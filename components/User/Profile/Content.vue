@@ -43,6 +43,12 @@ if(status.value == 'error'){
     profile.value = userData
 }
 
+const ProfileHandlerLabel = computed((): string => {
+    if(profile.value.isOwner) return 'Edit'
+    else if(profile.value?.isFollowing) return 'Unfollow'
+    return 'Follow'
+})
+
 const ProfileImage = computed(() => {
     if (profile.value?.image) {
         const { Asset } = useMediaAssets(profile.value.image.image)  
@@ -65,8 +71,12 @@ const uploadImage = async (file: File): Promise<void> => {
     userStore.user = data.value
 }
 
-const followOrEdit = async (): Promise<void> => {
+const ProfileHandler = async (): Promise<void> => {
     if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
+    else if(profile.value?.isFollowing) {
+        console.log('Unfollow')
+        return 
+    }
     const { data } = await useApi({
         path: `${config.public.API_USER_FOLLOWERS}`,
         method: 'POST',
@@ -132,12 +142,12 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
         </div>
         <v-btn 
             v-if="isProfileExist"
-            @click="followOrEdit"
+            @click="ProfileHandler"
             color="primary" 
             class="d-none d-sm-flex" 
             rounded="pill"
             flat
-            :text="!profile.isOwner ? 'Follow' : 'Edit'"
+            :text="ProfileHandlerLabel"
         />
     </div>
     <v-card 
@@ -149,13 +159,13 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
     />
     <v-btn
         v-if="isProfileExist" 
-        @click="followOrEdit"
+        @click="ProfileHandler"
         color="primary" 
         class="d-sm-none mt-4" 
         rounded="pill"
         block
         flat
-        :text="!profile.isOwner ? 'Follow' : 'Edit'"
+        :text="ProfileHandlerLabel"
     />
     
 </template>
