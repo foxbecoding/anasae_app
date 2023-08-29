@@ -96,6 +96,8 @@ export interface User {
     display_name?: string
     email?: string
     first_name: string
+    followed_users?: number
+    followers?: number
     image: {pk: string | number, image: string} 
     last_name: string
     logins?: {pk: string | number, created: string}[]

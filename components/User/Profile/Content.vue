@@ -65,6 +65,11 @@ const uploadImage = async (file: File): Promise<void> => {
     userStore.user = data.value
 }
 
+const followOrEdit = (): void => {
+    if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
+    console.log(profile.value)
+}
+
 watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
 </script>
 
@@ -110,14 +115,18 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
                     <span class="text-body-1">post</span>
                 </div>
                 <div class="px-4 d-flex flex-column">
-                    <span class="text-body-1">11.1k</span>
+                    <span class="text-body-1">{{ profile.followers }}</span>
                     <span class="text-body-1">followers</span>
+                </div>
+                <div v-if="profile.isOwner" class="px-4 d-flex flex-column">
+                    <span class="text-body-1">{{ profile.followed_users }}</span>
+                    <span class="text-body-1">following</span>
                 </div>
             </div>
         </div>
         <v-btn 
             v-if="isProfileExist"
-            :to="{path: `/profile/edit/${profile?.uid}`}"
+            @click="followOrEdit"
             color="primary" 
             class="d-none d-sm-flex" 
             rounded="pill"
@@ -134,7 +143,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
     />
     <v-btn
         v-if="isProfileExist" 
-        :to="{path: `/profile/edit/${profile?.uid}`}"
+        @click="followOrEdit"
         color="primary" 
         class="d-sm-none mt-4" 
         rounded="pill"
