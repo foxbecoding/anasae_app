@@ -4,7 +4,11 @@
         v-model="snackbarStore.show"
         rounded="pill"
         z-index="2050"
+        max-height="30"
     >
+        <v-avatar class="mr-2 ml-n2" v-if="snackbarStore.imgSrc">
+            <v-img :src="snackbarStore.imgSrc" cover/>
+        </v-avatar>
         {{ snackbarStore.text }}
 
         <template v-slot:actions>

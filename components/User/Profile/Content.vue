@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useUserStore, useAuthStore } from '@/store'
+import { useUserStore, useAuthStore, useSnackbarStore } from '@/store'
 import { User } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const snackbarStore = useSnackbarStore()
 const { DefaultProfileImg } = useDefaultProfileImg()
 const profileImgFile = ref()
 const profileImgFileRef = ref()
@@ -69,12 +70,22 @@ const uploadImage = async (file: File): Promise<void> => {
     data.value['isOwner'] = true
     profile.value = data.value
     userStore.user = data.value
+    snackbarStore.setSnackbar('Image uploaded', true)
 }
 
 const ProfileHandler = async (): Promise<void> => {
+    if(!authStore.isAuth) { 
+        await authStore.setPrevRouteData(route.fullPath, route.name)
+        navigateTo('/auth/login'); return; 
+    }
     if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
     else if(profile.value?.isFollowing) {
-        console.log('Unfollow')
+        await useApi({
+            path: `${config.public.API_USER_FOLLOWERS}/${userStore.user.pk}`,
+            method: 'DELETE'
+        })
+        snackbarStore.setSnackbar(`Unfollowed ${profile.value.username}`, true, ProfileImage.value)
+        refresh()
         return 
     }
     await useApi({
@@ -82,8 +93,7 @@ const ProfileHandler = async (): Promise<void> => {
         method: 'POST',
         data: {user: profile.value.pk}
     })
-    refresh()
-    // console.log(profile.value)
+    snackbarStore.setSnackbar(`Now following ${profile.value.username}`, true, ProfileImage.value)
 }
 
 watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })

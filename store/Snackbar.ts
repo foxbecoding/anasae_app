@@ -1,15 +1,20 @@
 export const useSnackbarStore = defineStore("snackbar-store", () => {
-    //state
     const show = ref<boolean>(false)
     const text = ref<string>('')
+    const imgSrc = ref<string>('')
     
-    //actions
-    const setSnackbar = (data_text: string, data_show: boolean): void => {
+    const setSnackbar = (
+        data_text: string, 
+        data_show: boolean, 
+        data_img_src: string = ''
+    ): void => {
         text.value = data_text
         show.value = data_show
+        imgSrc.value = data_img_src
     }
 
     return { 
+        imgSrc,
         show,
         text,
         setSnackbar
