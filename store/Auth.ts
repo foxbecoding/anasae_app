@@ -1,4 +1,4 @@
-import { useUserStore, useSnackbarStore } from '@/store'
+import { useUserStore, useSnackbarStore, useBrandStore } from '@/store'
 import { User } from '@/utils/types'
 import { RouteRecordName } from 'vue-router'
 
@@ -46,6 +46,7 @@ export const useAuthStore = defineStore("auth-store", () => {
         navigateTo('/', {replace: true})
         isAuth.value = false
         useUserStore().user = {} as User
+        useBrandStore().brands = []
         useSnackbarStore().setSnackbar('Signed out', true)
     }
 
