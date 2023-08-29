@@ -36,7 +36,7 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
     const updateMenu = (e: boolean): void => { if (e) goBack() }
     const close = () => {
         isOpen.value = false
-        goBack
+        goBack()
     }
     
     const CurrentView = computed((): ViewType => {
