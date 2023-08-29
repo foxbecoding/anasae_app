@@ -82,7 +82,7 @@ const BrandHandler = async (): Promise<void> => {
             path: `${config.public.API_BRAND_FOLLOWERS}/${brand.value.pk}/`,
             method: 'DELETE'
         })
-        snackbarStore.setSnackbar(`Unfollowed ${brand.value.name}`, true, BrandLogo.value)
+        snackbarStore.setSnackbar(`Unfollowed`, true, BrandLogo.value)
         refresh()
         return 
     }
@@ -91,7 +91,7 @@ const BrandHandler = async (): Promise<void> => {
         method: 'POST',
         data: {brand: brand.value.pk}
     })
-    snackbarStore.setSnackbar(`Now following ${brand.value.name}`, true, BrandLogo.value)
+    snackbarStore.setSnackbar(`Now following`, true, BrandLogo.value)
     refresh()
 }
 
