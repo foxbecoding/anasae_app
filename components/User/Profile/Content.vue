@@ -77,7 +77,7 @@ const ProfileHandler = async (): Promise<void> => {
         console.log('Unfollow')
         return 
     }
-    const { data } = await useApi({
+    await useApi({
         path: `${config.public.API_USER_FOLLOWERS}`,
         method: 'POST',
         data: {user: profile.value.pk}
