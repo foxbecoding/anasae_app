@@ -78,7 +78,7 @@ const ProfileHandler = async (): Promise<void> => {
         await authStore.setPrevRouteData(route.fullPath, route.name)
         navigateTo('/auth/login'); return; 
     }
-    if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
+    if(profile.value.isOwner){ navigateTo(`/profile/edit/${UID.value}`); return; }
     else if(profile.value?.isFollowing) {
         await useApi({
             path: `${config.public.API_USER_FOLLOWERS}/${profile.value.pk}/`,

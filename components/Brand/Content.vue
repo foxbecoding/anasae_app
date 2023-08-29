@@ -22,7 +22,7 @@ const UID = computed(() => {
     return route.params.uid
 })
 
-const { data: brand, status } = await useApi({
+const { data: brand, status, refresh } = await useApi({
     path: `${config.public.API_BRAND_PAGE}${UID.value}/`,
     method: 'GET',
     key: `${UID.value}`
@@ -69,6 +69,30 @@ const uploadImage = async (file: File): Promise<void> => {
     })
     brandStore.brands = updatedBrands
     snackbarStore.setSnackbar('Logo uploaded', true)
+}
+
+const BrandHandler = async (): Promise<void> => {
+    if(!authStore.isAuth) { 
+        await authStore.setPrevRouteData(route.fullPath, route.name)
+        navigateTo('/auth/login'); return; 
+    }
+    if(brand.value.isOwner){ navigateTo(`/brand/edit/${UID.value}`); return; }
+    else if(brand.value?.isFollowing) {
+        await useApi({
+            path: `${config.public.API_BRAND_FOLLOWERS}/${brand.value.pk}/`,
+            method: 'DELETE'
+        })
+        snackbarStore.setSnackbar(`Unfollowed ${brand.value.name}`, true, BrandLogo.value)
+        refresh()
+        return 
+    }
+    await useApi({
+        path: `${config.public.API_BRAND_FOLLOWERS}`,
+        method: 'POST',
+        data: {brand: brand.value.pk}
+    })
+    snackbarStore.setSnackbar(`Now following ${brand.value.name}`, true, BrandLogo.value)
+    refresh()
 }
 
 watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
@@ -128,7 +152,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         </div>
         <v-btn 
             v-if="isBrandExist"
-            :to="{path: `/brand/edit/${brand.uid}`}"
+            @click="BrandHandler"
             color="primary" 
             class="d-none d-sm-flex" 
             rounded="pill"
@@ -143,7 +167,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
     />
     <v-btn 
         v-if="isBrandExist"
-        :to="{path: `/brand/edit/${brand.uid}`}"
+        @click="BrandHandler"
         color="primary" 
         class="d-sm-none mt-4" 
         rounded="pill"
