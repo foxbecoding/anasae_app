@@ -81,7 +81,7 @@ const ProfileHandler = async (): Promise<void> => {
     if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
     else if(profile.value?.isFollowing) {
         await useApi({
-            path: `${config.public.API_USER_FOLLOWERS}/${userStore.user.pk}`,
+            path: `${config.public.API_USER_FOLLOWERS}/${profile.value.pk}/`,
             method: 'DELETE'
         })
         snackbarStore.setSnackbar(`Unfollowed ${profile.value.username}`, true, ProfileImage.value)
@@ -94,6 +94,7 @@ const ProfileHandler = async (): Promise<void> => {
         data: {user: profile.value.pk}
     })
     snackbarStore.setSnackbar(`Now following ${profile.value.username}`, true, ProfileImage.value)
+    refresh()
 }
 
 watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })

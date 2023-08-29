@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { useAuthStore, useBrandStore } from '@/store'
+import { useAuthStore, useBrandStore, useSnackbarStore } from '@/store'
 import { Brand } from '@/utils/types'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const authStore = useAuthStore()
 const brandStore = useBrandStore()
+const snackbarStore = useSnackbarStore()
 const brandLogoFile = ref()
 const brandLogoFileRef = ref()
 const showAddImgBtn = ref<boolean>(false)
@@ -42,6 +43,12 @@ if(status.value == 'error'){
     brand.value = brandData
 }
 
+const BrandHandlerLabel = computed((): string => {
+    if(brand.value.isOwner) return 'Edit'
+    else if(brand.value?.isFollowing) return 'Unfollow'
+    return 'Follow'
+})
+
 const BrandLogo = computed(() => useGetBrandLogo(brand.value.logo?.image) )
 
 const uploadImage = async (file: File): Promise<void> => {
@@ -61,6 +68,7 @@ const uploadImage = async (file: File): Promise<void> => {
         return x
     })
     brandStore.brands = updatedBrands
+    snackbarStore.setSnackbar('Logo uploaded', true)
 }
 
 watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
@@ -125,7 +133,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             class="d-none d-sm-flex" 
             rounded="pill"
             flat
-            :text="!brand.isOwner ? 'Follow' : 'Edit'"
+            :text="BrandHandlerLabel"
         />
     </div>
     <BrandDetails 
@@ -142,7 +150,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
         block
         size="small"
         flat
-        :text="!brand.isOwner ? 'Follow' : 'Edit'"
+        :text="BrandHandlerLabel"
     />
     <v-dialog
         v-if="isMobileBioOpen && $vuetify.display.xs"
