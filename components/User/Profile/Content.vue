@@ -21,7 +21,7 @@ const UID = computed(() => {
     return route.params.uid
 })
 
-const { data: profile, status } = await useApi({
+const { data: profile, status, refresh } = await useApi({
     path: `${config.public.API_USER_PROFILE}${UID.value}/`,
     method: 'GET',
     key: `${UID.value}`
@@ -54,7 +54,7 @@ const ProfileImage = computed(() => {
 const uploadImage = async (file: File): Promise<void> => {
     let formData = new FormData();
     formData.append("image", file);
-    const { data, pending, error, refresh } = await useApi({
+    const { data } = await useApi({
         path: `${config.public.API_USER_IMAGE}`,
         method: 'POST',
         data: formData,
@@ -65,9 +65,15 @@ const uploadImage = async (file: File): Promise<void> => {
     userStore.user = data.value
 }
 
-const followOrEdit = (): void => {
+const followOrEdit = async (): Promise<void> => {
     if(profile.value.isOwner){ navigateTo(`/profile/edit/${profile.value.uid}`); return; }
-    console.log(profile.value)
+    const { data } = await useApi({
+        path: `${config.public.API_USER_FOLLOWERS}`,
+        method: 'POST',
+        data: {user: profile.value.pk}
+    })
+    refresh()
+    // console.log(profile.value)
 }
 
 watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
