@@ -7,30 +7,30 @@ const userMenuStore = useUserMenuStore()
 const menuItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
-        prependIcon: 'mdi-weather-night',
+        prependIcon: 'mdi-account-details-outline',
         title: 'Details'
     },
     { 
         id: 2, 
-        prependIcon: 'mdi-weather-sunny', 
+        prependIcon: 'mdi-credit-card-outline', 
         title: 'Payment Methods'
     },
     { 
         id: 3, 
-        prependIcon: 'mdi-weather-sunny', 
+        prependIcon: 'mdi-map-marker-outline', 
         title: 'Addresses'
     },
     { 
         id: 4, 
-        prependIcon: 'mdi-weather-sunny', 
-        title: 'Chnage password'
+        prependIcon: 'mdi-lock-outline', 
+        title: 'Change password'
     },
 ])
 </script>
 
 <template>
     <v-list class="py-0" density="compact">
-        <v-list-item class="pl-1" title="Theme settings">
+        <v-list-item class="pl-1" title="Manage account">
             <template v-slot:prepend>
                 <v-btn 
                     @click="userMenuStore.goBack()"
