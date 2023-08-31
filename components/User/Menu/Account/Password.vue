@@ -95,8 +95,7 @@ const submitEmitter = (e: any): void => {
     fields.value.map(x =>  x.errorMessages = '')
     formError.isError = false
     formError.message = ''
-    userStore.user = e.data
-    useAuthStore().signOut()
+    useAuthStore().clear()
     snackbarStore.setSnackbar('Account password updated', true)
 }
 
@@ -138,7 +137,7 @@ const submitEmitter = (e: any): void => {
                 :closable="true"
                 class="mt-4"
                 type="error"
-                title="Something went wrong"
+                title=""
                 rounded="lg"
                 :text="formError.message"
                 :icon="false"

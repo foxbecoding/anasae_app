@@ -37,6 +37,13 @@ export const useAuthStore = defineStore("auth-store", () => {
         prevRouteName.value = routeName
     } 
 
+    const clear = async (): Promise<void> => {
+        navigateTo('/', {replace: true})
+        isAuth.value = false
+        useUserStore().user = {} as User
+        useBrandStore().brands = [] 
+    }
+    
     const signOut = async (): Promise<void> => {
         const config = useRuntimeConfig()
         await useApi({
@@ -59,6 +66,7 @@ export const useAuthStore = defineStore("auth-store", () => {
         signUpFormStep,
         signUpFormGenderOptions,
         signUpCompleted,
+        clear,
         setPrevRouteData,
         signOut
     }

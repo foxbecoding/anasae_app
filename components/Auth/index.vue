@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useAuthStore } from '@/store'
-import { useDisplay, useTheme } from 'vuetify'
+import { useDisplay } from 'vuetify'
 
 const route = useRoute()
 const authStore = useAuthStore()

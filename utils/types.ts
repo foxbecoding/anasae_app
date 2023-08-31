@@ -8,7 +8,7 @@ export interface ApiData {
     path: string
 }
 
-export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot"
+export type AuthRouteName = "auth-login" | "auth-sign-up" | "auth-forgot-password"
 
 export interface Brand {
     bio: string

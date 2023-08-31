@@ -17,11 +17,11 @@ export const useAuthFormFactory = () => {
     type FormTitle = 'Login' | 'Sign Up' | 'Forgot Password'
 
     const route = useRoute()
-    const authRouteNames = shallowRef<RouteName[]>(['auth-login', 'auth-sign-up', 'auth-forgot'])
+    const authRouteNames = shallowRef<RouteName[]>(['auth-login', 'auth-sign-up', 'auth-forgot-password'])
     const components = shallowReactive({
         "auth-login": LoginForm, 
         "auth-sign-up": SignUpForm, 
-        "auth-forgot": ForgotForm
+        "auth-forgot-password": ForgotForm
     })
 
     const AuthFormComponent = computed((): ComponentFormType => components[route.name as RouteName] )
@@ -34,7 +34,7 @@ export const useAuthFormFactory = () => {
             case 'auth-sign-up':
                 title = 'Sign Up'
                 break;
-            case 'auth-forgot':
+            case 'auth-forgot-password':
                 title = 'Forgot Password'
                 break;
             default:

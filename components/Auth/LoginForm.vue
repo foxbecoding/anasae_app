@@ -167,13 +167,13 @@ onMounted(() => {
         class="mt-4"
         type="error"
         title="Something went wrong"
-        rounded="xl"
+        rounded="lg"
         :text="formError.message"
         :icon="false"
     ></v-alert>
     <p 
         data-test-id="AuthLoginForm--have-an-account" 
-        class="py-8"
+        class="mt-4"
     >
         Don't have an account? 
         <NuxtLink 
@@ -181,7 +181,17 @@ onMounted(() => {
             :to="{name: 'auth-sign-up' }"
             class="text-decoration-none text-primary-alt" 
         >
-            Sign Up
+            Sign up
+        </NuxtLink>
+    </p>
+    <p data-test-id="AuthLoginForm--forgot-password" >
+        Forgot password? 
+        <NuxtLink 
+            data-test-id="AuthLoginForm--forgot-password-link"
+            :to="{name: 'auth-forgot-password' }"
+            class="text-decoration-none text-primary-alt" 
+        >
+            Password assistance
         </NuxtLink>
     </p>
 </template>
