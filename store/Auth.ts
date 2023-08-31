@@ -46,7 +46,7 @@ export const useAuthStore = defineStore("auth-store", () => {
         navigateTo('/', {replace: true})
         isAuth.value = false
         useUserStore().user = {} as User
-        useBrandStore().brands = [] as Brand
+        useBrandStore().brands = [] 
         useSnackbarStore().setSnackbar('Signed out', true)
     }
 
