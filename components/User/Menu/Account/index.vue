@@ -1,32 +1,29 @@
 <script lang="ts" setup>
 import { useUserMenuStore } from '@/store'
 import { UserMenuItem } from '@/utils/types'
-import { useTheme } from 'vuetify'
 
-const vTheme = useTheme()
 const userMenuStore = useUserMenuStore()
-const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => { 
-    vTheme.global.name.value = theme
-    useCookie('theme', {
-        path: '/',
-        maxAge: 1000000,
-        sameSite: 'lax'
-    }).value = vTheme.global.name.value
-}
-const themeItems = ref<UserMenuItem[]>([
+
+const menuItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-weather-night',
-        title: 'Dark theme',
-        action: () => { setTheme('anasaeDark') },
-        custom: true
+        title: 'Details'
     },
     { 
         id: 2, 
         prependIcon: 'mdi-weather-sunny', 
-        title: 'Light theme',
-        action: () => { setTheme('anasaeLight') },
-        custom: false
+        title: 'Payment Methods'
+    },
+    { 
+        id: 3, 
+        prependIcon: 'mdi-weather-sunny', 
+        title: 'Addresses'
+    },
+    { 
+        id: 4, 
+        prependIcon: 'mdi-weather-sunny', 
+        title: 'Chnage password'
     },
 ])
 </script>
@@ -36,7 +33,7 @@ const themeItems = ref<UserMenuItem[]>([
         <v-list-item class="pl-1" title="Theme settings">
             <template v-slot:prepend>
                 <v-btn 
-                    @click="userMenuStore.goBack"
+                    @click="userMenuStore.goBack()"
                     icon="mdi-arrow-left"
                     variant="plain"
                     size="small"
@@ -48,19 +45,15 @@ const themeItems = ref<UserMenuItem[]>([
     <v-divider />
     <v-list density="compact">
         <v-list-item 
-            v-for="(item, i) in themeItems"
+            v-for="(item, i) in menuItems"
             :key="i"
             :value="item"
             :title="item.title"
             @click="item?.action"
             :to="item?.to"
+            :prepend-icon="item.prependIcon"
         >
-            <template v-slot:prepend>
-                <v-icon :icon="item.prependIcon"></v-icon>
-            </template>
-            <template v-slot:append v-if="item?.custom == vTheme.global.current.value.dark">
-                <v-icon icon="mdi-check"></v-icon>
-            </template>
+
         </v-list-item>
     </v-list>
     

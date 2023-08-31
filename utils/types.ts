@@ -118,7 +118,7 @@ export interface UserMenuItem {
     id: number
     prependIcon: string
     appendIcon?: string
-    text: string
+    title: string
     to?: string
     action?: Function 
     custom?: any

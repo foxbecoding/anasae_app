@@ -15,7 +15,7 @@ const accountItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-account-circle-outline', 
-        text: 'My profile', 
+        title: 'My profile', 
         to: `/profile/${userStore.user.uid}`,
         action: () => { userMenuStore.isOpen = false }
     },
@@ -23,13 +23,13 @@ const accountItems = ref<UserMenuItem[]>([
         id: 2, 
         prependIcon: 'mdi-storefront-outline', 
         appendIcon: 'mdi-chevron-right',
-        text: 'My brands',
+        title: 'My brands',
         action: () => { userMenuStore.selectedView = UserMenuBrands }
     },
     { 
         id: 3, 
         prependIcon: 'mdi-logout-variant', 
-        text: 'Sign out',
+        title: 'Sign out',
         action: () => {
             userMenuStore.isOpen = false
             authStore.signOut()
@@ -38,8 +38,8 @@ const accountItems = ref<UserMenuItem[]>([
 ])
 
 const productDataItems = ref<UserMenuItem[]>([
-    { id: 1, prependIcon: 'mdi-shopping-outline', text: 'My orders' },
-    { id: 2, prependIcon: 'mdi-heart-outline', text: 'Wishlist'}
+    { id: 1, prependIcon: 'mdi-shopping-outline', title: 'My orders' },
+    { id: 2, prependIcon: 'mdi-heart-outline', title: 'Wishlist'}
 ])
 
 const siteConfigItems = ref<UserMenuItem[]>([
@@ -47,7 +47,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
         id: 1, 
         prependIcon: 'mdi-theme-light-dark', 
         appendIcon: 'mdi-chevron-right',
-        text: `Theme: ${CurrentTheme.value}`, 
+        title: `Theme: ${CurrentTheme.value}`, 
         action: () => { userMenuStore.selectedView = UserMenuTheme }
     },
 ])
@@ -87,7 +87,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
             :data-test-id="`user-menu-home-account-item${i}`"
             :key="i"
             :value="item"
-            :title="item.text"
+            :title="item.title"
             :to="item?.to"
             @click="item?.action"
         >
@@ -102,7 +102,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
             :data-test-id="`user-menu-home-product-data-item${i}`"
             :key="i"
             :value="item"
-            :title="item.text"
+            :title="item.title"
         >
         </v-list-item>
     </v-list>
@@ -114,7 +114,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
             :append-icon="item?.appendIcon"
             :key="i"
             :value="item"
-            :title="item.text"
+            :title="item.title"
             :to="item?.to"
             @click="item?.action"
         >
