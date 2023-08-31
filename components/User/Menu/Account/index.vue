@@ -13,7 +13,7 @@ const menuItems = ref<UserMenuItem[]>([
     { 
         id: 2, 
         prependIcon: 'mdi-credit-card-outline', 
-        title: 'Payment Methods'
+        title: 'Payment methods'
     },
     { 
         id: 3, 

@@ -21,9 +21,11 @@ export default defineNuxtConfig({
             API_AUTH_VERIFY_EMAIL: process.env.API_AUTH_VERIFY_EMAIL,
             API_SLIDER: process.env.API_SLIDER,
             API_USER: process.env.API_USER,
+            API_USER_ADDRESSES: process.env.API_USER_ADDRESSES,
             API_USER_FOLLOWERS: process.env.API_USER_FOLLOWERS,
             API_USER_GENDER: process.env.API_USER_GENDER,
             API_USER_IMAGE: process.env.API_USER_IMAGE,
+            API_USER_PAYMENT_METHODS: process.env.API_USER_PAYMENT_METHODS,
             API_USER_PROFILE: process.env.API_USER_PROFILE,
             API_X_FCT: process.env.API_X_FCT,
             SITE_DOMAIN: process.env.SITE_DOMAIN

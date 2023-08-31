@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { UserMenuTheme, UserMenuBrands } from '@/components/User/Menu/components'
+import { UserMenuTheme, UserMenuBrands, UserMenuAccount } from '@/components/User/Menu/components'
 import { useUserStore, useUserMenuStore, useAuthStore } from '@/store'
 import { useTheme } from 'vuetify'
 import { UserMenuItem } from '@/utils/types'
@@ -34,6 +34,13 @@ const accountItems = ref<UserMenuItem[]>([
             userMenuStore.isOpen = false
             authStore.signOut()
         }
+    },
+    { 
+        id: 4, 
+        prependIcon: 'mdi-account-details-outline', 
+        appendIcon: 'mdi-chevron-right',
+        title: 'Account',
+        action: () => { userMenuStore.selectedView = UserMenuAccount }
     }
 ])
 
