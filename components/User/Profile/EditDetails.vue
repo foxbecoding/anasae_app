@@ -23,7 +23,7 @@ const emit = defineEmits<{
 const formButton = reactive<FormButton>({
     show: true,
     label: 'Submit',
-    class: "tex-background", 
+    class: "text-background", 
     color: "primary",
     rounded:"pill", 
     block: true, 

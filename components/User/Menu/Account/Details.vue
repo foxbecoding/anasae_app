@@ -6,12 +6,14 @@ import { useUserStore, useSnackbarStore } from '@/store'
 
 const config = useRuntimeConfig()
 const userStore = useUserStore()
+const snackbarStore = useSnackbarStore() 
 const userMenuStore = useUserMenuStore()
+const formError = reactive({ isError: false, message:'' })
 
 const formButton = reactive<FormButton>({
     show: true,
     label: 'Submit',
-    class: "tex-background", 
+    class: "text-background", 
     color: "primary",
     rounded:"pill", 
     block: true, 
@@ -24,7 +26,7 @@ const fields = ref<FormTextField[]>([
         model: userStore.user.first_name || '', 
         name:'first_name', 
         label: 'First name', 
-        density: 'comfortable',
+        density: 'compact',
         color: 'primary-alt',
         type: 'text', 
         counter: 30,
@@ -41,7 +43,7 @@ const fields = ref<FormTextField[]>([
         model: userStore.user.last_name || '', 
         name:'last_name', 
         label: 'Last name', 
-        density: 'comfortable',
+        density: 'compact',
         color: 'primary-alt',
         type: 'text', 
         counter: 30,
@@ -83,7 +85,7 @@ const submitEmitter = (e: any): void => {
 
 <template>
     <v-list class="py-0" density="compact">
-        <v-list-item class="pl-1" title="Account details">
+        <v-list-item class="pl-1" title="Edit account details">
             <template v-slot:prepend>
                 <v-btn 
                     @click="userMenuStore.selectedView = UserMenuAccount"
@@ -97,12 +99,24 @@ const submitEmitter = (e: any): void => {
     </v-list>
     <v-divider />
     <v-list>
-        <FormFields
-            @submit="submitEmitter"
-            :fields="fields" 
-            :formButton="formButton"
-            :apiPath="`${config.public.API_USER}/${useUserStore().user.pk}/`"
-            apiMethod="PATCH"
-        />
+        <v-container>
+            <FormFields
+                @submit="submitEmitter"
+                :fields="fields" 
+                :formButton="formButton"
+                :apiPath="`${config.public.API_USER}/${useUserStore().user.pk}/`"
+                apiMethod="PATCH"
+            />
+            <v-alert
+                v-model="formError.isError"
+                :closable="true"
+                class="mt-4"
+                type="error"
+                title="Something went wrong"
+                rounded="xl"
+                :text="formError.message"
+                :icon="false"
+            />
+        </v-container>
     </v-list>
 </template>

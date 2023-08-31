@@ -19,7 +19,7 @@ const EmailOrUsername = computed((): string => authStore.loginForm.isUsername ? 
 const formButton = reactive<FormButton>({
     show: true,
     label: 'Submit',
-    class: "tex-background", 
+    class: "text-background", 
     color: "primary",
     rounded:"pill", 
     block: true, 
