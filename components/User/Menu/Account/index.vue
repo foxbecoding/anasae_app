@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useUserMenuStore, useAuthStore } from '@/store'
+import * as accComps from '../components.ts'
 import { UserMenuItem } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
@@ -8,23 +9,31 @@ const authStore = useAuthStore()
 const menuItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
+        appendIcon: 'mdi-chevron-right',
         prependIcon: 'mdi-account-details-outline',
-        title: 'Details'
+        title: 'Details',
+        action: () => { userMenuStore.selectedView = accComps.UserMenuAccountDetails }
     },
     { 
         id: 2, 
+        appendIcon: 'mdi-chevron-right',
         prependIcon: 'mdi-credit-card-outline', 
-        title: 'Payment methods'
+        title: 'Payment methods',
+        action: () => { userMenuStore.selectedView = accComps.UserMenuAccountPaymentMethods }
     },
     { 
         id: 3, 
+        appendIcon: 'mdi-chevron-right',
         prependIcon: 'mdi-map-marker-outline', 
-        title: 'Addresses'
+        title: 'Addresses',
+        action: () => { userMenuStore.selectedView = accComps.UserMenuAccountAddresses }
     },
     { 
         id: 4, 
+        appendIcon: 'mdi-chevron-right',
         prependIcon: 'mdi-lock-outline', 
-        title: 'Change password'
+        title: 'Change password',
+        action: () => { userMenuStore.selectedView = accComps.UserMenuAccountPassword }
     },
     { 
         id: 5, 
@@ -61,6 +70,7 @@ const menuItems = ref<UserMenuItem[]>([
             :title="item.title"
             @click="item?.action"
             :to="item?.to"
+            :append-icon="item.appendIcon"
             :prepend-icon="item.prependIcon"
         >
 

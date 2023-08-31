@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { UserMenuTheme, UserMenuBrands, UserMenuAccount } from '@/components/User/Menu/components'
-import { useUserStore, useUserMenuStore, useAuthStore } from '@/store'
+import { useUserStore, useUserMenuStore } from '@/store'
 import { useTheme } from 'vuetify'
 import { UserMenuItem } from '@/utils/types'
 
 const vTheme = useTheme()
 const userStore = useUserStore() 
 const userMenuStore = useUserMenuStore()
-const authStore = useAuthStore()
 const CurrentTheme = computed((): string => vTheme.global.current.value.dark ? 'Dark' : 'Light')
 const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
