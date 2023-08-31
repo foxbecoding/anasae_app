@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FormTextField, FormButton } from '@/utils/types'
-import { useAuthStore, useUserStore, useSnackbarStore } from "@/store"
+import { useAuthStore, useUserStore, useSnackbarStore, useBrandStore } from "@/store"
 
 const config = useRuntimeConfig()
 const apiPath = shallowRef<string>(config.public.API_AUTH_LOGIN) 
@@ -93,7 +93,7 @@ const switchHandler = (e: boolean|any): void => {
     }
 }
 
-const submitEmitter = (e: any): void => {
+const submitEmitter = async (e: any): Promise<void> => {
     if (e.status == 'error'){
         if('errors' in e.error.data){
             formError.isError = true
@@ -124,6 +124,8 @@ const submitEmitter = (e: any): void => {
     useRouter().replace({ path: authStore.prevRoute })
     userStore.user = e.data
     snackbarStore.setSnackbar('Signed in', true)
+    await userStore.user.owned_brands
+    useBrandStore().brands = await useGetOwnerBrands(userStore.user.owned_brands)
 }
 
 onMounted(() => {

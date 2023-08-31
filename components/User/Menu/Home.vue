@@ -37,7 +37,7 @@ const accountItems = ref<UserMenuItem[]>([
     },
     { 
         id: 4, 
-        prependIcon: 'mdi-account-details-outline', 
+        prependIcon: 'mdi-account-details-card-outline', 
         appendIcon: 'mdi-chevron-right',
         title: 'Account',
         action: () => { userMenuStore.selectedView = UserMenuAccount }
