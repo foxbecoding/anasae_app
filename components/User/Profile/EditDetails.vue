@@ -50,42 +50,6 @@ const fields = ref<FormTextField[]>([
     
     {
         id: 2, 
-        model: userStore.user.first_name || '', 
-        name:'first_name', 
-        label: 'First name', 
-        density: 'comfortable',
-        color: 'primary-alt',
-        type: 'text', 
-        counter: 30,
-        errorMessages: '',
-        inputType: 'TEXTFIELD',
-        variant: 'outlined',
-        rules: [ 
-            (v: any) => !! v || 'First name is required',
-            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
-        ]
-    },
-
-    {
-        id: 3, 
-        model: userStore.user.last_name || '', 
-        name:'last_name', 
-        label: 'Last name', 
-        density: 'comfortable',
-        color: 'primary-alt',
-        type: 'text', 
-        counter: 30,
-        errorMessages: '',
-        inputType: 'TEXTFIELD',
-        variant: 'outlined',
-        rules: [ 
-            (v: any) => !! v || 'Last name is required', 
-            (v: any) => v.length <= 30 || 'Must be 30 characters or less'
-        ],
-    },
-    
-    {
-        id: 4, 
         model: userStore.user.display_name || '', 
         name:'display_name', 
         label: 'Display name', 
