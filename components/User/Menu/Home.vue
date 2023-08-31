@@ -28,16 +28,7 @@ const accountItems = ref<UserMenuItem[]>([
     },
     { 
         id: 3, 
-        prependIcon: 'mdi-logout-variant', 
-        title: 'Sign out',
-        action: () => {
-            userMenuStore.isOpen = false
-            authStore.signOut()
-        }
-    },
-    { 
-        id: 4, 
-        prependIcon: 'mdi-account-details-card-outline', 
+        prependIcon: 'mdi-card-account-details-outline', 
         appendIcon: 'mdi-chevron-right',
         title: 'Account',
         action: () => { userMenuStore.selectedView = UserMenuAccount }

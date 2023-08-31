@@ -26,7 +26,9 @@ initialize()
 
 onBeforeMount(async () => {
   await userStore.user.owned_brands
-  brandStore.brands = await useGetOwnerBrands(userStore.user.owned_brands)
+  if(userStore.user.owned_brands){
+    brandStore.brands = await useGetOwnerBrands(userStore.user.owned_brands)
+  }
 })
 </script>
 

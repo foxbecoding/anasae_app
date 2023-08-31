@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { useUserMenuStore } from '@/store'
+import { useUserMenuStore, useAuthStore } from '@/store'
 import { UserMenuItem } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
+const authStore = useAuthStore()
 
 const menuItems = ref<UserMenuItem[]>([
     { 
@@ -25,6 +26,15 @@ const menuItems = ref<UserMenuItem[]>([
         prependIcon: 'mdi-lock-outline', 
         title: 'Change password'
     },
+    { 
+        id: 5, 
+        prependIcon: 'mdi-logout-variant', 
+        title: 'Sign out',
+        action: () => {
+            userMenuStore.isOpen = false
+            authStore.signOut()
+        }
+    }
 ])
 </script>
 
