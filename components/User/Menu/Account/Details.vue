@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { useUserMenuStore } from '@/store'
-import { UserMenuAccount } from '../components.ts'
+import { UserMenuAccount } from '../components'
 import { FormTextField, FormButton } from '@/utils/types'
-import { useUserStore, useSnackbarStore } from '@/store'
+import { useUserStore, useSnackbarStore, useUserMenuStore } from '@/store'
 
 const config = useRuntimeConfig()
 const userStore = useUserStore()
@@ -98,25 +97,23 @@ const submitEmitter = (e: any): void => {
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list>
-        <v-container>
-            <FormFields
-                @submit="submitEmitter"
-                :fields="fields" 
-                :formButton="formButton"
-                :apiPath="`${config.public.API_USER}/${useUserStore().user.pk}/`"
-                apiMethod="PATCH"
-            />
-            <v-alert
-                v-model="formError.isError"
-                :closable="true"
-                class="mt-4"
-                type="error"
-                title="Something went wrong"
-                rounded="xl"
-                :text="formError.message"
-                :icon="false"
-            />
-        </v-container>
-    </v-list>
+    <v-container>
+        <FormFields
+            @submit="submitEmitter"
+            :fields="fields" 
+            :formButton="formButton"
+            :apiPath="`${config.public.API_USER}/${useUserStore().user.pk}/`"
+            apiMethod="PATCH"
+        />
+        <v-alert
+            v-model="formError.isError"
+            :closable="true"
+            class="mt-4"
+            type="error"
+            title="Something went wrong"
+            rounded="lg"
+            :text="formError.message"
+            :icon="false"
+        />
+    </v-container>
 </template>

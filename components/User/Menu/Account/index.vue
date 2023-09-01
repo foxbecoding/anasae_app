@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useUserMenuStore, useAuthStore } from '@/store'
-import * as accComps from '../components.ts'
+import * as accComps from '../components'
 import { UserMenuItem } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
