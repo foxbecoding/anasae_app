@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { UserMenuAccount } from '../components'
+import { UserMenuAccount, UserMenuAccountAddressesAdd } from '../../components'
 import { useUserStore, useUserMenuStore } from '@/store'
 
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
-console.log(userStore.user.addresses?.length)
+const Addresses = computed(() => userStore.user.addresses)
 </script>
 
 <template>
@@ -22,8 +22,12 @@ console.log(userStore.user.addresses?.length)
         </v-list-item>
     </v-list>
     <v-divider />
+    <v-list>
+        {{ Addresses }}
+    </v-list>
     <v-container>
         <v-btn 
+            @click="userMenuStore.selectedView = UserMenuAccountAddressesAdd"
             class="text-surface" 
             color="primary-alt" 
             rounded="pill" 
