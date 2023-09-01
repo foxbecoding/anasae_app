@@ -188,7 +188,7 @@ onMounted(() => {
         Forgot password? 
         <NuxtLink 
             data-test-id="AuthLoginForm--forgot-password-link"
-            :to="{name: 'auth-forgot-password' }"
+            :to="{ name: 'auth-forgot-password' }"
             class="text-decoration-none text-primary-alt" 
         >
             Password assistance

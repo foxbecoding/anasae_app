@@ -31,16 +31,12 @@ const fields = ref<FormTextField[]>([
         errorMessages: '',
         inputType: 'TEXTFIELD',
         variant: 'outlined',
-        prependInnerIcon: 'mdi-email',
-        rules: [
-            (v: any) => !! v || 'E-mail is required',
-            (v: any) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-        ],
+        prependInnerIcon: 'mdi-email'
     }
 ])
 
 const submitEmitter = async (e: any): Promise<void> => {
-    fields.value.map(x =>  x.errorMessages = '')
+    fields.value[0].model = ''
     alert.show = true
     alert.message = e.data
 }
@@ -54,6 +50,9 @@ const submitEmitter = async (e: any): Promise<void> => {
     >
         Password assistance
     </v-card-title>
+    <v-card-text class="px-0">
+        Enter your email for your account and we will email you password assistance.
+    </v-card-text>
     <FormFields
         @submit="submitEmitter"
         :fields="fields" 
