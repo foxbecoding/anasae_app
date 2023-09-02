@@ -1,7 +1,7 @@
 import UserMenuHome from './Home'
 import UserMenuAccount from './Account/index'
 import UserMenuAccountAddresses from './Account/Addresses/index'
-import UserMenuAccountAddressesAdd from './Account/Addresses/Add'
+import UserMenuAccountAddressesForm from './Account/Addresses/Form'
 import UserMenuAccountAddressesDetails from './Account/Addresses/Details'
 import UserMenuAccountDetails from './Account/Details'
 import UserMenuAccountPassword from './Account/Password'
@@ -14,7 +14,7 @@ import UserMenuTheme from './Theme'
 export {
     UserMenuAccount,
     UserMenuAccountAddresses,
-    UserMenuAccountAddressesAdd,
+    UserMenuAccountAddressesForm,
     UserMenuAccountAddressesDetails,
     UserMenuAccountDetails,
     UserMenuAccountPassword,

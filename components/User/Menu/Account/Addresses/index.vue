@@ -65,7 +65,11 @@ const viewAddressDetails = (address: UserAddress) => {
             Add address
         </v-btn>
     </v-container>
-    <UserMenuAccountAddressesAdd v-if="addAddressModel" v-model="addAddressModel" @update:modelValue="addAddressModel = false" />
+    <UserMenuAccountAddressesForm 
+        v-if="addAddressModel" 
+        v-model="addAddressModel" 
+        @update:modelValue="addAddressModel = false" 
+    />
 </template>
 
 <style scoped>

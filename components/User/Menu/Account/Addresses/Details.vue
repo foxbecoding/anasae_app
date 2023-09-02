@@ -3,6 +3,7 @@ import { UserMenuAccountAddresses } from '../../components'
 import { useUserMenuStore } from '@/store'
 
 const userMenuStore = useUserMenuStore()
+const addressDialog = ref<boolean>(false)
 
 </script>
 
@@ -31,12 +32,17 @@ const userMenuStore = useUserMenuStore()
             {{ userMenuStore.selectedAddress?.country }}<br>
             Phone number: {{ userMenuStore.selectedAddress?.phone_number }}
         </v-card-text>
+        <v-card-actions>
+            <v-btn color="primary" @click="addressDialog = true" flat>Edit</v-btn>
+            <v-btn color="error"  flat>Remove</v-btn>
+        </v-card-actions>
     </v-card>
-    <v-container>
-        <v-btn color="primary" rounded="pill" block flat>Edit</v-btn>
-        <v-btn color="error"  class="mt-2" variant="tonal" rounded="pill" block flat>Remove</v-btn>
-    </v-container>
-    <!-- <UserMenuAccountAddressesAdd v-if="addAddressModel" v-model="addAddressModel" @update:modelValue="addAddressModel = false" /> -->
+    <UserMenuAccountAddressesForm 
+        v-if="addressDialog" 
+        v-model="addressDialog" 
+        @update:modelValue="addressDialog = false" 
+        :address="userMenuStore.selectedAddress"
+    />
 </template>
 
 <style scoped>

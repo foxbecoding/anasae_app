@@ -1,13 +1,18 @@
 <script lang="ts" setup>
-import { UserMenuAccountAddresses } from '../../components'
-import { FormTextField, FormButton } from '@/utils/types'
+import { FormTextField, FormButton, UserAddress } from '@/utils/types'
 import { useDisplay } from 'vuetify'
 import { useUserStore, useSnackbarStore, useUserMenuStore } from '@/store'
+import { PropType } from 'vue'
 
 const props = defineProps({
     modelValue: {
         type: Boolean,
         default: false
+    },
+
+    address: {
+        type: Object as PropType<UserAddress>,
+        required: false
     }
 })
 
@@ -20,6 +25,9 @@ const userStore = useUserStore()
 const snackbarStore = useSnackbarStore() 
 const userMenuStore = useUserMenuStore()
 const formError = reactive({ isError: false, message:'' })
+const formData = reactive({
+    full_name: props.address ? props.address.full_name : ''
+})
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 
 const formButton = reactive<FormButton>({
@@ -35,7 +43,7 @@ const formButton = reactive<FormButton>({
 const fields = ref<FormTextField[]>([
     {
         id: 1, 
-        model: '', 
+        model: formData.full_name, 
         name:'full_name', 
         class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Full name', 
@@ -218,7 +226,7 @@ const submitEmitter = (e: any): void => {
                     </div>
                 </div>
                 <v-card-title class="text-h5 py-4">
-                    Add Address
+                    {{ props.address ? 'Edit Address' : 'Add Address'}}
                 </v-card-title>
                 <v-card-text>
                     <FormFields
