@@ -152,7 +152,7 @@ const onScrimUpdate = (e: any): void => { if (!e && props.modelValue) updatedMod
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 2023;
+    z-index: 2001;
     width: 100%;
     touch-action: none !important;
 }

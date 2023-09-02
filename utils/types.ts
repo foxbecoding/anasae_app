@@ -91,7 +91,7 @@ export interface Slider {
 
 
 export interface User {
-    addresses?: string[]
+    addresses?: UserAddress[]
     owned_brands: string[] | number[] 
     display_name?: string
     email?: string
@@ -106,6 +106,19 @@ export interface User {
     stripe_customer_id?: string
     uid: string
     username: string
+}
+
+export interface UserAddress {
+    pk: string | number;
+    full_name: string;
+    phone_number: string;
+    street_address: string;
+    street_address_ext: string;
+    country: string;
+    state: string;
+    city: string;
+    postal_code: string;
+    is_default: boolean;
 }
 
 export interface UserGender {

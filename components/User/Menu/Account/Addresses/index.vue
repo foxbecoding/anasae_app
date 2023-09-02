@@ -1,10 +1,22 @@
 <script lang="ts" setup>
-import { UserMenuAccount, UserMenuAccountAddressesAdd } from '../../components'
+import { 
+    UserMenuAccount, 
+    UserMenuAccountAddressesAdd, 
+    UserMenuAccountAddressesDetails 
+} from '../../components'
 import { useUserStore, useUserMenuStore } from '@/store'
+import { UserAddress } from '@/utils/types'
 
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const Addresses = computed(() => userStore.user.addresses)
+const addAddressModel = ref<boolean>(false)
+
+const viewAddressDetails = (address: UserAddress) => {
+    userMenuStore.selectedAddress = address
+    userMenuStore.selectedView = UserMenuAccountAddressesDetails
+}
+
 </script>
 
 <template>
@@ -22,12 +34,28 @@ const Addresses = computed(() => userStore.user.addresses)
         </v-list-item>
     </v-list>
     <v-divider />
-    <v-list>
-        {{ Addresses }}
+    
+    <v-list v-if="Addresses && Addresses.length > 0" density="compact">
+        <v-list-item
+            v-for="(address, i) in Addresses"
+            @click="viewAddressDetails(address)"
+            density="compact"
+            :key="address.pk"
+            :value="address"
+            appendIcon="mdi-chevron-right"
+            :title="address.street_address"
+            :subtitle="`${address.city}, ${ address.state } ${ address.postal_code }`"
+        ></v-list-item>
     </v-list>
+    <v-container class="no-addresses-container" v-else>
+        <div class="text-center">
+            <v-icon color="primary-alt" size="60">mdi-map-marker</v-icon>
+            <p class="text-body-1 py-2">Add an address</p>
+        </div>  
+    </v-container> 
     <v-container>
         <v-btn 
-            @click="userMenuStore.selectedView = UserMenuAccountAddressesAdd"
+            @click="addAddressModel = true"
             class="text-surface" 
             color="primary-alt" 
             rounded="pill" 
@@ -37,4 +65,11 @@ const Addresses = computed(() => userStore.user.addresses)
             Add address
         </v-btn>
     </v-container>
+    <UserMenuAccountAddressesAdd v-if="addAddressModel" v-model="addAddressModel" @update:modelValue="addAddressModel = false" />
 </template>
+
+<style scoped>
+.no-addresses-container {
+    max-width: 200px;
+}
+</style>

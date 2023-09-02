@@ -1,4 +1,4 @@
-import { User, ApiData } from '@/utils/types'
+import { User, UserAddress, ApiData } from '@/utils/types'
 import { useAuthStore, useBrandStore } from './'
 import { UserMenuHome } from '@/components/User/Menu/components'
 
@@ -31,6 +31,7 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
     const isLightTheme = ref<boolean>(false)
     const selectedView = shallowRef<ViewType>()
     const isOpen = ref<boolean>(false)
+    const selectedAddress = ref<UserAddress>()
     
     const goBack = (): void => { selectedView.value = UserMenuHome }
     const updateMenu = (e: boolean): void => { if (e) goBack() }
@@ -48,6 +49,7 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
         CurrentView,
         isLightTheme,
         isOpen,
+        selectedAddress,
         selectedView,
         close,
         goBack,

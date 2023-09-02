@@ -1,13 +1,26 @@
 <script lang="ts" setup>
 import { UserMenuAccountAddresses } from '../../components'
 import { FormTextField, FormButton } from '@/utils/types'
+import { useDisplay } from 'vuetify'
 import { useUserStore, useSnackbarStore, useUserMenuStore } from '@/store'
+
+const props = defineProps({
+    modelValue: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
 
 const config = useRuntimeConfig()
 const userStore = useUserStore()
 const snackbarStore = useSnackbarStore() 
 const userMenuStore = useUserMenuStore()
 const formError = reactive({ isError: false, message:'' })
+const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 
 const formButton = reactive<FormButton>({
     show: true,
@@ -24,6 +37,7 @@ const fields = ref<FormTextField[]>([
         id: 1, 
         model: '', 
         name:'full_name', 
+        class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Full name', 
         density: 'compact',
         color: 'primary-alt',
@@ -41,6 +55,7 @@ const fields = ref<FormTextField[]>([
         id: 2, 
         model: '', 
         name:'phone_number', 
+        class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Phone number', 
         density: 'compact',
         color: 'primary-alt',
@@ -56,6 +71,7 @@ const fields = ref<FormTextField[]>([
         id: 3, 
         model: '', 
         name:'street_address', 
+        class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Street address', 
         density: 'compact',
         color: 'primary-alt',
@@ -71,6 +87,7 @@ const fields = ref<FormTextField[]>([
         id: 4, 
         model: '', 
         name:'street_address_ext', 
+        class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Street address ext', 
         density: 'compact',
         color: 'primary-alt',
@@ -82,6 +99,7 @@ const fields = ref<FormTextField[]>([
     {
         id: 5, 
         model: 'United States', 
+        class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         name:'country', 
         label: 'Country', 
         density: 'compact',
@@ -96,6 +114,7 @@ const fields = ref<FormTextField[]>([
         id: 6, 
         model: '', 
         name:'state', 
+        class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'State', 
         density: 'compact',
         color: 'primary-alt',
@@ -111,6 +130,7 @@ const fields = ref<FormTextField[]>([
         id: 7, 
         model: '', 
         name:'city', 
+        class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'City', 
         density: 'compact',
         color: 'primary-alt',
@@ -126,6 +146,7 @@ const fields = ref<FormTextField[]>([
         id: 8, 
         model: '', 
         name:'postal_code', 
+        class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Postal code', 
         density: 'compact',
         color: 'primary-alt',
@@ -160,43 +181,76 @@ const submitEmitter = (e: any): void => {
     formError.isError = false
     formError.message = ''
     userStore.user = e.data
+    emit('update:modelValue', false)
     snackbarStore.setSnackbar('Address added', true)
 }
 
 </script>
 
 <template>
-    <v-list class="py-0" density="compact">
-        <v-list-item class="pl-1" title="Add address">
-            <template v-slot:prepend>
-                <v-btn 
-                    @click="userMenuStore.selectedView = UserMenuAccountAddresses"
-                    icon="mdi-arrow-left"
-                    variant="plain"
-                    size="small"
-                >
-                </v-btn>
-            </template>
-        </v-list-item>
-    </v-list>
-    <v-divider />
-    <v-container>
-        <FormFields
-            @submit="submitEmitter"
-            :fields="fields" 
-            :formButton="formButton"
-            :apiPath="`${config.public.API_USER_ADDRESSES}`"
-            apiMethod="POST"
-        />
-        <v-alert
-            v-model="formError.isError"
-            :closable="true"
-            class="mt-4"
-            type="error"
-            title="Something went wrong"
-            rounded="lg"
-            :text="formError.message"
-            :icon="false"
-        />
-    </v-container>
+    <v-dialog
+        v-model="props.modelValue"
+        data-test-id="add-address-dialog" 
+        :fullscreen="IsFullscreen"
+        :width="IsFullscreen ? '600px': '500px'"
+        :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
+        persistent
+        :z-index="2500"
+    >
+        <v-card 
+            height="1000px" 
+            :rounded="IsFullscreen ? 'none' : 'xl'"
+            :class="IsFullscreen ? 'mobile-dialog-card' : ''"
+        >
+            <v-container fluid>
+                <div class="d-flex justify-space-between align-center">
+                    <v-btn 
+                        @click="emit('update:modelValue', false)" 
+                        color="transparent" 
+                        size="small" 
+                        icon
+                    >
+                        <v-icon icon="mdi-close" />
+                    </v-btn> 
+                    
+                    <div class="auth-form-logo-container w-100 mr-4"> 
+                        <Logo /> 
+                    </div>
+                </div>
+                <v-card-title class="text-h5 py-4">
+                    Add Address
+                </v-card-title>
+                <v-card-text>
+                    <FormFields
+                        @submit="submitEmitter"
+                        :fields="fields" 
+                        :formButton="formButton"
+                        :apiPath="`${config.public.API_USER_ADDRESSES}`"
+                        apiMethod="POST"
+                        formClass="d-flex flex-wrap"
+                    />
+                    <v-alert
+                        v-model="formError.isError"
+                        :closable="true"
+                        class="mt-4"
+                        type="error"
+                        title="Something went wrong"
+                        rounded="lg"
+                        :text="formError.message"
+                        :icon="false"
+                    />
+                </v-card-text>
+                <v-alert
+                    v-model="formError.isError"
+                    :closable="true"
+                    class="mt-4"
+                    type="error"
+                    title="Something went wrong"
+                    rounded="xl"
+                    :text="formError.message"
+                    :icon="false"
+                />
+            </v-container>
+        </v-card>
+    </v-dialog>
 </template>
