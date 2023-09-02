@@ -18,6 +18,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
+  (e: 'addressUpdated', value: UserAddress): void
 }>()
 
 const config = useRuntimeConfig()
@@ -35,6 +36,8 @@ const formData = reactive({
     postal_code: props.address ? props.address.postal_code : ''
 })
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
+
+const ApiPath = computed(() => `${config.public.API_USER_ADDRESSES}${props.address ? props.address.pk+'/' : ''}`)
 
 const formButton = reactive<FormButton>({
     show: true,
@@ -196,7 +199,11 @@ const submitEmitter = (e: any): void => {
     formError.message = ''
     userStore.user = e.data
     emit('update:modelValue', false)
-    snackbarStore.setSnackbar('Address added', true)
+    if(props.address){
+        let foundAddress = userStore.user.addresses?.find(x => x.pk == props.address?.pk) as UserAddress
+        emit('addressUpdated', foundAddress)
+    }
+    snackbarStore.setSnackbar(`Address ${props.address ? 'updated' : 'added'}`, true)
 }
 
 </script>
@@ -232,15 +239,15 @@ const submitEmitter = (e: any): void => {
                     </div>
                 </div>
                 <v-card-title class="text-h5 py-4">
-                    {{ props.address ? 'Edit Address' : 'Add Address'}}
+                    {{ props.address ? 'Edit' : 'Add'}} Address
                 </v-card-title>
                 <v-card-text>
                     <FormFields
                         @submit="submitEmitter"
                         :fields="fields" 
                         :formButton="formButton"
-                        :apiPath="`${config.public.API_USER_ADDRESSES}`"
-                        apiMethod="POST"
+                        :apiPath="ApiPath"
+                        :apiMethod="props.address ? 'PUT' : 'POST'"
                         formClass="d-flex flex-wrap"
                     />
                     <v-alert
