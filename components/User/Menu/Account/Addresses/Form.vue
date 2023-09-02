@@ -67,7 +67,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 2, 
-        model: '', 
+        model: formData.phone_number, 
         name:'phone_number', 
         class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Phone number', 
@@ -83,7 +83,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 3, 
-        model: '', 
+        model: formData.street_address, 
         name:'street_address', 
         class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Street address', 
@@ -99,7 +99,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 4, 
-        model: '', 
+        model: formData.street_address_ext, 
         name:'street_address_ext', 
         class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Street address ext', 
@@ -126,7 +126,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 6, 
-        model: '', 
+        model: formData.state, 
         name:'state', 
         class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'State', 
@@ -142,7 +142,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 7, 
-        model: '', 
+        model: formData.city, 
         name:'city', 
         class: `pr-1 w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'City', 
@@ -158,7 +158,7 @@ const fields = ref<FormTextField[]>([
     },
     {
         id: 8, 
-        model: '', 
+        model: formData.postal_code, 
         name:'postal_code', 
         class: `w-${!IsFullscreen.value ? '50' : '100'}`,
         label: 'Postal code', 
@@ -171,7 +171,7 @@ const fields = ref<FormTextField[]>([
         rules: [ 
             (v: any) => !! v || 'Postal code is required',
         ]
-    },
+    }
 ])
 
 const submitEmitter = (e: any): void => {
