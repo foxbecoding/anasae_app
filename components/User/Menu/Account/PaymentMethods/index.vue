@@ -1,26 +1,18 @@
 <script lang="ts" setup>
-import { 
-    UserMenuAccount, 
-    UserMenuAccountAddressesDetails 
-} from '../../components'
+import {  UserMenuAccount, UserMenuAccountPaymentMethodsAdd } from '../../components'
 import { useUserStore, useUserMenuStore } from '@/store'
 import { UserAddress } from '@/utils/types'
 
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
-const Addresses = computed(() => userStore.user.addresses)
-const addAddressModel = ref<boolean>(false)
+const PaymentMethods = computed(() => userStore.user.payment_methods)
 
-const viewAddressDetails = (address: UserAddress) => {
-    userMenuStore.selectedAddress = address
-    userMenuStore.selectedView = UserMenuAccountAddressesDetails
-}
 
 </script>
 
 <template>
     <v-list class="py-0" density="compact">
-        <v-list-item class="pl-1" title="Manage addresses">
+        <v-list-item class="pl-1" title="Manage payment methods">
             <template v-slot:prepend>
                 <v-btn 
                     @click="userMenuStore.selectedView = UserMenuAccount"
@@ -34,9 +26,9 @@ const viewAddressDetails = (address: UserAddress) => {
     </v-list>
     <v-divider />
     
-    <v-list v-if="Addresses && Addresses.length > 0" density="compact">
-        <v-list-item
-            v-for="(address, i) in Addresses"
+    <v-list v-if="PaymentMethods && PaymentMethods.length > 0" density="compact">
+        <!-- <v-list-item
+            v-for="(method, i) in PaymentMethods"
             @click="viewAddressDetails(address)"
             density="compact"
             :key="address.pk"
@@ -44,35 +36,31 @@ const viewAddressDetails = (address: UserAddress) => {
             appendIcon="mdi-chevron-right"
             :title="address.street_address"
             :subtitle="`${address.city}, ${ address.state } ${ address.postal_code }`"
-        ></v-list-item>
+        ></v-list-item> -->
     </v-list>
-    <v-container class="no-addresses-container" v-else>
+    <v-container class="no-data-container" v-else>
         <div class="text-center">
-            <v-icon color="primary-alt" size="60">mdi-map-marker</v-icon>
-            <p class="text-body-1 py-2">Add an address</p>
+            <v-icon color="primary-alt" size="60">mdi-credit-card</v-icon>
+            <p class="text-body-1 py-2">Add a payment method</p>
         </div>  
     </v-container> 
     <v-container>
         <v-btn 
-            @click="addAddressModel = true"
+            @click="userMenuStore.selectedView = UserMenuAccountPaymentMethodsAdd"
             class="text-surface" 
             color="primary-alt" 
             rounded="pill" 
             block 
             flat
         >
-            Add address
+            Add
         </v-btn>
     </v-container>
-    <UserMenuAccountAddressesForm 
-        v-if="addAddressModel" 
-        v-model="addAddressModel" 
-        @update:modelValue="addAddressModel = false" 
-    />
+ 
 </template>
 
 <style scoped>
-.no-addresses-container {
+.no-data-container {
     max-width: 200px;
 }
 </style>

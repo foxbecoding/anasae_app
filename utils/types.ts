@@ -101,7 +101,7 @@ export interface User {
     image: {pk: string | number, image: string} 
     last_name: string
     logins?: {pk: string | number, created: string}[]
-    payment_methods?: string[]
+    payment_methods?: {pk: string | number, stripe_pm_id: string}[]
     pk: string | number
     stripe_customer_id?: string
     uid: string

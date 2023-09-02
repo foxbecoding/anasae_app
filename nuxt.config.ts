@@ -29,7 +29,8 @@ export default defineNuxtConfig({
             API_USER_PAYMENT_METHODS: process.env.API_USER_PAYMENT_METHODS,
             API_USER_PROFILE: process.env.API_USER_PROFILE,
             API_X_FCT: process.env.API_X_FCT,
-            SITE_DOMAIN: process.env.SITE_DOMAIN
+            SITE_DOMAIN: process.env.SITE_DOMAIN,
+            STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
         }
     },
     app: {
