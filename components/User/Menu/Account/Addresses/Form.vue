@@ -26,7 +26,13 @@ const snackbarStore = useSnackbarStore()
 const userMenuStore = useUserMenuStore()
 const formError = reactive({ isError: false, message:'' })
 const formData = reactive({
-    full_name: props.address ? props.address.full_name : ''
+    full_name: props.address ? props.address.full_name : '',
+    phone_number: props.address ? props.address.phone_number : '',
+    street_address: props.address ? props.address.street_address : '',
+    street_address_ext: props.address ? props.address.street_address_ext : '',
+    state: props.address ? props.address.state : '',
+    city: props.address ? props.address.city : '',
+    postal_code: props.address ? props.address.postal_code : ''
 })
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 
