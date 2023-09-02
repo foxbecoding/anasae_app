@@ -1,10 +1,14 @@
 <script lang="ts" setup>
 import { UserMenuAccountAddresses } from '../../components'
+import { UserAddress } from '@/utils/types'
 import { useUserMenuStore } from '@/store'
 
 const userMenuStore = useUserMenuStore()
 const addressDialog = ref<boolean>(false)
 
+const updateAddress = (e: UserAddress): void => {
+    userMenuStore.selectedAddress = e
+}
 </script>
 
 <template>
@@ -41,6 +45,7 @@ const addressDialog = ref<boolean>(false)
         v-if="addressDialog" 
         v-model="addressDialog" 
         @update:modelValue="addressDialog = false" 
+        @addressUpdated="updateAddress"
         :address="userMenuStore.selectedAddress"
     />
 </template>
