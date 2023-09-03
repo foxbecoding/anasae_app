@@ -3,20 +3,22 @@ import { UserMenuAccountPaymentMethods } from '../../components'
 import { useUserStore, useUserMenuStore, useSnackbarStore } from '@/store'
 import { ApiData } from '@/utils/types'
 import { loadStripe, Stripe, StripeElements, StripeCardElement } from "@stripe/stripe-js"
+import { useTheme } from 'vuetify'
 
 const config = useRuntimeConfig()
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const snackbarStore = useSnackbarStore()
-const PaymentMethods = computed(() => userStore.user.payment_methods)
-const addPaymentMethod = ref<boolean>(false)
+const formError = reactive({ isError: false, message:'' })
+const vTheme = useTheme()
+const stripeFormLoaded = ref<boolean>(false)
 
 const apiData = {path: `${config.public.API_USER_PAYMENT_METHODS}`, method: 'GET'} as ApiData
 const {data, error, status, pending} = await useApi(apiData)
 
 const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret: string): void => {
     let cardForm = document.getElementById('card-form') as HTMLElement; 
-    
+    stripeFormLoaded.value = true
     cardForm.addEventListener('submit', async function(ev) {
         ev.preventDefault();
         let result = await stripe.confirmCardSetup(
@@ -29,21 +31,23 @@ const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret
         )
         
         if (result.error) {
-            console.log(result.error)
             // Display error.message in your UI.
+            formError.isError = true
+            formError.message = `${result.error.message}` 
         } else {
-            console.log(result)
-            // // The setup has succeeded. Display a success message.
-            // let apiData: ApiData = {
-            //     path: `${config.public.API_USER_PAYMENT_METHODS}`,
-            //     method: 'POST',
-            //     data: {'payment_method_id': self.setup_intent_confirm_res.payment_method}
-            // }
-            // const { data, error } = await useApi(apiData)
-            // if(error.value){
-            //     console.log(error.value)
-            //     return
-            // }
+            //The setup has succeeded. Display a success message.
+            let apiData: ApiData = {
+                path: `${config.public.API_USER_PAYMENT_METHODS}`,
+                method: 'POST',
+                data: {payment_method_id: result.setupIntent.payment_method}
+            }
+            const { data, error } = await useApi(apiData)
+            if(error.value){
+                console.log(error.value)
+                return
+            }
+            userStore.user = data.value
+            userMenuStore.selectedView = UserMenuAccountPaymentMethods
             snackbarStore.setSnackbar('Payment method added', true)
         }
     });
@@ -53,26 +57,22 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
     let res = await loadStripe(`${config.public.STRIPE_PUBLISHABLE_KEY}`)
     let stripe = res as Stripe
 
-    const options: any = {
-        clientSecret: client_secret,
-        // Fully customizable with appearance API.
-        appearance: {
-            theme: 'night',
-        },
-    };
-
     var style = {
         base: {
-        fontSize: "15px",
-        color: "#fff",
-        fontFamily:
-            "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif",
-        fontSmoothing: "antialiased",
-            "::placeholder": {
-                color: "rgba(255,255,255,0.6)"
-            }
-        }
-    };
+            iconColor: vTheme.current.value.colors['on-surface'],
+            color: vTheme.current.value.colors['on-surface'],
+            fontWeight: '500',
+            fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+            fontSize: '16px',
+            fontSmoothing: 'antialiased'
+        },
+        invalid: {
+            iconColor: vTheme.current.value.colors.error,
+            color: vTheme.current.value.colors.error,
+        },
+    }
+
+    const options: any = { clientSecret: client_secret }
 
     // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 5
     const elements: StripeElements = stripe.elements(options);
@@ -84,7 +84,9 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
     set_method(cardElement, stripe, client_secret)
 }
 
-loadStripeModal(data.value)
+onMounted(() => {
+    loadStripeModal(data.value)
+})
 </script>
 
 <template>
@@ -103,22 +105,34 @@ loadStripeModal(data.value)
     </v-list>
     <v-divider />
     <v-container >
-        <form id="card-form">
-            <div id="card-element">
+        <form v-show="stripeFormLoaded" id="card-form">
+            <div id="card-element" class="border pa-2 rounded">
             <!-- Elements will create form elements here -->
             </div>
-            <button class="text-background mt-2 v-btn v-btn--block v-btn--elevated bg-primary v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-flat" 
+            <button class="text-background mt-4 v-btn v-btn--block v-btn--elevated bg-primary v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-flat" 
                 id="submit"
             >
                 <div class="spinner hidden" id="spinner"></div>
                 <span id="button-text">Submit</span>
             </button>
-            <p id="card-error" class="text-error" role="alert">
-                <!-- {{ addPaymentMethodError }} -->
-            </p>
+            <small class="text-medium-emphasis">
+                <v-icon color="warning" size="15">mdi-lock</v-icon> 
+                Your information is encrypted and secure
+            </small>
+            <!-- <p id="card-error" class="text-error" role="alert">
+                {{ stripeError }}
+            </p> -->
+            <v-alert
+                v-model="formError.isError"
+                :closable="true"
+                class="mt-4"
+                type="error"
+                rounded="lg"
+                :text="formError.message"
+                :icon="false"
+            />
         </form>
     </v-container> 
- 
 </template>
 
 <style scoped>

@@ -1,12 +1,45 @@
 <script lang="ts" setup>
 import {  UserMenuAccount, UserMenuAccountPaymentMethodsAdd } from '../../components'
-import { useUserStore, useUserMenuStore } from '@/store'
-import { UserAddress } from '@/utils/types'
+import { useUserStore, useUserMenuStore, useSnackbarStore } from '@/store'
 
+const config = useRuntimeConfig()
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
-const PaymentMethods = computed(() => userStore.user.payment_methods)
+const paymentMethods = ref<any>([])
+const refreshApi = ref<Function>()
+const paymentMethodDeleteDialog = ref<boolean>(false)
+const selectedPaymentMethod = ref<number>(0)
 
+if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
+    let pks = userStore.user.payment_methods.map(x => x.pk).toString()
+    const {data, refresh} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
+    paymentMethods.value = data.value
+}
+
+const HasPaymentMethods = computed(() => userStore.user.payment_methods && userStore.user.payment_methods.length > 0)
+
+const openDeleteDialog = (key: number): void => {
+    selectedPaymentMethod.value = key
+    paymentMethodDeleteDialog.value = true
+}
+
+const deletePaymentMethod = async (): Promise<void> => {
+    if(userStore.user.payment_methods){
+        let pk = userStore.user.payment_methods[selectedPaymentMethod.value].pk 
+        const { data: user } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pk}/`, method: 'DELETE'})
+        userStore.user = user.value
+        if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
+            let pks = userStore.user.payment_methods.map(x => x.pk).toString()
+            const {data} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
+            paymentMethods.value = data.value
+        }else{
+            paymentMethods.value = []
+        }
+    }
+    paymentMethodDeleteDialog.value = false
+    useSnackbarStore().setSnackbar('Payment method deleted', true)
+
+}
 
 </script>
 
@@ -26,17 +59,24 @@ const PaymentMethods = computed(() => userStore.user.payment_methods)
     </v-list>
     <v-divider />
     
-    <v-list v-if="PaymentMethods && PaymentMethods.length > 0" density="compact">
-        <!-- <v-list-item
-            v-for="(method, i) in PaymentMethods"
-            @click="viewAddressDetails(address)"
+    <v-list v-if="HasPaymentMethods" density="compact">
+        <v-list-item
+            v-for="(method, i) in paymentMethods"
             density="compact"
-            :key="address.pk"
-            :value="address"
-            appendIcon="mdi-chevron-right"
-            :title="address.street_address"
-            :subtitle="`${address.city}, ${ address.state } ${ address.postal_code }`"
-        ></v-list-item> -->
+            :key="i"
+            :title="`${method.card.brand} ${method.card.last4}....`"
+            :subtitle="`${method.card.exp_month}/${ method.card.exp_year }`"
+        >
+            <template v-slot:append>
+              <v-btn
+                @click="openDeleteDialog(i)"
+                size="small"
+                variant="text"
+                color="error"
+                icon="mdi-delete"
+              />
+            </template>
+        </v-list-item>
     </v-list>
     <v-container class="no-data-container" v-else>
         <div class="text-center">
@@ -56,7 +96,18 @@ const PaymentMethods = computed(() => userStore.user.payment_methods)
             Add
         </v-btn>
     </v-container>
- 
+    <v-dialog
+        v-model="paymentMethodDeleteDialog"
+        maxWidth="300px"
+    >
+        <v-card>
+            <v-card-title>Deleting payment method?</v-card-title>
+            <v-card-actions>
+                <v-btn  @click="paymentMethodDeleteDialog = false">Cancel</v-btn>
+                <v-btn color="error" @click="deletePaymentMethod()">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
