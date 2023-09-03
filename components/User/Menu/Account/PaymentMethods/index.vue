@@ -9,6 +9,7 @@ const paymentMethods = ref<any>([])
 const refreshApi = ref<Function>()
 const paymentMethodDeleteDialog = ref<boolean>(false)
 const selectedPaymentMethod = ref<number>(0)
+const isDeleting = ref<boolean>(false)
 
 if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
     let pks = userStore.user.payment_methods.map(x => x.pk).toString()
@@ -24,18 +25,20 @@ const openDeleteDialog = (key: number): void => {
 }
 
 const deletePaymentMethod = async (): Promise<void> => {
+    isDeleting.value = true
     if(userStore.user.payment_methods){
         let pk = userStore.user.payment_methods[selectedPaymentMethod.value].pk 
         const { data: user } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pk}/`, method: 'DELETE'})
         userStore.user = user.value
-        if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
-            let pks = userStore.user.payment_methods.map(x => x.pk).toString()
+        if(user.value.payment_methods.length > 0){
+            let pks = user.value.payment_methods.map((x: any) => x.pk).toString()
             const {data} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
             paymentMethods.value = data.value
         }else{
             paymentMethods.value = []
         }
     }
+    isDeleting.value = false
     paymentMethodDeleteDialog.value = false
     useSnackbarStore().setSnackbar('Payment method deleted', true)
 
@@ -104,7 +107,7 @@ const deletePaymentMethod = async (): Promise<void> => {
             <v-card-title>Deleting payment method?</v-card-title>
             <v-card-actions>
                 <v-btn  @click="paymentMethodDeleteDialog = false">Cancel</v-btn>
-                <v-btn color="error" @click="deletePaymentMethod()">Delete</v-btn>
+                <v-btn color="error" :loading="isDeleting" :disabled="isDeleting" @click="deletePaymentMethod()">Delete</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
