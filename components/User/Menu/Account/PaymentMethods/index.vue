@@ -6,14 +6,13 @@ const config = useRuntimeConfig()
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const paymentMethods = ref<any>([])
-const refreshApi = ref<Function>()
 const paymentMethodDeleteDialog = ref<boolean>(false)
 const selectedPaymentMethod = ref<number>(0)
 const isDeleting = ref<boolean>(false)
 
 if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
     let pks = userStore.user.payment_methods.map(x => x.pk).toString()
-    const {data, refresh} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
+    const { data } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
     paymentMethods.value = data.value
 }
 
