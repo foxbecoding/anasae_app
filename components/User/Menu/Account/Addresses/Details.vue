@@ -44,7 +44,7 @@ const deleteAddress = async (): Promise<void> => {
             {{ userMenuStore.selectedAddress?.street_address }} <br>
             {{ userMenuStore.selectedAddress?.city }}, 
             {{ userMenuStore.selectedAddress?.state }} 
-            {{ userMenuStore.selectedAddress?.postal_code }}<br>
+            {{ userMenuStore.selectedAddress?.postal_code }}, 
             {{ userMenuStore.selectedAddress?.country }}<br>
             Phone number: {{ userMenuStore.selectedAddress?.phone_number }}
         </v-card-text>

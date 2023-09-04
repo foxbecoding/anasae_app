@@ -43,7 +43,7 @@ const viewAddressDetails = (address: UserAddress) => {
             :value="address"
             appendIcon="mdi-chevron-right"
             :title="address.street_address"
-            :subtitle="`${address.city}, ${ address.state } ${ address.postal_code }`"
+            :subtitle="`${address.city}, ${ address.state } ${ address.postal_code }, ${ address.country }`"
         ></v-list-item>
     </v-list>
     <v-container class="no-addresses-container" v-else>

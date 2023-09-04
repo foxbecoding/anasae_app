@@ -46,6 +46,8 @@ export default defineNuxtPlugin(nuxtApp => {
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FB8C00',
+            'stripe-form-field-flat': 'rgb(48,48,48)',
+            'form-field-flat': 'rgb(48,48,48)'
         }
     } 
     const anasaeLight = {
@@ -63,6 +65,8 @@ export default defineNuxtPlugin(nuxtApp => {
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FB8C00',
+            'stripe-form-field-flat': 'rgb(208,208,208)',
+            'form-field-flat': 'rgb(208,208,208)'
         }
     } 
     const vuetify = createVuetify({

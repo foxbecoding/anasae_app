@@ -64,7 +64,8 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
             fontWeight: '500',
             fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
             fontSize: '16px',
-            fontSmoothing: 'antialiased'
+            fontSmoothing: 'antialiased',
+            padding: '18px'
         },
         invalid: {
             iconColor: vTheme.current.value.colors.error,
