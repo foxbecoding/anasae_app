@@ -21,17 +21,19 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[]>([
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 1, 
         model: '', 
         name:'name', 
         label: 'Brand name', 
         density: 'comfortable',
-        color: 'primary-alt',
+        color: 'primary',
         counter: 30,
         type: 'text', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         rules: [ 
             (v: any) => !! v || 'Brand name is required', 
             (v: any) => v.length <= 30 || 'Must be 30 characters or less'
@@ -39,17 +41,19 @@ const fields = ref<FormTextField[]>([
     },
     
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 2, 
         model: '', 
         name:'bio', 
         label: 'Bio', 
         density: 'comfortable',
-        color: 'primary-alt',
+        color: 'primary',
         counter: 300,
         type: 'text', 
         errorMessages: '',
         inputType: 'TEXTAREA',
-        variant: 'outlined',
+        variant: 'solo',
         rules: [ 
             (v: any) => !! v || 'Bio is required',
             (v: any) => v.length <= 300 || 'Must be 300 characters or less'

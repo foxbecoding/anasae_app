@@ -25,7 +25,7 @@ const menuItems = ref<UserMenuItem[]>([
         id: 3, 
         appendIcon: 'mdi-chevron-right',
         prependIcon: 'mdi-map-marker-outline', 
-        title: 'Addresses',
+        title: 'Your addresses',
         action: () => { userMenuStore.selectedView = accComps.UserMenuAccountAddresses }
     },
     { 

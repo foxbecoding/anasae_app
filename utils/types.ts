@@ -94,6 +94,12 @@ export interface Slider {
 
 export interface User {
     addresses?: UserAddress[]
+    billing_address?: {
+        pk: string | number, 
+        user: string | number, 
+        payment_method: string | number, 
+        address: string | number
+    }[]
     owned_brands: string[] | number[] 
     display_name?: string
     email?: string

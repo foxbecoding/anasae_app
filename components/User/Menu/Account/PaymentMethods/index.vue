@@ -14,6 +14,7 @@ if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
     let pks = userStore.user.payment_methods.map(x => x.pk).toString()
     const { data } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
     paymentMethods.value = data.value
+    console.log(data.value)
 }
 
 const HasPaymentMethods = computed(() => userStore.user.payment_methods && userStore.user.payment_methods.length > 0)

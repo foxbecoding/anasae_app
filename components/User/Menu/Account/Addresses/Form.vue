@@ -231,22 +231,15 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
 
     const appearance = {
         theme: 'flat',
-
+        labels: 'floating',
         variables: {
             colorPrimary: vTheme.current.value.colors['primary-alt'],
-            colorBackground: vTheme.current.value.colors['stripe-form-field-flat'],
-            colorText: vTheme.current.value.colors['on-surface'],
+            colorBackground: vTheme.current.value.colors['form-field-flat'],
+            colorText: vTheme.current.value.colors['primary'],
             colorDanger: vTheme.current.value.colors.error,
             fontFamily: 'Roboto, Ideal Sans, system-ui, sans-serif',
             spacingUnit: '2px',
             borderRadius: '4px'
-        },
-        rules: {
-            '.Input:focus': {
-                borderColor: `${vTheme.current.value.colors['primary-alt']}`
-            }
-
-            // See all supported class names and selector syntax below
         }
     };
 
@@ -299,6 +292,7 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
             isSubmitReady.value = false
         }
     })
+    stripeFormLoaded.value = true
 }
 
 onMounted(() => {

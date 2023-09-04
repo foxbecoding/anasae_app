@@ -27,6 +27,7 @@ export default defineNuxtConfig({
             API_USER_GENDER: process.env.API_USER_GENDER,
             API_USER_IMAGE: process.env.API_USER_IMAGE,
             API_USER_PAYMENT_METHODS: process.env.API_USER_PAYMENT_METHODS,
+            API_USER_BILLING_ADDRESSES: process.env.API_USER_BILLING_ADDRESSES,
             API_USER_PROFILE: process.env.API_USER_PROFILE,
             API_X_FCT: process.env.API_X_FCT,
             SITE_DOMAIN: process.env.SITE_DOMAIN,

@@ -26,6 +26,9 @@ const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret
             {
                 payment_method: {
                     card: cardElement,
+                    billing_details: {
+                        
+                    }
                 },
             }
         )
@@ -61,11 +64,12 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
         base: {
             iconColor: vTheme.current.value.colors['on-surface'],
             color: vTheme.current.value.colors['on-surface'],
+            backgroundColor: vTheme.current.value.colors['form-field-flat'],
             fontWeight: '500',
             fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
             fontSize: '16px',
             fontSmoothing: 'antialiased',
-            padding: '18px'
+            lineHeight: '35px'
         },
         invalid: {
             iconColor: vTheme.current.value.colors.error,
@@ -106,10 +110,12 @@ onMounted(() => {
     </v-list>
     <v-divider />
     <v-container >
-        <form v-show="stripeFormLoaded" id="card-form">
-            <div id="card-element" class="border pa-2 rounded">
-            <!-- Elements will create form elements here -->
-            </div>
+        <form v-show="stripeFormLoaded" id="card-form" class="rounded">
+            <v-card color="form-flat-field" class="rounded">
+                <div id="card-element">
+                <!-- Elements will create form elements here -->
+                </div>
+            </v-card>
             <button class="text-background mt-4 v-btn v-btn--block v-btn--elevated bg-primary v-btn--density-default rounded-xl v-btn--size-default v-btn--variant-flat" 
                 id="submit"
             >
