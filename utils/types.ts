@@ -34,6 +34,8 @@ export interface FormInputBase {
     appendInnerIconFunction?: Function
     class?: string
     color?: string
+    bgColor?: string
+    flat?: boolean
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
     errorMessages?: string | string[]

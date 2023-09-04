@@ -23,7 +23,9 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[]>([
     {
-        color: 'primary-alt',
+        bgColor: 'form-field-flat',
+        flat: true,
+        color: 'primary',
         density: 'comfortable',
         errorMessages: '',
         id: 1, 
@@ -37,10 +39,12 @@ const fields = ref<FormTextField[]>([
             (v: any) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
         ],
         type: 'text', 
-        variant: 'outlined',
+        variant: 'solo',
     },
     {
-        color: 'primary-alt',
+        bgColor: 'form-field-flat',
+        flat: true,
+        color: 'primary',
         counter: 30,
         density: 'comfortable',
         errorMessages: '',
@@ -56,7 +60,7 @@ const fields = ref<FormTextField[]>([
             (v: any) => /^\w+$/.test(v) || 'Only letters, numbers and underscores allowed' 
         ],
         type:'text', 
-        variant: 'outlined',
+        variant: 'solo',
     }
 ])
 

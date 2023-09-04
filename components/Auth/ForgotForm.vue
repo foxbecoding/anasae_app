@@ -26,11 +26,13 @@ const fields = ref<FormTextField[]>([
         name:'email', 
         label: 'Email', 
         density: 'comfortable',
-        color: 'primary-alt',
+        color: 'primary',
+        bgColor: 'form-field-flat',
+        flat: true,
         type: 'text', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         prependInnerIcon: 'mdi-email'
     }
 ])

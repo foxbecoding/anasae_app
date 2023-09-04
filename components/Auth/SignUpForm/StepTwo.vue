@@ -72,8 +72,10 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0-100',
-        color: 'primary-alt',
+        color: 'primary',
         counter: 30,
         density: 'comfortable',
         errorMessages: '',
@@ -88,11 +90,13 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
             (v: any) => v.length <= 30 || 'Must be 30 characters or less', 
         ],
         type: 'text', 
-        variant: 'outlined'
+        variant: 'solo'
     } as FormTextField,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0-100',
-        color: 'primary-alt',
+        color: 'primary',
         counter: 30,
         density: 'comfortable',
         errorMessages: '',
@@ -107,11 +111,13 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
             (v: any) => v.length <= 30 || 'Must be 30 characters or less', 
         ],
         type: 'text', 
-        variant: 'outlined'
+        variant: 'solo'
     } as FormTextField,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0-100', 
-        color: "primary-alt",
+        color: "primary",
         density: 'comfortable',
         id: 3, 
         inputType: 'SELECT',
@@ -120,7 +126,7 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         model: authStore.signUpForm.gender,
         name: 'gender',
         rules: [ (v: any) => !! v || 'Gender required' ],
-        variant: 'outlined'
+        variant: 'solo'
     } as FormSelectField,
     {
         class: 'flex-1-0-100 mt-1 text-h6',
@@ -135,8 +141,10 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         text: 'Please confirm your age. This information is will not be displayed publicly.'
     } as FormCustomText,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0-100 flex-sm-1-0', 
-        color: "primary-alt",
+        color: "primary",
         density: 'comfortable',
         id: 6, 
         inputType: 'SELECT',
@@ -145,11 +153,13 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         model: authStore.signUpForm.birth_month,
         name: 'birth_month',
         rules: [ (v: any) => !! v || 'Month required' ],
-        variant: 'outlined'
+        variant: 'solo'
     } as FormSelectField,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0 px-1', 
-        color: "primary-alt",
+        color: "primary",
         density: 'comfortable',
         id: 7, 
         inputType: 'SELECT',
@@ -158,11 +168,13 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         model: authStore.signUpForm.birth_day,
         name: 'birth_day',
         rules: [ (v: any) => !! v || 'Day required' ],
-        variant: 'outlined'
+        variant: 'solo'
     } as FormSelectField,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         class: 'flex-1-0', 
-        color: "primary-alt",
+        color: "primary",
         density: 'comfortable',
         id: 8, 
         inputType: 'SELECT',
@@ -171,7 +183,7 @@ const fields = ref<FormTextField[] | FormSelectField[] | FormCustomText[]>([
         model: authStore.signUpForm.birth_year,
         name: 'birth_year',
         rules: [ (v: any) => !! v || 'Year required' ],
-        variant: 'outlined'
+        variant: 'solo'
     } as FormSelectField
 ]) 
 

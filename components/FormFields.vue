@@ -90,6 +90,8 @@ const submit = async (): Promise<void> => {
                 :prepend-inner-icon="field.prependInnerIcon"
                 :variant="field.variant"
                 :color="field.color"
+                :bg-color="field.bgColor"
+                :flat="field.flat"
             >
                 <template 
                     v-if="field.appendInnerIcon && field.appendInnerIconFunction" 
@@ -115,6 +117,8 @@ const submit = async (): Promise<void> => {
                 :prepend-inner-icon="field.prependInnerIcon"
                 :variant="field.variant"
                 :color="field.color"
+                :bg-color="field.bgColor"
+                :flat="field.flat"
             />
             <v-select
                 v-if="field.inputType === 'SELECT'" 
@@ -128,6 +132,8 @@ const submit = async (): Promise<void> => {
                 :variant="field.variant"
                 :rules="field.rules"
                 :return-object="field.returnObject"
+                :bg-color="field.bgColor"
+                :flat="field.flat"
             />
             <v-switch
                 v-if="field.inputType === 'SWITCH'" 

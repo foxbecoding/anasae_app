@@ -60,13 +60,13 @@ export default defineNuxtPlugin(nuxtApp => {
             'surface-el': 'rgb(220,220,220)',
             'slider': 'rgb(255,255,255)',
             primary: 'rgb(15,15,15)',
-            'primary-alt': '#1E88E5',
+            'primary-alt': '#1976D2',
             error: '#B71C1C',
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FB8C00',
             'stripe-form-field-flat': 'rgb(208,208,208)',
-            'form-field-flat': 'rgb(208,208,208)'
+            'form-field-flat': 'rgb(220,220,220)'
         }
     } 
     const vuetify = createVuetify({
