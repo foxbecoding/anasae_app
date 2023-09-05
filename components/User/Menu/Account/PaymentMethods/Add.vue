@@ -53,7 +53,8 @@ const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret
             let foundMethod = data.value.payment_methods.find((x: any) => x.stripe_pm_id == result.setupIntent?.payment_method)
             userMenuStore.selectedView = UserMenuAccountPaymentMethodsAddBillingAddress
             userMenuStore.walletPreviousView = UserMenuAccountPaymentMethods
-            userMenuStore.walletSelectedPaymentMethod = foundMethod.pk
+            userMenuStore.walletSelectedPaymentMethodPk = foundMethod.pk
+            userMenuStore.isWalletAddBillingAddress = true
             snackbarStore.setSnackbar('Payment method added', true)
             isSubmitting.value = false
         }
@@ -117,7 +118,7 @@ onMounted(() => {
         v-else
         color="primary-alt"
         indeterminate
-        height="6"
+        height="2"
     />
     <v-container >
         <form v-show="stripeFormLoaded" id="card-form" class="rounded">

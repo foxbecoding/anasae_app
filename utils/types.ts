@@ -94,7 +94,7 @@ export interface Slider {
 
 export interface User {
     addresses?: UserAddress[]
-    billing_address?: {
+    billing_addresses?: {
         pk: string | number, 
         user: string | number, 
         payment_method: string | number, 

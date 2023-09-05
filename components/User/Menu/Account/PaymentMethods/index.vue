@@ -11,28 +11,8 @@ const config = useRuntimeConfig()
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const paymentMethods = ref<any>([])
-const paymentMethodDeleteDialog = ref<boolean>(false)
-const selectedPaymentMethod = ref<number>(0)
-const isDeleting = ref<boolean>(false)
+
 const isPending = ref<boolean>(true)
-
-// if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
-//     const { data: cacheData } = useNuxtData('payment-methods')
-//     paymentMethods.value = cacheData.value
-//     let pks = userStore.user.payment_methods.map(x => x.pk).toString()
-//     // const { data } = await useApi({
-//     //     path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, 
-//     //     method: 'GET',
-//     //     key: `payment-methods`
-//     // })
-//     const { data } = await useLazyFetch(`${config.public.API_USER_PAYMENT_METHODS}${pks}/`, {
-//         baseURL: `${config.public.API_BASE_URL}`,
-//         key: `payment-methods`
-//     })
-
-//     paymentMethods.value = data.value
-
-// }
 
 onMounted(async () => {
     if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
@@ -52,30 +32,7 @@ onMounted(async () => {
 
 const HasPaymentMethods = computed(() => userStore.user.payment_methods && userStore.user.payment_methods.length > 0)
 
-const openDeleteDialog = (key: number): void => {
-    selectedPaymentMethod.value = key
-    paymentMethodDeleteDialog.value = true
-}
 
-const deletePaymentMethod = async (): Promise<void> => {
-    isDeleting.value = true
-    if(userStore.user.payment_methods){
-        let pk = userStore.user.payment_methods[selectedPaymentMethod.value].pk 
-        const { data: user } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pk}/`, method: 'DELETE'})
-        userStore.user = user.value
-        if(user.value.payment_methods.length > 0){
-            let pks = user.value.payment_methods.map((x: any) => x.pk).toString()
-            const {data} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
-            paymentMethods.value = data.value
-        }else{
-            paymentMethods.value = []
-        }
-    }
-    isDeleting.value = false
-    paymentMethodDeleteDialog.value = false
-    useSnackbarStore().setSnackbar('Payment method deleted', true)
-
-}
 
 const detailsView = (method: any): void => {
     userMenuStore.walletPreviousView = UserMenuAccountPaymentMethods
@@ -104,7 +61,7 @@ const detailsView = (method: any): void => {
         v-else
         color="primary-alt"
         indeterminate
-        height="6"
+        height="2"
     />
     <v-list v-if="HasPaymentMethods" density="compact">
         <v-list-item
@@ -112,7 +69,7 @@ const detailsView = (method: any): void => {
             density="compact"
             @click="detailsView(method)"
             :key="i"
-            :title="`${method.card.brand} ${method.card.last4}....`"
+            :title="`${method.card.brand} ....${method.card.last4}`"
             :subtitle="`${method.card.exp_month}/${ method.card.exp_year }`"
             appendIcon="mdi-chevron-right"
         >
@@ -136,18 +93,6 @@ const detailsView = (method: any): void => {
             Add
         </v-btn>
     </v-container>
-    <v-dialog
-        v-model="paymentMethodDeleteDialog"
-        maxWidth="300px"
-    >
-        <v-card>
-            <v-card-title>Deleting payment method?</v-card-title>
-            <v-card-actions>
-                <v-btn  @click="paymentMethodDeleteDialog = false">Cancel</v-btn>
-                <v-btn color="error" :loading="isDeleting" :disabled="isDeleting" @click="deletePaymentMethod()">Delete</v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
 </template>
 
 <style scoped>

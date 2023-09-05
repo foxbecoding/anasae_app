@@ -9,25 +9,34 @@ const addAddressModel = ref<boolean>(false)
 const selectedAddress = ref()
 const isSaving = ref<boolean>(false)
 
-const saveSelection = async () => {
-    isSaving.value = true
-    const { data, error, status } = await useApi({
-        path: `${config.public.API_USER_BILLING_ADDRESSES}`,
-        method: 'POST',
-        data: {
-            address: selectedAddress.value.pk,
-            payment_method: userMenuStore.walletSelectedPaymentMethod
-        }
-    })
+const isAddAddress = computed((): boolean => userMenuStore.isWalletAddBillingAddress)
 
-    if(status.value == 'error'){
-        isSaving.value = false
-        console.log(error.value)
-        return
+const saveSelection = async () => {
+    // isSaving.value = true
+    let path: string = `${config.public.API_USER_BILLING_ADDRESSES}`
+    if(!isAddAddress.value){
+        let found = userStore.user.billing_addresses?.find(x => x.payment_method == userMenuStore.walletSelectedPaymentMethodPk)
+        path = `${config.public.API_USER_BILLING_ADDRESSES}${found?.pk}/` 
     }
-    userStore.user = data.value
-    isSaving.value = false
-    useSnackbarStore().setSnackbar('Billing address saved', true)
+    console.log(path)
+    // const { data, error, status } = await useApi({
+    //     path: path,
+    //     method: isAddAddress.value ? 'POST' : 'PUT',
+    //     data: {
+    //         address: selectedAddress.value.pk,
+    //         payment_method: userMenuStore.walletSelectedPaymentMethodPk
+    //     }
+    // })
+
+    // if(status.value == 'error'){
+    //     isSaving.value = false
+    //     console.log(error.value)
+    //     return
+    // }
+    // userStore.user = data.value
+    // isSaving.value = false
+    
+    // useSnackbarStore().setSnackbar('Billing address saved', true)
 }
 
 </script>

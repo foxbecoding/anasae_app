@@ -32,6 +32,8 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
     const selectedView = shallowRef<ViewType>()
     const walletPreviousView = shallowRef<ViewType>()
     const walletSelectedPaymentMethod = ref()
+    const walletSelectedPaymentMethodPk = ref()
+    const isWalletAddBillingAddress = ref<boolean>(false)
     const isOpen = ref<boolean>(false)
     const selectedAddress = ref<UserAddress>()
     
@@ -55,6 +57,8 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
         selectedView,
         walletPreviousView,
         walletSelectedPaymentMethod,
+        walletSelectedPaymentMethodPk,
+        isWalletAddBillingAddress,
         close,
         goBack,
         updateMenu,

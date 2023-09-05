@@ -61,7 +61,7 @@ const viewAddressDetails = (address: UserAddress) => {
             block 
             flat
         >
-            Add address
+            Add an address
         </v-btn>
     </v-container>
     <UserMenuAccountAddressesForm 
