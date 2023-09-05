@@ -14,12 +14,8 @@ const vTheme = useTheme()
 const stripeFormLoaded = ref<boolean>(false)
 const isSubmitting = ref<boolean>(false)
 
-const apiData = {path: `${config.public.API_USER_PAYMENT_METHODS}`, method: 'GET'} as ApiData
-const {data, error, status, pending} = await useApi(apiData)
-
 const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret: string): void => {
     let cardForm = document.getElementById('card-form') as HTMLElement; 
-    stripeFormLoaded.value = true
     cardForm.addEventListener('submit', async function(ev) {
         isSubmitting.value = true
         ev.preventDefault();
@@ -74,7 +70,6 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
             fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
             fontSize: '16px',
             fontSmoothing: 'antialiased',
-            lineHeight: '35px'
         },
         invalid: {
             iconColor: vTheme.current.value.colors.error,
@@ -94,8 +89,11 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
     set_method(cardElement, stripe, client_secret)
 }
 
-onMounted(() => {
-    loadStripeModal(data.value)
+onMounted(async () => {
+    const apiData = {path: `${config.public.API_USER_PAYMENT_METHODS}`, method: 'GET'} as ApiData
+    const {data, error, status, pending} = await useApi(apiData)
+    await loadStripeModal(data.value)
+    stripeFormLoaded.value = true
 })
 </script>
 
@@ -120,10 +118,16 @@ onMounted(() => {
         indeterminate
         height="2"
     />
+    <v-progress-linear
+        v-if="!stripeFormLoaded"
+        color="primary-alt"
+        indeterminate
+        height="2"
+    />
     <v-container >
         <form v-show="stripeFormLoaded" id="card-form" class="rounded">
-            <v-card color="form-flat-field" class="rounded">
-                <div id="card-element">
+            <v-card   color="form-field-flat" class="rounded">
+                <div id="card-element" class="pa-2">
                 <!-- Elements will create form elements here -->
                 </div>
             </v-card>

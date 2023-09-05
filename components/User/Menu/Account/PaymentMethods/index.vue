@@ -70,9 +70,15 @@ const detailsView = (method: any): void => {
             @click="detailsView(method)"
             :key="i"
             :title="`${method.card.brand} ....${method.card.last4}`"
-            :subtitle="`${method.card.exp_month}/${ method.card.exp_year }`"
             appendIcon="mdi-chevron-right"
         >
+            <v-list-item-subtitle>
+                <span>{{method.card.exp_month}}/{{method.card.exp_year}}</span> 
+                <small class="text-error" v-if="!method.billing_details.address.line1">
+                    missing billing address
+                </small> 
+            </v-list-item-subtitle>
+
         </v-list-item>
     </v-list>
     <v-container class="no-data-container" v-else>

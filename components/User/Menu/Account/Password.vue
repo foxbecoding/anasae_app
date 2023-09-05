@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { useUserMenuStore } from '@/store'
-import { UserMenuAccount } from '../components.ts'
+import { UserMenuAccount } from '@/components/User/Menu/components'
 import { FormTextField, FormButton } from '@/utils/types'
 import { useUserStore, useSnackbarStore, useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
-const userStore = useUserStore()
 const snackbarStore = useSnackbarStore() 
 const userMenuStore = useUserMenuStore()
 const formError = reactive({ isError: false, message:'' })
@@ -22,17 +21,19 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[]>([
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 1, 
         model: '', 
         class: 'flex-1-0-100',
         density: 'comfortable',
         name:'password', 
         label: 'Password', 
-        color: 'primary-alt',
+        color: 'primary',
         type: 'password', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         prependInnerIcon: 'mdi-lock',
         appendInnerIcon: 'mdi-eye',
         appendInnerIconColor: 'primary-alt',
@@ -48,17 +49,19 @@ const fields = ref<FormTextField[]>([
         rules: [ (v: any) => !! v || 'Password is required' ]
     } as FormTextField,
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 2, 
         model: '', 
         class: 'flex-1-0-100',
         density: 'comfortable',
         name:'confirm_password', 
         label: 'Confirm password', 
-        color: 'primary-alt',
+        color: 'primary',
         type: 'password', 
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         prependInnerIcon: 'mdi-lock',
         appendInnerIcon: 'mdi-eye',
         appendInnerIconColor: 'primary-alt',
