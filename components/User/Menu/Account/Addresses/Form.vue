@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { FormTextField, FormButton, UserAddress } from '@/utils/types'
+import { FormTextField, UserAddress } from '@/utils/types'
 import { useDisplay, useTheme } from 'vuetify'
 import { useUserStore, useSnackbarStore, useUserMenuStore } from '@/store'
-import { loadStripe, Stripe, StripeElements, StripeCardElement } from "@stripe/stripe-js"
+import { loadStripe, Stripe, StripeElements } from "@stripe/stripe-js"
 import { PropType } from 'vue'
 
+type ModeType = "shipping" | "billing"
 const props = defineProps({
     modelValue: {
         type: Boolean,
@@ -14,6 +15,11 @@ const props = defineProps({
     address: {
         type: Object as PropType<UserAddress>,
         required: false
+    },
+
+    modeType: {
+        type: String as PropType<ModeType>,
+        default: 'shipping'
     }
 })
 
@@ -47,16 +53,6 @@ const { data } = await useApi({path: `${config.public.API_USER_ADDRESSES}`, meth
 
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const ApiPath = computed(() => `${config.public.API_USER_ADDRESSES}${props.address ? props.address.pk+'/' : ''}`)
-
-const formButton = reactive<FormButton>({
-    show: true,
-    label: 'Submit',
-    class: "text-background", 
-    color: "primary",
-    rounded:"pill", 
-    block: true, 
-    flat: true
-} as FormButton)
 
 const fields = ref<FormTextField[]>([
     {
@@ -250,7 +246,7 @@ const loadStripeModal = async (client_secret: string): Promise<void> => {
 
     // Create and mount Address Element
     const addressElement = elements.create('address', {
-        mode: "shipping",
+        mode: `${props.modeType}`,
         fields: {
             phone: 'always',
         },

@@ -30,6 +30,8 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
     
     const isLightTheme = ref<boolean>(false)
     const selectedView = shallowRef<ViewType>()
+    const walletPreviousView = shallowRef<ViewType>()
+    const walletSelectedPaymentMethod = ref()
     const isOpen = ref<boolean>(false)
     const selectedAddress = ref<UserAddress>()
     
@@ -51,6 +53,8 @@ export const useUserMenuStore = defineStore("user-menu-store", () => {
         isOpen,
         selectedAddress,
         selectedView,
+        walletPreviousView,
+        walletSelectedPaymentMethod,
         close,
         goBack,
         updateMenu,

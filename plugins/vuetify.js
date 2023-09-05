@@ -17,11 +17,21 @@ import { VFileInput } from 'vuetify/components/VFileInput'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
-import { VList, VListItem, VListItemTitle, VListItemSubtitle } from 'vuetify/components/VList'
+import { 
+    VList, 
+    VListItem, 
+    VListItemTitle, 
+    VListItemSubtitle, 
+    VListItemAction,
+    VListSubheader 
+} from 'vuetify/components/VList'
 import { VMain } from 'vuetify/components/VMain'
 import { VMenu } from 'vuetify/components/VMenu'
 import { VOverlay } from 'vuetify/components/VOverlay'
+import { VProgressLinear } from 'vuetify/components/VProgressLinear'
 import { VSheet } from 'vuetify/components/VSheet'
+import { VRadioGroup } from 'vuetify/components/VRadioGroup'
+import { VRadio } from 'vuetify/components/VRadio'
 import { VTextarea } from 'vuetify/components/VTextarea'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VSelect } from 'vuetify/components/VSelect'
@@ -97,12 +107,17 @@ export default defineNuxtPlugin(nuxtApp => {
             VImg,
             VList,
             VListItem,
+            VListItemAction,
             VListItemTitle,
             VListItemSubtitle,
+            VListSubheader,
             VMain,
             VMenu,
             VOtpInput,
             VOverlay,
+            VProgressLinear,
+            VRadio,
+            VRadioGroup,
             VRow, 
             VSelect,
             VSheet,

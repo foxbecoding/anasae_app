@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-import {  UserMenuAccount, UserMenuAccountPaymentMethodsAdd } from '../../components'
+import {  
+    UserMenuAccount,
+    UserMenuAccountPaymentMethods, 
+    UserMenuAccountPaymentMethodsAdd, 
+    UserMenuAccountPaymentMethodsDetails 
+} from '../../components'
 import { useUserStore, useUserMenuStore, useSnackbarStore } from '@/store'
 
 const config = useRuntimeConfig()
@@ -44,6 +49,12 @@ const deletePaymentMethod = async (): Promise<void> => {
 
 }
 
+const detailsView = (method: any): void => {
+    userMenuStore.walletPreviousView = UserMenuAccountPaymentMethods
+    userMenuStore.walletSelectedPaymentMethod = method
+    userMenuStore.selectedView = UserMenuAccountPaymentMethodsDetails
+}
+
 </script>
 
 <template>
@@ -66,19 +77,12 @@ const deletePaymentMethod = async (): Promise<void> => {
         <v-list-item
             v-for="(method, i) in paymentMethods"
             density="compact"
+            @click="detailsView(method)"
             :key="i"
             :title="`${method.card.brand} ${method.card.last4}....`"
             :subtitle="`${method.card.exp_month}/${ method.card.exp_year }`"
+            appendIcon="mdi-chevron-right"
         >
-            <template v-slot:append>
-              <v-btn
-                @click="openDeleteDialog(i)"
-                size="small"
-                variant="text"
-                color="error"
-                icon="mdi-delete"
-              />
-            </template>
         </v-list-item>
     </v-list>
     <v-container class="no-data-container" v-else>

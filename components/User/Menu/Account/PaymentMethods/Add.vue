@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { UserMenuAccountPaymentMethods } from '../../components'
+import { UserMenuAccountPaymentMethods, UserMenuAccountPaymentMethodsAddBillingAddress } from '../../components'
 import { useUserStore, useUserMenuStore, useSnackbarStore } from '@/store'
 import { ApiData } from '@/utils/types'
 import { loadStripe, Stripe, StripeElements, StripeCardElement } from "@stripe/stripe-js"
@@ -12,6 +12,7 @@ const snackbarStore = useSnackbarStore()
 const formError = reactive({ isError: false, message:'' })
 const vTheme = useTheme()
 const stripeFormLoaded = ref<boolean>(false)
+const isSubmitting = ref<boolean>(false)
 
 const apiData = {path: `${config.public.API_USER_PAYMENT_METHODS}`, method: 'GET'} as ApiData
 const {data, error, status, pending} = await useApi(apiData)
@@ -20,21 +21,20 @@ const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret
     let cardForm = document.getElementById('card-form') as HTMLElement; 
     stripeFormLoaded.value = true
     cardForm.addEventListener('submit', async function(ev) {
+        isSubmitting.value = true
         ev.preventDefault();
         let result = await stripe.confirmCardSetup(
             clientSecret,
             {
                 payment_method: {
-                    card: cardElement,
-                    billing_details: {
-                        
-                    }
+                    card: cardElement
                 },
             }
         )
         
         if (result.error) {
             // Display error.message in your UI.
+            isSubmitting.value = false
             formError.isError = true
             formError.message = `${result.error.message}` 
         } else {
@@ -50,8 +50,12 @@ const set_method = (cardElement: StripeCardElement, stripe: Stripe, clientSecret
                 return
             }
             userStore.user = data.value
-            userMenuStore.selectedView = UserMenuAccountPaymentMethods
+            let foundMethod = data.value.payment_methods.find((x: any) => x.stripe_pm_id == result.setupIntent?.payment_method)
+            userMenuStore.selectedView = UserMenuAccountPaymentMethodsAddBillingAddress
+            userMenuStore.walletPreviousView = UserMenuAccountPaymentMethods
+            userMenuStore.walletSelectedPaymentMethod = foundMethod.pk
             snackbarStore.setSnackbar('Payment method added', true)
+            isSubmitting.value = false
         }
     });
 }
@@ -108,7 +112,13 @@ onMounted(() => {
             </template>
         </v-list-item>
     </v-list>
-    <v-divider />
+    <v-divider v-if="!isSubmitting"/>
+    <v-progress-linear
+        v-else
+        color="primary-alt"
+        indeterminate
+        height="6"
+    />
     <v-container >
         <form v-show="stripeFormLoaded" id="card-form" class="rounded">
             <v-card color="form-flat-field" class="rounded">
@@ -120,15 +130,12 @@ onMounted(() => {
                 id="submit"
             >
                 <div class="spinner hidden" id="spinner"></div>
-                <span id="button-text">Submit</span>
+                <span id="button-text">Add & continue</span>
             </button>
             <small class="text-medium-emphasis">
                 <v-icon color="warning" size="15">mdi-lock</v-icon> 
                 Your information is encrypted and secure
             </small>
-            <!-- <p id="card-error" class="text-error" role="alert">
-                {{ stripeError }}
-            </p> -->
             <v-alert
                 v-model="formError.isError"
                 :closable="true"

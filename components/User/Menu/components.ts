@@ -7,6 +7,8 @@ import UserMenuAccountDetails from './Account/Details'
 import UserMenuAccountPassword from './Account/Password'
 import UserMenuAccountPaymentMethods from './Account/PaymentMethods/index'
 import UserMenuAccountPaymentMethodsAdd from './Account/PaymentMethods/Add'
+import UserMenuAccountPaymentMethodsAddBillingAddress from './Account/PaymentMethods/AddBillingAddress'
+import UserMenuAccountPaymentMethodsDetails from './Account/PaymentMethods/Details'
 import UserMenuBrands from './Brands/index'
 import UserMenuBrandsAdd from './Brands/Add'
 import UserMenuTheme from './Theme'
@@ -21,6 +23,8 @@ export {
     UserMenuAccountPassword,
     UserMenuAccountPaymentMethods,
     UserMenuAccountPaymentMethodsAdd,
+    UserMenuAccountPaymentMethodsAddBillingAddress,
+    UserMenuAccountPaymentMethodsDetails,
     UserMenuHome,
     UserMenuTheme,
     UserMenuBrands,
