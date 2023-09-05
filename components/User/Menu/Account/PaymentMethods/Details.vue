@@ -6,36 +6,31 @@ import {
     UserMenuAccountPaymentMethodsDetails,
  } from '../../components'
 
+const config = useRuntimeConfig()
 const userStore = useUserStore()
 const userMenuStore = useUserMenuStore()
 const PaymentMethod = computed(() => userMenuStore.walletSelectedPaymentMethod)
 const deleteDialog = ref<boolean>(false)
 const isDeleting = ref<boolean>(false)
 
-const changeAddress = (): void => {
+const changeAddress = (isAdd: boolean = false): void => {
     let foundMethod = userStore.user.payment_methods?.find(x => x.stripe_pm_id == PaymentMethod.value.id)
     userMenuStore.selectedView = UserMenuAccountPaymentMethodsAddBillingAddress
     userMenuStore.walletPreviousView = UserMenuAccountPaymentMethodsDetails
     userMenuStore.walletSelectedPaymentMethodPk = foundMethod?.pk
-    userMenuStore.isWalletAddBillingAddress = false
+    userMenuStore.isWalletAddBillingAddress = isAdd
 }
 
 const deletePaymentMethod = async (): Promise<void> => {
     isDeleting.value = true
-    // if(userStore.user.payment_methods){
-    //     let pk = userStore.user.payment_methods[selectedPaymentMethod.value].pk 
-    //     const { data: user } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pk}/`, method: 'DELETE'})
-    //     userStore.user = user.value
-    //     if(user.value.payment_methods.length > 0){
-    //         let pks = user.value.payment_methods.map((x: any) => x.pk).toString()
-    //         const {data} = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
-    //         paymentMethods.value = data.value
-    //     }else{
-    //         paymentMethods.value = []
-    //     }
-    // }
+    if(userStore.user.payment_methods){
+        let pk = userStore.user.payment_methods?.find(x => x.stripe_pm_id == PaymentMethod.value.id)?.pk
+        const { data: user } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pk}/`, method: 'DELETE'})
+        userStore.user = user.value
+    }
     isDeleting.value = false
     deleteDialog.value = false
+    userMenuStore.selectedView = UserMenuAccountPaymentMethods
     useSnackbarStore().setSnackbar('Payment method deleted', true)
 }
 
@@ -80,7 +75,7 @@ const deletePaymentMethod = async (): Promise<void> => {
         </v-card-text>
         <v-card-text v-else>
             <v-btn 
-                @click="changeAddress()"
+                @click="changeAddress(true)"
                 color="primary-alt" 
                 class="text-surface" 
                 size="small" 

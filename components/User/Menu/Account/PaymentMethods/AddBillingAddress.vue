@@ -8,35 +8,41 @@ const Addresses = computed(() => userStore.user.addresses)
 const addAddressModel = ref<boolean>(false)
 const selectedAddress = ref()
 const isSaving = ref<boolean>(false)
-
 const isAddAddress = computed((): boolean => userMenuStore.isWalletAddBillingAddress)
 
 const saveSelection = async () => {
-    // isSaving.value = true
+    isSaving.value = true
     let path: string = `${config.public.API_USER_BILLING_ADDRESSES}`
     if(!isAddAddress.value){
         let found = userStore.user.billing_addresses?.find(x => x.payment_method == userMenuStore.walletSelectedPaymentMethodPk)
         path = `${config.public.API_USER_BILLING_ADDRESSES}${found?.pk}/` 
     }
-    console.log(path)
-    // const { data, error, status } = await useApi({
-    //     path: path,
-    //     method: isAddAddress.value ? 'POST' : 'PUT',
-    //     data: {
-    //         address: selectedAddress.value.pk,
-    //         payment_method: userMenuStore.walletSelectedPaymentMethodPk
-    //     }
-    // })
 
-    // if(status.value == 'error'){
-    //     isSaving.value = false
-    //     console.log(error.value)
-    //     return
-    // }
-    // userStore.user = data.value
-    // isSaving.value = false
-    
-    // useSnackbarStore().setSnackbar('Billing address saved', true)
+    const { data, error, status } = await useApi({
+        path: path,
+        method: isAddAddress.value ? 'POST' : 'PUT',
+        data: {
+            address: selectedAddress.value.pk,
+            payment_method: userMenuStore.walletSelectedPaymentMethodPk
+        }
+    })
+
+    if(status.value == 'error'){
+        isSaving.value = false
+        console.log(error.value)
+        return
+    }
+    userStore.user = data.value
+    if(!isAddAddress.value || userMenuStore.walletSelectedPaymentMethod){
+        const { data: pm } = await useApi({
+            path: `${config.public.API_USER_PAYMENT_METHODS}${userMenuStore.walletSelectedPaymentMethodPk}/`, 
+            method: 'GET',
+            key: `payment-methods-single`
+        })
+        userMenuStore.walletSelectedPaymentMethod = pm.value[0]
+    }
+    isSaving.value = false
+    useSnackbarStore().setSnackbar('Billing address saved', true)
 }
 
 </script>

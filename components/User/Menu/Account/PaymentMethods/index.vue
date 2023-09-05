@@ -5,7 +5,7 @@ import {
     UserMenuAccountPaymentMethodsAdd, 
     UserMenuAccountPaymentMethodsDetails 
 } from '../../components'
-import { useUserStore, useUserMenuStore, useSnackbarStore } from '@/store'
+import { useUserStore, useUserMenuStore } from '@/store'
 
 const config = useRuntimeConfig()
 const userStore = useUserStore()
