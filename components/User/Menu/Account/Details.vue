@@ -21,34 +21,38 @@ const formButton = reactive<FormButton>({
 
 const fields = ref<FormTextField[]>([
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 1, 
         model: userStore.user.first_name || '', 
         name:'first_name', 
         label: 'First name', 
         density: 'compact',
-        color: 'primary-alt',
+        color: 'primary',
         type: 'text', 
         counter: 30,
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         rules: [ 
             (v: any) => !! v || 'First name is required',
             (v: any) => v.length <= 30 || 'Must be 30 characters or less'
         ]
     },
     {
+        bgColor: 'form-field-flat',
+        flat: true,
         id: 2, 
         model: userStore.user.last_name || '', 
         name:'last_name', 
         label: 'Last name', 
         density: 'compact',
-        color: 'primary-alt',
+        color: 'primary',
         type: 'text', 
         counter: 30,
         errorMessages: '',
         inputType: 'TEXTFIELD',
-        variant: 'outlined',
+        variant: 'solo',
         rules: [ 
             (v: any) => !! v || 'Last name is required', 
             (v: any) => v.length <= 30 || 'Must be 30 characters or less'

@@ -14,13 +14,41 @@ const paymentMethods = ref<any>([])
 const paymentMethodDeleteDialog = ref<boolean>(false)
 const selectedPaymentMethod = ref<number>(0)
 const isDeleting = ref<boolean>(false)
+const isPending = ref<boolean>(true)
 
-if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
-    let pks = userStore.user.payment_methods.map(x => x.pk).toString()
-    const { data } = await useApi({path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, method: 'GET'})
-    paymentMethods.value = data.value
-    console.log(data.value)
-}
+// if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
+//     const { data: cacheData } = useNuxtData('payment-methods')
+//     paymentMethods.value = cacheData.value
+//     let pks = userStore.user.payment_methods.map(x => x.pk).toString()
+//     // const { data } = await useApi({
+//     //     path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, 
+//     //     method: 'GET',
+//     //     key: `payment-methods`
+//     // })
+//     const { data } = await useLazyFetch(`${config.public.API_USER_PAYMENT_METHODS}${pks}/`, {
+//         baseURL: `${config.public.API_BASE_URL}`,
+//         key: `payment-methods`
+//     })
+
+//     paymentMethods.value = data.value
+
+// }
+
+onMounted(async () => {
+    if(userStore.user.payment_methods && userStore.user.payment_methods.length > 0){
+        const { data: cacheData } = useNuxtData('payment-methods')
+        paymentMethods.value = cacheData.value
+        let pks = userStore.user.payment_methods.map(x => x.pk).toString()
+        const { data, pending } = await useApi({
+            path: `${config.public.API_USER_PAYMENT_METHODS}${pks}/`, 
+            method: 'GET',
+            key: `payment-methods`
+        })
+        paymentMethods.value = data.value
+        isPending.value = pending.value
+
+    }
+})
 
 const HasPaymentMethods = computed(() => userStore.user.payment_methods && userStore.user.payment_methods.length > 0)
 
@@ -71,8 +99,13 @@ const detailsView = (method: any): void => {
             </template>
         </v-list-item>
     </v-list>
-    <v-divider />
-    
+    <v-divider v-if="!isPending"/>
+    <v-progress-linear
+        v-else
+        color="primary-alt"
+        indeterminate
+        height="6"
+    />
     <v-list v-if="HasPaymentMethods" density="compact">
         <v-list-item
             v-for="(method, i) in paymentMethods"
@@ -91,7 +124,7 @@ const detailsView = (method: any): void => {
             <p class="text-body-1 py-2">Add a payment method</p>
         </div>  
     </v-container> 
-    <v-container>
+    <v-container v-show="!isPending">
         <v-btn 
             @click="userMenuStore.selectedView = UserMenuAccountPaymentMethodsAdd"
             class="text-surface" 
