@@ -7,7 +7,12 @@ const config = useRuntimeConfig()
 const userStore = useUserStore()
 const snackbarStore = useSnackbarStore() 
 const userMenuStore = useUserMenuStore()
+const { DefaultProfileImg } = useDefaultProfileImg()
+const profileImgFile = ref()
+const profileImgFileRef = ref()
 const formError = reactive({ isError: false, message:'' })
+const showAddImgBtn = ref<boolean>(false)
+const imgLoadEmmiter = (): void => { showAddImgBtn.value = true }
 
 const formButton = reactive<FormButton>({
     show: true,
@@ -84,6 +89,29 @@ const submitEmitter = (e: any): void => {
     snackbarStore.setSnackbar('Account details updated', true)
 }
 
+const ProfileImage = computed(() => {
+    if (userStore.user.image) {
+        const { Asset } = useMediaAssets(userStore.user.image.image)  
+        return Asset.value
+    }
+    return DefaultProfileImg.value 
+})
+
+const uploadImage = async (file: File): Promise<void> => {
+    let formData = new FormData();
+    formData.append("image", file);
+    const { data } = await useApi({
+        path: `${config.public.API_USER_IMAGE}`,
+        method: 'POST',
+        data: formData,
+        isMultiPart: true 
+    })
+    userStore.user = data.value
+    snackbarStore.setSnackbar('Image uploaded', true)
+}
+
+watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
+
 </script>
 
 <template>
@@ -102,6 +130,32 @@ const submitEmitter = (e: any): void => {
     </v-list>
     <v-divider />
     <v-container>
+        <v-file-input
+            v-model="profileImgFile" 
+            class="d-none" 
+            ref="profileImgFileRef" 
+            accept="image/png, image/jpeg, image/bmp"
+        />
+        <div class="mx-auto mx-sm-0" style="position: relative">
+            <v-img 
+                class="rounded-circle border" 
+                :src="ProfileImage" 
+                :alt="`${userStore.user.username} profile image`"
+                @load="imgLoadEmmiter"
+                cover
+            />
+            <v-btn 
+                v-if="showAddImgBtn"
+                @click="profileImgFileRef.click()"
+                class="add-profile-image-btn"
+                color="primary-alt" 
+                size="18" 
+                flat 
+                icon
+            >
+                <v-icon size="16">mdi-plus</v-icon>
+            </v-btn>
+        </div>
         <FormFields
             @submit="submitEmitter"
             :fields="fields" 
