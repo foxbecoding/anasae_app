@@ -3,10 +3,13 @@ import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
+const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const route = useRoute()
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
 const { smAndDown } = useDisplay()
+const { Asset: heroImg } = useMediaAssets(`${config.public.CDN_MEDIA_ASSETS_PATH}brand-landing-page-hero.jpg`)
+
 
 const scrollY = ref<number>(0)
 
@@ -40,6 +43,13 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
+        <div 
+            v-if="$route.name == 'add-your-brand'"
+            class="banner-slider" 
+            data-test-id="slider-bg"
+            :style="{backgroundImage: `url(${heroImg})`}"
+        >
+        </div>
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <v-container v-if="ShowBannerComps" class="px-sm-8" fluid>
                 <BannerSlider />

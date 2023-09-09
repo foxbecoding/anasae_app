@@ -136,16 +136,18 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             ref="profileImgFileRef" 
             accept="image/png, image/jpeg, image/bmp"
         />
-        <div class="mx-auto mx-sm-0" style="position: relative">
+        <v-container class="mx-auto pt-0" style="position: relative; width: 120px">
             <v-img 
                 class="rounded-circle border" 
                 :src="ProfileImage" 
                 :alt="`${userStore.user.username} profile image`"
                 @load="imgLoadEmmiter"
+                width="120"
                 cover
             />
             <v-btn 
                 v-if="showAddImgBtn"
+                style="position: absolute; bottom: 20px; right: 20px;"
                 @click="profileImgFileRef.click()"
                 class="add-profile-image-btn"
                 color="primary-alt" 
@@ -155,7 +157,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             >
                 <v-icon size="16">mdi-plus</v-icon>
             </v-btn>
-        </div>
+        </v-container>
         <FormFields
             @submit="submitEmitter"
             :fields="fields" 

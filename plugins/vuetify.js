@@ -28,6 +28,7 @@ import {
 import { VMain } from 'vuetify/components/VMain'
 import { VMenu } from 'vuetify/components/VMenu'
 import { VOverlay } from 'vuetify/components/VOverlay'
+import { VParallax } from 'vuetify/components/VParallax'
 import { VProgressLinear } from 'vuetify/components/VProgressLinear'
 import { VSheet } from 'vuetify/components/VSheet'
 import { VRadioGroup } from 'vuetify/components/VRadioGroup'
@@ -115,6 +116,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VMenu,
             VOtpInput,
             VOverlay,
+            VParallax,
             VProgressLinear,
             VRadio,
             VRadioGroup,
