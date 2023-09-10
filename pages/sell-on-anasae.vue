@@ -1,7 +1,8 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
-    <AddYourBrandHero />
-    <AddYourBrandWhyUseAnasae />
+    <SellOnAnasaeHero />
+    <SellOnAnasaeBenefits />
 </template>

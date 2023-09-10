@@ -2,6 +2,7 @@ import LoginForm from '@/components/Auth/LoginForm.vue'
 import SignUpForm from '@/components/Auth/SignUpForm/index.vue'
 import ForgotForm from '@/components/Auth/ForgotForm.vue'
 import Home from '@/pages/index.vue'
+import SellOnAnasae from '@/pages/sell-on-anasae.vue'
 import Clipz from '@/pages/clipz.vue'
 import Search from '@/pages/search.vue'
 import Cart from '@/pages/cart.vue'
@@ -81,6 +82,9 @@ export const useAuthPageFactory = () => {
                 break;
             case 'brand-uid':
                 component = BrandUID  
+                break;
+            case 'sell-on-anasae':
+                component = SellOnAnasae  
                 break;
             default:
                 component = Home

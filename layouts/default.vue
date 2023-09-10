@@ -3,14 +3,10 @@ import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
-const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const route = useRoute()
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
 const { smAndDown } = useDisplay()
-const { Asset: heroImg } = useMediaAssets(`${config.public.CDN_MEDIA_ASSETS_PATH}brand-landing-page-hero.jpg`)
-
-
 const scrollY = ref<number>(0)
 
 const AppBarColor = computed((): string => scrollY.value !== 0 ? 'app-bar-color' : '')
@@ -32,24 +28,19 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <v-container class="d-none d-md-flex justify-space-between px-sm-8" fluid>
                 <AppBarInner />
             </v-container>
-            <v-container v-if="!authStore.isAuth" class="d-flex d-md-none justify-space-between px-sm-8" fluid>
+            <v-container 
+                v-if="!authStore.isAuth" 
+                class="d-flex d-md-none justify-space-between px-sm-8" fluid>
                 <AppBarInner />
             </v-container>
             <v-container v-else class="d-md-none px-sm-8" fluid>
                 <MobileTopBar />
             </v-container>
         </v-app-bar>
-        <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container  px-sm-8" :class="AppBarColor" fluid>
+        <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container d-md-none px-sm-8" :class="AppBarColor" fluid>
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
-        <div 
-            v-if="$route.name == 'add-your-brand'"
-            class="banner-slider" 
-            data-test-id="slider-bg"
-            :style="{backgroundImage: `url(${heroImg})`}"
-        >
-        </div>
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <v-container v-if="ShowBannerComps" class="px-sm-8" fluid>
                 <BannerSlider />
@@ -103,11 +94,6 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
     padding-top: 0px !important;
 }
 
-/* @media screen and (max-width:  960px) {
-    .main-adjust-content {
-        padding-top: 0px !important;
-    }
-} */
 .mobile-top-bar-container {
     position: sticky !important; 
     top: 0px;

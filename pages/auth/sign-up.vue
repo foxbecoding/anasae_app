@@ -7,5 +7,5 @@ const { PageComponent } = useAuthPageFactory()
 
 
 <template>
-    <component :is="PageComponent"/>
+  <component :is="PageComponent"/>
 </template>

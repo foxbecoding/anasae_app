@@ -1,12 +1,26 @@
 <script lang="ts" setup>
-import { useSliderStore, useUserStore, useBrandStore } from '@/store'
+import { useSliderStore, useUserStore, useBrandStore, useAuthStore } from '@/store'
 import { useTheme } from 'vuetify'
 
 const config = useRuntimeConfig()
 const sliderStore = useSliderStore()
+const authStore = useAuthStore()
 const userStore = useUserStore()
 const brandStore = useBrandStore()
 const vTheme = useTheme()
+
+const LayoutTheme = computed(() => {
+  if(authStore.prevRouteName === 'sell-on-anasae' 
+    && (useRoute().name == 'auth-login' 
+    || useRoute().name == 'auth-sign-up' 
+    || useRoute().name == 'auth-forgot-password')) {
+    return 'sell-on-anasae-layout'
+  }
+  if(useRoute().name == 'sell-on-anasae'){
+    return 'sell-on-anasae-layout'
+  }
+  return 'default'
+})
 
 vTheme.global.name.value = useCookie('theme', {
   default: () => 'anasaeDark',
@@ -33,7 +47,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <NuxtLayout>
+  <NuxtLayout :name="LayoutTheme">
     <NuxtPage/>
   </NuxtLayout>
 </template>

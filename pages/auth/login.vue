@@ -1,11 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ["auth"],
 })
 
 const { PageComponent } = useAuthPageFactory()
 </script>
-
 
 <template>
   <component :is="PageComponent"/>
