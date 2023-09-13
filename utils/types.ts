@@ -27,6 +27,14 @@ export interface BrandOwner {
     user: string|number
 }
 
+export interface Category {
+    pk: string|number
+    uid:  string
+    title: string
+    description: string
+    subcategories: string[] | number[]
+}
+
 export interface FormInputBase {
     appendIcon?: string
     appendInnerIcon?: string

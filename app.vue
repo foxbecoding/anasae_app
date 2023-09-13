@@ -1,11 +1,18 @@
 <script lang="ts" setup>
-import { useSliderStore, useUserStore, useBrandStore, useAuthStore } from '@/store'
+import { 
+  useAuthStore, 
+  useBrandStore, 
+  useCategoryStore,
+  useSliderStore, 
+  useUserStore 
+} from '@/store'
 import { useTheme } from 'vuetify'
 
 const config = useRuntimeConfig()
 const sliderStore = useSliderStore()
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const categoryStore = useCategoryStore()
 const brandStore = useBrandStore()
 const vTheme = useTheme()
 
@@ -18,6 +25,8 @@ const LayoutTheme = computed(() => {
   }
   if(useRoute().name == 'sell-on-anasae'){
     return 'sell-on-anasae-layout'
+  }else if(useRoute().name == 'add-your-brand'){
+    return 'add-your-brand-layout'
   }
   return 'default'
 })
@@ -31,6 +40,7 @@ vTheme.global.name.value = useCookie('theme', {
 const initialize = async (): Promise<void> => {
   sliderStore.init()
   userStore.init()
+  categoryStore.init()
   nextTick(() => {
     $fetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)
   }) 

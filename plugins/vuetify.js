@@ -10,6 +10,8 @@ import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
 import { VCarousel, VCarouselItem } from 'vuetify/components/VCarousel'
+import { VChip } from 'vuetify/components/VChip'
+import { VChipGroup } from 'vuetify/components/VChipGroup'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VDialog } from 'vuetify/components/VDialog'
 import { VDivider } from 'vuetify/components/VDivider'
@@ -98,6 +100,8 @@ export default defineNuxtPlugin(nuxtApp => {
             VCardSubtitle,
             VCarousel,
             VCarouselItem,
+            VChip,
+            VChipGroup,
             VCol, 
             VContainer, 
             VDialog,
