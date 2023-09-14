@@ -3,7 +3,7 @@ import * as directives from 'vuetify/directives'
 import { VOtpInput } from 'vuetify/labs/VOtpInput'
 import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 import { VApp } from 'vuetify/components/VApp'
-import { VAppBar, VAppBarTitle } from 'vuetify/components/VAppBar'
+import { VAppBar, VAppBarTitle, VAppBarNavIcon } from 'vuetify/components/VAppBar'
 import { VAlert } from 'vuetify/components/VAlert'
 import { VAvatar } from 'vuetify/components/VAvatar'
 import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
@@ -89,6 +89,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VApp, 
             VAppBar, 
             VAppBarTitle,
+            VAppBarNavIcon,
             VAlert, 
             VAvatar,
             VBottomNavigation,

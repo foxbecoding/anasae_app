@@ -1,18 +1,26 @@
 <script setup lang="ts">
-
+const config = useRuntimeConfig()
+const rail = ref<boolean>(false)
 </script>
 
 <template>
     <v-app>
         <v-app-bar>
-            <v-container class="px-sm-8 d-flex" fluid>
-                <AppBarInnerStart />
+            <v-container class="pl-0 pl-sm-2 pr-sm-8 d-flex align-center" fluid>
+                <v-app-bar-nav-icon 
+                    variant="text" 
+                    @click.stop="rail = !rail"
+                />
+                <div style="width: 30px;" class="ml-2 mr-4">
+                    <v-img :src="`${config.public.CDN_MEDIA_URL}/assets/logo-icon.png`" />
+                </div>
                 <v-app-bar-title>Brand Center</v-app-bar-title>
             </v-container>
         </v-app-bar>
+        <v-divider class="app-divider"/>
         <v-navigation-drawer
-            expand-on-hover
-            :rail="false"
+            color="background"
+            :rail="rail"
             permanent
         >
             <v-list>
@@ -40,6 +48,13 @@
 <style scoped>
 .main-adjust-content {
     padding-top: 60px !important;
+}
+
+.app-divider {
+    top: 64px;
+    position: absolute;
+    width: 100%;
+    z-index: 1005;
 }
 
 </style>
