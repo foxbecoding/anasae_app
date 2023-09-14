@@ -1,6 +1,6 @@
 import { Brand, BrandOwner } from '@/utils/types'
 
-export const useGetOwnerBrands = async (pks: string[] | number[]) => {
+export const useGetOwnerBrands = async (pks: string[] | number[]): Promise<Brand[]> => {
     const config = useRuntimeConfig()
   
     if (pks.length === 0) return []

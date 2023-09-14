@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/store'
-
-if(!useAuthStore().isAuth){ navigateTo('/') }
+import { useBrandStore } from '@/store'
+useBrandStore().middleware()
 
 </script>
 
 <template>
     <v-container class="px-sm-8" fluid>
-        <h1>Brand Center</h1>
+        <h1>Dashboard</h1>
         <v-row>
             <v-col
                 v-for="n in 12"
