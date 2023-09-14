@@ -13,30 +13,34 @@ const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 const accountItems = ref<UserMenuItem[]>([
     { 
         id: 1, 
-        prependIcon: 'mdi-account-circle-outline', 
-        title: 'My profile', 
-        to: `/profile/${userStore.user.uid}`,
-        action: () => { userMenuStore.isOpen = false }
+        prependIcon: 'mdi-card-account-details-outline', 
+        appendIcon: 'mdi-chevron-right',
+        title: 'Your account',
+        action: () => { userMenuStore.selectedView = UserMenuAccount },
+        show: true
     },
     { 
         id: 2, 
         prependIcon: 'mdi-storefront-outline', 
-        appendIcon: 'mdi-chevron-right',
-        title: 'My brands',
-        action: () => { userMenuStore.selectedView = UserMenuBrands }
+        title: 'Brand center',
+        to: {name: 'brand-center'},
+        action: () => { userMenuStore.isOpen = false },
+        show: userStore.user.owned_brands.length > 0
     },
     { 
         id: 3, 
-        prependIcon: 'mdi-card-account-details-outline', 
-        appendIcon: 'mdi-chevron-right',
-        title: 'Account',
-        action: () => { userMenuStore.selectedView = UserMenuAccount }
+        prependIcon: 'mdi-shopping-outline', 
+        title: 'Your orders', 
+        action: () => { userMenuStore.isOpen = false },
+        show: true 
+    },
+    { 
+        id: 4, 
+        prependIcon: 'mdi-heart-outline', 
+        title: 'Wishlist', 
+        action: () => { userMenuStore.isOpen = false },
+        show: true
     }
-])
-
-const productDataItems = ref<UserMenuItem[]>([
-    { id: 1, prependIcon: 'mdi-shopping-outline', title: 'My orders' },
-    { id: 2, prependIcon: 'mdi-heart-outline', title: 'Wishlist'}
 ])
 
 const siteConfigItems = ref<UserMenuItem[]>([
@@ -79,6 +83,7 @@ const siteConfigItems = ref<UserMenuItem[]>([
     <v-list density="compact">
         <v-list-item 
             v-for="(item, i) in accountItems"
+            v-show="item.show"
             :prepend-icon="item.prependIcon"
             :append-icon="item?.appendIcon"
             :data-test-id="`user-menu-home-account-item${i}`"
@@ -87,19 +92,6 @@ const siteConfigItems = ref<UserMenuItem[]>([
             :title="item.title"
             :to="item?.to"
             @click="item?.action"
-        >
-        </v-list-item>
-    </v-list>
-    <v-divider />
-    <v-list density="compact">
-        <v-list-item 
-            v-for="(item, i) in productDataItems"
-            :prepend-icon="item.prependIcon"
-            :append-icon="item?.appendIcon"
-            :data-test-id="`user-menu-home-product-data-item${i}`"
-            :key="i"
-            :value="item"
-            :title="item.title"
         >
         </v-list-item>
     </v-list>

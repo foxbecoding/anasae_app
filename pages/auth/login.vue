@@ -1,8 +1,7 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ["auth"],
-})
+import { useAuthStore } from '@/store'
 
+if(useAuthStore().isAuth){ navigateTo('/') }
 const { PageComponent } = useAuthPageFactory()
 </script>
 

@@ -27,6 +27,8 @@ const LayoutTheme = computed(() => {
     return 'sell-on-anasae-layout'
   }else if(useRoute().name == 'add-your-brand'){
     return 'add-your-brand-layout'
+  }else if(useRoute().name == 'brand-center'){
+    return 'brand-center-layout'
   }
   return 'default'
 })

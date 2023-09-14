@@ -1,13 +1,18 @@
 <script lang="ts" setup>
-import { useUserMenuStore, useSnackbarStore, useBrandStore, useUserStore } from '@/store'
+import {
+    useAuthStore, 
+    useSnackbarStore, 
+    useBrandStore, 
+    useUserStore 
+} from '@/store'
 import { FormTextField, FormButton } from '@/utils/types'
 
 const config = useRuntimeConfig()
-const userMenuStore = useUserMenuStore()
+const authStore = useAuthStore()
 const snackbarStore = useSnackbarStore()
+const userStore = useUserStore()
 const brandStore = useBrandStore()
 const formError = reactive({ isError: false, message:'' })
-
 const formButton = reactive<FormButton>({
     show: true,
     label: 'Submit',
@@ -82,13 +87,26 @@ const submitEmitter = (e: any): void => {
     formError.message = '' 
     brandStore.brands.push(e.data)
     useUserStore().init()
+    navigateTo({name: 'brand-center'})
     snackbarStore.setSnackbar('Brand added', true)
 }
+
+if(!authStore.isAuth) { navigateTo('/') }
+if(userStore.user.owned_brands.length > 0) { navigateTo('/brand-center') }
 
 </script>
 
 <template>
-    <v-card flat max-width="600">
+    <v-card 
+        class="px-4 mx-auto align-center"
+        color="background" 
+        flat 
+        max-width="400" 
+    >
+        <v-card-title class="px-0">Add your brand</v-card-title>
+        <v-card-text class="px-0">
+            Let's get started by adding some quick details about your brand.
+        </v-card-text>
         <FormFields
             @submit="submitEmitter"
             :fields="fields" 
@@ -98,7 +116,6 @@ const submitEmitter = (e: any): void => {
         />
         <p class="text-center mt-4 text-caption">By adding your brand you agree to our 
             <NuxtLink 
-                @click="userMenuStore.close"
                 class="text-primary-alt text-decoration-none" 
                 to="/terms"
             >
@@ -116,4 +133,3 @@ const submitEmitter = (e: any): void => {
         />
     </v-card>    
 </template>
-

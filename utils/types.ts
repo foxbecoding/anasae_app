@@ -148,7 +148,8 @@ export interface UserMenuItem {
     prependIcon: string
     appendIcon?: string
     title: string
-    to?: string
+    to?: string | {}
     action?: Function 
     custom?: any
+    show?: boolean
 }

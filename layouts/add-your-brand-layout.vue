@@ -48,7 +48,7 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 }
 
 .main-adjust-content {
-    padding-top: 0px !important;
+    padding-top: 60px !important;
 }
 
 </style>

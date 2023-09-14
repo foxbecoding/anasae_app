@@ -125,8 +125,13 @@ const submitEmitter = async (e: any): Promise<void> => {
         password: '',
         isUsername: false
     }
-    useRouter().replace({ path: authStore.prevRoute })
     userStore.user = e.data
+    if(authStore.prevRouteName == 'sell-on-anasae'){ 
+        let routeName = userStore.user.owned_brands.length > 0 ? 'brand-center' : 'add-your-brand'  
+        useRouter().replace({ name: routeName }) 
+    }else{
+        useRouter().replace({ path: authStore.prevRoute })
+    }
     snackbarStore.setSnackbar('Signed in', true)
     await userStore.user.owned_brands
     useBrandStore().brands = await useGetOwnerBrands(userStore.user.owned_brands)
