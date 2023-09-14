@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useUserMenuStore } from '@/store'
-import { UserMenuItem } from '@/utils/types'
+import { MenuItem } from '@/utils/types'
 import { useTheme } from 'vuetify'
 
 const vTheme = useTheme()
@@ -13,7 +13,7 @@ const setTheme = (theme: 'anasaeDark' | 'anasaeLight'): void => {
         sameSite: 'lax'
     }).value = vTheme.global.name.value
 }
-const themeItems = ref<UserMenuItem[]>([
+const themeItems = ref<MenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-weather-night',

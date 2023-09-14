@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { useUserMenuStore, useAuthStore } from '@/store'
 import * as accComps from '../components'
-import { UserMenuItem } from '@/utils/types'
+import { MenuItem } from '@/utils/types'
 
 const userMenuStore = useUserMenuStore()
 const authStore = useAuthStore()
 
-const menuItems = ref<UserMenuItem[]>([
+const menuItems = ref<MenuItem[]>([
     { 
         id: 1, 
         appendIcon: 'mdi-chevron-right',

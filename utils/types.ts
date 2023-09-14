@@ -86,6 +86,18 @@ export interface FormButton extends FormInputBase {
     show: boolean
 }
 
+
+export interface MenuItem {
+    id: number
+    prependIcon?: string
+    appendIcon?: string
+    title: string
+    to?: string | {}
+    action?: Function 
+    custom?: any
+    show?: boolean
+}
+
 export interface Slide {
     is_active: boolean
     image: string, 
@@ -143,13 +155,3 @@ export interface UserGender {
     pk: string | number
 }
 
-export interface UserMenuItem {
-    id: number
-    prependIcon: string
-    appendIcon?: string
-    title: string
-    to?: string | {}
-    action?: Function 
-    custom?: any
-    show?: boolean
-}

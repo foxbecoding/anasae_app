@@ -2,7 +2,7 @@
 import { UserMenuTheme, UserMenuBrands, UserMenuAccount } from '@/components/User/Menu/components'
 import { useUserStore, useUserMenuStore } from '@/store'
 import { useTheme } from 'vuetify'
-import { UserMenuItem } from '@/utils/types'
+import { MenuItem } from '@/utils/types'
 
 const vTheme = useTheme()
 const userStore = useUserStore() 
@@ -10,7 +10,7 @@ const userMenuStore = useUserMenuStore()
 const CurrentTheme = computed((): string => vTheme.global.current.value.dark ? 'Dark' : 'Light')
 const { Initials: ProfileInitials, Image: ProfileImage } = useProfile()
 
-const accountItems = ref<UserMenuItem[]>([
+const accountItems = ref<MenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-card-account-details-outline', 
@@ -43,7 +43,7 @@ const accountItems = ref<UserMenuItem[]>([
     }
 ])
 
-const siteConfigItems = ref<UserMenuItem[]>([
+const siteConfigItems = ref<MenuItem[]>([
     { 
         id: 1, 
         prependIcon: 'mdi-theme-light-dark', 

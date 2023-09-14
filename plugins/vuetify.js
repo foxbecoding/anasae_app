@@ -29,6 +29,7 @@ import {
 } from 'vuetify/components/VList'
 import { VMain } from 'vuetify/components/VMain'
 import { VMenu } from 'vuetify/components/VMenu'
+import { VNavigationDrawer } from 'vuetify/components/VNavigationDrawer'
 import { VOverlay } from 'vuetify/components/VOverlay'
 import { VParallax } from 'vuetify/components/VParallax'
 import { VProgressLinear } from 'vuetify/components/VProgressLinear'
@@ -118,6 +119,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VListSubheader,
             VMain,
             VMenu,
+            VNavigationDrawer,
             VOtpInput,
             VOverlay,
             VParallax,
