@@ -4,6 +4,7 @@ import { useUserStore, useBrandStore } from '@/store'
 import { useDisplay } from 'vuetify'
 
 const config = useRuntimeConfig()
+const route = useRoute()
 const { smAndDown } = useDisplay()
 const userStore = useUserStore()
 const brandStore = useBrandStore()
@@ -26,11 +27,13 @@ const navItems = ref<MenuItem[]>([
         id: 3, 
         prependIcon: 'mdi-shopping-outline', 
         title: 'Manage products',
+        to: {name: 'brand-center-manage-products'}
     },
     { 
         id: 4, 
         prependIcon: 'mdi-store-cog-outline', 
         title: 'Manage orders',
+        to: {name: 'brand-center-manage-orders'}
     },
 ])
 
@@ -45,11 +48,21 @@ const MenuOpen = computed(() => {
 const appBarHandler = (): void => {
     if(smAndDown.value){
         isMenuOpen.value = !isMenuOpen.value
+        console.log(MenuOpen.value)
         return
     }
     rail.value = !rail.value
 }
 
+const setNavIcon = (icon: string, routeName: any): string => {
+    if(route.name?.toString() == String(routeName.name) ){
+        return icon.replace("-outline","")
+    }
+    return icon
+}
+if (!smAndDown.value){
+    isMenuOpen.value = true
+}
 onBeforeMount(async() => brandStore.brands = await useGetOwnerBrands(userStore.user.owned_brands))
 </script>
 
@@ -71,7 +84,7 @@ onBeforeMount(async() => brandStore.brands = await useGetOwnerBrands(userStore.u
         </v-app-bar>
         <v-divider class="app-divider"/>
         <v-navigation-drawer
-            v-if="MenuOpen"
+            v-model="isMenuOpen"
             color="background"
             :location="smAndDown ? 'bottom': 'left'"
             expand-on-hover
@@ -83,6 +96,17 @@ onBeforeMount(async() => brandStore.brands = await useGetOwnerBrands(userStore.u
                     :prepend-avatar="BrandLogo"
                     :title="BrandData.name"
                 ></v-list-item>
+                <v-btn 
+                    v-show="!rail"
+                    class="ml-2"
+                    color="primary-alt" 
+                    variant="text"
+                    rounded="lg"
+                    size="small"
+                    :to="{name: `brand-uid`, params: {uid: BrandData.uid}}"
+                >
+                    View Brand Page
+                </v-btn>
             </v-list>
 
             <v-divider></v-divider>
@@ -90,10 +114,11 @@ onBeforeMount(async() => brandStore.brands = await useGetOwnerBrands(userStore.u
             <v-list density="compact" nav>
                 <v-list-item 
                     v-for="(nav, i) in navItems"
-                    :prepend-icon="nav.prependIcon" 
+                    :prepend-icon="setNavIcon(String(nav.prependIcon), nav.to)" 
                     :title="nav.title" 
                     :value="nav"
                     :to="nav.to"
+                    rounded="lg"
                 ></v-list-item>
             </v-list>
         </v-navigation-drawer>
