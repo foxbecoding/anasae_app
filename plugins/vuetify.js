@@ -1,6 +1,7 @@
 import { createVuetify } from 'vuetify'
 import * as directives from 'vuetify/directives'
 import { VOtpInput } from 'vuetify/labs/VOtpInput'
+import { VDataTable } from 'vuetify/labs/VDataTable'
 import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle, VAppBarNavIcon } from 'vuetify/components/VAppBar'
@@ -106,6 +107,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VChipGroup,
             VCol, 
             VContainer, 
+            VDataTable,
             VDialog,
             VDivider,
             VFileInput,
