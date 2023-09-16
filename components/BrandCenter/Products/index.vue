@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 
-const search =  ref<string>()
-const headers = ref<Object[]>([
+const selected =  ref<any[]>([])
+const search =  ref<string>('')
+const headers = ref<any[]>([
     {
         align: 'start',
         key: 'name',
@@ -15,7 +16,7 @@ const headers = ref<Object[]>([
     { key: 'iron', title: 'Iron (%)' },
 ])
 
-const desserts = ref<Object[]>([
+const desserts = ref<any[]>([
     {
         name: 'Frozen Yogurt',
         calories: 159,
@@ -130,25 +131,50 @@ const desserts = ref<Object[]>([
         
         <v-divider />
         <v-data-table
-        :headers="headers"
-        :items="desserts"
-        :search="search"
+            v-model="selected"
+            :headers="headers"
+            :items="desserts"
+            :search="search"
+            item-value="name"
+            return-object
+            show-select
         >
-            <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
+            <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort, selectAll, someSelected, allSelected }">
                 <tr>
                     <template v-for="column in columns" :key="column.key">
-                    <td class="bg-background">
-                        <span class="mr-2 cursor-pointer table-head" @click="() => toggleSort(column)">{{ column.title }}</span>
-                        <template v-if="isSorted(column)">
-                            <v-icon :icon="getSortIcon(column)"></v-icon>
-                        </template>
-                    </td>
+                        <td class="bg-background">
+                            <v-checkbox-btn 
+                                v-if="column.key == 'data-table-select'"
+                                @click="selectAll(!allSelected)"
+                                color="primary-alt"
+                                :model-value="allSelected"
+                                :indeterminate="someSelected && !allSelected"
+                            ></v-checkbox-btn>
+                            <span 
+                                v-else
+                                class="mr-2 cursor-pointer table-head"
+                                @click="() => toggleSort(column)"
+                            >
+                                {{ column.title }}
+                            </span>
+                            <template v-if="isSorted(column)">
+                                <v-icon :icon="getSortIcon(column)"></v-icon>
+                            </template>
+                        </td>
                     </template>
                 </tr>
                 <v-divider class="w-100" style="position: absolute"/>
             </template>
-            <template v-slot:item="{ item }">
+            <template v-slot:item="{ item, toggleSelect, isSelected }">
                 <tr>
+                    <td>
+                        <v-checkbox-btn 
+                            color="primary-alt"
+                            :model-value="isSelected(item)"
+                            @click="toggleSelect(item)"
+
+                        ></v-checkbox-btn>
+                    </td> 
                     <td>{{ item.columns.name }}</td>
                     <td>{{ item.columns.calories }}</td>
                     <td>{{ item.columns.fat }}</td>
@@ -163,11 +189,19 @@ const desserts = ref<Object[]>([
 
 <style scoped>
 
+.v-table {
+    background: rgb(var(--v-theme-background)) !important;
+}
+
 .v-table .v-table__wrapper > table tbody > tr > td {
     background: rgb(var(--v-theme-background)) !important;
 }
 
 .table-head {
     cursor: pointer
+}
+
+.v-table--density-default > .v-table__wrapper > table > thead > tr > th {
+    background: rgb(var(--v-theme-background)) !important;
 }
 </style>

@@ -14,8 +14,24 @@ export const useBrandStore = defineStore("brand-store", () => {
     }
 })
 
+export const useBrandCenterStore = defineStore("brand-center-store", () => {
+    const addProductsForm = reactive({
+        title: '',
+        description: '',
+        category: null,
+        quantity: 0,
+        sku: '',
+        isbn: ''
+    })
+
+    return {
+        addProductsForm
+    }
+})
+
 
 
 if (import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(useBrandStore, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useBrandCenterStore, import.meta.hot));
 }
