@@ -40,22 +40,21 @@ const navItems = ref<MenuItem[]>([
 const BrandData = computed((): Brand => brandStore.brands[0])
 const BrandLogo = computed(() => useGetBrandLogo(BrandData.value.logo?.image) )
 
-const MenuOpen = computed(() => {
-    if(!smAndDown.value) return true
-    return isMenuOpen.value
-})
-
 const appBarHandler = (): void => {
     if(smAndDown.value){
         isMenuOpen.value = !isMenuOpen.value
-        console.log(MenuOpen.value)
         return
     }
     rail.value = !rail.value
 }
 
 const setNavIcon = (icon: string, routeName: any): string => {
-    if(route.name?.toString() == String(routeName.name) ){
+    if(
+        (route.name?.toString().includes(String(routeName.name)) && String(routeName.name) != 'brand-center')
+        || (route.name?.toString() == String(routeName.name) 
+        && String(routeName.name) != 'brand-center') ){
+        return icon.replace("-outline","")
+    }else if(route.name?.toString() == 'brand-center' && String(routeName.name) == 'brand-center'){
         return icon.replace("-outline","")
     }
     return icon

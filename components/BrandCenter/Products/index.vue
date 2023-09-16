@@ -1,4 +1,4 @@
-<scripts lang="ts" setup>
+<script lang="ts" setup>
 
 const search =  ref<string>()
 const headers = ref<Object[]>([
@@ -98,25 +98,76 @@ const desserts = ref<Object[]>([
     }
 ])
 
-</scripts>
+</script>
 
 <template>
-    <v-card>
+    <v-card color="background" rounded="lg" border>
         <v-card-title>
-            Nutrition
-            <v-spacer></v-spacer>
+            Manage product inventory
+        </v-card-title>
+        <div class="d-sm-flex pa-4 align-center justify-space-around">
+            <v-btn 
+                color="primary-alt" 
+                rounded="lg"
+                class="mb-4 mb-sm-0"
+                :to="{name: 'brand-center-manage-products-add'}"
+            >
+                Add product
+            </v-btn>
+            <v-spacer />
             <v-text-field
                 v-model="search"
-                append-icon="mdi-magnify"
+                append-inner-icon="mdi-magnify"
                 label="Search"
+                variant="solo"
                 single-line
+                bg-color="surface-el"
                 hide-details
-            ></v-text-field>
-        </v-card-title>
+                flat
+                rounded="lg"
+            />
+        </div>
+        
+        <v-divider />
         <v-data-table
         :headers="headers"
         :items="desserts"
         :search="search"
-        ></v-data-table>
+        >
+            <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
+                <tr>
+                    <template v-for="column in columns" :key="column.key">
+                    <td class="bg-background">
+                        <span class="mr-2 cursor-pointer table-head" @click="() => toggleSort(column)">{{ column.title }}</span>
+                        <template v-if="isSorted(column)">
+                            <v-icon :icon="getSortIcon(column)"></v-icon>
+                        </template>
+                    </td>
+                    </template>
+                </tr>
+                <v-divider class="w-100" style="position: absolute"/>
+            </template>
+            <template v-slot:item="{ item }">
+                <tr>
+                    <td>{{ item.columns.name }}</td>
+                    <td>{{ item.columns.calories }}</td>
+                    <td>{{ item.columns.fat }}</td>
+                    <td>{{ item.columns.carbs }}</td>
+                    <td>{{ item.columns.protein }}</td>
+                    <td>{{ item.columns.iron }}</td>
+                </tr>
+            </template>
+        </v-data-table>
   </v-card>
 </template>
+
+<style scoped>
+
+.v-table .v-table__wrapper > table tbody > tr > td {
+    background: rgb(var(--v-theme-background)) !important;
+}
+
+.table-head {
+    cursor: pointer
+}
+</style>
