@@ -111,7 +111,7 @@ const desserts = ref<any[]>([
                 color="primary-alt" 
                 rounded="lg"
                 class="mb-4 mb-sm-0"
-                :to="{name: 'brand-center-manage-products-add'}"
+                :to="{name: 'brand-center-manage-products-add-product-listing'}"
             >
                 Add product
             </v-btn>

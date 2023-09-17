@@ -1,5 +1,6 @@
 import { useAuthStore } from "./Auth"
-import { useBrandStore, useBrandCenterStore } from "./Brand"
+import { useBrandStore } from "./Brand"
+import { useBrandCenterProductStore } from "./BrandCenter"
 import { useCategoryStore } from "./Category"
 import { useSliderStore } from "./Slider"
 import { useSnackbarStore } from "./Snackbar"
@@ -8,7 +9,7 @@ import { useUserStore, useUserMenuStore } from "./User"
 export { 
     useAuthStore, 
     useBrandStore,
-    useBrandCenterStore,
+    useBrandCenterProductStore,
     useCategoryStore,
     useSliderStore, 
     useSnackbarStore,

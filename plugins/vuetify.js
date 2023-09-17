@@ -42,6 +42,14 @@ import { VTextarea } from 'vuetify/components/VTextarea'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VSelect } from 'vuetify/components/VSelect'
 import { VSnackbar } from 'vuetify/components/VSnackbar'
+import { 
+    VStepper,
+    VStepperActions,
+    VStepperHeader,
+    VStepperItem,
+    VStepperWindow,
+    VStepperWindowItem 
+} from 'vuetify/labs/VStepper'
 import { VSwitch } from 'vuetify/components/VSwitch'
 import { VToolbar, VToolbarItems, VToolbarTitle } from 'vuetify/components/VToolbar'
 import { VWindow, VWindowItem } from 'vuetify/components/VWindow'
@@ -138,6 +146,12 @@ export default defineNuxtPlugin(nuxtApp => {
             VSkeletonLoader,
             VSnackbar,
             VSpacer,
+            VStepper,
+            VStepperActions,
+            VStepperHeader,
+            VStepperItem,
+            VStepperWindow,
+            VStepperWindowItem,
             VSwitch,
             VTextarea,
             VTextField,
