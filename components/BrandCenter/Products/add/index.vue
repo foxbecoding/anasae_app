@@ -1,7 +1,19 @@
 <script lang="ts" setup>
 import { useBrandCenterProductStore } from '@/store'
+import ProductDetailsWindow from './ProductDetailsWindow/index.vue'
 
 const store = useBrandCenterProductStore()
+const windowItems = shallowReactive([
+    {id: 1, component: ProductDetailsWindow}
+])
+
+const WindowItem = computed(() => {
+    let foundItem = windowItems.find(x => x.id == store.currentStep)
+    if(foundItem){
+        return foundItem.component
+    }
+    return
+})
 
 </script>
 
@@ -34,10 +46,7 @@ const store = useBrandCenterProductStore()
                     :key="`${step.id}-content`"
                     :value="step.id"
                 >
-                    <v-card
-                        color="background"
-                        height="200"
-                    ></v-card>
+                    <component :is="WindowItem"/>
                 </v-stepper-window-item>
             </v-stepper-window>
 

@@ -1,4 +1,6 @@
 export const useBrandCenterProductStore = defineStore("brand-center-product-store", () => {
+    
+    const isVariants = ref<boolean>(false)
     const currentStep = ref<number>(1)
     const steps = ref<{id: number, title: string}[]>([
         {id: 1, title: 'Product details'},
