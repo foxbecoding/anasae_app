@@ -3,7 +3,7 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
     const isVariants = ref<boolean>(false)
     const currentStep = ref<number>(1)
     const steps = ref<{id: number, title: string}[]>([
-        {id: 1, title: 'Product details'},
+        {id: 1, title: 'Add product listing'},
         {id: 2, title: 'Confirm product(s)'}
     ])
     
@@ -19,6 +19,7 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
     return {
         currentStep,
         formData,
+        isVariants,
         steps
     }
 })

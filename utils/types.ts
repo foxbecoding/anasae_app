@@ -71,7 +71,7 @@ export interface FormSelectField extends FormInputBase {
     items?: any[]
     returnObject?: boolean
     title?: string 
-    value?: string 
+    value?: any
 }
 
 export interface FormSwitchField extends FormInputBase {

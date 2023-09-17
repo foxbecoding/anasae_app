@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useBrandCenterProductStore } from '@/store'
-import ProductDetailsWindow from './ProductDetailsWindow/index.vue'
+import ListingWindow from './ListingWindow/index.vue'
 
 const store = useBrandCenterProductStore()
 const windowItems = shallowReactive([
-    {id: 1, component: ProductDetailsWindow}
+    {id: 1, component: ListingWindow}
 ])
 
 const WindowItem = computed(() => {
@@ -12,7 +12,7 @@ const WindowItem = computed(() => {
     if(foundItem){
         return foundItem.component
     }
-    return
+    return {}
 })
 
 </script>
@@ -20,7 +20,9 @@ const WindowItem = computed(() => {
 <template>
     <v-stepper 
         v-model="store.currentStep"
+        :mobile="$vuetify.display.smAndDown"
         bg-color="background"
+        color="primary-alt"
         :flat="true"
     >
         <template v-slot:default="{ prev, next }">
@@ -31,6 +33,7 @@ const WindowItem = computed(() => {
                         :step="`Step ${ step.id }`"
                         :value="step.id"
                         :title="step.title"
+                        color="primary-alt"
                     ></v-stepper-item>
 
                     <v-divider
