@@ -22,9 +22,9 @@ const remove = (i: number): void => {
 
 <template>
     <v-card color="transparent" >
-        <v-card-title class="px-8">Images</v-card-title>
-        <v-card-subtitle class="px-8">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
-        <v-card-subtitle class="px-8">Recommened image size: 600 x 600</v-card-subtitle>
+        <v-card-title class="px-6">Images</v-card-title>
+        <v-card-subtitle class="px-6">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
+        <v-card-subtitle class="px-6">Recommened image size: 600 x 600</v-card-subtitle>
         <v-card-text class="px-0">
             <v-file-input
                 @update:model-value="setImages"
@@ -33,7 +33,7 @@ const remove = (i: number): void => {
                 accept="image/png, image/jpeg"
                 multiple
             />
-            <div class="d-flex images-container px-8">
+            <div class="d-flex images-container px-6">
                 <v-btn 
                     @click="store.previewImages.length < store.imgFilesMax ? fileRef.click() : false"
                     color="surface-el" 

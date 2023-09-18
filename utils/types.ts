@@ -44,6 +44,8 @@ export interface FormInputBase {
     color?: string
     bgColor?: string
     flat?: boolean
+    hint?: string
+    persistentHint?: boolean
     density?: "default" | "comfortable" | "compact" | undefined
     disabled?: boolean
     errorMessages?: string | string[]
@@ -65,6 +67,7 @@ export interface FormCustomText extends FormInputBase {
 
 export interface FormTextField extends FormInputBase {
     counter?: number
+    isNumbersOnly?: boolean
 }
 
 export interface FormSelectField extends FormInputBase {

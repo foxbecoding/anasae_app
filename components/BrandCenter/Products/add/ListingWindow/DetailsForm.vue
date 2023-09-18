@@ -55,7 +55,7 @@ const fields = ref<FormTextField[]>([
         model: store.formData.category,
         name: 'category',
         returnObject: true,
-        rules: [ (v: any) => !! v || 'Category required' ],
+        rules: [ (v: any) => !! v || 'Category is required' ],
         variant: 'solo'
     } as FormSelectField
 ])

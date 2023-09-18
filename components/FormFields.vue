@@ -61,7 +61,11 @@ const submit = async (): Promise<void> => {
     isLoading.value = false
 }
 
-
+function numbersOnly(e: any){
+    let char = String.fromCharCode(e.keyCode);
+    if(/^[0-9]+$/.test(char)) return true; 
+    else e.preventDefault();
+}
 </script>
 
 <template>
@@ -79,6 +83,7 @@ const submit = async (): Promise<void> => {
             <v-text-field 
                 v-if="field.inputType === 'TEXTFIELD'" 
                 @keypress.enter="submit()"
+                @keypress="field.isNumbersOnly ? numbersOnly($event) : false"
                 v-model="field.model" 
                 :label="field.label" 
                 :type="field.type"
@@ -86,12 +91,15 @@ const submit = async (): Promise<void> => {
                 :counter="field.counter"
                 :density="field.density"
                 :disabled="field.disabled"
+                :hint="field.hint"
+                :persistent-hint="field.persistentHint"
                 :error-messages="field.errorMessages"
                 :prepend-inner-icon="field.prependInnerIcon"
                 :variant="field.variant"
                 :color="field.color"
                 :bg-color="field.bgColor"
                 :flat="field.flat"
+                class="mb-1"
             >
                 <template 
                     v-if="field.appendInnerIcon && field.appendInnerIconFunction" 
@@ -119,6 +127,7 @@ const submit = async (): Promise<void> => {
                 :color="field.color"
                 :bg-color="field.bgColor"
                 :flat="field.flat"
+                class="mb-1"
             />
             <v-select
                 v-if="field.inputType === 'SELECT'" 
@@ -134,6 +143,7 @@ const submit = async (): Promise<void> => {
                 :return-object="field.returnObject"
                 :bg-color="field.bgColor"
                 :flat="field.flat"
+                class="mb-1"
             />
             <v-switch
                 v-if="field.inputType === 'SWITCH'" 
@@ -142,6 +152,7 @@ const submit = async (): Promise<void> => {
                 :color="field.color"
                 :hide-details="field.hideDetails"
                 :inset="field.inset"
+                class="mb-1"
             />
             <p
                 v-if="field.inputType === 'FORMTEXT'"

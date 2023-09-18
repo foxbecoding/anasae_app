@@ -7,7 +7,7 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         description: string
         category: Category | null
         quantity: number
-        price: number
+        price: number | null
         sku: string
         isbn: string
         images: File[] | any[]
@@ -25,6 +25,7 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         description: '',
         category: null,
         quantity: 0,
+        price: null,
         sku: '',
         isbn: '',
         images: []
