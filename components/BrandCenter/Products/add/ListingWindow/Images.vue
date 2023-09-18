@@ -3,34 +3,96 @@ import { useBrandCenterProductStore } from '@/store'
 
 const store = useBrandCenterProductStore()
 const fileRef = ref()
-const fileModel = ref()
-// watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
+
+const setImages = (images: File[]): void => {
+    images.map((x: File) => {
+        store.previewImages.push(URL.createObjectURL(x))
+        store.formData.images.push(x)
+        store.previewImages = store.previewImages.splice(0, store.imgFilesMax)
+        store.formData.images = store.formData.images.splice(0, store.imgFilesMax)
+    })
+}
+
+const remove = (i: number): void => {
+    store.previewImages = [...store.previewImages.filter(x => x != store.previewImages[i])]
+    store.formData.images = [...store.formData.images.filter(x => x != store.formData.images[i])]
+}
 
 </script>
 
 <template>
-    <v-card color="background" max-width="500">
-        <v-card-title class="px-0">Images</v-card-title>
-        <v-card-subtitle class="px-0">You can upload up to 7 images</v-card-subtitle>
-        <v-card-subtitle class="px-0">Recommened image size: 600 x 600</v-card-subtitle>
+    <v-card color="transparent" >
+        <v-card-title class="px-8">Images</v-card-title>
+        <v-card-subtitle class="px-8">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
+        <v-card-subtitle class="px-8">Recommened image size: 600 x 600</v-card-subtitle>
         <v-card-text class="px-0">
             <v-file-input
-                v-model="fileModel" 
+                @update:model-value="setImages"
                 class="d-none" 
                 ref="fileRef" 
                 accept="image/png, image/jpeg"
                 multiple
             />
-            <v-btn 
-                @click="fileRef.click()"
-                color="surface-el" 
-                flat 
-                height="90"
-                width="90"
-                rounded="lg"
-            >
-                <v-icon size="36">mdi-plus</v-icon>
-            </v-btn>
+            <div class="d-flex images-container px-8">
+                <v-btn 
+                    @click="store.previewImages.length < store.imgFilesMax ? fileRef.click() : false"
+                    color="surface-el" 
+                    flat 
+                    height="90"
+                    width="90"
+                    rounded="lg"
+                    :disabled="store.previewImages.length >= store.imgFilesMax"
+                >
+                    {{ store.previewImages.length > 0 ? store.previewImages.length :  '' }}
+                    <v-icon size="36">mdi-plus</v-icon>
+                </v-btn>
+                <div class="d-flex flex-md-wrap">
+                    <div
+                        v-for="(imgSrc, i) in store.previewImages"
+                        :key="i" 
+                        class="ml-2 mb-2 image-wrapper bg-surface-el rounded-lg"
+                    >
+                        <v-img :src="imgSrc" style="position: relative">
+                            <v-btn 
+                                @click="remove(i)"
+                                color="error" 
+                                variant="text" 
+                                size="x-small" 
+                                icon 
+                                flat
+                            >
+                                <v-icon size="large">mdi-delete</v-icon>
+                            </v-btn>
+                        </v-img>
+                    </div>
+                </div>
+            </div>
         </v-card-text>
     </v-card>
 </template>
+
+<style scoped>
+.images-container{
+    overflow-x: auto;
+    position: relative;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+    z-index: 1000
+}
+
+.images-container::-webkit-scrollbar {
+    display: none
+}
+
+/* @media screen and (max-width: 959px) {
+    .images-container::-webkit-scrollbar {
+        display: none;
+    }
+} */
+
+.image-wrapper {
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+</style>

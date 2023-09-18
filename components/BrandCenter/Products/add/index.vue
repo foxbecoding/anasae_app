@@ -20,6 +20,7 @@ const WindowItem = computed(() => {
 <template>
     <v-stepper 
         v-model="store.currentStep"
+        class="mx-0"
         :mobile="$vuetify.display.smAndDown"
         bg-color="background"
         color="primary-alt"
@@ -43,7 +44,7 @@ const WindowItem = computed(() => {
                 </template>
             </v-stepper-header>
 
-            <v-stepper-window>
+            <v-stepper-window style="margin: 0px !important;">
                 <v-stepper-window-item
                     v-for="step in store.steps"
                     :key="`${step.id}-content`"
@@ -69,5 +70,8 @@ const WindowItem = computed(() => {
 
 .v-stepper-header {
     box-shadow: none !important;
+}
+.v-stepper-window {
+    margin: 0 !important;
 }
 </style>

@@ -4,7 +4,7 @@ useBrandStore().middleware()
 </script>
 
 <template>
-    <v-container class="pa-sm-8" fluid>
+    <v-container class="pa-0" fluid>
         <BrandCenterProductsAdd />
     </v-container>
 </template>

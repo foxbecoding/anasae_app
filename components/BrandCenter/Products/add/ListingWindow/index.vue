@@ -10,11 +10,11 @@ const formSections = shallowRef([
 </script>
 
 <template>
-    <h1 class="text-h5 text-sm-h4">Add product listing</h1>
+    <h1 class="text-h5 text-sm-h4 px-6">Add product listing</h1>
     <v-container 
         v-for="(section, n) in formSections"
         :key="n" 
-        class="px-0" 
+        :class="section == Images ? 'px-0 mx-0' : 'px-6 mx-0'" 
     >
         <component :is="section"/>
     </v-container>
