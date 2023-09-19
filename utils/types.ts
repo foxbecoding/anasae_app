@@ -31,8 +31,15 @@ export interface Category {
     pk: string|number
     uid:  string
     title: string
+    product_specification: string | number
     description: string
     subcategories: string[] | number[]
+}
+
+export interface CategoryProductSpecificationItem {
+    pk: string | number
+    item: string | number
+    is_required: boolean
 }
 
 export interface FormInputBase {

@@ -1,7 +1,13 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore, useCategoryStore } from '@/store'
-import { FormTextField, FormSelectField } from '@/utils/types'
+import { useBrandStore, useBrandCenterProductStore, useCategoryStore } from '@/store'
+import { 
+    Category, 
+    CategoryProductSpecificationItem,
+    FormTextField, 
+    FormSelectField 
+} from '@/utils/types'
 
+const config = useRuntimeConfig()
 const store = useBrandCenterProductStore()
 const categoryStore = useCategoryStore()
 const fields = ref<FormTextField[]>([
@@ -60,9 +66,31 @@ const fields = ref<FormTextField[]>([
     } as FormSelectField
 ])
 
-const updatedEmitter = (e: any): void => {
-    // console.log(e)
-}
+const CategoryFormData = computed((): Category => store.formData.category as Category)
+
+watch(CategoryFormData, async (newCategory) => {
+    const {data, error, status, pending} = await useApi({
+        method: 'GET',
+        path: `${config.public.API_CATEGORY_PRODUCT_SPECIFICATIONS}${newCategory.product_specification}/`
+    })
+    store.specifications = data.value as CategoryProductSpecificationItem[]
+    let requiredSpecs: any[] = [] 
+    let otherSpecs: any[] = []
+    store.specifications.forEach(x => {
+        if (x.is_required){
+            requiredSpecs.push({label: x.item, value: '', is_requried: x.is_required})
+        }else{
+            let brandName = useBrandStore().brands[0].name
+            otherSpecs.push({
+                label: x.item, 
+                value: `${x.item == 'Brand' ? brandName : ''}`, 
+                is_requried: x.is_required
+            })
+        }
+    })
+    store.requiredProductSpecs = requiredSpecs
+    store.otherProductSpecs = otherSpecs
+})
 </script>
 
 <template>
@@ -70,7 +98,6 @@ const updatedEmitter = (e: any): void => {
         <v-card-title class="px-0">Details</v-card-title>
         <v-card-text class="px-0">
             <FormFields
-                @updated="updatedEmitter"
                 :store="store.formData"
                 :fields="fields"
             />

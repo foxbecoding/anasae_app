@@ -16,6 +16,7 @@ export default defineNuxtConfig({
             API_BRAND_OWNER: process.env.API_BRAND_OWNER,
             API_BRAND_PAGE: process.env.API_BRAND_PAGE,
             API_CATEGORY: process.env.API_CATEGORY,
+            API_CATEGORY_PRODUCT_SPECIFICATIONS: process.env.API_CATEGORY_PRODUCT_SPECIFICATIONS,
             API_AUTH_FORGOT_PASSWORD: process.env.API_AUTH_FORGOT_PASSWORD,
             API_AUTH_LOGIN: process.env.API_AUTH_LOGIN,
             API_AUTH_LOGOUT: process.env.API_AUTH_LOGOUT,

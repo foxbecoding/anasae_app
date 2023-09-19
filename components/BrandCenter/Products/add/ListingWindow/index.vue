@@ -1,15 +1,17 @@
 <script lang="ts" setup>
 import { VContainer  } from 'vuetify/components/VGrid'
-import DetailsForm from './DetailsForm.vue'
+import Details from './Details.vue'
 import Images from './Images.vue'
 import PriceAndQuantity from './PriceAndQuantity.vue'
 import Identifiers from './Identifiers.vue'
+import Specifications from './Specifications.vue'
 
 const formSections = shallowRef([
-    DetailsForm, 
+    Details, 
     Images,
     PriceAndQuantity,
-    Identifiers
+    Identifiers,
+    Specifications
 ])
 </script>
 
