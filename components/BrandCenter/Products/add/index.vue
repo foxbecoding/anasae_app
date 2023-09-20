@@ -161,7 +161,6 @@ const submitSpecs = async(products: any[]) => {
 
 const submit = async(): Promise<void> => {
     isSubmitting.value = true
-    // Add Products
     let products = await sumbitDetails()
     if(products){
         submitImages(products)
