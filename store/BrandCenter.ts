@@ -7,40 +7,52 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         description: string
         category: Category | null
         quantity: number
-        price: number | null
+        price: number
         sku: string
         isbn: string
         images: File[] | any[]
     }
 
+    interface ProdSpec {
+        label: string, 
+        value: string | number, 
+        is_required: boolean
+    }
+
+    interface ValidationProduct {
+        title: string
+        description: string
+        category: number | string
+        quantity: number
+        price: number
+        sku: string
+        isbn: string
+        images: number
+        specifications: ProdSpec[]
+    }
+
     const hasVariants = ref<boolean>(false)
+    const variantChips = ref<{label: string, value: string|number}[]>([])
     const currentStep = ref<number>(1)
     const steps = ref<{id: number, title: string}[]>([
         {id: 1, title: 'Add product listing'},
         {id: 2, title: 'Confirm product(s)'}
     ])
-    
+
     const formData = ref<FormData>({
         title: '',
         description: '',
         category: null,
         quantity: 0,
-        price: null,
+        price: 500,
         sku: '',
         isbn: '',
         images: []
     })
 
-    interface ProdSpec {
-        label: string | number, 
-        value: string | number, 
-        is_required: boolean
-    }
     const specifications = ref<CategoryProductSpecificationItem[]>([])
     const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
     const otherProductSpecs = ref<ProdSpec[]|any[]>([])
-
-
     const imgFilesMax = shallowRef<number>(7)
     const previewImages = ref<any[]>([])
 
@@ -68,7 +80,8 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         previewImages,
         requiredProductSpecs,
         specifications,
-        steps
+        steps,
+        variantChips
     }
 })
 

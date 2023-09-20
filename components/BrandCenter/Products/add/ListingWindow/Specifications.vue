@@ -1,18 +1,26 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore, useCategoryStore } from '@/store'
-import { FormTextField, FormSelectField } from '@/utils/types'
+import { useBrandCenterProductStore } from '@/store'
+import { CategoryProductSpecificationItem } from '@/utils/types'
 
 // const config = useRuntimeConfig()
 const store = useBrandCenterProductStore()
 const formRef = ref()
 const filterValue = (e: any) => {
     let char = String.fromCharCode(e.keyCode);
-    if(/^[a-zA-z0-9,/]+$/.test(char)) return true; 
+    if(/^[a-zA-z0-9/]+$/.test(char)) return true; 
     else e.preventDefault();
 }
 
 const RequiredSpecs = computed(() => store.specifications.filter(x => x.is_required == true))
 const OtherSpecs = computed(() => store.specifications.filter(x => x.is_required == false))
+
+const addVariant = (spec: CategoryProductSpecificationItem): void => {
+    let value = store.requiredProductSpecs.find(x => x.label == spec.item).value
+    store.variantChips.push({label: spec.item, value: value.toUpperCase()})
+    store.requiredProductSpecs.find(x => x.label == spec.item).value = ''
+}
+
+const removeVariant = (i: any) => store.variantChips.splice(i, 1)
 
 </script>
 
@@ -29,18 +37,30 @@ const OtherSpecs = computed(() => store.specifications.filter(x => x.is_required
             ></v-switch>
             <v-form ref="formRef">
                 <div v-for="(spec, i) in RequiredSpecs" :key="i">
+                    <v-chip-group v-if="store.hasVariants && store.variantChips.length > 0">
+                        <v-chip 
+                            v-for="(chip, n) in store.variantChips"
+                            :key="n"
+                            v-show="chip.label == spec.item"
+                            @click.stop:close="removeVariant(n)"
+                        >
+                            {{ chip.value }}
+                            <v-icon class="pl-4" size="small" icon="mdi-close-circle"></v-icon>
+                        </v-chip>
+                    </v-chip-group>
                     <v-text-field 
                         v-model="store.requiredProductSpecs.find(x => x.label == spec.item).value"
-                        @keypress="store.hasVariants ? filterValue($event) : false"
+                        @keypress.enter="store.hasVariants ? addVariant(spec) : false"
+                        @keypress="filterValue"
                         :label="`${spec.item}${store.hasVariants ? 's' : ''}`"
                         density="comfortable"
                         variant="solo"
-                        :hint="`${store.hasVariants ? 'Separate each entry with a comma' : ''}`"
+                        :hint="`${store.hasVariants ? 'Press enter after each entry' : ''}`"
                         :persistentHint="store.hasVariants"
                         color="primary"
                         bg-color="form-field-flat"
                         flat
-                        :rules="[(v: any) => !! v || `${spec.item} is required`]"
+                        :rules="!store.hasVariants ? [(v: any) => !! v || `${spec.item} is required`] : []"
                         class="mb-1"
                     >
                     </v-text-field>

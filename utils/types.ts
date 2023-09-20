@@ -38,7 +38,7 @@ export interface Category {
 
 export interface CategoryProductSpecificationItem {
     pk: string | number
-    item: string | number
+    item: string
     is_required: boolean
 }
 
