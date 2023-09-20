@@ -15,7 +15,7 @@ const fields = ref<FormTextField[]>([
         id: 1, 
         inputType: 'TEXTFIELD',
         label: `Price`, 
-        model: store.formData.price, 
+        model: store.listingDetails.price, 
         name:'price', 
         persistentHint: true,
         isNumbersOnly: true,
@@ -35,7 +35,7 @@ const fields = ref<FormTextField[]>([
         inputType: 'SELECT',
         items: quantity.value,
         label: "Quantity",
-        model: store.formData.quantity,
+        model: store.listingDetails.quantity,
         name: 'quantity',
         returnObject: true,
         rules: [ (v: any) => !! v || 'Quantity is required' ],
@@ -51,7 +51,7 @@ const fields = ref<FormTextField[]>([
         <v-card-title class="px-0">Price & quantity</v-card-title>
         <v-card-text class="px-0">
             <FormFields
-                :store="store.formData"
+                :store="store.listingDetails"
                 :fields="fields"
             />
         </v-card-text>

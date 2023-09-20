@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore } from '@/store'
+import { useBrandStore, useBrandCenterProductStore } from '@/store'
 import ListingWindow from './ListingWindow/index.vue'
 import ConfirmationWindow from './ConfirmationWindow/index.vue'
 import VariantsWindow from './VariantsWindow/index.vue'
 
+const config = useRuntimeConfig()
 const store = useBrandCenterProductStore()
 const windowItems = shallowRef([
     {id: 1, component: ListingWindow},
@@ -35,14 +36,12 @@ const WindowItem = computed(() => {
 const IsFinalStep = computed((): boolean => store.steps.length === store.currentStep )
 
 const IsNextDisabled = computed((): boolean => {
-    // if(IsFinalStep.value){ return true }
-    // else if(!store.hasVariants && store.currentStep == 2){ return true }
-    if(!store.formData.title) return true
-    if(!store.formData.description) return true
-    if(!store.formData.category) return true
-    if(store.formData.quantity == 0) return true
-    if(!store.formData.price || store.formData.price < 500) return true
-    if(store.formData.images.length == 0) return true
+    if(!store.listingDetails.title) return true
+    if(!store.listingDetails.description) return true
+    if(!store.listingDetails.category) return true
+    if(store.listingDetails.quantity == 0) return true
+    if(!store.listingDetails.price || store.listingDetails.price < 500) return true
+    if(store.listingDetails.images.length == 0) return true
     if(store.hasVariants && store.requiredProductSpecs.length > 0){
         let chips: string[] = []
         store.variantChips.forEach(x => {
@@ -62,24 +61,47 @@ const IsNextDisabled = computed((): boolean => {
     return false
 })
 
-const nextStep = (): void => {
-    if(store.currentStep === 1){
-        // specifications: ProdSpec[]
-        let products = [
-            {
-                title: store.formData.title,
-                description: store.formData.description,
-                category: store.formData.category?.pk,
-                quantity: store.formData.quantity,
-                price: store.formData.price,
-                sku: store.formData.sku,
-                isbn: store.formData.isbn,
-                images: store.formData.images.length,
-                specifications: [...store.requiredProductSpecs, ...store.otherProductSpecs],
-            }
-        ]
+const submit = async(): Promise<void> => {
+    let productDetails = [
+        {
+            title: store.listingDetails.title,
+            description: store.listingDetails.description,
+            category: store.listingDetails.category?.pk,
+            quantity: store.listingDetails.quantity,
+            sku: store.listingDetails.sku,
+            isbn: store.listingDetails.isbn,
+            brand: useBrandStore().brands[0].pk
+        }
+    ]
+
+    // Add Products
+    const { data:products, error:detailsError, status:detailsStatus } = await useApi({
+            method: 'POST', 
+            path: `${config.public.API_PRODUCT}`, 
+            data: productDetails
+        })
+        
+    // Add Images
+    let productImages = [store.listingDetails.images]
+    let formData = new FormData
+    for(let i = 0; i < products.length; i++){
+        let product = products[i]
+        productImages[i].forEach(x => formData.append('images', x))
+        formData.append('product', product.pk)
     }
-    // store.validateProducts()
+    const { data:images, error:imagesError, status:imagesStatus } = await useApi({
+        method: 'POST', 
+        path: `${config.public.API_PRODUCT_IMAGE}`, 
+        data: formData,
+        isMultiPart: true
+    })
+
+    // Add Price
+    // price: store.formData.price,
+
+    // Add Specifications
+    // specifications: [...store.requiredProductSpecs, ...store.otherProductSpecs],
+    
 }
 
 </script>
@@ -120,9 +142,6 @@ const nextStep = (): void => {
                     <component :is="WindowItem"/>
                 </v-stepper-window-item>
             </v-stepper-window>
-
-            <!-- <v-stepper-actions
-            ></v-stepper-actions> -->
             <v-container class="px-6 d-flex" fluid>
                 <v-btn 
                     @click="store.currentStep-=1" 
@@ -133,7 +152,7 @@ const nextStep = (): void => {
                 </v-btn>
                 <v-spacer />
                 <v-btn 
-                    @click="!IsFinalStep ? store.currentStep+=1 : false"
+                    @click="!IsFinalStep ? store.currentStep+=1 : submit()"
                     color="primary-alt" 
                     variant="tonal" 
                     :disabled="IsNextDisabled"
@@ -141,11 +160,6 @@ const nextStep = (): void => {
                     {{ !IsFinalStep ? 'Next' : 'Submit'}}
                 </v-btn>
             </v-container>
-            <!-- <v-stepper-actions
-                :disabled="IsDisabled"
-                @click:prev="store.currentStep-=1"
-                @click:next="store.currentStep+=1"
-            ></v-stepper-actions> -->
         </template>
     </v-stepper>
 </template>

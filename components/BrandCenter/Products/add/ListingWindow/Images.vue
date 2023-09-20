@@ -7,15 +7,15 @@ const fileRef = ref()
 const setImages = (images: File[]): void => {
     images.map((x: File) => {
         store.previewImages.push(URL.createObjectURL(x))
-        store.formData.images.push(x)
+        store.listingDetails.images.push(x)
         store.previewImages = store.previewImages.splice(0, store.imgFilesMax)
-        store.formData.images = store.formData.images.splice(0, store.imgFilesMax)
+        store.listingDetails.images = store.listingDetails.images.splice(0, store.imgFilesMax)
     })
 }
 
 const remove = (i: number): void => {
     store.previewImages = [...store.previewImages.filter(x => x != store.previewImages[i])]
-    store.formData.images = [...store.formData.images.filter(x => x != store.formData.images[i])]
+    store.listingDetails.images = [...store.listingDetails.images.filter(x => x != store.listingDetails.images[i])]
 }
 
 </script>

@@ -2,10 +2,11 @@ import { Category, CategoryProductSpecificationItem} from '@/utils/types'
 
 export const useBrandCenterProductStore = defineStore("brand-center-product-store", () => {
 
-    interface FormData {
+    interface ListingDetails {
         title: string
         description: string
         category: Category | null
+        subcategory: any | null
         quantity: number
         price: number
         sku: string
@@ -19,17 +20,6 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         is_required: boolean
     }
 
-    interface ValidationProduct {
-        title: string
-        description: string
-        category: number | string
-        quantity: number
-        price: number
-        sku: string
-        isbn: string
-        images: number
-        specifications: ProdSpec[]
-    }
 
     const hasVariants = ref<boolean>(false)
     const variantChips = ref<{label: string, value: string|number}[]>([])
@@ -39,10 +29,11 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         {id: 2, title: 'Confirm product(s)'}
     ])
 
-    const formData = ref<FormData>({
+    const listingDetails = ref<ListingDetails>({
         title: '',
         description: '',
         category: null,
+        subcategory: null,
         quantity: 0,
         price: 500,
         sku: '',
@@ -73,7 +64,7 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
 
     return {
         currentStep,
-        formData,
+        listingDetails,
         imgFilesMax,
         hasVariants,
         otherProductSpecs,

@@ -21,7 +21,7 @@ const fields = ref<FormTextField[]>([
         id: 1, 
         inputType: 'TEXTFIELD',
         label: 'Title', 
-        model: store.formData.title, 
+        model: store.listingDetails.title, 
         name:'title', 
         rules: [ 
             (v: any) => !! v || 'Title is required',
@@ -40,7 +40,7 @@ const fields = ref<FormTextField[]>([
         id: 2, 
         inputType: 'TEXTAREA',
         label: 'Description', 
-        model: store.formData.description, 
+        model: store.listingDetails.description, 
         name:'description', 
         rules: [ 
             (v: any) => !! v || 'Description is required',
@@ -58,7 +58,7 @@ const fields = ref<FormTextField[]>([
         inputType: 'SELECT',
         items: categoryStore.categories,
         label: "Category",
-        model: store.formData.category,
+        model: store.listingDetails.category,
         name: 'category',
         returnObject: true,
         rules: [ (v: any) => !! v || 'Category is required' ],
@@ -66,7 +66,7 @@ const fields = ref<FormTextField[]>([
     } as FormSelectField
 ])
 
-const CategoryFormData = computed((): Category => store.formData.category as Category)
+const CategoryFormData = computed((): Category => store.listingDetails.category as Category)
 
 watch(CategoryFormData, async (newCategory) => {
     const {data, error, status, pending} = await useApi({
@@ -98,7 +98,7 @@ watch(CategoryFormData, async (newCategory) => {
         <v-card-title class="px-0">Details</v-card-title>
         <v-card-text class="px-0">
             <FormFields
-                :store="store.formData"
+                :store="store.listingDetails"
                 :fields="fields"
             />
         </v-card-text>

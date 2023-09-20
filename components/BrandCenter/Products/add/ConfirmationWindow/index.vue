@@ -19,7 +19,7 @@ currentImg.value = store.previewImages[0]
                 align-self="center" 
                 align="center"
             >
-                <v-img :src="currentImg" class="bg-surface-el rounded"/>
+                <v-img :src="currentImg" class="bg-surface-el rounded-lg"/>
             </v-col>
             <v-col class="d-block d-sm-none" cols="12">
                 <v-container class="d-flex flex-wrap pa-0" fluid>
@@ -38,10 +38,10 @@ currentImg.value = store.previewImages[0]
             </v-col>
             <v-col cols="12" sm="7" md="8" lg="8">
                 <v-card color="background">
-                    <v-card-title class="pt-0 px-0 text-wrap">{{ store.formData.title }}</v-card-title>
-                    <v-card-title class="px-0">${{store.formData.price ? setPrice(store.formData.price) : '' }}</v-card-title>
+                    <v-card-title class="pt-0 px-0 text-wrap">{{ store.listingDetails.title }}</v-card-title>
+                    <v-card-title class="px-0">${{store.listingDetails.price ? setPrice(store.listingDetails.price) : '' }}</v-card-title>
                     <v-card-text class="px-0">
-                        {{ store.formData.description }}<br>
+                        {{ store.listingDetails.description }}<br>
                         <section 
                             v-if="store.requiredProductSpecs.length > 0"
                             class="py-4"

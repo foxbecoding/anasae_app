@@ -13,7 +13,7 @@ const fields = ref<FormTextField[]>([
         id: 1, 
         inputType: 'TEXTFIELD',
         label: 'Sku(optional)', 
-        model: store.formData.sku, 
+        model: store.listingDetails.sku, 
         name:'sku', 
         type: 'text', 
         variant: 'solo',
@@ -27,7 +27,7 @@ const fields = ref<FormTextField[]>([
         id: 2, 
         inputType: 'TEXTFIELD',
         label: 'ISBN(optional only for books)', 
-        model: store.formData.sku, 
+        model: store.listingDetails.sku, 
         name:'isbn', 
         type: 'text', 
         variant: 'solo',
@@ -41,7 +41,7 @@ const fields = ref<FormTextField[]>([
         <v-card-title class="px-0">Identifiers</v-card-title>
         <v-card-text class="px-0">
             <FormFields
-                :store="store.formData"
+                :store="store.listingDetails"
                 :fields="fields"
             />
         </v-card-text>
