@@ -47,7 +47,7 @@ currentImg.value = store.previewImages[0]
                             class="py-4"
                         >
                             <span v-for="(spec, i) in store.requiredProductSpecs">
-                                {{ spec.label }}: {{ spec.value.toUpperCase() }}<br>
+                                {{ spec.label }}: {{ spec.value.toLowerCase() }}<br>
                             </span>
                         </section>
                     </v-card-text>

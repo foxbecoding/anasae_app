@@ -78,13 +78,13 @@ watch(CategoryFormData, async (newCategory) => {
     let otherSpecs: any[] = []
     store.specifications.forEach(x => {
         if (x.is_required){
-            requiredSpecs.push({label: x.item, value: '', is_requried: x.is_required})
+            requiredSpecs.push({label: x.item, value: '', is_required: x.is_required})
         }else{
             let brandName = useBrandStore().brands[0].name
             otherSpecs.push({
                 label: x.item, 
                 value: `${x.item == 'Brand' ? brandName : ''}`, 
-                is_requried: x.is_required
+                is_required: x.is_required
             })
         }
     })

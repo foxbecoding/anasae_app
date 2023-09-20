@@ -6,6 +6,7 @@ import VariantsWindow from './VariantsWindow/index.vue'
 
 const config = useRuntimeConfig()
 const store = useBrandCenterProductStore()
+const isSubmitting = ref<boolean>(false)
 const windowItems = shallowRef([
     {id: 1, component: ListingWindow},
     {id: 2, component: ConfirmationWindow},
@@ -61,12 +62,13 @@ const IsNextDisabled = computed((): boolean => {
     return false
 })
 
-const submit = async(): Promise<void> => {
+const sumbitDetails = async(): Promise<any[] | void> => {
     let productDetails = [
         {
             title: store.listingDetails.title,
             description: store.listingDetails.description,
             category: store.listingDetails.category?.pk,
+            subcategory: null,
             quantity: store.listingDetails.quantity,
             sku: store.listingDetails.sku,
             isbn: store.listingDetails.isbn,
@@ -74,34 +76,99 @@ const submit = async(): Promise<void> => {
         }
     ]
 
-    // Add Products
-    const { data:products, error:detailsError, status:detailsStatus } = await useApi({
-            method: 'POST', 
-            path: `${config.public.API_PRODUCT}`, 
-            data: productDetails
-        })
-        
-    // Add Images
-    let productImages = [store.listingDetails.images]
-    let formData = new FormData
-    for(let i = 0; i < products.length; i++){
-        let product = products[i]
-        productImages[i].forEach(x => formData.append('images', x))
-        formData.append('product', product.pk)
-    }
-    const { data:images, error:imagesError, status:imagesStatus } = await useApi({
+    const { data, error, status } = await useApi({
         method: 'POST', 
-        path: `${config.public.API_PRODUCT_IMAGE}`, 
-        data: formData,
-        isMultiPart: true
+        path: `${config.public.API_PRODUCT}`, 
+        data: productDetails
     })
 
-    // Add Price
-    // price: store.formData.price,
+    if(status.value == 'error'){
+        isSubmitting.value = false
+        console.log(error.value)
+        return 
+    }
 
+    return data.value
+}
+
+const submitImages = async(products: any[]) => {
+    let productImages = [store.listingDetails.images]
+    for(let i = 0; i < products.length; i++){
+        let formData = new FormData
+        let product = products[i]
+        productImages[i].map(x => formData.append('images', x))
+        formData.append('product', product.pk)
+
+        const { data, error, status } = await useApi({
+            method: 'POST', 
+            path: `${config.public.API_PRODUCT_IMAGE}`, 
+            data: formData,
+            isMultiPart: true
+        })
+
+        if(status.value == 'error'){
+            isSubmitting.value = false
+            console.log(error.value)
+        }
+    }
+}
+
+const submitPrices = async(products: any[]) => {
+    let productPrices = [store.listingDetails.price]
+    let productPricesData = []
+    for(let i = 0; i < products.length; i++){
+        let product = products[i]
+        productPricesData.push({price: productPrices[i], product: product.pk})
+    }
+
+    const { data, error, status } = await useApi({
+        method: 'POST', 
+        path: `${config.public.API_PRODUCT_PRICE}`, 
+        data: productPricesData
+    })
+
+    if(status.value == 'error'){
+        isSubmitting.value = false
+        console.log(error.value)
+    }
+}
+
+const submitSpecs = async(products: any[]) => {
     // Add Specifications
-    // specifications: [...store.requiredProductSpecs, ...store.otherProductSpecs],
-    
+    let productSpecs = [[...store.requiredProductSpecs, ...store.otherProductSpecs]]
+    let productSpecsData: any[] = []
+    for(let i = 0; i < products.length; i++){
+        let product = products[i]
+        productSpecs[i].map(x => productSpecsData.push({
+            label: x.label, 
+            value: x.value,
+            is_required: x.is_required,
+            product: product.pk
+        }))
+    }
+
+    const { data, error, status } = await useApi({
+        method: 'POST', 
+        path: `${config.public.API_PRODUCT_SPECIFICATION}`, 
+        data: productSpecsData
+    })
+
+    if(status.value == 'error'){
+        isSubmitting.value = false
+        console.log(error.value)
+    }
+}
+
+const submit = async(): Promise<void> => {
+    isSubmitting.value = true
+    // Add Products
+    let products = await sumbitDetails()
+    if(products){
+        submitImages(products)
+        submitPrices(products)
+        submitSpecs(products)
+    }    
+    isSubmitting.value = false
 }
 
 </script>
@@ -155,7 +222,8 @@ const submit = async(): Promise<void> => {
                     @click="!IsFinalStep ? store.currentStep+=1 : submit()"
                     color="primary-alt" 
                     variant="tonal" 
-                    :disabled="IsNextDisabled"
+                    :loading="isSubmitting"
+                    :disabled="IsNextDisabled || isSubmitting"
                 >
                     {{ !IsFinalStep ? 'Next' : 'Submit'}}
                 </v-btn>
