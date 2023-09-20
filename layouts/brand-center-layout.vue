@@ -124,6 +124,7 @@ onBeforeMount(async() => brandStore.brands = await useGetOwnerBrands(userStore.u
         <v-main class="main-adjust-content">
             <slot></slot>
         </v-main>
+        <Snackbar />
     </v-app>
 </template>
 

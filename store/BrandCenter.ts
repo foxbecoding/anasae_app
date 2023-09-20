@@ -9,8 +9,8 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         subcategory: any | null
         quantity: number
         price: number
-        sku: string
-        isbn: string
+        sku: string | null
+        isbn: string | null
         images: File[] | any[]
     }
 
@@ -36,8 +36,8 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         subcategory: null,
         quantity: 0,
         price: 500,
-        sku: '',
-        isbn: '',
+        sku: null,
+        isbn: null,
         images: []
     })
 

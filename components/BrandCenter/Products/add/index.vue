@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useBrandStore, useBrandCenterProductStore } from '@/store'
+import { useBrandStore, useBrandCenterProductStore, useSnackbarStore } from '@/store'
 import ListingWindow from './ListingWindow/index.vue'
 import ConfirmationWindow from './ConfirmationWindow/index.vue'
 import VariantsWindow from './VariantsWindow/index.vue'
@@ -7,6 +7,8 @@ import VariantsWindow from './VariantsWindow/index.vue'
 const config = useRuntimeConfig()
 const store = useBrandCenterProductStore()
 const isSubmitting = ref<boolean>(false)
+const submitDialog = ref<boolean>(false)
+const progress = ref<number>(5)
 const windowItems = shallowRef([
     {id: 1, component: ListingWindow},
     {id: 2, component: ConfirmationWindow},
@@ -31,8 +33,6 @@ const WindowItem = computed(() => {
     }
     return {}
 })
-
-
 
 const IsFinalStep = computed((): boolean => store.steps.length === store.currentStep )
 
@@ -87,7 +87,7 @@ const sumbitDetails = async(): Promise<any[] | void> => {
         console.log(error.value)
         return 
     }
-
+    progress.value = 25
     return data.value
 }
 
@@ -109,8 +109,11 @@ const submitImages = async(products: any[]) => {
         if(status.value == 'error'){
             isSubmitting.value = false
             console.log(error.value)
+            return status.value
         }
     }
+    progress.value = 50
+    return 'success'
 }
 
 const submitPrices = async(products: any[]) => {
@@ -130,11 +133,13 @@ const submitPrices = async(products: any[]) => {
     if(status.value == 'error'){
         isSubmitting.value = false
         console.log(error.value)
+        return status.value
     }
+    progress.value = 75
+    return status.value
 }
 
 const submitSpecs = async(products: any[]) => {
-    // Add Specifications
     let productSpecs = [[...store.requiredProductSpecs, ...store.otherProductSpecs]]
     let productSpecsData: any[] = []
     for(let i = 0; i < products.length; i++){
@@ -156,18 +161,30 @@ const submitSpecs = async(products: any[]) => {
     if(status.value == 'error'){
         isSubmitting.value = false
         console.log(error.value)
+        return status.value
     }
+    progress.value = 100
+    return status.value
 }
 
 const submit = async(): Promise<void> => {
+    submitDialog.value = true
     isSubmitting.value = true
     let products = await sumbitDetails()
     if(products){
-        submitImages(products)
-        submitPrices(products)
-        submitSpecs(products)
+        let imagesStatus = await submitImages(products)
+        if(imagesStatus == 'error'){ isSubmitting.value = false; return } 
+        
+        let pricesStatus = await submitPrices(products)
+        if(pricesStatus == 'error'){ isSubmitting.value = false; return }
+        
+        let specsStatus = await submitSpecs(products)
+        if(specsStatus == 'error'){ isSubmitting.value = false; return }
     }    
+    submitDialog.value = false
     isSubmitting.value = false
+    navigateTo('/brand-center/manage-products')
+    useSnackbarStore().setSnackbar('Product listing added', true)
 }
 
 </script>
@@ -229,6 +246,28 @@ const submit = async(): Promise<void> => {
             </v-container>
         </template>
     </v-stepper>
+    <v-dialog
+      v-model="submitDialog"
+      width="auto"
+    >
+      <v-card class="rounded-lg">
+        <v-card-title class="text-wrap">
+            Submitting product listing 
+        </v-card-title>
+        <v-card-text>
+            <v-progress-linear
+                v-model="progress"
+                color="primary-alt"
+                height="25"
+                rounded="pill"
+            >
+                <template v-slot:default="{ value }">
+                    <strong>{{ Math.ceil(value) }}%</strong>
+                </template>
+            </v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
