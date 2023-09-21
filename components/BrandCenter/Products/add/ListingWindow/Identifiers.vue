@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore } from '@/store'
+import { useBrandCenterProductListingStore } from '@/store'
 import { FormTextField } from '@/utils/types'
 
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const fields = ref<FormTextField[]>([
     {
         bgColor: 'form-field-flat',

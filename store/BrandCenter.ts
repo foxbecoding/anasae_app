@@ -1,6 +1,6 @@
 import { Category, CategoryProductSpecificationItem} from '@/utils/types'
 
-export const useBrandCenterProductStore = defineStore("brand-center-product-store", () => {
+export const useBrandCenterProductListingStore = defineStore("brand-center-product-listing-store", () => {
 
     interface ListingDetails {
         title: string
@@ -19,7 +19,6 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
         value: string | number, 
         is_required: boolean
     }
-
 
     const hasVariants = ref<boolean>(false)
     const variantChips = ref<{label: string, value: string|number}[]>([])
@@ -46,6 +45,34 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
     const otherProductSpecs = ref<ProdSpec[]|any[]>([])
     const imgFilesMax = shallowRef<number>(7)
     const previewImages = ref<any[]>([])
+
+    const resestData = (): void => {
+        hasVariants.value = false
+        variantChips.value = []
+        currentStep.value = 1
+        steps.value = [
+            {id: 1, title: 'Add product listing'},
+            {id: 2, title: 'Confirm product(s)'}
+        ]
+        
+        const specifications = ref<CategoryProductSpecificationItem[]>([])
+        const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
+        const otherProductSpecs = ref<ProdSpec[]|any[]>([])
+        const imgFilesMax = shallowRef<number>(7)
+        const previewImages = ref<any[]>([])
+
+        listingDetails.value = {
+            title: '',
+            description: '',
+            category: null,
+            subcategory: null,
+            quantity: 0,
+            price: 500,
+            sku: null,
+            isbn: null,
+            images: []
+        }
+    }
 
     watch(hasVariants, (newData) => {
         if(newData){
@@ -77,5 +104,5 @@ export const useBrandCenterProductStore = defineStore("brand-center-product-stor
 })
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useBrandCenterProductStore, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useBrandCenterProductListingStore, import.meta.hot));
 }

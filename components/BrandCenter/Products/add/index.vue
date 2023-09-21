@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useBrandStore, useBrandCenterProductStore, useSnackbarStore } from '@/store'
+import { useBrandStore, useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
 import ListingWindow from './ListingWindow/index.vue'
 import ConfirmationWindow from './ConfirmationWindow/index.vue'
 import VariantsWindow from './VariantsWindow/index.vue'
 
 const config = useRuntimeConfig()
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const isSubmitting = ref<boolean>(false)
 const submitDialog = ref<boolean>(false)
 const progress = ref<number>(5)
@@ -185,6 +185,7 @@ const submit = async(): Promise<void> => {
     isSubmitting.value = false
     navigateTo('/brand-center/manage-products')
     useSnackbarStore().setSnackbar('Product listing added', true)
+    store.$reset()
 }
 
 </script>

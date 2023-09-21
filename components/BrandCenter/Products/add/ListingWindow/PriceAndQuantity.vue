@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore } from '@/store'
+import { useBrandCenterProductListingStore } from '@/store'
 import { FormTextField, FormSelectField } from '@/utils/types'
 
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const quantity = shallowRef([ ...Array(50).keys() ].map( i => i+1))
 const fields = ref<FormTextField[]>([
     {

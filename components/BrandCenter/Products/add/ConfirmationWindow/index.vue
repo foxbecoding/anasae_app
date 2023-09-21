@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useBrandStore, useBrandCenterProductStore } from '@/store'
+import { useBrandStore, useBrandCenterProductListingStore } from '@/store'
 
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const currentImg = ref()
 const setPrice = (price: number) => price/100
 

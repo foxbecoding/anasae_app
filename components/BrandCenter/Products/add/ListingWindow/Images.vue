@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore } from '@/store'
+import { useBrandCenterProductListingStore } from '@/store'
 
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const fileRef = ref()
 
 const setImages = (images: File[]): void => {

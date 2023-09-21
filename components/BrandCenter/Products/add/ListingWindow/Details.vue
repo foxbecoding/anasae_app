@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useBrandStore, useBrandCenterProductStore, useCategoryStore } from '@/store'
+import { useBrandStore, useBrandCenterProductListingStore, useCategoryStore } from '@/store'
 import { 
     Category, 
     CategoryProductSpecificationItem,
@@ -8,7 +8,7 @@ import {
 } from '@/utils/types'
 
 const config = useRuntimeConfig()
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const categoryStore = useCategoryStore()
 const fields = ref<FormTextField[]>([
     {

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useBrandCenterProductStore } from '@/store'
+import { useBrandCenterProductListingStore } from '@/store'
 import { CategoryProductSpecificationItem } from '@/utils/types'
 
 // const config = useRuntimeConfig()
-const store = useBrandCenterProductStore()
+const store = useBrandCenterProductListingStore()
 const formRef = ref()
 const filterValue = (e: any) => {
     let char = String.fromCharCode(e.keyCode);
