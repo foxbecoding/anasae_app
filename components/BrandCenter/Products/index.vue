@@ -1,103 +1,33 @@
 <script lang="ts" setup>
+import { Product } from '@/utils/types'
 
+const config = useRuntimeConfig()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
+const products = ref<Product[]>()
 const headers = ref<any[]>([
     {
         align: 'start',
-        key: 'name',
-        sortable: false,
-        title: 'Dessert (100g serving)',
+        key: 'title',
+        title: 'Title',
     },
-    { key: 'calories', title: 'Calories' },
-    { key: 'fat', title: 'Fat (g)' },
-    { key: 'carbs', title: 'Carbs (g)' },
-    { key: 'protein', title: 'Protein (g)' },
-    { key: 'iron', title: 'Iron (%)' },
+    { key: 'group_id', title: 'Product group id' },
+    { key: 'images', title: 'Images' },
+    { key: 'category', title: 'Category' },
+    { key: 'price', title: 'Price' },
+    { key: 'quantity', title: 'Quantity' },
 ])
 
-const desserts = ref<any[]>([
-    {
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: 1,
-    },
-    {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        iron: 1,
-    },
-    {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: 7,
-    },
-    {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        iron: 8,
-    },
-    {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: 16,
-    },
-    {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        iron: 0,
-    },
-    {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        iron: 2,
-    },
-    {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        iron: 45,
-    },
-    {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        iron: 22,
-    },
-    {
-        name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        iron: 6,
-    }
-])
+const {data: cacheProducts} = await useNuxtData(`${config.public.API_BRAND_CENTER_PRODUCT}`)
+products.value = cacheProducts.value
+
+const {data} = await useApi({
+    method: 'GET', 
+    path: `${config.public.API_BRAND_CENTER_PRODUCT}`,
+    key: `${config.public.API_BRAND_CENTER_PRODUCT}`
+})
+
+products.value = data.value
 
 </script>
 
@@ -133,9 +63,9 @@ const desserts = ref<any[]>([
         <v-data-table
             v-model="selected"
             :headers="headers"
-            :items="desserts"
+            :items="products"
             :search="search"
-            item-value="name"
+            item-value="pk"
             return-object
             show-select
         >
@@ -175,12 +105,22 @@ const desserts = ref<any[]>([
 
                         ></v-checkbox-btn>
                     </td> 
-                    <td>{{ item.columns.name }}</td>
-                    <td>{{ item.columns.calories }}</td>
-                    <td>{{ item.columns.fat }}</td>
-                    <td>{{ item.columns.carbs }}</td>
-                    <td>{{ item.columns.protein }}</td>
-                    <td>{{ item.columns.iron }}</td>
+                    <td>{{ item.columns.title }}</td>
+                    <td>{{ item.columns.group_id }}</td>
+                    <td>
+                        <div class="d-flex justify-space-between align-center">
+                            <div 
+                                v-for="(img, i) in item.columns.images" 
+                                :key="i"
+                                class="image-wrapper bg-surface-el mr-1"
+                            >
+                                <v-img :src="config.public.CDN_URL+img.image"/>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ item.columns.category.title }}</td>
+                    <td>${{ item.columns.price.price/100 }}</td>
+                    <td>{{ item.columns.quantity }}</td>
                 </tr>
             </template>
         </v-data-table>
@@ -203,5 +143,10 @@ const desserts = ref<any[]>([
 
 .v-table--density-default > .v-table__wrapper > table > thead > tr > th {
     background: rgb(var(--v-theme-background)) !important;
+}
+
+.image-wrapper {
+    width: 30px;
+    height: 30px;
 }
 </style>

@@ -108,6 +108,50 @@ export interface MenuItem {
     show?: boolean
 }
 
+export interface Product { 
+    pk: string|number 
+    uid: string
+    group_id: string
+    title: string
+    description: string
+    sku: string|null
+    isbn: string|null
+    stripe_product_id: string 
+    quantity: number
+    brand: { 
+        pk: string|number
+        uid: string
+        name: string 
+        logo: string|number 
+    } 
+    category: { 
+        pk: string|number 
+        uid: string 
+        title: string 
+    } 
+    subcategory: { 
+        pk: string|number 
+        uid: string 
+        title: string 
+    }|null
+    price: { 
+        pk: string|null 
+        price: number 
+    } 
+    specifications: { 
+        pk: string
+        label: string 
+        value: string|number 
+        is_required: boolean 
+        product: string|number 
+    }[] 
+    images: { 
+        product: string|number 
+        image: string 
+        pk: string|number 
+    }[] 
+}
+
 export interface Slide {
     is_active: boolean
     image: string, 

@@ -62,6 +62,16 @@ const IsNextDisabled = computed((): boolean => {
     return false
 })
 
+const nextStep = (): void => {
+    if(store.currentStep === 1 && store.hasVariants){
+        let t1, t2 = [store.requiredProductSpecs[0], ...store.requiredProductSpecs]
+        console.log(t1)
+        console.log(t2)
+        return
+    }
+    store.currentStep+=1
+}
+
 const sumbitDetails = async(): Promise<any[] | void> => {
     let productDetails = [
         {
@@ -236,7 +246,7 @@ const submit = async(): Promise<void> => {
                 </v-btn>
                 <v-spacer />
                 <v-btn 
-                    @click="!IsFinalStep ? store.currentStep+=1 : submit()"
+                    @click="!IsFinalStep ? nextStep() : submit()"
                     color="primary-alt" 
                     variant="tonal" 
                     :loading="isSubmitting"

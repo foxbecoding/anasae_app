@@ -55,11 +55,11 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
             {id: 2, title: 'Confirm product(s)'}
         ]
         
-        const specifications = ref<CategoryProductSpecificationItem[]>([])
-        const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
-        const otherProductSpecs = ref<ProdSpec[]|any[]>([])
-        const imgFilesMax = shallowRef<number>(7)
-        const previewImages = ref<any[]>([])
+        specifications.value = []
+        requiredProductSpecs.value = []
+        otherProductSpecs.value = []
+        imgFilesMax.value = 7
+        previewImages.value = []
 
         listingDetails.value = {
             title: '',
