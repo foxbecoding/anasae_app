@@ -64,9 +64,33 @@ const IsNextDisabled = computed((): boolean => {
 
 const nextStep = (): void => {
     if(store.currentStep === 1 && store.hasVariants){
-        let t1, t2 = [store.requiredProductSpecs[0], ...store.requiredProductSpecs]
-        console.log(t1)
-        console.log(t2)
+        let specs: any = {}
+        let variantData: any[] = []
+        store.requiredProductSpecs.map(x => {
+            specs[`${x.label}`] = store.variantChips.filter(v => v.label == x.label)
+        })
+
+        specs.Color.map((color: any) => {
+            specs.Size.map((size: any) => variantData.push(
+                { 
+                    title: store.listingDetails.title,
+                    description: store.listingDetails.description,
+                    category: store.listingDetails.category,
+                    subcategory: store.listingDetails.subcategory,
+                    quantity: store.listingDetails.quantity,
+                    price: store.listingDetails.price,
+                    sku: store.listingDetails.sku,
+                    isbn: store.listingDetails.isbn,
+                    images: store.listingDetails.images,
+                    specifications: [color, size, ...store.otherProductSpecs]
+                }
+            ))
+        })
+        store.productVariants = variantData
+        for(let i = 0; i < store.productVariants.length; i++){
+            store.productVariants[i].id = i+1
+        }
+        store.currentStep+=1
         return
     }
     store.currentStep+=1

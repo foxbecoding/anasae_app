@@ -16,7 +16,7 @@ const OtherSpecs = computed(() => store.specifications.filter(x => x.is_required
 
 const addVariant = (spec: CategoryProductSpecificationItem): void => {
     let value = store.requiredProductSpecs.find(x => x.label == spec.item).value
-    store.variantChips.push({label: spec.item, value: value.toUpperCase()})
+    store.variantChips.push({label: spec.item, value: value.toUpperCase(), is_required: spec.is_required})
     store.requiredProductSpecs.find(x => x.label == spec.item).value = ''
 }
 

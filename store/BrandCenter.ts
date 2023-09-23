@@ -14,14 +14,20 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         images: File[] | any[]
     }
 
+    
     interface ProdSpec {
-        label: string, 
-        value: string | number, 
+        label: string
+        value: string | number
         is_required: boolean
     }
 
+    interface ProductVariant extends ListingDetails {
+        id: string|number
+        specifications: ProdSpec[]
+    }
+
     const hasVariants = ref<boolean>(false)
-    const variantChips = ref<{label: string, value: string|number}[]>([])
+    const variantChips = ref<ProdSpec[]>([])
     const currentStep = ref<number>(1)
     const steps = ref<{id: number, title: string}[]>([
         {id: 1, title: 'Add product listing'},
@@ -40,39 +46,40 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         images: []
     })
 
+    const productVariants = ref<ProductVariant[]>([])
     const specifications = ref<CategoryProductSpecificationItem[]>([])
     const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
     const otherProductSpecs = ref<ProdSpec[]|any[]>([])
     const imgFilesMax = shallowRef<number>(7)
     const previewImages = ref<any[]>([])
 
-    const resestData = (): void => {
-        hasVariants.value = false
-        variantChips.value = []
-        currentStep.value = 1
-        steps.value = [
-            {id: 1, title: 'Add product listing'},
-            {id: 2, title: 'Confirm product(s)'}
-        ]
+    // const resestData = (): void => {
+    //     hasVariants.value = false
+    //     variantChips.value = []
+    //     currentStep.value = 1
+    //     steps.value = [
+    //         {id: 1, title: 'Add product listing'},
+    //         {id: 2, title: 'Confirm product(s)'}
+    //     ]
         
-        specifications.value = []
-        requiredProductSpecs.value = []
-        otherProductSpecs.value = []
-        imgFilesMax.value = 7
-        previewImages.value = []
+    //     specifications.value = []
+    //     requiredProductSpecs.value = []
+    //     otherProductSpecs.value = []
+    //     imgFilesMax.value = 7
+    //     previewImages.value = []
 
-        listingDetails.value = {
-            title: '',
-            description: '',
-            category: null,
-            subcategory: null,
-            quantity: 0,
-            price: 500,
-            sku: null,
-            isbn: null,
-            images: []
-        }
-    }
+    //     listingDetails.value = {
+    //         title: '',
+    //         description: '',
+    //         category: null,
+    //         subcategory: null,
+    //         quantity: 0,
+    //         price: 500,
+    //         sku: null,
+    //         isbn: null,
+    //         images: []
+    //     }
+    // }
 
     watch(hasVariants, (newData) => {
         if(newData){
@@ -96,6 +103,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         hasVariants,
         otherProductSpecs,
         previewImages,
+        productVariants,
         requiredProductSpecs,
         specifications,
         steps,

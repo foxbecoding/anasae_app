@@ -124,7 +124,7 @@ products.value = data.value
                 </tr>
             </template>
         </v-data-table>
-  </v-card>
+    </v-card>
 </template>
 
 <style scoped>
