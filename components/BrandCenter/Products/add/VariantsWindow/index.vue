@@ -2,6 +2,7 @@
 import { useBrandCenterProductListingStore } from '@/store'
 import { useDisplay } from 'vuetify'
 import EditImages from './EditImages.vue'
+import EditDescription from './EditDescription.vue';
 
 const dialog = ref<boolean>(false)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
@@ -17,9 +18,12 @@ const headers = ref<any[]>([
         title: 'Variant',
     },
     { key: 'title', title: 'Title' },
+    { key: 'description', title: 'Description' },
     { key: 'images', title: 'Images' },
     { key: 'price', title: 'Price' },
-    // { key: 'quantity', title: 'Quantity' },
+    { key: 'quantity', title: 'Quantity' },
+    { key: 'sku', title: 'Sku' },
+    { key: 'specifications', title: 'Specifications' },
 ])
 
 const setVariantField = (specs: any[]) => {
@@ -38,10 +42,13 @@ const previewImages = (images: File[]): string[] => {
     return imgs
 }
 
-const editImages = (itemId: number): void => {
-    console.log(store.productVariants)
+const editData = (itemId: number, type: 'images'|'description'): void => {
     editVariantId.value = itemId
-    editComponent.value = EditImages
+    if(type === 'images'){
+        editComponent.value = EditImages
+    }else {
+        editComponent.value = EditDescription
+    }
     dialog.value = true
 }
 
@@ -55,7 +62,6 @@ const numbersOnly = (e: any) => {
 
 <template>
     <h1 class="text-h5 text-sm-h4 px-6">Product variants</h1>
-    {{ store.productVariants[0] }}
     <v-container class="px-6" fluid>
         <v-card color="background" rounded="lg" border>
             <v-card-title>{{ store.productVariants.length }} product variants</v-card-title>
@@ -103,12 +109,11 @@ const numbersOnly = (e: any) => {
                                 <v-text-field
                                     v-model="item.value.title"
                                     bg-color="background"
-                                    
                                     color="primary-alt"
                                     density="compact"
+                                    placeholder="Enter product title"
                                     hide-details
                                     variant="underlined"
-                                    
                                     :rules="[ 
                                         (v: any) => !! v || 'Title is required',
                                         (v: any) => v.length <= 90 || 'Must be 90 characters or less', 
@@ -117,9 +122,20 @@ const numbersOnly = (e: any) => {
                             </div>
                         </td>
                         <td>
+                            <v-btn 
+                                @click="editData(item.value.id, 'description')"
+                                size="small" 
+                                color="primary-alt" 
+                                variant="tonal"
+                            >
+                                <v-icon class="mr-2" icon="mdi-pencil"/>
+                                Description
+                            </v-btn>
+                        </td>
+                        <td>
                             <div class="d-flex  align-center">
                                 <v-btn 
-                                    @click="editImages(item.value.id)"
+                                    @click="editData(item.value.id, 'images')"
                                     color="primary"
                                     min-width="0px" 
                                     min-height="0px"
@@ -173,8 +189,39 @@ const numbersOnly = (e: any) => {
                                 ></v-text-field>
                             </div>
                         </td>
-                        <!--
-                        <td>{{ item.columns.quantity }}</td> -->
+                        <td>
+                            <div class="quantity-field">
+                                <v-select
+                                    v-model="item.value.quantity"
+                                    :items="store.quantityLimit"
+                                    color="primary-alt"
+                                    variant="underlined"
+                                    density="compact"
+                                    :rules="[ (v: any) => !! v || 'Quantity is required' ]"
+                                    bg-color="background"
+                                    hide-details
+                                />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="title-field">
+                                <v-text-field
+                                    v-model="item.value.sku"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    density="compact"
+                                    placeholder="SKU(optional)"
+                                    hide-details
+                                    variant="underlined"
+                                ></v-text-field>
+                            </div>
+                        </td>
+                        <td>
+                            <v-btn size="small" color="primary-alt" variant="tonal">
+                                <v-icon class="mr-2" icon="mdi-pencil"/>
+                                Specifications
+                            </v-btn>
+                        </td>
                     </tr>
                 </template>
             </v-data-table>
@@ -214,6 +261,16 @@ const numbersOnly = (e: any) => {
                         :is="editComponent" 
                         :id="editVariantId"
                     />
+                    <v-btn 
+                        @click="dialog = false"
+                        color="primary-alt" 
+                        class="ml-auto mt-4" 
+                        variant="tonal" 
+                        rounded="pill"
+                        block
+                    >
+                        Done
+                    </v-btn>
                 </v-card-text>
             </v-container>
         </v-card>
@@ -247,5 +304,8 @@ const numbersOnly = (e: any) => {
 }
 .price-field {
     width: 80px;
+}
+.quantity-field {
+    width: 60px;
 }
 </style>

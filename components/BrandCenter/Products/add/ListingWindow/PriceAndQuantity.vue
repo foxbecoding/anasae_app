@@ -3,7 +3,6 @@ import { useBrandCenterProductListingStore } from '@/store'
 import { FormTextField, FormSelectField } from '@/utils/types'
 
 const store = useBrandCenterProductListingStore()
-const quantity = shallowRef([ ...Array(50).keys() ].map( i => i+1))
 const fields = ref<FormTextField[]>([
     {
         bgColor: 'form-field-flat',
@@ -33,7 +32,7 @@ const fields = ref<FormTextField[]>([
         density: 'comfortable',
         id: 2, 
         inputType: 'SELECT',
-        items: quantity.value,
+        items: store.quantityLimit,
         label: "Quantity",
         model: store.listingDetails.quantity,
         name: 'quantity',

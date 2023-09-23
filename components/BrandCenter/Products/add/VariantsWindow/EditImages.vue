@@ -51,8 +51,12 @@ const setVariantField = (specs: any[]) => {
         accept="image/png, image/jpeg"
         multiple
     />
-    <h3 class="mb-4">Variant: {{ setVariantField(store.productVariants.filter(x => x.id == props.id)[0].specifications) }}</h3>
-    <div class="d-flex flex-wrap" >
+    <v-card-title class="pl-0">Variant: {{ setVariantField(store.productVariants.filter(x => x.id == props.id)[0].specifications) }}</v-card-title>
+    <v-card-subtitle class="pl-0">
+        Max {{ store.imgFilesMax }} images: {{ Images.length }} of {{ store.imgFilesMax }} images uploaded
+    </v-card-subtitle>
+    <v-card-subtitle class="pl-0">Recommened image size: 600 x 600</v-card-subtitle>
+    <div class="d-flex flex-wrap mt-4" >
         <div
             class="bg-surface-el rounded mr-2 mb-2"
             style="height: 100px; width: 100px" 
@@ -91,6 +95,6 @@ const setVariantField = (specs: any[]) => {
         block
         :disabled="Images.length >= store.imgFilesMax"
     >
-        Add Image(s){{ Images.length }}
+        Add Image(s)
     </v-btn>
 </template>

@@ -29,6 +29,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
     const hasVariants = ref<boolean>(false)
     const variantChips = ref<ProdSpec[]>([])
     const currentStep = ref<number>(1)
+    const quantityLimit = shallowRef([ ...Array(50).keys() ].map( i => i+1))
     const steps = ref<{id: number, title: string}[]>([
         {id: 1, title: 'Add product listing'},
         {id: 2, title: 'Confirm product(s)'}
@@ -104,6 +105,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         otherProductSpecs,
         previewImages,
         productVariants,
+        quantityLimit,
         requiredProductSpecs,
         specifications,
         steps,
