@@ -70,6 +70,19 @@ const nextStep = (): void => {
             specs[`${x.label}`] = store.variantChips.filter(v => v.label == x.label)
         })
 
+        let otherSpecs: any[] = []
+
+        store.specifications.forEach(x => {
+            if (!x.is_required){
+                let brandName = useBrandStore().brands[0].name
+                otherSpecs.push({
+                    label: x.item, 
+                    value: `${x.item == 'Brand' ? brandName : ''}`, 
+                    is_required: x.is_required
+                })
+            }
+        })
+
         specs.Color.map((color: any) => {
             specs.Size.map((size: any) => variantData.push(
                 { 
@@ -82,6 +95,7 @@ const nextStep = (): void => {
                     sku: store.listingDetails.sku,
                     isbn: store.listingDetails.isbn,
                     images: store.listingDetails.images,
+                    variant: `${color.value},${size.value}`,
                     specifications: [color, size, ...store.otherProductSpecs]
                 }
             ))

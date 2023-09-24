@@ -23,6 +23,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
 
     interface ProductVariant extends ListingDetails {
         id: string|number
+        variant: string
         specifications: ProdSpec[]
     }
 
@@ -54,33 +55,15 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
     const imgFilesMax = shallowRef<number>(7)
     const previewImages = ref<any[]>([])
 
-    // const resestData = (): void => {
-    //     hasVariants.value = false
-    //     variantChips.value = []
-    //     currentStep.value = 1
-    //     steps.value = [
-    //         {id: 1, title: 'Add product listing'},
-    //         {id: 2, title: 'Confirm product(s)'}
-    //     ]
-        
-    //     specifications.value = []
-    //     requiredProductSpecs.value = []
-    //     otherProductSpecs.value = []
-    //     imgFilesMax.value = 7
-    //     previewImages.value = []
-
-    //     listingDetails.value = {
-    //         title: '',
-    //         description: '',
-    //         category: null,
-    //         subcategory: null,
-    //         quantity: 0,
-    //         price: 500,
-    //         sku: null,
-    //         isbn: null,
-    //         images: []
-    //     }
-    // }
+    const setVariantField = (specs: any[]) => {
+        let specValues = specs.map(x => {
+            if(x.is_required){
+                return x.value
+            }
+        }).filter(x => x).toString()
+    
+        return specValues
+    }
 
     watch(hasVariants, (newData) => {
         if(newData){
@@ -109,7 +92,8 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         requiredProductSpecs,
         specifications,
         steps,
-        variantChips
+        variantChips,
+        setVariantField
     }
 })
 

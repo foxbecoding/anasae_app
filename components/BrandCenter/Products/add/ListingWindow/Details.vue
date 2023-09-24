@@ -46,7 +46,7 @@ const fields = ref<FormTextField[]>([
             (v: any) => !! v || 'Description is required',
             (v: any) => v.length <= 300 || 'Must be 300 characters or less', 
         ],
-        type:'password', 
+        type:'text', 
         variant: 'solo',
     },
     {

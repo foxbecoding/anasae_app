@@ -1,44 +1,38 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore } from '@/store'
+import { useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
 const props = defineProps({
     id: Number
 })
 
+const emit = defineEmits<{
+  save: [status: boolean] 
+}>()
+
 const store = useBrandCenterProductListingStore()
 const fileRef = ref()
+const images = ref<File[]>(store.productVariants.filter(x => x.id == props.id)[0].images)
 
-const Images = computed(() => store.productVariants.filter(x => x.id == props.id)[0].images)
-
-const previewImages = (images: File[])  => {
-    let imgs = images.map(x => (URL.createObjectURL(x)))
-    return imgs
+const previewImages = (imageFiles: File[])  => {
+    let images = imageFiles.map(x => (URL.createObjectURL(x)))
+    return images
 }
 
-const remove = (i: number): void => {
-    let variantImages = store.productVariants.filter(x => x.id == props.id)[0].images
-    store.productVariants.filter(x => x.id == props.id)[0].images = [...variantImages.filter(x => x != variantImages[i])]
-}
+const remove = (i: number) => images.value = [...images.value.filter(x => x != images.value[i])]
+const removeAll = () => images.value = []
 
-const removeAll = (): void => {
-    store.productVariants.filter(x => x.id == props.id)[0].images = []
-}
-
-const setImages = (images: File[]): void => {
-    images.map((x: File) => {
-        store.productVariants.filter(x => x.id == props.id)[0].images.push(x)
-        store.productVariants.filter(x => x.id == props.id)[0].images = store.productVariants.filter(x => x.id == props.id)[0].images.splice(0, store.imgFilesMax)
+const setImages = (imageFiles: File[]): void => {
+    imageFiles.map((x: File) => {
+        images.value.push(x)
+        images.value = images.value.splice(0, store.imgFilesMax)
     })
 }
 
-const setVariantField = (specs: any[]) => {
-    let specValues = specs.map(x => {
-        if(x.is_required){
-            return x.value
-        }
-    }).filter(x => x).toString()
+const Variant = computed(() => store.productVariants.filter(x => x.id == props.id)[0].variant)
 
-    return specValues
-
+const save = (): void => {
+    store.productVariants.filter(x => x.id == props.id)[0].images = images.value
+    emit('save', true)
+    useSnackbarStore().setSnackbar('Images updated', true)
 }
 
 </script>
@@ -51,16 +45,19 @@ const setVariantField = (specs: any[]) => {
         accept="image/png, image/jpeg"
         multiple
     />
-    <v-card-title class="pl-0">Variant: {{ setVariantField(store.productVariants.filter(x => x.id == props.id)[0].specifications) }}</v-card-title>
-    <v-card-subtitle class="pl-0">
-        Max {{ store.imgFilesMax }} images: {{ Images.length }} of {{ store.imgFilesMax }} images uploaded
+    <v-card-title class="pl-0 text-wrap">Edit Images</v-card-title>
+    <v-card-subtitle class="pl-0 text-wrap">
+        Variant: {{ Variant }}
     </v-card-subtitle>
-    <v-card-subtitle class="pl-0">Recommened image size: 600 x 600</v-card-subtitle>
+    <v-card-subtitle class="pl-0 text-wrap">
+        Max {{ store.imgFilesMax }} images: {{ images.length }} of {{ store.imgFilesMax }} images uploaded
+    </v-card-subtitle>
+    <v-card-subtitle class="pl-0 text-wrap">Recommened image size: 600 x 600</v-card-subtitle>
     <div class="d-flex flex-wrap mt-4" >
         <div
             class="bg-surface-el rounded mr-2 mb-2"
             style="height: 100px; width: 100px" 
-            v-for="(img, i) in previewImages(Images)"
+            v-for="(img, i) in previewImages(images)"
             :key="i"
         >
             <v-img :src="img" class="rounded">
@@ -80,21 +77,30 @@ const setVariantField = (specs: any[]) => {
     <v-btn 
         @click="removeAll()"
         color="error" 
-        class="my-4"
+        class="my-4 mr-2"
+        size="small"
         flat 
-        rounded="pill"
-        block
+        rounded="lg"
     >
-        Remove all images
+        Remove all
     </v-btn>
     <v-btn 
-        @click="Images.length < store.imgFilesMax ? fileRef.click() : false"
-        color="primary" 
+        @click="images.length < store.imgFilesMax ? fileRef.click() : false"
+        color="primary-alt" 
+        size="small"
         flat 
-        rounded="pill"
-        block
-        :disabled="Images.length >= store.imgFilesMax"
+        rounded="lg"
+        :disabled="images.length >= store.imgFilesMax"
     >
         Add Image(s)
+    </v-btn>
+    <v-btn 
+        @click="save"
+        color="primary" 
+        class="ml-auto mt-4" 
+        rounded="pill"
+        block
+    >
+        Save
     </v-btn>
 </template>

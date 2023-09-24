@@ -2,7 +2,8 @@
 import { useBrandCenterProductListingStore } from '@/store'
 import { useDisplay } from 'vuetify'
 import EditImages from './EditImages.vue'
-import EditDescription from './EditDescription.vue';
+import EditDescription from './EditDescription.vue'
+import EditSpecifications from './EditSpecifications.vue'
 
 const dialog = ref<boolean>(false)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
@@ -14,7 +15,7 @@ const editPriceId = ref<number|null>()
 const headers = ref<any[]>([
     {
         align: 'start',
-        key: 'specifications',
+        key: 'variant',
         title: 'Variant',
     },
     { key: 'title', title: 'Title' },
@@ -26,28 +27,19 @@ const headers = ref<any[]>([
     { key: 'specifications', title: 'Specifications' },
 ])
 
-const setVariantField = (specs: any[]) => {
-    let specValues = specs.map(x => {
-        if(x.is_required){
-            return x.value
-        }
-    }).filter(x => x).toString()
-
-    return specValues
-
-}
-
 const previewImages = (images: File[]): string[] => {
     let imgs = images.map((x: File) => (URL.createObjectURL(x)))
     return imgs
 }
 
-const editData = (itemId: number, type: 'images'|'description'): void => {
+const editData = (itemId: number, type: 'images'|'description'|'specifications'): void => {
     editVariantId.value = itemId
     if(type === 'images'){
         editComponent.value = EditImages
-    }else {
+    }else if(type === 'description'){
         editComponent.value = EditDescription
+    }else{
+        editComponent.value = EditSpecifications
     }
     dialog.value = true
 }
@@ -103,7 +95,7 @@ const numbersOnly = (e: any) => {
 
                             ></v-checkbox-btn>
                         </td> 
-                        <td>{{ setVariantField(item.columns.specifications) }}</td>
+                        <td>{{ item.columns.variant }}</td>
                         <td>
                             <div class="title-field">
                                 <v-text-field
@@ -217,7 +209,12 @@ const numbersOnly = (e: any) => {
                             </div>
                         </td>
                         <td>
-                            <v-btn size="small" color="primary-alt" variant="tonal">
+                            <v-btn 
+                                @click="editData(item.value.id, 'specifications')"
+                                size="small" 
+                                color="primary-alt" 
+                                variant="tonal"
+                            >
                                 <v-icon class="mr-2" icon="mdi-pencil"/>
                                 Specifications
                             </v-btn>
@@ -260,17 +257,8 @@ const numbersOnly = (e: any) => {
                     <component 
                         :is="editComponent" 
                         :id="editVariantId"
+                        @save="dialog = false"
                     />
-                    <v-btn 
-                        @click="dialog = false"
-                        color="primary-alt" 
-                        class="ml-auto mt-4" 
-                        variant="tonal" 
-                        rounded="pill"
-                        block
-                    >
-                        Done
-                    </v-btn>
                 </v-card-text>
             </v-container>
         </v-card>
