@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore } from '@/store'
+import { useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
 import { useDisplay } from 'vuetify'
 import EditImages from './EditImages.vue'
 import EditDescription from './EditDescription.vue'
@@ -8,10 +8,16 @@ import EditSpecifications from './EditSpecifications.vue'
 const dialog = ref<boolean>(false)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
 const store = useBrandCenterProductListingStore()
+const snackbarStore = useSnackbarStore()
 const selected =  ref<any[]>([])
 const editVariantId = ref<string|number>()
 const editComponent = shallowRef()
 const editPriceId = ref<number|null>()
+const editPriceModel = ref<any>()
+const editTitleId = ref<number|null>()
+const editTitleModel = ref<any>()
+const editSkuId = ref<number|null>()
+const editSkuModel = ref<any>()
 const headers = ref<any[]>([
     {
         align: 'start',
@@ -32,6 +38,36 @@ const previewImages = (images: File[]): string[] => {
     return imgs
 }
 
+const editField = () => {
+
+}
+
+const saveTitleModel = () => {
+    if(!editTitleModel.value){
+        store.productVariants.filter(x => x.id == editTitleId.value)[0].title = store.listingDetails.title
+    }else{
+        store.productVariants.filter(x => x.id == editTitleId.value)[0].title = editTitleModel.value
+    }
+    snackbarStore.setSnackbar('Title updated', true)
+}
+
+const saveSkuModel = () => {
+    store.productVariants.filter(x => x.id == editSkuId.value)[0].sku = editSkuModel.value
+    snackbarStore.setSnackbar('Sku updated', true)
+}
+
+const savePriceModel = () => {
+    if(!editPriceModel.value 
+    || isNaN(editPriceModel.value)
+    ||editPriceModel.value < 500){
+        store.productVariants.filter(x => x.id == editPriceId.value)[0].price = store.listingDetails.price
+    }else{
+        store.productVariants.filter(x => x.id == editPriceId.value)[0].price = editPriceModel.value
+        editPriceId.value = null
+    }
+    snackbarStore.setSnackbar('Price updated', true)
+}
+
 const editData = (itemId: number, type: 'images'|'description'|'specifications'): void => {
     editVariantId.value = itemId
     if(type === 'images'){
@@ -49,6 +85,7 @@ const numbersOnly = (e: any) => {
     if(/^[0-9]+$/.test(char)) return true; 
     else e.preventDefault();
 }
+
 
 </script>
 
@@ -97,20 +134,48 @@ const numbersOnly = (e: any) => {
                         </td> 
                         <td>{{ item.columns.variant }}</td>
                         <td>
-                            <div class="title-field">
+                            <div class="d-flex align-center title-field">
+                                <v-btn 
+                                    @click="editTitleId != item.value.id ? editTitleId = item.value.id : editTitleId = null "
+                                    color="primary"
+                                    class="mr-1"
+                                    min-width="0px" 
+                                    min-height="0px"
+                                    width="30px"
+                                    height="30px"
+                                    flat
+                                > 
+                                    <v-icon :icon="editTitleId != item.value.id ? 'mdi-pencil' : 'mdi-close'" />
+                                </v-btn>
+                                <span v-if="editTitleId != item.value.id">
+                                    {{ item.value.title }}
+                                </span>
                                 <v-text-field
-                                    v-model="item.value.title"
+                                    v-else
+                                    :model-value="item.value.title"
+                                    @update:model-value="(e: any) => editTitleModel = e"
                                     bg-color="background"
+                                    class="title-field"
                                     color="primary-alt"
+                                    placeholder="Enter title"
                                     density="compact"
-                                    placeholder="Enter product title"
-                                    hide-details
                                     variant="underlined"
-                                    :rules="[ 
-                                        (v: any) => !! v || 'Title is required',
-                                        (v: any) => v.length <= 90 || 'Must be 90 characters or less', 
-                                    ]"
+                                    hide-details
                                 ></v-text-field>
+                                <v-btn 
+                                    v-show="editTitleId == item.value.id"
+                                    @click="saveTitleModel()"
+                                    color="primary-alt"
+                                    variant="tonal"
+                                    class="ml-1"
+                                    min-width="0px" 
+                                    min-height="0px"
+                                    width="30px"
+                                    height="30px"
+                                    flat
+                                > 
+                                    <v-icon icon="mdi-content-save-outline" />
+                                </v-btn>
                             </div>
                         </td>
                         <td>
@@ -119,6 +184,7 @@ const numbersOnly = (e: any) => {
                                 size="small" 
                                 color="primary-alt" 
                                 variant="tonal"
+                                flat
                             >
                                 <v-icon class="mr-2" icon="mdi-pencil"/>
                                 Description
@@ -166,19 +232,30 @@ const numbersOnly = (e: any) => {
                                 <v-text-field
                                     v-else
                                     @keypress="numbersOnly($event)"
-                                    v-model="item.value.price"
+                                    :model-value="item.value.price"
+                                    @update:model-value="(e: any) => editPriceModel = e"
                                     bg-color="background"
                                     class="price-field"
+                                    placeholder="Enter price"
                                     color="primary-alt"
                                     density="compact"
-                                    hide-details
                                     variant="underlined"
-                                    
-                                    :rules="[ 
-                                        (v: any) => !! v || 'Price is required',
-                                        (v: any) => v >= 500 || 'Minimum price is $5.00'
-                                    ]"
+                                    hide-details
                                 ></v-text-field>
+                                <v-btn 
+                                    v-show="editPriceId == item.value.id"
+                                    @click="savePriceModel()"
+                                    color="primary-alt"
+                                    variant="tonal"
+                                    class="ml-1"
+                                    min-width="0px" 
+                                    min-height="0px"
+                                    width="30px"
+                                    height="30px"
+                                    flat
+                                > 
+                                    <v-icon icon="mdi-content-save-outline" />
+                                </v-btn>
                             </div>
                         </td>
                         <td>
@@ -196,16 +273,58 @@ const numbersOnly = (e: any) => {
                             </div>
                         </td>
                         <td>
-                            <div class="title-field">
+                            <v-btn 
+                                v-if="!item.value.sku && (editSkuId != item.value.id) "
+                                @click="editSkuId = item.value.id"
+                                color="primary-alt" 
+                                size="small"
+                                variant="tonal"
+                            >
+                                <v-icon icon="mdi-plus-circle-outline" class="mr-2"/>
+                                Add Sku
+                            </v-btn>
+                            <div v-else-if="editSkuId == item.value.id || item.value.sku" class="d-flex align-center sku-field">
+                                <v-btn 
+                                    @click="editSkuId != item.value.id ? editSkuId = item.value.id : editSkuId = null "
+                                    color="primary"
+                                    class="mr-1"
+                                    min-width="0px" 
+                                    min-height="0px"
+                                    width="30px"
+                                    height="30px"
+                                    flat
+                                > 
+                                    <v-icon :icon="editSkuId != item.value.id ? 'mdi-pencil' : 'mdi-close'" />
+                                </v-btn>
+                                <span v-if="editSkuId != item.value.id">
+                                    {{ item.value.sku }}
+                                </span>
                                 <v-text-field
-                                    v-model="item.value.sku"
+                                    v-else
+                                    :model-value="item.value.sku"
+                                    @update:model-value="(e: any) => editSkuModel = e"
                                     bg-color="background"
+                                    class="sku-field"
                                     color="primary-alt"
+                                    placeholder="Enter sku(optional)"
                                     density="compact"
-                                    placeholder="SKU(optional)"
-                                    hide-details
                                     variant="underlined"
+                                    hide-details
                                 ></v-text-field>
+                                <v-btn 
+                                    v-show="editSkuId == item.value.id"
+                                    @click="saveSkuModel()"
+                                    color="primary-alt"
+                                    variant="tonal"
+                                    class="ml-1"
+                                    min-width="0px" 
+                                    min-height="0px"
+                                    width="30px"
+                                    height="30px"
+                                    flat
+                                > 
+                                    <v-icon icon="mdi-content-save-outline" />
+                                </v-btn>
                             </div>
                         </td>
                         <td>
@@ -214,6 +333,7 @@ const numbersOnly = (e: any) => {
                                 size="small" 
                                 color="primary-alt" 
                                 variant="tonal"
+                                flat
                             >
                                 <v-icon class="mr-2" icon="mdi-pencil"/>
                                 Specifications
@@ -288,6 +408,9 @@ const numbersOnly = (e: any) => {
 }
 
 .title-field {
+    width: 306px;
+}
+.sku-field {
     width: 207px;
 }
 .price-field {

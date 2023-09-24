@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useBrandStore, useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
+import {useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
 const props = defineProps({
     id: Number
 })
