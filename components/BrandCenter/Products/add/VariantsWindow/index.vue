@@ -34,27 +34,24 @@ const headers = ref<any[]>([
     { key: 'specifications', title: 'Specifications' },
 ])
 
+const selectedEditOptions =  ref([])
 const bulkEditDialog = ref<boolean>(false)
 const bulkEditDialogForm = ref<boolean>(false)
-const bulkEditValues = reactive({
-     title: false,
-     description: false,
-     images: false,
-     price: false,
-     quantity: false,
-     sku: false,
-     specifications: false
-})
 
-const bulkEditOptions = ref<{model: boolean, label: string}[]>([
-    {model: bulkEditValues.title, label: 'Title'},
-    {model: bulkEditValues.description, label: 'Description'},
-    {model: bulkEditValues.images, label: 'Images'},
-    {model: bulkEditValues.price, label: 'Price'},
-    {model: bulkEditValues.quantity, label: 'Quantity'},
-    {model: bulkEditValues.sku, label: 'Sku'},
-    {model: bulkEditValues.specifications, label: 'Specifications'},
+const bulkEditFields = ref<string[]>([
+    'title',
+    'description',
+    'images',
+    'price',
+    'quantity', 
+    'sku',
+    'specifications'
 ])
+
+const openBulkEditDialogForm = (): void => {
+    bulkEditDialogForm.value = true
+    bulkEditDialog.value = false
+}
 
 const activateVariants = (): void => {
     store.selectedVariants = store.productVariants.map((x: any) => {
@@ -82,7 +79,7 @@ const saveTitleModel = () => {
     if(!editTitleModel.value){
         store.productVariants.filter(x => x.id == editTitleId.value)[0].title = store.listingDetails.title
     }else{
-        store.productVariants.filter(x => x.id == editTitleId.value)[0].title = editTitleModel.value
+        store.productVariants.filter(x => x.id == editTitleId.value)[0].title = editTitleModel.value.substring(0,90)
     }
     snackbarStore.setSnackbar('Title updated', true)
 }
@@ -134,7 +131,7 @@ const numbersOnly = (e: any) => {
                     product variants selected 
             </v-card-title>
             <v-card-title class="text-wrap">
-                {{ store.selectedVariants.length }} activated variant{{ store.selectedVariants.length > 1 ? 's' :'' }}
+                {{ store.selectedVariants.length }} activated variant{{ store.selectedVariants.length != 1 ? 's' :'' }}
             </v-card-title>
             <v-container class="pt-0 ml-0">
                 <v-btn 
@@ -147,7 +144,7 @@ const numbersOnly = (e: any) => {
                     :block="useDisplay().xs.value"
                     :disabled="selected.length === 0"
                 >
-                    Bulk edit({{ selected.length }} variant{{ selected.length > 1 ? 's' : ''}})
+                    Bulk edit({{ selected.length }} variant{{ selected.length != 1 ? 's' : ''}})
                 </v-btn>
                 <v-btn 
                     @click="activateVariants()"
@@ -159,7 +156,7 @@ const numbersOnly = (e: any) => {
                     :block="useDisplay().xs.value"
                     :disabled="selected.length === 0"
                 >
-                    Activate({{ selected.length }} variant{{ selected.length > 1 ? 's' : ''}})
+                    Activate({{ selected.length }} variant{{ selected.length != 1 ? 's' : ''}})
                 </v-btn>
                 <v-btn 
                     @click="deactivateVariants()"
@@ -171,25 +168,14 @@ const numbersOnly = (e: any) => {
                     :block="useDisplay().xs.value"
                     :disabled="store.selectedVariants.length === 0"
                 >
-                    Deactivate({{ store.selectedVariants.length }} variant{{ store.selectedVariants.length > 1 ? 's' :'' }})
+                    Deactivate({{ store.selectedVariants.length }} variant{{ store.selectedVariants.length != 1 ? 's' :'' }})
                 </v-btn>
             </v-container>
-            <!-- <section class="px-4 mb-4" >
-                <v-btn 
-                    color="primary"
-                    rounded="pill"
-                    size="small"
-                    :disabled="store.selectedVariants.length === 0"
-                >
-                    Bulk edit({{ store.selectedVariants.length }} variants)
-                </v-btn>
-            </section> -->
             <v-divider />
             <v-data-table
                 v-model="selected"
                 :headers="headers"
                 :items="store.productVariants"
-                item-value="pk"
                 return-object
                 show-select
             >
@@ -437,22 +423,32 @@ const numbersOnly = (e: any) => {
     <v-dialog max-width="300px" v-model="bulkEditDialog">
         <v-card
             color="background"
-            rounded="xl"
+            rounded="lg"
         >
             <v-card-title>Select fields to edit</v-card-title>
+            <v-card-subtitle>Edit {{ selected.length }} variant{{ selected.length != 1 ? 's' : '' }}</v-card-subtitle>
             <v-card-text>
                 <v-checkbox
-                    v-for="(opt, i) in bulkEditOptions"
+                    v-for="(field, i) in bulkEditFields"
                     :key="i"
-                    v-model="opt.model"
+                    v-model="selectedEditOptions"
                     color="primary-alt"
-                    :label="opt.label"
+                    :label="field"
+                    :value="field"
                     hide-details
                 ></v-checkbox>
             </v-card-text>
             <v-card-actions class="ml-auto">
                 <v-btn @click="bulkEditDialog = false" variant="plain" flat>Close</v-btn>
-                <v-btn color="primary-alt" variant="tonal" flat>Continue</v-btn>
+                <v-btn 
+                    @click="openBulkEditDialogForm()"
+                    color="primary-alt" 
+                    variant="tonal" 
+                    flat
+                    :disabled="selectedEditOptions.length == 0"
+                >
+                    Continue
+                </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -461,7 +457,7 @@ const numbersOnly = (e: any) => {
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"
         :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
-        persistent
+        :persistent="false"
     >
         <v-card 
             height="1000px" 
@@ -472,7 +468,7 @@ const numbersOnly = (e: any) => {
             <v-container fluid>
                 <div class="d-flex justify-space-between align-center">
                     <v-btn 
-                        @click="dialog = false"
+                        @click="bulkEditDialogForm = false"
                         color="transparent" 
                         size="small" 
                         icon
@@ -486,13 +482,9 @@ const numbersOnly = (e: any) => {
                 </div>
                 <v-card-text>
                     <BulkEdit 
-                        :title="bulkEditValues.title" 
-                        :description="bulkEditValues.description" 
-                        :images="bulkEditValues.images"
-                        :price="bulkEditValues.price"
-                        :quantity="bulkEditValues.quantity"
-                        :sku="bulkEditValues.sku"
-                        :specifications="bulkEditValues.specifications"
+                        @save="bulkEditDialogForm = false"
+                        :fields="selectedEditOptions"
+                        :selected-variants="selected"
                     />
                 </v-card-text>
             </v-container>
