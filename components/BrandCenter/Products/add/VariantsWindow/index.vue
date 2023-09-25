@@ -4,6 +4,7 @@ import { useDisplay } from 'vuetify'
 import EditImages from './EditImages.vue'
 import EditDescription from './EditDescription.vue'
 import EditSpecifications from './EditSpecifications.vue'
+import BulkEdit from './BulkEdit.vue'
 
 const dialog = ref<boolean>(false)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
@@ -33,13 +34,48 @@ const headers = ref<any[]>([
     { key: 'specifications', title: 'Specifications' },
 ])
 
+const bulkEditDialog = ref<boolean>(false)
+const bulkEditDialogForm = ref<boolean>(false)
+const bulkEditValues = reactive({
+     title: false,
+     description: false,
+     images: false,
+     price: false,
+     quantity: false,
+     sku: false,
+     specifications: false
+})
+
+const bulkEditOptions = ref<{model: boolean, label: string}[]>([
+    {model: bulkEditValues.title, label: 'Title'},
+    {model: bulkEditValues.description, label: 'Description'},
+    {model: bulkEditValues.images, label: 'Images'},
+    {model: bulkEditValues.price, label: 'Price'},
+    {model: bulkEditValues.quantity, label: 'Quantity'},
+    {model: bulkEditValues.sku, label: 'Sku'},
+    {model: bulkEditValues.specifications, label: 'Specifications'},
+])
+
+const activateVariants = (): void => {
+    store.selectedVariants = store.productVariants.map((x: any) => {
+        if(selected.value.includes(x)){
+            x.is_active = true
+            return x
+        }else{
+            x.is_active = false
+        }
+    }).filter(x => x)
+    useSnackbarStore().setSnackbar(`${store.selectedVariants.length} variants activated`, true)
+} 
+
+const deactivateVariants = (): void => {
+    useSnackbarStore().setSnackbar(`${store.selectedVariants.length} variants deactivated`, true)
+    store.selectedVariants = []
+}
+
 const previewImages = (images: File[]): string[] => {
     let imgs = images.map((x: File) => (URL.createObjectURL(x)))
     return imgs
-}
-
-const editField = () => {
-
 }
 
 const saveTitleModel = () => {
@@ -93,7 +129,61 @@ const numbersOnly = (e: any) => {
     <h1 class="text-h5 text-sm-h4 px-6">Product variants</h1>
     <v-container class="px-6" fluid>
         <v-card color="background" rounded="lg" border>
-            <v-card-title>{{ store.productVariants.length }} product variants</v-card-title>
+            <v-card-title class="text-wrap">
+                {{ selected.length }} of {{ store.productVariants.length }} 
+                    product variants selected 
+            </v-card-title>
+            <v-card-title class="text-wrap">
+                {{ store.selectedVariants.length }} activated variant{{ store.selectedVariants.length > 1 ? 's' :'' }}
+            </v-card-title>
+            <v-container class="pt-0 ml-0">
+                <v-btn 
+                    @click="bulkEditDialog = true"
+                    class="mr-2 mt-4"
+                    color="primary"
+                    rounded="pill"
+                    size="small"
+                    flat
+                    :block="useDisplay().xs.value"
+                    :disabled="selected.length === 0"
+                >
+                    Bulk edit({{ selected.length }} variant{{ selected.length > 1 ? 's' : ''}})
+                </v-btn>
+                <v-btn 
+                    @click="activateVariants()"
+                    class="text-background mt-4 mr-2"
+                    color="primary-alt"
+                    rounded="pill"
+                    size="small"
+                    flat
+                    :block="useDisplay().xs.value"
+                    :disabled="selected.length === 0"
+                >
+                    Activate({{ selected.length }} variant{{ selected.length > 1 ? 's' : ''}})
+                </v-btn>
+                <v-btn 
+                    @click="deactivateVariants()"
+                    color="error"
+                    class="mt-4"
+                    rounded="pill"
+                    size="small"
+                    flat
+                    :block="useDisplay().xs.value"
+                    :disabled="store.selectedVariants.length === 0"
+                >
+                    Deactivate({{ store.selectedVariants.length }} variant{{ store.selectedVariants.length > 1 ? 's' :'' }})
+                </v-btn>
+            </v-container>
+            <!-- <section class="px-4 mb-4" >
+                <v-btn 
+                    color="primary"
+                    rounded="pill"
+                    size="small"
+                    :disabled="store.selectedVariants.length === 0"
+                >
+                    Bulk edit({{ store.selectedVariants.length }} variants)
+                </v-btn>
+            </section> -->
             <v-divider />
             <v-data-table
                 v-model="selected"
@@ -344,9 +434,72 @@ const numbersOnly = (e: any) => {
             </v-data-table>
         </v-card>
     </v-container>
+    <v-dialog max-width="300px" v-model="bulkEditDialog">
+        <v-card
+            color="background"
+            rounded="xl"
+        >
+            <v-card-title>Select fields to edit</v-card-title>
+            <v-card-text>
+                <v-checkbox
+                    v-for="(opt, i) in bulkEditOptions"
+                    :key="i"
+                    v-model="opt.model"
+                    color="primary-alt"
+                    :label="opt.label"
+                    hide-details
+                ></v-checkbox>
+            </v-card-text>
+            <v-card-actions class="ml-auto">
+                <v-btn @click="bulkEditDialog = false" variant="plain" flat>Close</v-btn>
+                <v-btn color="primary-alt" variant="tonal" flat>Continue</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    <v-dialog
+        v-model="bulkEditDialogForm"
+        :fullscreen="IsFullscreen"
+        :width="IsFullscreen ? '600px': '500px'"
+        :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
+        persistent
+    >
+        <v-card 
+            height="1000px" 
+            color="background"
+            :rounded="IsFullscreen ? 'none' : 'xl'"
+            :class="IsFullscreen ? 'mobile-dialog-card' : ''"
+        >
+            <v-container fluid>
+                <div class="d-flex justify-space-between align-center">
+                    <v-btn 
+                        @click="dialog = false"
+                        color="transparent" 
+                        size="small" 
+                        icon
+                    >
+                        <v-icon icon="mdi-close" />
+                    </v-btn> 
+                    
+                    <div class="auth-form-logo-container w-100 mr-4"> 
+                        <Logo /> 
+                    </div>
+                </div>
+                <v-card-text>
+                    <BulkEdit 
+                        :title="bulkEditValues.title" 
+                        :description="bulkEditValues.description" 
+                        :images="bulkEditValues.images"
+                        :price="bulkEditValues.price"
+                        :quantity="bulkEditValues.quantity"
+                        :sku="bulkEditValues.sku"
+                        :specifications="bulkEditValues.specifications"
+                    />
+                </v-card-text>
+            </v-container>
+        </v-card>
+    </v-dialog>
     <v-dialog
         v-model="dialog"
-        data-test-id="auth" 
         :fullscreen="IsFullscreen"
         :width="IsFullscreen ? '600px': '500px'"
         :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"

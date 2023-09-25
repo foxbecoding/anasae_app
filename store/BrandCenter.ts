@@ -24,11 +24,19 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
     interface ProductVariant extends ListingDetails {
         id: string|number
         variant: string
+        is_active: boolean
         specifications: ProdSpec[]
     }
 
     const hasVariants = ref<boolean>(false)
     const variantChips = ref<ProdSpec[]>([])
+    const productVariants = ref<ProductVariant[]>([])
+    const selectedVariants =  ref<ProductVariant[]>([])
+    const specifications = ref<CategoryProductSpecificationItem[]>([])
+    const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
+    const otherProductSpecs = ref<ProdSpec[]|any[]>([])
+    const imgFilesMax = shallowRef<number>(7)
+    const previewImages = ref<any[]>([])
     const currentStep = ref<number>(1)
     const quantityLimit = shallowRef([ ...Array(50).keys() ].map( i => i+1))
     const steps = ref<{id: number, title: string}[]>([
@@ -47,13 +55,6 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         isbn: null,
         images: []
     })
-
-    const productVariants = ref<ProductVariant[]>([])
-    const specifications = ref<CategoryProductSpecificationItem[]>([])
-    const requiredProductSpecs = ref<ProdSpec[]|any[]>([])
-    const otherProductSpecs = ref<ProdSpec[]|any[]>([])
-    const imgFilesMax = shallowRef<number>(7)
-    const previewImages = ref<any[]>([])
 
     const setVariantField = (specs: any[]) => {
         let specValues = specs.map(x => {
@@ -90,6 +91,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         productVariants,
         quantityLimit,
         requiredProductSpecs,
+        selectedVariants,
         specifications,
         steps,
         variantChips,

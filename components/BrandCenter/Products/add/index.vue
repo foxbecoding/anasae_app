@@ -80,10 +80,10 @@ const nextStep = (): void => {
                     quantity: store.listingDetails.quantity,
                     price: store.listingDetails.price,
                     sku: store.listingDetails.sku,
-                    isbn: store.listingDetails.isbn,
                     images: store.listingDetails.images,
                     variant: `${color.value},${size.value}`,
-                    specifications: [color, size, ...store.otherProductSpecs]
+                    specifications: [color, size, ...store.otherProductSpecs],
+                    is_active: false
                 }
             ))
         })
@@ -106,8 +106,8 @@ const sumbitDetails = async(): Promise<any[] | void> => {
             subcategory: null,
             quantity: store.listingDetails.quantity,
             sku: store.listingDetails.sku,
-            isbn: store.listingDetails.isbn,
-            brand: useBrandStore().brands[0].pk
+            brand: useBrandStore().brands[0].pk,
+            is_active: true
         }
     ]
 

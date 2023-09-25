@@ -35,7 +35,6 @@ const save = (): void => {
 </script>
 
 <template>
-    {{ specifications }}
     <v-card-title class="pl-0 text-wrap">Edit Specifications</v-card-title>
     <v-card-subtitle class="pl-0 mb-4 text-wrap">
         Variant: {{ Variant }}
