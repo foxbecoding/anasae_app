@@ -2,18 +2,23 @@ export const useSnackbarStore = defineStore("snackbar-store", () => {
     const show = ref<boolean>(false)
     const text = ref<string>('')
     const imgSrc = ref<string>('')
+    const color = ref<string>()
     
     const setSnackbar = (
-        data_text: string, 
-        data_show: boolean, 
-        data_img_src: string = ''
+        dataText: string, 
+        dataShow: boolean, 
+        dataImgSrc: string = '',
+        dataColor: string = 'surface'
     ): void => {
-        text.value = data_text
-        show.value = data_show
-        imgSrc.value = data_img_src
+        text.value = dataText
+        show.value = dataShow
+        imgSrc.value = dataImgSrc
+        color.value = dataColor
+        
     }
 
     return { 
+        color,
         imgSrc,
         show,
         text,

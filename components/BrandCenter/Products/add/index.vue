@@ -93,6 +93,25 @@ const nextStep = (): void => {
         }
         store.currentStep+=1
         return
+    }else if(store.currentStep === 2 && store.hasVariants){
+        if(store.selectedVariants.length === 0){
+            useSnackbarStore().setSnackbar(
+                'Please select and activate variants', 
+                true, 
+                '', 
+                'error'
+            )
+            return
+        }
+        store.productVariants.map((x: any) => {
+            if(store.selectedVariants.includes(x)){
+                x.is_active = true
+            }else{
+                x.is_active = false
+            }
+        })
+        store.currentStep+=1
+        return
     }
     store.currentStep+=1
 }

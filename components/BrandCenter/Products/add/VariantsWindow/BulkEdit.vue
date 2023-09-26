@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
+import { useBrandStore, useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
 
 const props = defineProps(['fields', 'selectedVariants'])
 const emit = defineEmits<{
@@ -8,7 +8,8 @@ const emit = defineEmits<{
 
 const store = useBrandCenterProductListingStore()
 const form = ref()
-const valid = ref<boolean>(true)
+const formIsValid = ref<boolean>(true)
+const fileRef = ref()
 const quantityLimit = shallowRef([ ...Array(50).keys() ].map( i => i+1))
 const listingDetails = reactive<any>({
     title: '',
@@ -16,19 +17,47 @@ const listingDetails = reactive<any>({
     quantity: null,
     price: store.listingDetails.price,
     sku: null,
-    images: []
+    images: [],
+    specifications: []
 })
+
+const Specs = computed(() => store.specifications.filter(x => x.is_required == false))
+
+Specs.value.forEach(x => {
+    if (!x.is_required){
+        listingDetails.specifications.push({
+            label: x.item, 
+            value: `${x.item == 'Brand' ? useBrandStore().brands[0].name : ''}`, 
+            is_required: x.is_required
+        })
+    }
+})
+
+const PreviewImages = computed(() => listingDetails.images.map((x: File) => (URL.createObjectURL(x))))
+
+const setImages = (imageFiles: File[]): void => {
+    imageFiles.map((x: File) => {
+        listingDetails.images.push(x)
+        listingDetails.images = listingDetails.images.splice(0, store.imgFilesMax)
+    })
+}
+const removeImage = (i: number) => listingDetails.images = [...listingDetails.images.filter((x: File) => x != listingDetails.images[i])]
+const isInFields = (field: string): boolean => props.fields.includes(field)
+
 
 const save = async(): Promise<void> => {
     const isValid: boolean = await useValidateForm(form.value)
     if(!isValid){ return }
     store.productVariants.filter(x => props.selectedVariants.includes(x))
     .map(x => {
-        x.title = listingDetails.title ? listingDetails.title: store.listingDetails.title
-        x.description = listingDetails.description ? listingDetails.description : store.listingDetails.description
-        x.price = listingDetails.price ? listingDetails.price : store.listingDetails.price
-        x.quantity = listingDetails.quantity ? listingDetails.quantity : store.listingDetails.quantity
-        x.sku = listingDetails.sku ? listingDetails.sku : store.listingDetails.sku
+        x.title = listingDetails.title && isInFields('title') ? listingDetails.title: store.listingDetails.title
+        x.description = listingDetails.description && isInFields('description') ? listingDetails.description : store.listingDetails.description
+        x.price = listingDetails.price && isInFields('price') ? listingDetails.price : store.listingDetails.price
+        x.quantity = listingDetails.quantity && isInFields('quantity') ? listingDetails.quantity : store.listingDetails.quantity
+        x.images = listingDetails.images.length > 0 && isInFields('images') ? listingDetails.images : store.listingDetails.images
+        x.sku = listingDetails.sku && isInFields('sku') ?  listingDetails.sku : null
+        let reqSpecs = x.specifications.filter(x => x.is_required)
+        x.specifications = [...reqSpecs, ...listingDetails.specifications]
         return x
     })
     emit('save', true)
@@ -47,11 +76,11 @@ const numbersOnly = (e: any) => {
 <template>
     <v-form
         ref="form"
-        v-model="valid"
+        v-model="formIsValid"
         lazy-validation
     >
         <v-text-field
-            v-if="props.fields.includes('title')"
+            v-if="isInFields('title')"
             bgColor='form-field-flat'
             color='primary'
             :counter="90"
@@ -68,7 +97,7 @@ const numbersOnly = (e: any) => {
             variant='solo'
         />
         <v-textarea
-            v-if="props.fields.includes('description')"
+            v-if="isInFields('description')"
             bgColor='form-field-flat'
             color='primary'
             :counter="300"
@@ -85,7 +114,7 @@ const numbersOnly = (e: any) => {
             variant='solo'
         />
         <v-text-field
-            v-if="props.fields.includes('price')"
+            v-if="isInFields('price')"
             @keypress="numbersOnly($event)"
             class="mb-2"
             bgColor='form-field-flat'
@@ -106,7 +135,7 @@ const numbersOnly = (e: any) => {
             variant='solo'
         />
         <v-select
-            v-if="props.fields.includes('quantity')"
+            v-if="isInFields('quantity')"
             bgColor='form-field-flat'
             :flat="true" 
             color="primary"
@@ -119,7 +148,7 @@ const numbersOnly = (e: any) => {
             variant='solo'
         />
         <v-text-field
-            v-if="props.fields.includes('sku')"
+            v-if="isInFields('sku')"
             bgColor='form-field-flat'
             color='primary'
             density='comfortable'
@@ -131,7 +160,72 @@ const numbersOnly = (e: any) => {
             type='text'
             variant='solo'
         />
+        <v-row v-if="isInFields('specifications')" class="mt-4">
+            <v-container class="pa-0" fluid><v-card-title>Specifications</v-card-title></v-container>
+            <v-col 
+                v-for="(spec, i) in listingDetails.specifications" :key="i"
+                cols="12"
+                sm="6" 
+            >
+                <v-text-field  
+                    v-model="spec.value"
+                    :label="`${spec.label}`"
+                    density="comfortable"
+                    variant="solo"
+                    color="primary"
+                    bg-color="form-field-flat"
+                    flat
+                >
+                </v-text-field>
+            </v-col>
+        </v-row>
     </v-form>
+    <div v-if="isInFields('images')">
+        <v-card-title class="px-0">Images</v-card-title>
+        <v-card-subtitle class="px-0">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
+        <v-card-subtitle class="px-0">Recommened image size: 600 x 600</v-card-subtitle>
+        <v-file-input
+            @update:model-value="setImages"
+            class="d-none" 
+            ref="fileRef" 
+            accept="image/png, image/jpeg"
+            multiple
+        />
+        <div class="d-flex images-container ">
+            <v-btn 
+                @click="listingDetails.images.length < store.imgFilesMax ? fileRef.click() : false"
+                color="surface-el" 
+                flat 
+                height="90"
+                width="90"
+                rounded="lg"
+                :disabled="listingDetails.images.length >= store.imgFilesMax"
+            >
+                {{ listingDetails.images.length > 0 ? listingDetails.images.length :  '' }}
+                <v-icon size="36">mdi-plus</v-icon>
+            </v-btn>
+            <div class="d-flex flex-wrap">
+                <div
+                    v-for="(imgSrc, i) in PreviewImages"
+                    :key="i" 
+                    class="ml-2 mb-2 image-wrapper bg-surface-el rounded-lg"
+                >
+                    <v-img :src="imgSrc" style="position: relative">
+                        <v-btn 
+                            @click="removeImage(i)"
+                            color="error" 
+                            variant="text" 
+                            size="x-small" 
+                            icon 
+                            flat
+                        >
+                            <v-icon size="large">mdi-delete</v-icon>
+                        </v-btn>
+                    </v-img>
+                </div>
+            </div>
+        </div>
+    </div>
     <v-btn 
         @click="save()"
         class="mt-4"
@@ -143,3 +237,11 @@ const numbersOnly = (e: any) => {
         Save
     </v-btn> 
 </template>
+
+<style scoped>
+.image-wrapper {
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+</style>
