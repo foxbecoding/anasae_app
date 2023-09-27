@@ -3,7 +3,6 @@ import { useBrandStore, useBrandCenterProductListingStore } from '@/store'
 
 const store = useBrandCenterProductListingStore()
 const currentImg = ref()
-const currentVariant = ref()
 const variantColors = ref<any[]>([])
 const variantSizes = ref<any[]>([])
 const selectedVariantColor = ref()
@@ -13,7 +12,6 @@ const variantSizeOptions = ref<{value: string, disabled: boolean}[]>([])
 
 const setPrice = (price: number) => price/100
 const setImg = (img: any) => currentImg.value = img
-currentImg.value = store.previewImages[0]
 
 store.productVariants.forEach(x => {
     x.specifications.map(x => {
@@ -47,12 +45,76 @@ variantSizes.value.map(size => {
     })
 })
 
-currentVariant.value = store.selectedVariants[0]
+
+const CurrentVariant = computed(() => {
+    let variant = store.productVariants.filter(x => x.variant == [selectedVariantColor.value, selectedVariantSize.value].toString())
+    return variant[0]
+})
+
+if(store.hasVariants){
+    selectedVariantColor.value = store.selectedVariants[0].specifications.find(x => x.label == 'Color')?.value
+    selectedVariantSize.value = store.selectedVariants[0].specifications.find(x => x.label == 'Size')?.value
+}
+
+const setSizes = (): void => {
+    let colors: any[] = []
+    store.productVariants.map(
+        prod => prod.specifications
+        .map(spec => {
+            if(spec.label == 'Color' && spec.value == selectedVariantColor.value){
+                colors.push(prod.is_active)
+            }
+        })
+    )
+    for(let i = 0; i < variantSizeOptions.value.length; i++){
+        variantSizeOptions.value[i].disabled = !colors[i]
+    }
+}
+
+const setColors = (): void => {
+    let sizes: any[] = []
+    store.productVariants.map(
+        prod => prod.specifications
+        .map(spec => {
+            if(spec.label == 'Size' && spec.value == selectedVariantSize.value){
+                sizes.push(prod.is_active)
+            }
+        })
+    )
+
+    for(let i = 0; i < variantColorOptions.value.length; i++){
+        variantColorOptions.value[i].disabled = !sizes[i]
+    }
+}
+
+setSizes()
+setColors()
 
 const ProductTitle = computed(() => {
     if(!store.hasVariants) return store.listingDetails.title
-    return currentVariant.value.title
+    return CurrentVariant.value.title
 })
+
+const ProductImage = computed(() => {
+    if(currentImg.value) return currentImg.value
+    if(!store.hasVariants) return store.previewImages[0]
+    return URL.createObjectURL(CurrentVariant.value.images[0]) 
+})
+
+const ProductPreviewImages = computed(() => {
+    if(!store.hasVariants) return store.previewImages
+    let images: any[] = []
+    CurrentVariant.value.images.map(x => images.push(URL.createObjectURL(x)))
+    return images
+})
+
+watch(selectedVariantColor, () => {
+    currentImg.value = URL.createObjectURL(CurrentVariant.value.images[0])
+    setSizes()
+})
+
+watch(selectedVariantSize, () => setColors())
+
 </script>
 
 <template>
@@ -60,16 +122,16 @@ const ProductTitle = computed(() => {
     <v-container class="px-6" fluid>
         <v-row>
             <v-col
-                cols="12" sm="5" md="4" lg="4" 
+                cols="12" sm="6" md="6" lg="5" 
                 align-self="center" 
                 align="center"
             >
-                <v-img :src="currentImg" class="bg-surface-el rounded-lg"/>
+                <v-img :src="ProductImage" class="bg-surface-el rounded-lg"/>
             </v-col>
             <v-col class="d-block d-sm-none" cols="12">
                 <v-container class="d-flex flex-wrap pa-0" fluid>
                     <div 
-                        v-for="(img, i) in store.previewImages"
+                        v-for="(img, i) in ProductPreviewImages"
                         :key="i"
                         class="product-image-container mr-2 mb-2 bg-surface-el rounded"
                     >
@@ -81,7 +143,7 @@ const ProductTitle = computed(() => {
                     </div>
                 </v-container>
             </v-col>
-            <v-col cols="12" sm="7" md="8" lg="8">
+            <v-col cols="12" sm="6" md="6" lg="7">
                 <v-card color="background">
                     <v-card-title class="pt-0 px-0 text-wrap">{{ ProductTitle }}</v-card-title>
                     <v-card-title class="px-0">${{store.listingDetails.price ? setPrice(store.listingDetails.price) : '' }}</v-card-title>
@@ -96,12 +158,15 @@ const ProductTitle = computed(() => {
                             </span>
                         </div>
                         <v-container class="px-0" v-else>
-                            <p>Colors</p>
+                            <p class="mb-2">Colors</p>
                             <div class="d-flex">
                                 <div
                                     v-for="(color, i) in variantColorOptions"
                                     :key="i" 
-                                    class="image-wrapper bg-surface-el mr-2"
+                                    @click="selectedVariantColor = color.value"
+                                    class="rounded-sm image-wrapper bg-surface-el mr-2 color-selection"
+                                    :class="color.disabled ? 'color-selection--disabled' : ''"
+                                    v-ripple="!color.disabled"
                                 >
                                     <v-img :src="color.image" />
                                     <small>{{ color.value }}</small>
@@ -109,10 +174,11 @@ const ProductTitle = computed(() => {
                             </div>
                             <div class="mt-8">
                                 <p>Sizes</p>
-                                <v-chip-group color="primary-alt">
+                                <v-chip-group v-model="selectedVariantSize" color="primary-alt">
                                     <v-chip 
                                         v-for="(size, s) in variantSizeOptions"
                                         :key="s"
+                                        :value="size.value"
                                         :disabled="size.disabled"
                                     >
                                         {{ size.value }}
@@ -126,7 +192,7 @@ const ProductTitle = computed(() => {
             <v-col class="d-none d-sm-block" cols="12">
                 <v-container class="d-flex flex-wrap pa-0" fluid>
                     <div 
-                        v-for="(img, i) in store.previewImages"
+                        v-for="(img, i) in ProductPreviewImages"
                         :key="i"
                         class="product-image-container mr-2 mb-2 bg-surface-el rounded"
                     >
@@ -153,6 +219,11 @@ const ProductTitle = computed(() => {
 
 .product-image:hover{
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.product-image:active{
+    opacity: 0.5;
 }
 
 .image-wrapper{
@@ -160,4 +231,14 @@ const ProductTitle = computed(() => {
     height: 70px;
 }
 
+.color-selection:hover {
+    cursor:pointer;
+    opacity: 0.8;
+}
+.color-selection:active{
+    opacity: 0.5;
+}
+.color-selection--disabled{
+    opacity: 0.3;
+}
 </style>
