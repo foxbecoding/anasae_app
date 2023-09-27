@@ -56,12 +56,13 @@ if(store.hasVariants){
     selectedVariantSize.value = store.selectedVariants[0].specifications.find(x => x.label == 'Size')?.value
 }
 
-const setSizes = (): void => {
+const setSizes = (color: any = ''): void => {
+    let selectedColor = color || selectedVariantColor.value
     let colors: any[] = []
     store.productVariants.map(
         prod => prod.specifications
         .map(spec => {
-            if(spec.label == 'Color' && spec.value == selectedVariantColor.value){
+            if(spec.label == 'Color' && spec.value == selectedColor){
                 colors.push(prod.is_active)
             }
         })
@@ -71,12 +72,13 @@ const setSizes = (): void => {
     }
 }
 
-const setColors = (): void => {
+const setColors = (size: any = ''): void => {
+    let selectedSize = size || selectedVariantSize.value
     let sizes: any[] = []
     store.productVariants.map(
         prod => prod.specifications
         .map(spec => {
-            if(spec.label == 'Size' && spec.value == selectedVariantSize.value){
+            if(spec.label == 'Size' && spec.value == selectedSize){
                 sizes.push(prod.is_active)
             }
         })
@@ -108,12 +110,17 @@ const ProductPreviewImages = computed(() => {
     return images
 })
 
-watch(selectedVariantColor, () => {
+watch(selectedVariantColor, (newValue) => {
     currentImg.value = URL.createObjectURL(CurrentVariant.value.images[0])
-    setSizes()
+    setSizes(newValue)
 })
 
-watch(selectedVariantSize, () => setColors())
+watch(selectedVariantSize, (newValue, oldValue) => {
+    // if(newValue == undefined){
+    //     return
+    // }
+    setColors(newValue)
+})
 
 </script>
 
@@ -163,9 +170,9 @@ watch(selectedVariantSize, () => setColors())
                                 <div
                                     v-for="(color, i) in variantColorOptions"
                                     :key="i" 
-                                    @click="selectedVariantColor = color.value"
-                                    class="rounded-sm image-wrapper bg-surface-el mr-2 color-selection"
-                                    :class="color.disabled ? 'color-selection--disabled' : ''"
+                                    @click="!color.disabled ? selectedVariantColor = color.value : ''"
+                                    class="rounded-sm image-wrapper bg-surface-el mr-2 "
+                                    :class="color.disabled ? 'color-selection--disabled' : 'color-selection'"
                                     v-ripple="!color.disabled"
                                 >
                                     <v-img :src="color.image" />
@@ -174,7 +181,7 @@ watch(selectedVariantSize, () => setColors())
                             </div>
                             <div class="mt-8">
                                 <p>Sizes</p>
-                                <v-chip-group v-model="selectedVariantSize" color="primary-alt">
+                                <v-chip-group mandatory v-model="selectedVariantSize" color="primary-alt">
                                     <v-chip 
                                         v-for="(size, s) in variantSizeOptions"
                                         :key="s"
@@ -210,8 +217,6 @@ watch(selectedVariantSize, () => setColors())
 
 <style scoped>
 .product-image-container {
-    /* max-width: 350px;
-    max-height: 350px; */
     width: 50px;
     height: 50px;
     position: relative;
