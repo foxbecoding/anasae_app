@@ -15,6 +15,7 @@ import { VCheckbox, VCheckboxBtn } from 'vuetify/components/VCheckbox'
 import { VChip } from 'vuetify/components/VChip'
 import { VChipGroup } from 'vuetify/components/VChipGroup'
 import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
+import { VCombobox } from 'vuetify/components/VCombobox'
 import { VDialog } from 'vuetify/components/VDialog'
 import { VDivider } from 'vuetify/components/VDivider'
 import { VFileInput } from 'vuetify/components/VFileInput'
@@ -117,6 +118,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VChip,
             VChipGroup,
             VCol, 
+            VCombobox,
             VContainer, 
             VDataTable,
             VDialog,

@@ -40,6 +40,7 @@ export interface CategoryProductSpecificationItem {
     pk: string | number
     item: string
     is_required: boolean
+    options: any[]
 }
 
 export interface FormInputBase {

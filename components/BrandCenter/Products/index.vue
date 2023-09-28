@@ -4,7 +4,7 @@ import { Product } from '@/utils/types'
 const config = useRuntimeConfig()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
-const products = ref<Product[]>()
+const products = ref<Product[]>([])
 const headers = ref<any[]>([
     {
         align: 'start',
@@ -19,7 +19,7 @@ const headers = ref<any[]>([
 ])
 
 const {data: cacheProducts} = await useNuxtData(`${config.public.API_BRAND_CENTER_PRODUCT}`)
-products.value = cacheProducts.value
+if(cacheProducts.value) products.value = cacheProducts.value
 
 const {data} = await useApi({
     method: 'GET', 
@@ -27,7 +27,7 @@ const {data} = await useApi({
     key: `${config.public.API_BRAND_CENTER_PRODUCT}`
 })
 
-products.value = data.value
+if(data.value) products.value = data.value
 
 </script>
 
@@ -95,7 +95,7 @@ products.value = data.value
                 </tr>
                 <v-divider class="w-100" style="position: absolute"/>
             </template>
-            <template v-slot:item="{ item, toggleSelect, isSelected }">
+            <template v-if="products.length > 0" v-slot:item="{ item, toggleSelect, isSelected }">
                 <tr>
                     <td>
                         <v-checkbox-btn 

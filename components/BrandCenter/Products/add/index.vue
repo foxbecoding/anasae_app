@@ -44,19 +44,13 @@ const IsNextDisabled = computed((): boolean => {
     if(!store.listingDetails.price || store.listingDetails.price < 500) return true
     if(store.listingDetails.images.length == 0) return true
     if(store.hasVariants && store.requiredProductSpecs.length > 0){
-        let chips: string[] = []
-        store.variantChips.forEach(x => {
-            if(!chips.includes(x.label)){
-                chips.push(x.label)
-            }    
-        })
-        return chips.length != store.requiredProductSpecs.length
+        let found = store.requiredProductSpecs.filter(x => x.variantValues.length == 0 ? true : false )
+        if(found.length > 0) return true
+        return false
     }else if(!store.hasVariants && store.requiredProductSpecs.length > 0){
-        if(store.requiredProductSpecs.length > 0){
-            let found = store.requiredProductSpecs.filter(x => !x.value ? true : false)
-            if(found.length > 0) return true
-            return false
-        }
+        let found = store.requiredProductSpecs.filter(x => !x.value ? true : false)
+        if(found.length > 0) return true
+        return false
     }
     
     return false
@@ -67,7 +61,9 @@ const nextStep = (): void => {
         let specs: any = {}
         let variantData: any[] = []
         store.requiredProductSpecs.map(x => {
-            specs[`${x.label}`] = store.variantChips.filter(v => v.label == x.label)
+            let values: any[] = []
+            x.variantValues.map((vv: any) => values.push({label: x.label, value: vv.toUpperCase(), is_required: x.is_required}))
+            specs[`${x.label}`] = values
         })
 
         specs.Color.map((color: any) => {

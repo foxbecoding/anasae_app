@@ -18,6 +18,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
     interface ProdSpec {
         label: string
         value: string | number
+        variantValues?: any[]
         is_required: boolean
     }
 
