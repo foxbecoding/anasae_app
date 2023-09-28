@@ -116,7 +116,7 @@ const nextStep = (): void => {
     store.currentStep+=1
 }
 
-const sumbitDetails = async(): Promise<any[] | void> => {
+const submitDetails = async(): Promise<any[] | void> => {
     let productDetails = [
         {
             title: store.listingDetails.title,
@@ -129,6 +129,22 @@ const sumbitDetails = async(): Promise<any[] | void> => {
             is_active: true
         }
     ]
+    
+    if(store.hasVariants){
+        productDetails = []
+        store.productVariants.map(x => {
+            productDetails.push({
+                title: x.title,
+                description: x.description,
+                category: x.category?.pk,
+                subcategory: null,
+                quantity: x.quantity,
+                sku: x.sku,
+                brand: useBrandStore().brands[0].pk,
+                is_active: x.is_active
+            })
+        })
+    }
 
     const { data, error, status } = await useApi({
         method: 'POST', 
@@ -147,6 +163,12 @@ const sumbitDetails = async(): Promise<any[] | void> => {
 
 const submitImages = async(products: any[]) => {
     let productImages = [store.listingDetails.images]
+    
+    if(store.hasVariants){
+        productImages = []
+        store.productVariants.map(x => productImages.push(x.images))
+    }
+
     for(let i = 0; i < products.length; i++){
         let formData = new FormData
         let product = products[i]
@@ -172,6 +194,12 @@ const submitImages = async(products: any[]) => {
 
 const submitPrices = async(products: any[]) => {
     let productPrices = [store.listingDetails.price]
+
+    if(store.hasVariants){
+        productPrices = []
+        store.productVariants.map(x => productPrices.push(x.price))
+    }
+
     let productPricesData = []
     for(let i = 0; i < products.length; i++){
         let product = products[i]
@@ -195,6 +223,12 @@ const submitPrices = async(products: any[]) => {
 
 const submitSpecs = async(products: any[]) => {
     let productSpecs = [[...store.requiredProductSpecs, ...store.otherProductSpecs]]
+
+    if(store.hasVariants){
+        productSpecs = []
+        store.productVariants.map(x => productSpecs.push(x.specifications))
+    }
+
     let productSpecsData: any[] = []
     for(let i = 0; i < products.length; i++){
         let product = products[i]
@@ -224,7 +258,7 @@ const submitSpecs = async(products: any[]) => {
 const submit = async(): Promise<void> => {
     submitDialog.value = true
     isSubmitting.value = true
-    let products = await sumbitDetails()
+    let products = await submitDetails()
     if(products){
         let imagesStatus = await submitImages(products)
         if(imagesStatus == 'error'){ isSubmitting.value = false; return } 
@@ -239,7 +273,7 @@ const submit = async(): Promise<void> => {
     isSubmitting.value = false
     navigateTo('/brand-center/manage-products')
     useSnackbarStore().setSnackbar('Product listing added', true)
-    store.$reset()
+    store.resetData()
 }
 
 </script>

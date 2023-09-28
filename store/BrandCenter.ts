@@ -56,6 +56,34 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         images: []
     })
 
+    const resetData = (): void => {
+        hasVariants.value = false
+        variantChips.value = []
+        productVariants.value = []
+        selectedVariants.value = []
+        specifications.value = []
+        requiredProductSpecs.value = []
+        otherProductSpecs.value = []
+        previewImages.value = []
+        currentStep.value = 1
+        steps.value = [
+            {id: 1, title: 'Add product listing'},
+            {id: 2, title: 'Confirm product(s)'}
+        ]
+
+        listingDetails.value = {
+            title: '',
+            description: '',
+            category: null,
+            subcategory: null,
+            quantity: 0,
+            price: 500,
+            sku: null,
+            isbn: null,
+            images: []
+        }
+    }
+
     const setVariantField = (specs: any[]) => {
         let specValues = specs.map(x => {
             if(x.is_required){
@@ -95,6 +123,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         specifications,
         steps,
         variantChips,
+        resetData,
         setVariantField
     }
 })

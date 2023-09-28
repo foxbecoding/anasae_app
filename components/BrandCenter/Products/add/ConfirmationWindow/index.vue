@@ -130,13 +130,9 @@ watch(selectedVariantSize, (newValue, oldValue) => {
         <v-row>
             <v-col
                 cols="12" sm="6" md="6" lg="5" 
-                align-self="center" 
-                align="center"
             >
                 <v-img :src="ProductImage" class="bg-surface-el rounded-lg"/>
-            </v-col>
-            <v-col class="d-block d-sm-none" cols="12">
-                <v-container class="d-flex flex-wrap pa-0" fluid>
+                <v-container class="d-flex flex-wrap pa-0 mt-4" fluid>
                     <div 
                         v-for="(img, i) in ProductPreviewImages"
                         :key="i"
@@ -146,6 +142,7 @@ watch(selectedVariantSize, (newValue, oldValue) => {
                             class="product-image"
                             :src="img" 
                             @click="setImg(img)"
+                            @mouseover="setImg(img)"
                         />
                     </div>
                 </v-container>
@@ -172,7 +169,10 @@ watch(selectedVariantSize, (newValue, oldValue) => {
                                     :key="i" 
                                     @click="!color.disabled ? selectedVariantColor = color.value : ''"
                                     class="rounded-sm image-wrapper bg-surface-el mr-2 "
-                                    :class="color.disabled ? 'color-selection--disabled' : 'color-selection'"
+                                    :class="[
+                                        color.disabled ? 'color-selection--disabled' : 'color-selection',
+                                        color.value == selectedVariantColor ? 'border text-primary-alt' : ''
+                                    ]"
                                     v-ripple="!color.disabled"
                                 >
                                     <v-img :src="color.image" />
@@ -196,21 +196,7 @@ watch(selectedVariantSize, (newValue, oldValue) => {
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-col class="d-none d-sm-block" cols="12">
-                <v-container class="d-flex flex-wrap pa-0" fluid>
-                    <div 
-                        v-for="(img, i) in ProductPreviewImages"
-                        :key="i"
-                        class="product-image-container mr-2 mb-2 bg-surface-el rounded"
-                    >
-                        <v-img 
-                            class="product-image"
-                            :src="img" 
-                            @click="setImg(img)"
-                        />
-                    </div>
-                </v-container>
-            </v-col>
+            
         </v-row>
     </v-container>
 </template>
