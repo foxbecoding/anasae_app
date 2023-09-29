@@ -6,6 +6,15 @@ const emit = defineEmits<{
     save: [status: boolean] 
 }>()
 
+interface DimRow {
+    textModel: string 
+    textLabel: string
+    textKey: any
+    selectModel: string
+    selectItems: string[]
+    selectKey: any
+}
+
 const store = useBrandCenterProductListingStore()
 const form = ref()
 const formIsValid = ref<boolean>(true)
@@ -18,8 +27,53 @@ const listingDetails = reactive<any>({
     price: store.listingDetails.price,
     sku: null,
     images: [],
-    specifications: []
+    specifications: [],
+    length: '',
+    width: '',
+    height: '',
+    weight: ''
 })
+
+const lengthUnit = ref<string>('in')
+const widthUnit = ref<string>('in')
+const heightUnit = ref<string>('in')
+const weightUnit = ref<string>('oz')
+
+const dimRows = ref<DimRow[]>([
+    {
+        textModel: listingDetails.length, 
+        textLabel: 'Length', 
+        textKey: 'length',
+        selectModel: lengthUnit.value, 
+        selectItems: ['in', 'ft'],
+        selectKey: 'lengthUnit'
+    },
+    {
+        textModel: listingDetails.width, 
+        textLabel: 'Width', 
+        textKey: 'width',
+        selectModel: widthUnit.value, 
+        selectItems: ['in', 'ft'],
+        selectKey: 'widthUnit'
+    },
+    {
+        textModel: listingDetails.height, 
+        textLabel: 'Height', 
+        textKey: 'height',
+        selectModel: heightUnit.value, 
+        selectItems: ['in', 'ft'],
+        selectKey: 'heightUnit'
+    },
+    {
+        textModel: listingDetails.weight, 
+        textLabel: 'Weight', 
+        textKey: 'weight',
+        selectModel: weightUnit.value, 
+        selectItems: ['oz', 'lbs'],
+        selectKey: 'weightUnit'
+    },
+])
+
 
 const Specs = computed(() => store.specifications.filter(x => x.is_required == false))
 
@@ -55,9 +109,16 @@ const save = async(): Promise<void> => {
         x.price = listingDetails.price && isInFields('price') ? listingDetails.price : store.listingDetails.price
         x.quantity = listingDetails.quantity && isInFields('quantity') ? listingDetails.quantity : store.listingDetails.quantity
         x.images = listingDetails.images.length > 0 && isInFields('images') ? listingDetails.images : store.listingDetails.images
+        x.previewImages = x.images.map(x => URL.createObjectURL(x))
         x.sku = listingDetails.sku && isInFields('sku') ?  listingDetails.sku : null
         let reqSpecs = x.specifications.filter(x => x.is_required)
         x.specifications = [...reqSpecs, ...listingDetails.specifications]
+        if(isInFields('dimensions')){
+            dimRows.value.map(dim => {
+                x[`${dim.textKey}`] = dim.textModel
+                x[`${dim.selectKey}`] = dim.selectModel
+            })
+        }
         return x
     })
     emit('save', true)
@@ -70,6 +131,11 @@ const numbersOnly = (e: any) => {
     else e.preventDefault();
 }
 
+const filterValue = (e: any) => {
+    let char = String.fromCharCode(e.keyCode);
+    if(/^[0-9.]+$/.test(char)) return true; 
+    else e.preventDefault();
+}
 
 </script>
 
@@ -160,6 +226,54 @@ const numbersOnly = (e: any) => {
             type='text'
             variant='solo'
         />
+        <div v-if="isInFields('dimensions')">
+            <v-card-title class="px-0">Dimensions</v-card-title>
+            <v-card-subtitle class="px-0 text-wrap">
+                Enter the dimensions of the packaging that is used for your product(s).
+            </v-card-subtitle>
+            <v-card-subtitle class="px-0 text-wrap">
+                Ensure that the measurements are as accurate as possible. 
+                This is used to calculate shipping charges.
+            </v-card-subtitle>
+            <v-container class="px-0" >
+                <v-row
+                    v-for="(row, i) in dimRows"
+                    :key="i" 
+                    no-gutters
+                >
+                    <v-col 
+                        cols="8"
+                        sm="9"
+                        class="pr-1"
+                    >
+                        <v-text-field 
+                            v-model="row.textModel"
+                            @keypress="filterValue"
+                            color="primary"
+                            bg-color="form-field-flat"
+                            :label="row.textLabel" 
+                            variant="solo" 
+                            flat 
+                            :rules="[(v: any) => !! v || `${row.textLabel} is required`]"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col 
+                        cols="4" 
+                        sm="3"
+                    >
+                        <v-select 
+                            v-model="row.selectModel"
+                            color="primary"
+                            bg-color="form-field-flat"
+                            label="Unit" 
+                            variant="solo" 
+                            flat 
+                            :items="row.selectItems"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </div>
         <v-row v-if="isInFields('specifications')" class="mt-4">
             <v-container class="pa-0" fluid><v-card-title>Specifications</v-card-title></v-container>
             <v-col 

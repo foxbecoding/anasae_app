@@ -4,6 +4,7 @@ import { useDisplay } from 'vuetify'
 import EditImages from './EditImages.vue'
 import EditDescription from './EditDescription.vue'
 import EditSpecifications from './EditSpecifications.vue'
+import EditDimensions from './EditDimensions.vue'
 import BulkEdit from './BulkEdit.vue'
 
 const dialog = ref<boolean>(false)
@@ -31,6 +32,7 @@ const headers = ref<any[]>([
     { key: 'price', title: 'Price' },
     { key: 'quantity', title: 'Quantity' },
     { key: 'sku', title: 'Sku' },
+    { key: 'dimensions', title: 'Dimensions' },
     { key: 'specifications', title: 'Specifications' },
 ])
 
@@ -45,7 +47,8 @@ const bulkEditFields = ref<string[]>([
     'price',
     'quantity', 
     'sku',
-    'specifications'
+    'specifications',
+    'dimensions'
 ])
 
 const openBulkEditDialogForm = (): void => {
@@ -101,12 +104,14 @@ const savePriceModel = () => {
     snackbarStore.setSnackbar('Price updated', true)
 }
 
-const editData = (itemId: number, type: 'images'|'description'|'specifications'): void => {
+const editData = (itemId: number, type: 'images'|'description'|'specifications'|'dimensions'): void => {
     editVariantId.value = itemId
     if(type === 'images'){
         editComponent.value = EditImages
     }else if(type === 'description'){
         editComponent.value = EditDescription
+    }else if(type == 'dimensions'){
+        editComponent.value = EditDimensions
     }else{
         editComponent.value = EditSpecifications
     }
@@ -280,7 +285,7 @@ const numbersOnly = (e: any) => {
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                                 <div 
-                                    v-for="(img, i) in previewImages(item.columns.images)" 
+                                    v-for="(img, i) in item.value.previewImages" 
                                     :key="i"
                                     class="image-wrapper bg-surface-el ml-1"
                                 >
@@ -402,6 +407,18 @@ const numbersOnly = (e: any) => {
                                     <v-icon icon="mdi-content-save-outline" />
                                 </v-btn>
                             </div>
+                        </td>
+                        <td>
+                            <v-btn 
+                                @click="editData(item.value.id, 'dimensions')"
+                                size="small" 
+                                color="primary-alt" 
+                                variant="tonal"
+                                flat
+                            >
+                                <v-icon class="mr-2" icon="mdi-pencil"/>
+                                Dimensions
+                            </v-btn>
                         </td>
                         <td>
                             <v-btn 

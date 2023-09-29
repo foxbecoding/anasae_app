@@ -5,11 +5,13 @@ import Images from './Images.vue'
 import PriceAndQuantity from './PriceAndQuantity.vue'
 import Identifiers from './Identifiers.vue'
 import Specifications from './Specifications.vue'
+import Dimensions from './Dimensions.vue'
 
 const formSections = shallowRef([
     Details, 
     Images,
     PriceAndQuantity,
+    Dimensions,
     Identifiers,
     Specifications
 ])

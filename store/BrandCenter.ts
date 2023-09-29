@@ -12,9 +12,12 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         sku: string | null
         isbn: string | null
         images: File[] | any[]
+        length: string
+        width: string
+        height: string
+        weight: string
     }
 
-    
     interface ProdSpec {
         label: string
         value: string | number
@@ -25,7 +28,12 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
     interface ProductVariant extends ListingDetails {
         id: string|number
         variant: string
+        previewImages: string[]
         is_active: boolean
+        lengthUnit: string
+        widthUnit: string
+        heightUnit: string
+        weightUnit: string
         specifications: ProdSpec[]
     }
 
@@ -54,8 +62,17 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         price: 500,
         sku: null,
         isbn: null,
-        images: []
+        images: [],
+        length: '',
+        width: '',
+        height: '',
+        weight: ''
     })
+
+    const lengthUnit = ref<string>('in')
+    const widthUnit = ref<string>('in')
+    const heightUnit = ref<string>('in')
+    const weightUnit = ref<string>('oz')
 
     const resetData = (): void => {
         hasVariants.value = false
@@ -72,6 +89,11 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
             {id: 2, title: 'Confirm product(s)'}
         ]
 
+        lengthUnit.value = 'in'
+        widthUnit.value = 'in'
+        heightUnit.value = 'in'
+        weightUnit.value = 'oz'
+
         listingDetails.value = {
             title: '',
             description: '',
@@ -81,7 +103,11 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
             price: 500,
             sku: null,
             isbn: null,
-            images: []
+            images: [],
+            length: '',
+            width: '',
+            height: '',
+            weight: ''
         }
     }
 
@@ -124,6 +150,10 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         specifications,
         steps,
         variantChips,
+        lengthUnit,
+        widthUnit, 
+        heightUnit,
+        weightUnit,
         resetData,
         setVariantField
     }

@@ -31,6 +31,7 @@ const Variant = computed(() => store.productVariants.filter(x => x.id == props.i
 
 const save = (): void => {
     store.productVariants.filter(x => x.id == props.id)[0].images = images.value
+    store.productVariants.filter(x => x.id == props.id)[0].previewImages = images.value.map(x => URL.createObjectURL(x))
     emit('save', true)
     useSnackbarStore().setSnackbar('Images updated', true)
 }

@@ -43,6 +43,10 @@ const IsNextDisabled = computed((): boolean => {
     if(store.listingDetails.quantity == 0) return true
     if(!store.listingDetails.price || store.listingDetails.price < 500) return true
     if(store.listingDetails.images.length == 0) return true
+    if(!store.listingDetails.length) return true
+    if(!store.listingDetails.width) return true
+    if(!store.listingDetails.height) return true
+    if(!store.listingDetails.weight) return true
     if(store.hasVariants && store.requiredProductSpecs.length > 0){
         let found = store.requiredProductSpecs.filter(x => x.variantValues.length == 0 ? true : false )
         if(found.length > 0) return true
@@ -77,12 +81,22 @@ const nextStep = (): void => {
                     price: store.listingDetails.price,
                     sku: store.listingDetails.sku,
                     images: store.listingDetails.images,
+                    previewImages: store.listingDetails.images.map(x => URL.createObjectURL(x)),
                     variant: `${color.value},${size.value}`,
                     specifications: [color, size, ...store.otherProductSpecs],
+                    length: store.listingDetails.length,
+                    width: store.listingDetails.width,
+                    height: store.listingDetails.height,
+                    weight: store.listingDetails.weight,
+                    lengthUnit: store.lengthUnit,
+                    widthUnit: store.widthUnit,
+                    heightUnit: store.heightUnit,
+                    weightUnit: store.weightUnit,
                     is_active: false
                 }
             ))
         })
+
         store.productVariants = variantData
         for(let i = 0; i < store.productVariants.length; i++){
             store.productVariants[i].id = i+1
@@ -153,7 +167,7 @@ const submitDetails = async(): Promise<any[] | void> => {
         console.log(error.value)
         return 
     }
-    progress.value = 25
+    progress.value = 20
     return data.value
 }
 
@@ -184,7 +198,7 @@ const submitImages = async(products: any[]) => {
             return status.value
         }
     }
-    progress.value = 50
+    progress.value = 40
     return 'success'
 }
 
@@ -213,7 +227,54 @@ const submitPrices = async(products: any[]) => {
         console.log(error.value)
         return status.value
     }
-    progress.value = 75
+    progress.value = 60
+    return status.value
+}
+
+const submitDimensions = async(products: any[]) => {
+    let productDimensions = [{
+        length: store.listingDetails.length+store.lengthUnit,
+        width: store.listingDetails.width+store.widthUnit,
+        height: store.listingDetails.height+store.heightUnit,
+        weight: store.listingDetails.weight+store.weightUnit
+    }]
+
+    if(store.hasVariants){
+        productDimensions = []
+        store.productVariants.map(x => productDimensions.push(
+            {
+                length: x.length+x.lengthUnit,
+                width: x.width+x.widthUnit,
+                height: x.height+x.heightUnit,
+                weight: x.weight+x.weightUnit
+            }
+        ))
+    }
+
+    let productDimensionsData = []
+    for(let i = 0; i < products.length; i++){
+        let product = products[i]
+        productDimensionsData.push({
+            length: productDimensions[i].length,
+            width: productDimensions[i].width,
+            height: productDimensions[i].height,
+            weight: productDimensions[i].weight,
+            product: product.pk
+        })
+    }
+
+    const { data, error, status } = await useApi({
+        method: 'POST', 
+        path: `${config.public.API_PRODUCT_DIMENSION}`, 
+        data: productDimensionsData
+    })
+
+    if(status.value == 'error'){
+        isSubmitting.value = false
+        console.log(error.value)
+        return status.value
+    }
+    progress.value = 80
     return status.value
 }
 
@@ -262,6 +323,9 @@ const submit = async(): Promise<void> => {
         let pricesStatus = await submitPrices(products)
         if(pricesStatus == 'error'){ isSubmitting.value = false; return }
         
+        let dimensionStatus = await submitDimensions(products)
+        if(dimensionStatus == 'error'){ isSubmitting.value = false; return }
+
         let specsStatus = await submitSpecs(products)
         if(specsStatus == 'error'){ isSubmitting.value = false; return }
     }    

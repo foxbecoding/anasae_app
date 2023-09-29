@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { useBrandCenterProductListingStore } from '@/store'
-import { CategoryProductSpecificationItem } from '@/utils/types'
 
-// const config = useRuntimeConfig()
 const store = useBrandCenterProductListingStore()
 const formRef = ref()
 const filterValue = (e: any) => {
@@ -13,19 +11,6 @@ const filterValue = (e: any) => {
 
 const RequiredSpecs = computed(() => store.specifications.filter(x => x.is_required == true))
 const OtherSpecs = computed(() => store.specifications.filter(x => x.is_required == false))
-
-
-
-const addVariant = (e:any, spec: CategoryProductSpecificationItem): void => {
-    // store.requiredProductSpecsVariants
-    console.log(e)
-    // let value = store.requiredProductSpecs.find(x => x.label == spec.item).value
-    // if(!value){return}
-    // store.variantChips.push({label: spec.item, value: value.toUpperCase(), is_required: spec.is_required})
-    // store.requiredProductSpecs.find(x => x.label == spec.item).value = ''
-}
-
-const removeVariant = (i: any) => store.variantChips.splice(i, 1)
 
 </script>
 
