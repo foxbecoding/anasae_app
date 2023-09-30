@@ -26,8 +26,8 @@ const navItems = ref<MenuItem[]>([
     { 
         id: 3, 
         prependIcon: 'mdi-shopping-outline', 
-        title: 'Manage products',
-        to: {name: 'brand-center-manage-products'}
+        title: 'Product listings',
+        to: {name: 'brand-center-product-listings'}
     },
     { 
         id: 4, 

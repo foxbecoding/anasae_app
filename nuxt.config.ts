@@ -22,7 +22,6 @@ export default defineNuxtConfig({
             API_BRAND_LOGO: process.env.API_BRAND_LOGO,
             API_BRAND_OWNER: process.env.API_BRAND_OWNER,
             API_BRAND_PAGE: process.env.API_BRAND_PAGE,
-            API_BRAND_CENTER_PRODUCT: process.env.API_BRAND_CENTER_PRODUCT,
             API_CATEGORY: process.env.API_CATEGORY,
             API_CATEGORY_PRODUCT_SPECIFICATIONS: process.env.API_CATEGORY_PRODUCT_SPECIFICATIONS,
             API_PRODUCT: process.env.API_PRODUCT,
