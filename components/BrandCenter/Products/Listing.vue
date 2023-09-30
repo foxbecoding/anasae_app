@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 
 const config = useRuntimeConfig()
+const route = useRoute()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
-const productListings = ref([])
+const productListing = ref([])
 const headers = ref<any[]>([
     { key: 'image', title: 'Image', align: 'start', },
     { key: 'title', title: 'Title' },
@@ -15,17 +16,17 @@ const headers = ref<any[]>([
     {key: 'actions', title: 'Actions'}
 ])
 
-const {data: cacheProducts} = await useNuxtData(`${config.public.API_PRODUCT_LISTING}`)
-if(cacheProducts.value) productListings.value = cacheProducts.value
+const {data: cacheProducts} = await useNuxtData(`${config.public.API_PRODUCT_LISTING}${route.params.lid}/`)
+if(cacheProducts.value) productListing.value = cacheProducts.value
 
 const {data} = await useApi({
     method: 'GET', 
-    path: `${config.public.API_PRODUCT_LISTING}`,
-    key: `${config.public.API_PRODUCT_LISTING}`
+    path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+    key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
 })
 
-productListings.value = data.value
-
+productListing.value = data.value
+console.log(productListing.value)
 const setDate = (_date: Date) => {
     var date = new Date(_date);
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -39,8 +40,11 @@ const setDate = (_date: Date) => {
 <template>
     <v-card color="background" rounded="lg" border>
         <v-card-title>
-            Manage product listings
+            Manage listing products
         </v-card-title>
+        <v-card-subtitle>
+            Listing ID: {{ route.params.lid }}
+        </v-card-subtitle>
         <div class="d-sm-flex pa-4 align-center justify-space-around">
             <v-btn 
                 color="primary-alt" 
@@ -48,7 +52,7 @@ const setDate = (_date: Date) => {
                 class="mb-4 mb-sm-0"
                 :to="{name: 'brand-center-product-listings-add-product-listing'}"
             >
-                Add product listing
+                Add product
             </v-btn>
             <v-spacer />
             <v-text-field
@@ -66,9 +70,10 @@ const setDate = (_date: Date) => {
         
         <v-divider />
         <v-data-table
+            v-if="false"
             v-model="selected"
             :headers="headers"
-            :items="productListings"
+            :items="productListing"
             :search="search"
             item-value="pk"
             return-object
@@ -91,7 +96,7 @@ const setDate = (_date: Date) => {
                 </tr>
                 <v-divider class="w-100" style="position: absolute"/>
             </template>
-            <template v-if="productListings.length > 0"  v-slot:item="{ item, toggleSelect, isSelected }">
+            <template v-if="productListing"  v-slot:item="{ item, toggleSelect, isSelected }">
                 <tr>
                     <td class="py-4">
                         <v-checkbox-btn 

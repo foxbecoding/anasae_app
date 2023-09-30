@@ -5,6 +5,6 @@ useBrandStore().middleware()
 
 <template>
     <v-container class="pa-sm-8" fluid>
-        <BrandCenterProducts />
+        <BrandCenterProductsListing />
     </v-container>
 </template>
