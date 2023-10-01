@@ -121,7 +121,7 @@ const setDate = (_date: Date) => {
                             variant="tonal" 
                             size="small" 
                             flat
-                            text="Manage products"
+                            text="Manage listing"
                         />
                     </td>
                 </tr>

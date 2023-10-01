@@ -4,16 +4,22 @@ const config = useRuntimeConfig()
 const route = useRoute()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
-const productListing = ref([])
+const productListing = ref<any>()
+const filteredProducts = ref([])
 const headers = ref<any[]>([
-    { key: 'image', title: 'Image', align: 'start', },
-    { key: 'title', title: 'Title' },
-    { key: 'uid', title: 'Listing ID' },
-    { key: 'active_products', title: 'Active Products' },
-    { key: 'inactive_products', title: 'Inactive Products' },
+    { key: 'title', title: 'Title', align: 'start' },
+    { key: 'color', title: 'Color'},
+    { key: 'size', title: 'Size'},
+    { key: 'description', title: 'Description' },
+    { key: 'images', title: 'Images' },
+    { key: 'price_int', title: 'Price' },
+    { key: 'quantity', title: 'Quantity' },
+    { key: 'sku', title: 'Sku' },
+    { key: 'dimensions', title: 'Dimensions' },
+    { key: 'specifications', title: 'Specifications' },
+    { key: 'stock_status', title: 'Stock status' },
     { key: 'created', title: 'Created' },
-    { key: 'updated', title: 'Updated' },
-    {key: 'actions', title: 'Actions'}
+    { key: 'updated', title: 'Updated' }
 ])
 
 const {data: cacheProducts} = await useNuxtData(`${config.public.API_PRODUCT_LISTING}${route.params.lid}/`)
@@ -26,7 +32,12 @@ const {data} = await useApi({
 })
 
 productListing.value = data.value
-console.log(productListing.value)
+
+const Products = computed(() => {
+    if(filteredProducts.value.length == 0) return productListing.value['active_products']
+    return filteredProducts.value
+})
+
 const setDate = (_date: Date) => {
     var date = new Date(_date);
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -35,6 +46,21 @@ const setDate = (_date: Date) => {
     });
     return dateFormat.format(date);
 }
+
+const customFilter = (query: any) => {
+    let pks: string[] = []
+    filteredProducts.value = productListing.value['active_products'].filter((x: any) => {
+        query = String(query).toLowerCase()
+        let color = String(x.color).toLowerCase()
+        let size = String(x.size).toLowerCase()
+        if((color.includes(query) 
+        || size.includes(query))
+        ){
+            return x
+        }
+    })
+}
+
 </script>
 
 <template>
@@ -63,6 +89,7 @@ const setDate = (_date: Date) => {
                 single-line
                 bg-color="surface-el"
                 hide-details
+                @update:model-value="(e:any) => customFilter(e)"
                 flat
                 rounded="lg"
             />
@@ -70,10 +97,9 @@ const setDate = (_date: Date) => {
         
         <v-divider />
         <v-data-table
-            v-if="false"
             v-model="selected"
             :headers="headers"
-            :items="productListing"
+            :items="Products"
             :search="search"
             item-value="pk"
             return-object
@@ -96,7 +122,7 @@ const setDate = (_date: Date) => {
                 </tr>
                 <v-divider class="w-100" style="position: absolute"/>
             </template>
-            <template v-if="productListing"  v-slot:item="{ item, toggleSelect, isSelected }">
+            <template  v-slot:item="{ item, toggleSelect, isSelected }">
                 <tr>
                     <td class="py-4">
                         <v-checkbox-btn 
@@ -106,29 +132,94 @@ const setDate = (_date: Date) => {
 
                         ></v-checkbox-btn>
                     </td> 
-                    <td>
-                        <div 
-                            class="image-wrapper bg-surface-el"
-                        >
-                            <v-img :src="config.public.CDN_URL+item.columns.image"/>
-                        </div>
-                    </td>
                     <td><div class="td-title">{{ item.columns.title }}</div></td>
-                    <td><div class="td-lid">{{ item.columns.uid }}</div></td>
-                    <td><div>{{ item.columns.active_products }}</div></td>
-                    <td><div>{{ item.columns.inactive_products }}</div></td>
-                    <td><div>{{ setDate(item.columns.created) }}</div></td>
-                    <td><div>{{ setDate(item.columns.updated) }}</div></td>
+                    <td>{{ item.columns.color }}</td>
+                    <td>{{ item.columns.size }}</td>
                     <td>
                         <v-btn 
-                            :to="{name: 'brand-center-product-listings-lid', params: {lid: item.columns.uid}}"
-                            color="primary-alt" 
-                            variant="tonal" 
-                            size="small" 
-                            flat
-                            text="Manage products"
-                        />
+                            color="primary-alt"
+                            variant="tonal"
+                            size="small"
+                        >
+                            <v-icon class="mr-2" icon="mdi-pencil" />
+                            Description
+                        </v-btn>
                     </td>
+                    <td>
+                        <div class="d-flex justify-space-between align-center">
+                            <v-btn 
+                                color="primary"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                            <div 
+                                v-for="(img, i) in item.columns.images"
+                                :key="i"
+                                class="image-wrapper bg-surface-el ml-1"
+                            >
+                                <v-img :src="config.public.CDN_URL+img.image"/>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-center">
+                            <v-btn 
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon icon="mdi-pencil"  />
+                            </v-btn>
+                            <span>
+                                ${{ item.value.price.price/100 }}
+                            </span>
+                        </div>
+                    </td>
+                    <td>{{ item.columns.quantity }}</td>
+                    <td>
+                        <v-btn 
+                            color="primary-alt" 
+                            size="small"
+                            variant="tonal"
+                        >
+                            <v-icon icon="mdi-plus-circle-outline" class="mr-2"/>
+                            Add Sku
+                        </v-btn>
+                    </td>
+                    <td>
+                        <v-btn 
+                            size="small" 
+                            color="primary-alt" 
+                            variant="tonal"
+                            flat
+                        >
+                            <v-icon class="mr-2" icon="mdi-pencil"/>
+                            Dimensions
+                        </v-btn>
+                    </td>
+                    <td>
+                        <v-btn 
+                            size="small" 
+                            color="primary-alt" 
+                            variant="tonal"
+                            flat
+                        >
+                            <v-icon class="mr-2" icon="mdi-pencil"/>
+                            Specifications
+                        </v-btn>
+                    </td>
+                    <td>{{ item.columns.stock_status }}</td>
+                    <td>{{ setDate(item.columns.created) }}</td>
+                    <td>{{ setDate(item.columns.updated) }}</td>
                 </tr>
             </template>
         </v-data-table>
@@ -154,8 +245,8 @@ const setDate = (_date: Date) => {
 }
 
 .image-wrapper {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
 }
 
 .td-title {

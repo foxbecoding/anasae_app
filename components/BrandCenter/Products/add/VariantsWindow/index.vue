@@ -73,11 +73,6 @@ const deactivateVariants = (): void => {
     store.selectedVariants = []
 }
 
-const previewImages = (images: File[]): string[] => {
-    let imgs = images.map((x: File) => (URL.createObjectURL(x)))
-    return imgs
-}
-
 const saveTitleModel = () => {
     if(!editTitleModel.value){
         store.productVariants.filter(x => x.id == editTitleId.value)[0].title = store.listingDetails.title
