@@ -1,13 +1,20 @@
 <script lang="ts" setup>
+import { useSnackbarStore } from '@/store'
 
 const config = useRuntimeConfig()
+const snackbarStore = useSnackbarStore()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
 const productListings = ref([])
+const editTitlePk = ref()
+const editTitleModel = ref()
+const editTitleFormValid = ref<boolean>(true)
+const isSavingTitle = ref<boolean>(false)
 const headers = ref<any[]>([
     { key: 'image', title: 'Image', align: 'start', },
     { key: 'title', title: 'Title' },
     { key: 'uid', title: 'Listing ID' },
+    { key: 'category', title: 'Category' },
     { key: 'active_products', title: 'Active Products' },
     { key: 'inactive_products', title: 'Inactive Products' },
     { key: 'created', title: 'Created' },
@@ -34,6 +41,29 @@ const setDate = (_date: Date) => {
     });
     return dateFormat.format(date);
 }
+
+const editTitleHandler = (itemPk: any) => {
+    if(editTitlePk.value != itemPk){
+        editTitlePk.value = itemPk
+    }else{
+        editTitlePk.value = null
+        editTitleModel.value = ''
+    }
+} 
+
+const saveTitleModel = async () => {
+    isSavingTitle.value = true
+    let listing: any = productListings.value.find((x: any) => x.pk == editTitlePk.value)
+    const {data: updatedListings} = await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT_LISTING}${listing['uid']}/`,
+        data: {title: editTitleModel.value}
+    })
+    productListings.value = updatedListings.value
+    isSavingTitle.value = false
+    editTitlePk.value = null
+    snackbarStore.setSnackbar('Listing title updated', true)
+}
 </script>
 
 <template>
@@ -54,7 +84,7 @@ const setDate = (_date: Date) => {
             <v-text-field
                 v-model="search"
                 append-inner-icon="mdi-magnify"
-                label="Search"
+                label="Filter listings"
                 variant="solo"
                 single-line
                 bg-color="surface-el"
@@ -108,8 +138,63 @@ const setDate = (_date: Date) => {
                             <v-img :src="config.public.CDN_URL+item.columns.image"/>
                         </div>
                     </td>
-                    <td><div class="td-title">{{ item.columns.title }}</div></td>
+                    <td>
+                        <div class="d-flex align-center td-title">
+                            <v-btn 
+                                @click="editTitleHandler(item.value.pk)"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editTitlePk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <span v-if="editTitlePk != item.value.pk">
+                                {{ item.value.title }}
+                            </span>
+                            <v-form
+                                class="td-title" 
+                                v-model="editTitleFormValid"
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-text-field
+                                    v-model="editTitleModel"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    placeholder="Enter title"
+                                    density="compact"
+                                    variant="underlined"
+                                    :counter="90"
+                                    :rules="[ 
+                                        (v: any) => !! v || 'Title is required',
+                                        (v: any) => v.length <= 90 || 'Must be 90 characters or less', 
+                                    ]"
+                                />
+                            </v-form>
+                            <v-btn 
+                                v-show="editTitlePk == item.value.pk"
+                                @click="saveTitleModel()"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :disabled="!editTitleFormValid"
+                                :loading="(editTitlePk == item.value.pk) && isSavingTitle"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
+                        </div>
+                    </td>
                     <td><div class="td-lid">{{ item.columns.uid }}</div></td>
+                    <td><div class="td-category">{{ item.columns.category }}</div></td>
                     <td><div>{{ item.columns.active_products }}</div></td>
                     <td><div>{{ item.columns.inactive_products }}</div></td>
                     <td><div>{{ setDate(item.columns.created) }}</div></td>
@@ -157,6 +242,9 @@ const setDate = (_date: Date) => {
     width: 300px
 }
 .td-lid {
+    width: 120px
+}
+.td-category {
     width: 120px
 }
 </style>

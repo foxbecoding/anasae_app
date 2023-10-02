@@ -65,11 +65,12 @@ const customFilter = (query: any) => {
 
 <template>
     <v-card color="background" rounded="lg" border>
-        <v-card-title>
+        <v-card-title class="text-wrap">
             Manage listing products
         </v-card-title>
-        <v-card-subtitle>
-            Listing ID: {{ route.params.lid }}
+        <v-card-subtitle class="text-wrap">
+            Listing ID: {{ route.params.lid }}<br>
+            Category: {{ productListing.category }}
         </v-card-subtitle>
         <div class="d-sm-flex pa-4 align-center justify-space-around">
             <v-btn 
@@ -84,7 +85,7 @@ const customFilter = (query: any) => {
             <v-text-field
                 v-model="search"
                 append-inner-icon="mdi-magnify"
-                label="Search"
+                label="Filter products"
                 variant="solo"
                 single-line
                 bg-color="surface-el"
