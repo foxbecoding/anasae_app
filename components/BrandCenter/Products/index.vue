@@ -399,7 +399,6 @@ const saveTitleModel = async () => {
                     text="Save selection"
                 />
             </v-card-actions>
-            
         </v-card>
     </v-dialog>
 </template>

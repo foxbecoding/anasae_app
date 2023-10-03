@@ -64,7 +64,7 @@ const customFilter = (query: any) => {
 </script>
 
 <template>
-    <v-card color="background" rounded="lg" border>
+    <v-card v-if="productListing" color="background" rounded="lg" border>
         <v-card-title class="text-wrap">
             Manage listing products
         </v-card-title>
@@ -81,7 +81,7 @@ const customFilter = (query: any) => {
             >
                 Add product
             </v-btn>
-            <v-spacer />
+            <v-spacer /> 
             <v-text-field
                 v-model="search"
                 append-inner-icon="mdi-magnify"
