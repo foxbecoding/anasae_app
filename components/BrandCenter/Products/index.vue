@@ -14,8 +14,13 @@ const editTitlePk = ref()
 const editTitleModel = ref()
 const editTitleFormValid = ref<boolean>(true)
 const isSavingTitle = ref<boolean>(false)
+const editImagePk = ref()
+const editImageDialog = ref<boolean>(false)
+const editImageOptions = ref()
+const editImageRadios = ref()
+const isSavingImage = ref<boolean>(false)
 const headers = ref<any[]>([
-    { key: 'image', title: 'Image', align: 'start', },
+    { key: 'image', title: 'Cover image', align: 'start', },
     { key: 'title', title: 'Title' },
     { key: 'uid', title: 'Listing ID' },
     { key: 'active_products_list', title: 'Listing default variant' },
@@ -45,6 +50,30 @@ const setDate = (_date: Date) => {
         timeZone: `${tz}`
     });
     return dateFormat.format(date);
+}
+
+
+const editImageHandler = (item: any) => {
+    editImageRadios.value = item.image
+    editImagePk.value = item.pk
+    editImageDialog.value = true
+    editImageOptions.value = item.base_variant_images
+}
+
+const saveImage = async () => {
+    isSavingImage.value = true
+    let listing: any = productListings.value.find((x: any) => x.pk == editImagePk.value)
+    const {data: updatedListings} = await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT_LISTING}${listing['uid']}/`,
+        data: {image: editImageRadios.value}
+    })
+    productListings.value = updatedListings.value
+    isSavingImage.value = false
+    editImagePk.value = null
+    editImageRadios.value = null
+    editImageDialog.value = false
+    snackbarStore.setSnackbar('Listing cover image updated', true)
 }
 
 const editVariantHandler = (itemPk: any) => {
@@ -163,10 +192,24 @@ const saveTitleModel = async () => {
                         ></v-checkbox-btn>
                     </td> 
                     <td>
-                        <div 
-                            class="image-wrapper bg-surface-el"
-                        >
-                            <v-img :src="config.public.CDN_URL+item.columns.image"/>
+                        <div class="d-flex align-center">
+                            <v-btn 
+                                @click="editImageHandler(item.value)"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editImagePk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <div 
+                                class="image-wrapper bg-surface-el"
+                            >
+                                <v-img :src="config.public.CDN_URL+item.columns.image"/>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -316,6 +359,49 @@ const saveTitleModel = async () => {
             </template>
         </v-data-table>
     </v-card>
+    <v-dialog
+        v-model="editImageDialog"
+        width="auto"
+        max-width="300px"
+        @update:model-value="(e:any) => !e ? editImagePk = null : ''"
+    >
+        <v-card color="background" rounded="xl">
+            <v-card-text>
+                <v-radio-group v-model="editImageRadios" color="primary-alt">
+                    <template v-slot:label>
+                        <div class="text-wrap"><strong>Select an image from your default product variant</strong></div>
+                    </template>
+                    <v-radio 
+                        v-for="(img, i) in editImageOptions"
+                        :key="i"
+                        :value="img"
+                        class="mb-2"
+                    >
+                        <template v-slot:label>
+                            <div 
+                                class="image-wrapper bg-surface-el"
+                            >
+                                <v-img :src="config.public.CDN_URL+img"/>
+                            </div>
+                        </template>
+                    </v-radio>
+                </v-radio-group>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn 
+                    @click="saveImage()"
+                    color="primary" 
+                    block 
+                    flat 
+                    :loading="isSavingImage"
+                    rounded="pill"
+                    variant="flat"
+                    text="Save selection"
+                />
+            </v-card-actions>
+            
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
