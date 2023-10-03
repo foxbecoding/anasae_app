@@ -390,16 +390,26 @@ const saveTitleModel = async () => {
                     </v-radio>
                 </v-radio-group>
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions class="ml-auto">
                 <v-btn 
-                    @click="saveImage()"
-                    color="primary" 
-                    block 
+                    @click="() => {
+                        editImageDialog = false
+                        editImagePk = null
+                    }" 
                     flat 
                     :loading="isSavingImage"
                     rounded="pill"
-                    variant="flat"
-                    text="Save selection"
+                    variant="text"
+                    text="Close"
+                />
+                <v-btn 
+                    @click="saveImage()"
+                    color="primary-alt" 
+                    flat 
+                    :loading="isSavingImage"
+                    rounded="pill"
+                    variant="tonal"
+                    text="Save"
                 />
             </v-card-actions>
         </v-card>
