@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { useSnackbarStore } from '@/store'
+import { useSnackbarStore, useBrandCenterProductListingStore } from '@/store'
+
 
 const config = useRuntimeConfig()
 const snackbarStore = useSnackbarStore()
+const productLisitngStore = useBrandCenterProductListingStore()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
 const productListings = ref([])
@@ -136,6 +138,7 @@ const saveTitleModel = async () => {
                 color="primary-alt" 
                 rounded="lg"
                 class="mb-4 mb-sm-0"
+                @click="productLisitngStore.lid = null"
                 :to="{name: 'brand-center-product-listings-add-product-listing'}"
             >
                 Add product listing

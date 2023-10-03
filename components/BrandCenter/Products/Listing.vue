@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { useBrandCenterProductListingStore } from "@/store";
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const productLisitngStore = useBrandCenterProductListingStore()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
 const productListing = ref<any>()
@@ -76,6 +78,7 @@ const customFilter = (query: any) => {
             <v-btn 
                 color="primary-alt" 
                 rounded="lg"
+                @click="productLisitngStore.lid = $route.params.lid"
                 class="mb-4 mb-sm-0"
                 :to="{name: 'brand-center-product-listings-add-product-listing'}"
             >

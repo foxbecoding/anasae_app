@@ -155,10 +155,12 @@ const submitDetails = async(): Promise<any[] | void> => {
             })
         })
     }
-
+    
+    var path: string = store.lid ? `${config.public.API_PRODUCT}?lid=${store.lid}` : `${config.public.API_PRODUCT}`
+    
     const { data, error, status } = await useApi({
         method: 'POST', 
-        path: `${config.public.API_PRODUCT}`, 
+        path: path, 
         data: productDetails
     })
 
@@ -331,6 +333,7 @@ const submit = async(): Promise<void> => {
     }    
     submitDialog.value = false
     isSubmitting.value = false
+    store.lid = null
     navigateTo('/brand-center/manage-products')
     useSnackbarStore().setSnackbar('Product listing added', true)
     store.resetData()

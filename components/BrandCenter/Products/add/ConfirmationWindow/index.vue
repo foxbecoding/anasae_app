@@ -116,9 +116,6 @@ watch(selectedVariantColor, (newValue) => {
 })
 
 watch(selectedVariantSize, (newValue, oldValue) => {
-    // if(newValue == undefined){
-    //     return
-    // }
     setColors(newValue)
 })
 

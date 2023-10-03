@@ -37,6 +37,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         specifications: ProdSpec[]
     }
 
+    const lid = ref()
     const hasVariants = ref<boolean>(false)
     const variantChips = ref<ProdSpec[]>([])
     const productVariants = ref<ProductVariant[]>([])
@@ -138,9 +139,12 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
 
     return {
         currentStep,
-        listingDetails,
-        imgFilesMax,
         hasVariants,
+        heightUnit,
+        imgFilesMax,
+        lengthUnit,
+        lid,
+        listingDetails,
         otherProductSpecs,
         previewImages,
         productVariants,
@@ -150,9 +154,7 @@ export const useBrandCenterProductListingStore = defineStore("brand-center-produ
         specifications,
         steps,
         variantChips,
-        lengthUnit,
         widthUnit, 
-        heightUnit,
         weightUnit,
         resetData,
         setVariantField
