@@ -334,7 +334,7 @@ const submit = async(): Promise<void> => {
     submitDialog.value = false
     isSubmitting.value = false
     store.lid = null
-    navigateTo('/brand-center/manage-products')
+    navigateTo('/brand-center/product-listings')
     useSnackbarStore().setSnackbar('Product listing added', true)
     store.resetData()
 }

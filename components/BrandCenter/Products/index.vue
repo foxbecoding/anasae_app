@@ -397,7 +397,7 @@ const saveTitleModel = async () => {
                         editImagePk = null
                     }" 
                     flat 
-                    :loading="isSavingImage"
+                    :disabled="isSavingImage"
                     rounded="pill"
                     variant="text"
                     text="Close"
