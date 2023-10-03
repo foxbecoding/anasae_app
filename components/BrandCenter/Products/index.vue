@@ -6,6 +6,10 @@ const snackbarStore = useSnackbarStore()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
 const productListings = ref([])
+const editVariantPk = ref()
+const selectedVariant = ref()
+const editVariantFormValid = ref<boolean>(true)
+const isSavingVariant = ref<boolean>(false)
 const editTitlePk = ref()
 const editTitleModel = ref()
 const editTitleFormValid = ref<boolean>(true)
@@ -14,6 +18,7 @@ const headers = ref<any[]>([
     { key: 'image', title: 'Image', align: 'start', },
     { key: 'title', title: 'Title' },
     { key: 'uid', title: 'Listing ID' },
+    { key: 'active_products_list', title: 'Listing default variant' },
     { key: 'category', title: 'Category' },
     { key: 'active_products', title: 'Active Products' },
     { key: 'inactive_products', title: 'Inactive Products' },
@@ -42,6 +47,29 @@ const setDate = (_date: Date) => {
     return dateFormat.format(date);
 }
 
+const editVariantHandler = (itemPk: any) => {
+    if(editVariantPk.value != itemPk){
+        editVariantPk.value = itemPk
+    }else{
+        editVariantPk.value = null
+        selectedVariant.value = null
+    }
+} 
+
+const saveVariantModel = async (item: any) => {
+    isSavingVariant.value = true
+    const {data: updatedListings} = await useApi({
+        method: 'PUT', 
+        path: `${config.public.API_PRODUCT_LISTING_BASE_VARIANT}${item.pk}/`,
+        data: {product: selectedVariant.value}
+    })
+    productListings.value = updatedListings.value
+    isSavingVariant.value = false
+    editVariantPk.value = null
+    selectedVariant.value = null
+    snackbarStore.setSnackbar('Listing default variant updated', true)
+}
+
 const editTitleHandler = (itemPk: any) => {
     if(editTitlePk.value != itemPk){
         editTitlePk.value = itemPk
@@ -62,8 +90,11 @@ const saveTitleModel = async () => {
     productListings.value = updatedListings.value
     isSavingTitle.value = false
     editTitlePk.value = null
+    editTitleModel.value = null
     snackbarStore.setSnackbar('Listing title updated', true)
 }
+
+
 </script>
 
 <template>
@@ -194,6 +225,78 @@ const saveTitleModel = async () => {
                         </div>
                     </td>
                     <td><div class="td-lid">{{ item.columns.uid }}</div></td>
+                    <td>
+                        <div 
+                            class="d-flex align-center td-variant_default" 
+                            :class="editVariantPk == item.value.base_variant['pk'] ? 'td-variant_default--extend' : 'td-variant_default'"
+                        >
+                            <v-btn 
+                                @click="editVariantHandler(item.value.base_variant['pk'])"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editVariantPk != item.value.base_variant['pk'] ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <span v-if="editVariantPk != item.value.base_variant['pk']">
+                                {{ item.value.base_variant_text }}
+                            </span>
+                            <v-form
+                                class="td-variant_default--extend"
+                                v-model="editVariantFormValid"
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-select 
+                                    v-model="selectedVariant"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    placeholder="Select variant "
+                                    density="compact"
+                                    variant="underlined"
+                                    :items="item.columns.active_products_list" 
+                                    item-title="variants"
+                                    item-value="pk"
+                                    width="300"
+                                    :rules="[ 
+                                        (v: any) => !! v || 'Selection is required'
+                                    ]"
+                                >
+                                    <template v-slot:item="{ props, item }">
+                                        <v-list-item v-bind="props" :subtitle="item.raw.title">
+                                            <template v-slot:prepend>
+                                                <v-avatar rounded="sm">
+                                                    <v-img 
+                                                        :src="config.public.CDN_URL+item.raw.images[0]['image']" 
+                                                    />
+                                                </v-avatar>
+                                            </template>
+                                        </v-list-item>
+                                    </template>
+                                </v-select>
+                            </v-form>
+                            <v-btn 
+                                v-show="editVariantPk == item.value.base_variant['pk']"
+                                @click="saveVariantModel(item.value)"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :disabled="!editVariantFormValid"
+                                :loading="(editVariantPk == item.value.base_variant['pk']) && isSavingVariant"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
+                        </div>
+                    </td>
                     <td><div class="td-category">{{ item.columns.category }}</div></td>
                     <td><div>{{ item.columns.active_products }}</div></td>
                     <td><div>{{ item.columns.inactive_products }}</div></td>
@@ -240,6 +343,12 @@ const saveTitleModel = async () => {
 
 .td-title {
     width: 300px
+}
+.td-variant_default {
+    width: 120px
+}
+.td-variant_default--extend {
+    width: 250px
 }
 .td-lid {
     width: 120px

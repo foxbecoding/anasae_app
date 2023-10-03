@@ -27,6 +27,7 @@ export default defineNuxtConfig({
             API_PRODUCT: process.env.API_PRODUCT,
             API_PRODUCT_DIMENSION: process.env.API_PRODUCT_DIMENSION,
             API_PRODUCT_LISTING: process.env.API_PRODUCT_LISTING,
+            API_PRODUCT_LISTING_BASE_VARIANT: process.env.API_PRODUCT_LISTING_BASE_VARIANT,
             API_PRODUCT_IMAGE: process.env.API_PRODUCT_IMAGE,
             API_PRODUCT_PRICE: process.env.API_PRODUCT_PRICE,
             API_PRODUCT_SPECIFICATION: process.env.API_PRODUCT_SPECIFICATION,
