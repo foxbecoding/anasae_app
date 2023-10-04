@@ -1,10 +1,15 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store";
+import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store"
+import { useDisplay } from 'vuetify'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const snackbarStore = useSnackbarStore()
 const productLisitngStore = useBrandCenterProductListingStore()
+const dialog = ref<boolean>(false)
+const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
+const editComponent = shallowRef()
+const selectedEditProduct = ref()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
 const editTitlePk = ref()
@@ -74,6 +79,22 @@ const saveTitleModel = async (product: any) => {
     editTitlePk.value = null
     editTitleModel.value = null
     snackbarStore.setSnackbar('Listing title updated', true)
+}
+
+const openEditDialog = (component: any) => {
+    dialog.value = true
+    editComponent.value = component
+}
+
+const saveEditDialog = async () => {
+    dialog.value = false
+    const {data: updatedListing} = await useApi({
+        method: 'GET', 
+        path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+        key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
+    })
+
+    productListing.value = updatedListing.value
 }
 
 const setDate = (_date: Date) => {
@@ -317,6 +338,44 @@ const customFilter = (query: any) => {
             </template>
         </v-data-table>
     </v-card>
+    <v-dialog
+        v-model="dialog"
+        :fullscreen="IsFullscreen"
+        :width="IsFullscreen ? '600px': '500px'"
+        :transition="IsFullscreen ? 'dialog-bottom-transition' : 'fade-transition'"
+        persistent
+    >
+        <v-card 
+            height="1000px" 
+            color="background"
+            :rounded="IsFullscreen ? 'none' : 'xl'"
+            :class="IsFullscreen ? 'mobile-dialog-card' : ''"
+        >
+            <v-container fluid>
+                <div class="d-flex justify-space-between align-center">
+                    <v-btn 
+                        @click="dialog = false"
+                        color="transparent" 
+                        size="small" 
+                        icon
+                    >
+                        <v-icon icon="mdi-close" />
+                    </v-btn> 
+                    
+                    <div class="auth-form-logo-container w-100 mr-4"> 
+                        <Logo /> 
+                    </div>
+                </div>
+                <v-card-text>
+                    <component 
+                        :is="editComponent" 
+                        :product="selectedEditProduct"
+                        @save="dialog = false"
+                    />
+                </v-card-text>
+            </v-container>
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
