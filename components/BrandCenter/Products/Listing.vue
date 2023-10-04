@@ -1,11 +1,16 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore } from "@/store";
+import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store";
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const snackbarStore = useSnackbarStore()
 const productLisitngStore = useBrandCenterProductListingStore()
 const selected =  ref<any[]>([])
 const search =  ref<string>('')
+const editTitlePk = ref()
+const editTitleModel = ref()
+const editTitleFormValid = ref<boolean>(true)
+const isSavingTitle = ref<boolean>(false)
 const productListing = ref<any>()
 const filteredProducts = ref([])
 const headers = ref<any[]>([
@@ -40,6 +45,37 @@ const Products = computed(() => {
     return filteredProducts.value
 })
 
+const editTitleHandler = (itemPk: any) => {
+    if(editTitlePk.value != itemPk){
+        editTitlePk.value = itemPk
+    }else{
+        editTitlePk.value = null
+        editTitleModel.value = ''
+    }
+} 
+
+const saveTitleModel = async (product: any) => {
+    isSavingTitle.value = true
+
+    await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT}${product.pk}/`,
+        data: {title: editTitleModel.value}
+    })
+
+    const {data: updatedListing} = await useApi({
+        method: 'GET', 
+        path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+        key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
+    })
+
+    productListing.value = updatedListing.value
+    isSavingTitle.value = false
+    editTitlePk.value = null
+    editTitleModel.value = null
+    snackbarStore.setSnackbar('Listing title updated', true)
+}
+
 const setDate = (_date: Date) => {
     var date = new Date(_date);
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -50,7 +86,6 @@ const setDate = (_date: Date) => {
 }
 
 const customFilter = (query: any) => {
-    let pks: string[] = []
     filteredProducts.value = productListing.value['active_products'].filter((x: any) => {
         query = String(query).toLowerCase()
         let color = String(x.color).toLowerCase()
@@ -136,7 +171,61 @@ const customFilter = (query: any) => {
 
                         ></v-checkbox-btn>
                     </td> 
-                    <td><div class="td-title">{{ item.columns.title }}</div></td>
+                    <td>
+                        <div class="d-flex align-center td-title">
+                            <v-btn 
+                                @click="editTitleHandler(item.value.pk)"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editTitlePk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <span v-if="editTitlePk != item.value.pk">
+                                {{ item.value.title }}
+                            </span>
+                            <v-form
+                                class="td-title" 
+                                v-model="editTitleFormValid"
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-text-field
+                                    v-model="editTitleModel"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    placeholder="Enter title"
+                                    density="compact"
+                                    variant="underlined"
+                                    :counter="90"
+                                    :rules="[ 
+                                        (v: any) => !! v || 'Title is required',
+                                        (v: any) => v.length <= 90 || 'Must be 90 characters or less', 
+                                    ]"
+                                />
+                            </v-form>
+                            <v-btn 
+                                v-show="editTitlePk == item.value.pk"
+                                @click="saveTitleModel(item.value)"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :disabled="!editTitleFormValid"
+                                :loading="(editTitlePk == item.value.pk) && isSavingTitle"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
+                        </div>
+                    </td>
                     <td>{{ item.columns.color }}</td>
                     <td>{{ item.columns.size }}</td>
                     <td>
