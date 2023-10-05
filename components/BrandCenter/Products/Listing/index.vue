@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import EditVariantDescription from './EditVariant/Description.vue'
 import EditVariantImages from './EditVariant/Images.vue'
+import EditVariantDimensions from './EditVariant/Dimensions.vue'
+import EditVariantSpecifications from './EditVariant/Specifications.vue'
 import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store"
 import { numbersOnly } from '@/utils/helpers'
 import { useDisplay } from 'vuetify'
@@ -519,7 +521,6 @@ const customFilter = (query: any) => {
                                 {{ item.value.sku ? item.value.sku : 'no entry' }}
                             </span>
                             <v-form
-                                class="td-sku--extended" 
                                 @submit="false"
                                 v-else 
                             >
@@ -527,7 +528,7 @@ const customFilter = (query: any) => {
                                     v-model="editSkuModel"
                                     bg-color="background"
                                     color="primary-alt"
-                                    class="td-sku--extend"
+                                    class="td-sku"
                                     placeholder="Enter sku"
                                     density="compact"
                                     variant="underlined"
@@ -552,6 +553,7 @@ const customFilter = (query: any) => {
                     </td>
                     <td>
                         <v-btn 
+                            @click="openEditDialog(EditVariantDimensions, item.value)"
                             size="small" 
                             color="primary-alt" 
                             variant="tonal"
@@ -563,6 +565,7 @@ const customFilter = (query: any) => {
                     </td>
                     <td>
                         <v-btn 
+                            @click="openEditDialog(EditVariantSpecifications, item.value)"
                             size="small" 
                             color="primary-alt" 
                             variant="tonal"
@@ -654,9 +657,9 @@ const customFilter = (query: any) => {
     width: 120px
 }
 .td-quantity {
-    width: 140px
+    width: 60px
 }
-.td-sku--extended {
-    width: 200px
+.td-sku {
+    width: 120px
 }
 </style>

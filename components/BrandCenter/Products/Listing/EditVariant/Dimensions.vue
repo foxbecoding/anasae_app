@@ -17,63 +17,83 @@ interface DimRow {
     selectKey: any
 }
 
+const config = useRuntimeConfig()
 const form = ref()
 const valid = ref<boolean>(true)
+const dimension = props.product.dimension
+
 const Variant = computed(() => `${props.product.color},${props.product.size}`)
-const length = ref()
-const width = ref()
-const height = ref()
-const weight = ref()
-const lengthUnit = ref()
-const widthUnit = ref()
-const heightUnit = ref()
-const weightUnit = ref()
+
+const setValue = (_value: string) => {
+    var value: string = ''
+    const units = ['in','ft','oz','lbs']
+    units.forEach(x => {
+        if (_value.includes(x)){
+            value = _value.split(x)[0]
+        }       
+    })
+    return value
+}
+
+const setUnit = (_value: string) => {
+    var unit: string = ''
+    const units = ['in','ft','oz','lbs']
+    units.forEach(x => {
+        if (_value.includes(x)){
+            unit = x
+        }       
+    })
+    return unit
+}
 
 const dimRows = ref<DimRow[]>([
     {
-        textModel: length.value, 
+        textModel: setValue(dimension.length), 
         textLabel: 'Length', 
         textKey: 'length',
-        selectModel: lengthUnit.value, 
+        selectModel: setUnit(dimension.length), 
         selectItems: ['in', 'ft'],
         selectKey: 'lengthUnit'
     },
     {
-        textModel: width.value, 
+        textModel: setValue(dimension.width), 
         textLabel: 'Width', 
         textKey: 'width',
-        selectModel: widthUnit.value, 
+        selectModel: setUnit(dimension.width), 
         selectItems: ['in', 'ft'],
         selectKey: 'widthUnit'
     },
     {
-        textModel: height.value, 
+        textModel: setValue(dimension.height), 
         textLabel: 'Height', 
         textKey: 'height',
-        selectModel: heightUnit.value, 
+        selectModel: setUnit(dimension.height), 
         selectItems: ['in', 'ft'],
         selectKey: 'heightUnit'
     },
     {
-        textModel: weight.value, 
+        textModel: setValue(dimension.weight), 
         textLabel: 'Weight', 
         textKey: 'weight',
-        selectModel: weightUnit.value, 
+        selectModel: setUnit(dimension.weight), 
         selectItems: ['oz', 'lbs'],
         selectKey: 'weightUnit'
     },
 ])
 
-
-
 const save = async(): Promise<void> => {
+    var data: any = {}
     const isValid: boolean = await useValidateForm(form.value)
     if(!isValid){ return }
-    // dimRows.value.map(x => {
-    //     store.productVariants.filter(x => x.id == props.id)[0][`${x.textKey}`] = x.textModel
-    //     store.productVariants.filter(x => x.id == props.id)[0][`${x.selectKey}`] = x.selectModel
-    // })
-    // emit('save', true)
+    dimRows.value.map(x => {
+        data[`${x.textKey}`] = x.textModel+x.selectModel
+    })
+    await useApi({
+        method: 'PUT', 
+        path: `${config.public.API_PRODUCT_DIMENSION}${dimension.pk}/`,
+        data: data
+    })
+    emit('save', true)
     useSnackbarStore().setSnackbar('Dimensions updated', true)
 }
 
