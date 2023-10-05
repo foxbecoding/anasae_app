@@ -9,6 +9,8 @@ const emit = defineEmits<{
 
 const config = useRuntimeConfig()
 const productListingStore = useBrandCenterProductListingStore()
+const deleteDialog = ref<boolean>(false)
+const selectedImage = ref()
 const fileRef = ref()
 const product = ref<Product>(props.product)
 const images = ref<File[]>([])
@@ -34,6 +36,16 @@ const setImages = (imageFiles: File[]): void => {
 
 const Variant = computed(() => `${props.product.color},${props.product.size}`)
 
+const openDeleteDialog = (image: any): void => {
+    selectedImage.value = image
+    deleteDialog.value = true
+}
+
+const closeDeleteDialog = (): void => {
+    selectedImage.value = null
+    deleteDialog.value = false
+}
+
 const save = async (): Promise<void> => {
     isSubmitting.value = true
     let formData = new FormData
@@ -57,12 +69,15 @@ const save = async (): Promise<void> => {
     useSnackbarStore().setSnackbar('Images updated', true)
 }
 
-const deleteImg = async (image: any): Promise<void> => {
+const deleteImg = async (): Promise<void> => {
+    isSubmitting.value = true
     const { data, error, status } = await useApi({
         method: 'DELETE', 
-        path: `${config.public.API_PRODUCT_IMAGE}${image.pk}`
+        path: `${config.public.API_PRODUCT_IMAGE}${selectedImage.value.pk}/`
     })
-    product.value.images = [...product.value.images.filter(x => x.pk != image.pk)]
+    product.value.images = [...product.value.images.filter(x => x.pk != selectedImage.value.pk)]
+    isSubmitting.value = false
+    closeDeleteDialog()
     useSnackbarStore().setSnackbar('Image deleted', true)
 }
 
@@ -89,7 +104,7 @@ const deleteImg = async (image: any): Promise<void> => {
     <v-card-title class="pl-0 text-wrap">
         Current uploaded images
     </v-card-title>
-    <div class="d-flex flex-wrap " >
+    <div class="d-flex flex-wrap">
         <div
             class="bg-surface-el rounded mr-2 mb-2"
             style="height: 100px; width: 100px" 
@@ -98,7 +113,8 @@ const deleteImg = async (image: any): Promise<void> => {
         >
             <v-img :src="config.public.CDN_URL+src.image" class="rounded">
                 <v-btn 
-                    @click="deleteImg(src)"
+                    v-if="i > 0"
+                    @click="openDeleteDialog(src)"
                     color="error" 
                     variant="text" 
                     size="x-small" 
@@ -165,4 +181,30 @@ const deleteImg = async (image: any): Promise<void> => {
     >
         Save
     </v-btn>
+    <v-dialog
+        v-model="deleteDialog"
+        width="auto"
+        max-width="300px"
+    >
+        <v-card rounded="xl">
+            <v-card-title class="text-wrap">
+                Deleting this product image?
+            </v-card-title>
+            <v-card-actions class="ml-auto">
+                <v-btn 
+                    @click="closeDeleteDialog()" 
+                    rounded="pill"
+                    text="Close"
+                    :disabled="isSubmitting"
+                />
+                <v-btn 
+                    @click="deleteImg()" 
+                    color="error" 
+                    rounded="pill"
+                    :loading="isSubmitting"
+                    text="Delete"
+                />
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>

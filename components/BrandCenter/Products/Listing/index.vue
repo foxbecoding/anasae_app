@@ -38,8 +38,7 @@ const headers = ref<any[]>([
     { key: 'dimensions', title: 'Dimensions' },
     { key: 'specifications', title: 'Specifications' },
     { key: 'stock_status', title: 'Stock status' },
-    { key: 'created', title: 'Created' },
-    { key: 'updated', title: 'Updated' }
+    { key: 'created', title: 'Created' }
 ])
 
 const {data: cacheProducts} = await useNuxtData(`${config.public.API_PRODUCT_LISTING}${route.params.lid}/`)
@@ -498,7 +497,6 @@ const customFilter = (query: any) => {
                     </td>
                     <td>{{ item.columns.stock_status }}</td>
                     <td>{{ setDate(item.columns.created) }}</td>
-                    <td>{{ setDate(item.columns.updated) }}</td>
                 </tr>
             </template>
         </v-data-table>

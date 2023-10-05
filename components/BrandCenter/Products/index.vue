@@ -29,8 +29,7 @@ const headers = ref<any[]>([
     { key: 'category', title: 'Category' },
     { key: 'active_products', title: 'Active Products' },
     { key: 'inactive_products', title: 'Inactive Products' },
-    { key: 'created', title: 'Created' },
-    { key: 'updated', title: 'Updated' },
+    { key: 'created', title: 'Listed' },
     {key: 'actions', title: 'Actions'}
 ])
 
@@ -347,7 +346,6 @@ const saveTitleModel = async () => {
                     <td><div>{{ item.columns.active_products }}</div></td>
                     <td><div>{{ item.columns.inactive_products }}</div></td>
                     <td><div>{{ setDate(item.columns.created) }}</div></td>
-                    <td><div>{{ setDate(item.columns.updated) }}</div></td>
                     <td>
                         <v-btn 
                             :to="{name: 'brand-center-product-listings-lid', params: {lid: item.columns.uid}}"
