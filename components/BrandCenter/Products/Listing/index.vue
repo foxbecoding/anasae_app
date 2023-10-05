@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import EditVariantDescription from './EditVariant/Description.vue'
+import EditVariantImages from './EditVariant/Images.vue'
 import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store"
 import { useDisplay } from 'vuetify'
 
@@ -16,6 +18,12 @@ const editTitlePk = ref()
 const editTitleModel = ref()
 const editTitleFormValid = ref<boolean>(true)
 const isSavingTitle = ref<boolean>(false)
+const editSkuPk = ref()
+const editSkuModel = ref()
+const isSavingSku = ref<boolean>(false)
+const editQuantityPk = ref()
+const editQuantityModel = ref()
+const isSavingQuantity = ref<boolean>(false)
 const productListing = ref<any>()
 const filteredProducts = ref([])
 const headers = ref<any[]>([
@@ -50,16 +58,17 @@ const Products = computed(() => {
     return filteredProducts.value
 })
 
-const editTitleHandler = (itemPk: any) => {
-    if(editTitlePk.value != itemPk){
-        editTitlePk.value = itemPk
+const editTitleHandler = (item: any) => {
+    if(editTitlePk.value != item.pk){
+        editTitleModel.value = item.title
+        editTitlePk.value = item.pk
     }else{
         editTitlePk.value = null
         editTitleModel.value = ''
     }
 } 
 
-const saveTitleModel = async (product: any) => {
+const saveTitleModel = async (product: any): Promise<void> => {
     isSavingTitle.value = true
 
     await useApi({
@@ -78,15 +87,80 @@ const saveTitleModel = async (product: any) => {
     isSavingTitle.value = false
     editTitlePk.value = null
     editTitleModel.value = null
-    snackbarStore.setSnackbar('Listing title updated', true)
+    snackbarStore.setSnackbar('Product title updated', true)
 }
 
-const openEditDialog = (component: any) => {
+const editSkuHandler = (item: any) => {
+    if(editSkuPk.value != item.pk){
+        editSkuModel.value = item.sku
+        editSkuPk.value = item.pk
+    }else{
+        editSkuPk.value = null
+        editSkuModel.value = ''
+    }
+} 
+
+const saveSkuModel = async (product: any): Promise<void> => {
+    isSavingSku.value = true
+
+    await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT}${product.pk}/`,
+        data: {sku: editSkuModel.value}
+    })
+
+    const {data: updatedListing} = await useApi({
+        method: 'GET', 
+        path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+        key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
+    })
+
+    productListing.value = updatedListing.value
+    isSavingSku.value = false
+    editSkuPk.value = null
+    editSkuModel.value = null
+    snackbarStore.setSnackbar('Product sku updated', true)
+}
+
+const editQuantityHandler = (item: any) => {
+    if(editQuantityPk.value != item.pk){
+        editQuantityModel.value = item.quantity
+        editQuantityPk.value = item.pk
+    }else{
+        editQuantityPk.value = null
+        editQuantityModel.value = ''
+    }
+} 
+
+const saveQuantityModel = async (product: any): Promise<void> => {
+    isSavingQuantity.value = true
+
+    await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT}${product.pk}/`,
+        data: {quantity: editQuantityModel.value}
+    })
+
+    const {data: updatedListing} = await useApi({
+        method: 'GET', 
+        path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+        key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
+    })
+
+    productListing.value = updatedListing.value
+    isSavingQuantity.value = false
+    editQuantityPk.value = null
+    editQuantityModel.value = null
+    snackbarStore.setSnackbar('Product quantity updated', true)
+}
+
+const openEditDialog = (component: any, product: any) => {
     dialog.value = true
+    selectedEditProduct.value = product
     editComponent.value = component
 }
 
-const saveEditDialog = async () => {
+const saveEditDialog = async (): Promise<void> => {
     dialog.value = false
     const {data: updatedListing} = await useApi({
         method: 'GET', 
@@ -195,7 +269,7 @@ const customFilter = (query: any) => {
                     <td>
                         <div class="d-flex align-center td-title">
                             <v-btn 
-                                @click="editTitleHandler(item.value.pk)"
+                                @click="editTitleHandler(item.value)"
                                 color="primary"
                                 class="mr-1"
                                 min-width="0px" 
@@ -251,6 +325,7 @@ const customFilter = (query: any) => {
                     <td>{{ item.columns.size }}</td>
                     <td>
                         <v-btn 
+                            @click="openEditDialog(EditVariantDescription, item.value)"
                             color="primary-alt"
                             variant="tonal"
                             size="small"
@@ -262,6 +337,7 @@ const customFilter = (query: any) => {
                     <td>
                         <div class="d-flex justify-space-between align-center">
                             <v-btn 
+                                @click="openEditDialog(EditVariantImages, item.value)"
                                 color="primary"
                                 min-width="0px" 
                                 min-height="0px"
@@ -298,16 +374,105 @@ const customFilter = (query: any) => {
                             </span>
                         </div>
                     </td>
-                    <td>{{ item.columns.quantity }}</td>
                     <td>
-                        <v-btn 
-                            color="primary-alt" 
-                            size="small"
-                            variant="tonal"
+                        <div class="d-flex align-center td-quantity" >
+                            <v-btn 
+                                @click="editQuantityHandler(item.value)"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editQuantityPk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <span v-if="editQuantityPk != item.value.pk">
+                                {{ item.value.quantity }}
+                            </span>
+                            <v-form
+                                class="td-quantity"
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-select
+                                    v-model="editQuantityModel"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    :items="productLisitngStore.quantityLimit"
+                                    placeholder="Select quantity"
+                                    density="compact"
+                                    variant="underlined"
+                                />
+                            </v-form>
+                            <v-btn 
+                                v-show="editQuantityPk == item.value.pk"
+                                @click="saveQuantityModel(item.value)"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :loading="(editQuantityPk == item.value.pk) && isSavingQuantity"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
+                        </div>
+                    </td>
+                    <td>
+                        <div 
+                            class="d-flex align-center"
+                            :class="editSkuPk == item.value.pk ? 'td-sku--extend' : 'td-sku'"
                         >
-                            <v-icon icon="mdi-plus-circle-outline" class="mr-2"/>
-                            Add Sku
-                        </v-btn>
+                            <v-btn 
+                                @click="editSkuHandler(item.value)"
+                                color="primary"
+                                class="mr-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                            > 
+                                <v-icon :icon="editSkuPk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
+                            </v-btn>
+                            <span v-if="editSkuPk != item.value.pk">
+                                {{ item.value.sku ? item.value.sku : 'no entry' }}
+                            </span>
+                            <v-form
+                                class="td-sku--extended" 
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-text-field
+                                    v-model="editSkuModel"
+                                    bg-color="background"
+                                    color="primary-alt"
+                                    placeholder="Enter sku"
+                                    density="compact"
+                                    variant="underlined"
+                                />
+                            </v-form>
+                            <v-btn 
+                                v-show="editSkuPk == item.value.pk"
+                                @click="saveSkuModel(item.value)"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :loading="(editSkuPk == item.value.pk) && isSavingSku"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
+                        </div>
                     </td>
                     <td>
                         <v-btn 
@@ -370,7 +535,7 @@ const customFilter = (query: any) => {
                     <component 
                         :is="editComponent" 
                         :product="selectedEditProduct"
-                        @save="dialog = false"
+                        @save="saveEditDialog()"
                     />
                 </v-card-text>
             </v-container>
@@ -406,5 +571,14 @@ const customFilter = (query: any) => {
 }
 .td-lid {
     width: 120px
+}
+.td-sku {
+    width: 120px
+}
+.td-quantity {
+    width: 140px
+}
+.td-sku--extended {
+    width: 200px
 }
 </style>

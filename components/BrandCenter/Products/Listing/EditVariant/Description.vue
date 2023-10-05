@@ -1,34 +1,37 @@
 <script lang="ts" setup>
-import { useBrandCenterProductListingStore, useSnackbarStore } from '@/store'
-const props = defineProps({
-    id: Number
-})
+import { useSnackbarStore } from '@/store'
 
+const props = defineProps(['product'])
 const emit = defineEmits<{
   save: [status: boolean] 
 }>()
 
-
-const store = useBrandCenterProductListingStore()
-const description = ref<string>(store.productVariants.filter(x => x.id == props.id)[0].description)
+const config = useRuntimeConfig()
+const description = ref(props.product.description)
 const form = ref()
+const isSaving = ref<boolean>(false)
 const valid = ref<boolean>(true)
-const Variant = computed(() => store.productVariants.filter(x => x.id == props.id)[0].variant)
-
+const Variant = computed(() => `${props.product.color},${props.product.size}`)
 
 const save = async(): Promise<void> => {
+    isSaving.value = true
     const isValid: boolean = await useValidateForm(form.value)
-    if(!isValid){ return }
-    store.productVariants.filter(x => x.id == props.id)[0].description = description.value
+    if(!isValid){ isSaving.value = false; return; }
+    await useApi({
+        method: 'PATCH', 
+        path: `${config.public.API_PRODUCT}${props.product.pk}/`,
+        data: {description: description.value}
+    })
     emit('save', true)
     useSnackbarStore().setSnackbar('Description updated', true)
+    isSaving.value = false
 }
 
 </script>
 
 <template>
     <v-card-title class="pl-0 text-wrap">Edit Description</v-card-title>
-    <v-card-subtitle class="pl-0 text-wrap">
+    <v-card-subtitle class="pl-0 mb-4 text-wrap">
         Variant: {{ Variant }}
     </v-card-subtitle>
     <v-form
@@ -52,12 +55,12 @@ const save = async(): Promise<void> => {
             flat
         />
     </v-form>
-    
     <v-btn 
         @click="save" 
         class="mt-4"
         color="primary" 
         rounded="pill"
+        :loading="isSaving"
         block 
         flat 
     >

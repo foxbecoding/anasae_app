@@ -53,7 +53,7 @@ const save = (): void => {
     <v-card-subtitle class="pl-0 text-wrap">
         Max {{ store.imgFilesMax }} images: {{ images.length }} of {{ store.imgFilesMax }} images uploaded
     </v-card-subtitle>
-    <v-card-subtitle class="pl-0 text-wrap">Recommened image size: 600 x 600</v-card-subtitle>
+    <v-card-subtitle class="pl-0 text-wrap">Recommended image size: 1200 x 1200</v-card-subtitle>
     <div class="d-flex flex-wrap mt-4" >
         <div
             class="bg-surface-el rounded mr-2 mb-2"

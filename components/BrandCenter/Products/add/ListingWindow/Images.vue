@@ -24,7 +24,7 @@ const remove = (i: number): void => {
     <v-card color="transparent" >
         <v-card-title class="px-6">Images</v-card-title>
         <v-card-subtitle class="px-6">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
-        <v-card-subtitle class="px-6">Recommened image size: 600 x 600</v-card-subtitle>
+        <v-card-subtitle class="px-6">Recommended image size: 1200 x 1200</v-card-subtitle>
         <v-card-text class="px-0">
             <v-file-input
                 @update:model-value="setImages"
