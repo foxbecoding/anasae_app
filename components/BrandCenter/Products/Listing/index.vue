@@ -2,6 +2,7 @@
 import EditVariantDescription from './EditVariant/Description.vue'
 import EditVariantImages from './EditVariant/Images.vue'
 import { useBrandCenterProductListingStore, useSnackbarStore } from "@/store"
+import { numbersOnly } from '@/utils/helpers'
 import { useDisplay } from 'vuetify'
 
 const config = useRuntimeConfig()
@@ -18,6 +19,10 @@ const editTitlePk = ref()
 const editTitleModel = ref()
 const editTitleFormValid = ref<boolean>(true)
 const isSavingTitle = ref<boolean>(false)
+const editPricePk = ref()
+const editPriceModel = ref()
+const editPriceFormValid = ref<boolean>(true)
+const isSavingPrice = ref<boolean>(false)
 const editSkuPk = ref()
 const editSkuModel = ref()
 const isSavingSku = ref<boolean>(false)
@@ -87,6 +92,41 @@ const saveTitleModel = async (product: any): Promise<void> => {
     editTitlePk.value = null
     editTitleModel.value = null
     snackbarStore.setSnackbar('Product title updated', true)
+}
+
+const editPriceHandler = (item: any) => {
+    if(editPricePk.value != item.pk){
+        editPriceModel.value = item.price.price
+        editPricePk.value = item.pk
+    }else{
+        editPricePk.value = null
+        editPriceModel.value = null
+    }
+} 
+
+const savePriceModel = async (product: any): Promise<void> => {
+    isSavingPrice.value = true
+
+    await useApi({
+        method: 'PUT', 
+        path: `${config.public.API_PRODUCT_PRICE}${product.price.pk}/`,
+        data: {
+            price: editPriceModel.value,
+            product: product.pk
+        }
+    })
+
+    const {data: updatedListing} = await useApi({
+        method: 'GET', 
+        path: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`,
+        key: `${config.public.API_PRODUCT_LISTING}${route.params.lid}/`
+    })
+
+    productListing.value = updatedListing.value
+    isSavingPrice.value = false
+    editPricePk.value = null
+    editPriceModel.value = null
+    snackbarStore.setSnackbar('Product price updated', true)
 }
 
 const editSkuHandler = (item: any) => {
@@ -358,6 +398,7 @@ const customFilter = (query: any) => {
                     <td>
                         <div class="d-flex align-center">
                             <v-btn 
+                                @click="editPriceHandler(item.value)"
                                 color="primary"
                                 class="mr-1"
                                 min-width="0px" 
@@ -366,15 +407,54 @@ const customFilter = (query: any) => {
                                 height="30px"
                                 flat
                             > 
-                                <v-icon icon="mdi-pencil"  />
+                                <v-icon :icon="editPricePk != item.value.pk ? 'mdi-pencil' : 'mdi-close'" />
                             </v-btn>
-                            <span>
+                            <span v-if="editPricePk != item.value.pk">
                                 ${{ item.value.price.price/100 }}
                             </span>
+                            <v-form
+                                v-model="editPriceFormValid"
+                                @submit="false"
+                                v-else 
+                            >
+                                <v-text-field
+                                    @keypress="numbersOnly($event)"
+                                    v-model="editPriceModel"
+                                    bg-color="background"
+                                    class="td-price"
+                                    placeholder="Enter price"
+                                    hint='Exp: 500 = $5.00'
+                                    persistentHint
+                                    color="primary-alt"
+                                    density="compact"
+                                    variant="underlined"
+                                    :rules="[ 
+                                        (v: any) => !! v || 'Price is required',
+                                        (v: any) => v >= 500 || 'Minimum price is $5.00'
+                                    ]"
+                                />
+                            </v-form>
+                            
+                            <v-btn 
+                                v-show="editPricePk == item.value.pk"
+                                @click="editPriceFormValid ? savePriceModel(item.value) : false"
+                                color="primary-alt"
+                                variant="tonal"
+                                class="ml-1"
+                                min-width="0px" 
+                                min-height="0px"
+                                width="30px"
+                                height="30px"
+                                flat
+                                :disabled="!editPriceFormValid"
+                                :loading="isSavingPrice"
+                            > 
+                                <v-icon icon="mdi-content-save-outline" />
+                            </v-btn>
                         </div>
                     </td>
                     <td>
-                        <div class="d-flex align-center td-quantity" >
+                        <div class="d-flex align-center" >
                             <v-btn 
                                 @click="editQuantityHandler(item.value)"
                                 color="primary"
@@ -390,15 +470,12 @@ const customFilter = (query: any) => {
                             <span v-if="editQuantityPk != item.value.pk">
                                 {{ item.value.quantity }}
                             </span>
-                            <v-form
-                                class="td-quantity"
-                                @submit="false"
-                                v-else 
-                            >
+                            <v-form @submit="false" v-else>
                                 <v-select
                                     v-model="editQuantityModel"
                                     bg-color="background"
                                     color="primary-alt"
+                                    class="td-quantity"
                                     :items="productLisitngStore.quantityLimit"
                                     placeholder="Select quantity"
                                     density="compact"
@@ -425,7 +502,6 @@ const customFilter = (query: any) => {
                     <td>
                         <div 
                             class="d-flex align-center"
-                            :class="editSkuPk == item.value.pk ? 'td-sku--extend' : 'td-sku'"
                         >
                             <v-btn 
                                 @click="editSkuHandler(item.value)"
@@ -451,6 +527,7 @@ const customFilter = (query: any) => {
                                     v-model="editSkuModel"
                                     bg-color="background"
                                     color="primary-alt"
+                                    class="td-sku--extend"
                                     placeholder="Enter sku"
                                     density="compact"
                                     variant="underlined"
@@ -569,6 +646,9 @@ const customFilter = (query: any) => {
 }
 .td-lid {
     width: 120px
+}
+.td-price {
+    width: 100px;
 }
 .td-sku {
     width: 120px
