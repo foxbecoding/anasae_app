@@ -70,27 +70,31 @@ const setSizes = (color: any = ''): void => {
     for(let i = 0; i < variantSizeOptions.value.length; i++){
         variantSizeOptions.value[i].disabled = !colors[i]
     }
-}
-
-const setColors = (size: any = ''): void => {
-    let selectedSize = size || selectedVariantSize.value
-    let sizes: any[] = []
-    store.productVariants.map(
-        prod => prod.specifications
-        .map(spec => {
-            if(spec.label == 'Size' && spec.value == selectedSize){
-                sizes.push(prod.is_active)
-            }
-        })
-    )
-
-    for(let i = 0; i < variantColorOptions.value.length; i++){
-        variantColorOptions.value[i].disabled = !sizes[i]
+    var opts = variantSizeOptions.value.filter(x => !x.disabled)
+    if(opts.length > 0){
+        selectedVariantSize.value = opts[0].value
     }
 }
 
+// const setColors = (size: any = ''): void => {
+//     let selectedSize = size || selectedVariantSize.value
+//     let sizes: any[] = []
+//     store.productVariants.map(
+//         prod => prod.specifications
+//         .map(spec => {
+//             if(spec.label == 'Size' && spec.value == selectedSize){
+//                 sizes.push(prod.is_active)
+//             }
+//         })
+//     )
+
+//     for(let i = 0; i < variantColorOptions.value.length; i++){
+//         variantColorOptions.value[i].disabled = !sizes[i]
+//     }
+// }
+
 setSizes()
-setColors()
+// setColors()
 
 const ProductTitle = computed(() => {
     if(!store.hasVariants) return store.listingDetails.title
@@ -115,9 +119,9 @@ watch(selectedVariantColor, (newValue) => {
     setSizes(newValue)
 })
 
-watch(selectedVariantSize, (newValue, oldValue) => {
-    setColors(newValue)
-})
+// watch(selectedVariantSize, (newValue, oldValue) => {
+//     setColors(newValue)
+// })
 
 </script>
 

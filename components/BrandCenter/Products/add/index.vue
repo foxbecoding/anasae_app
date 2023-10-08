@@ -136,6 +136,7 @@ const submitDetails = async(): Promise<any[] | void> => {
             quantity: store.listingDetails.quantity,
             sku: store.listingDetails.sku,
             brand: useBrandStore().brands[0].pk,
+            variant_order: 1,
             is_active: true
         }
     ]
@@ -150,6 +151,7 @@ const submitDetails = async(): Promise<any[] | void> => {
                 subcategory: null,
                 quantity: x.quantity,
                 sku: x.sku,
+                variant_order: Number(x.id),
                 brand: useBrandStore().brands[0].pk,
                 is_active: x.is_active
             })
@@ -334,7 +336,7 @@ const submit = async(): Promise<void> => {
     submitDialog.value = false
     isSubmitting.value = false
     store.lid = null
-    navigateTo('/brand-center/product-listings')
+    await navigateTo('/brand-center/product-listings')
     useSnackbarStore().setSnackbar('Product listing added', true)
     store.resetData()
 }

@@ -119,6 +119,7 @@ export interface Product {
     isbn: string|null
     stripe_product_id: string 
     quantity: number
+    variant_order: number
     brand: { 
         pk: string|number
         uid: string
