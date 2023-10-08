@@ -412,6 +412,7 @@ const submit = async(): Promise<void> => {
                 color="primary-alt"
                 height="25"
                 rounded="pill"
+                striped
             >
                 <template v-slot:default="{ value }">
                     <strong>{{ Math.ceil(value) }}%</strong>

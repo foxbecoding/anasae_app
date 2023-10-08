@@ -104,13 +104,35 @@ const save = async(): Promise<void> => {
     if(!isValid){ return }
     store.productVariants.filter(x => props.selectedVariants.includes(x))
     .map(x => {
-        x.title = listingDetails.title && isInFields('title') ? listingDetails.title: store.listingDetails.title
-        x.description = listingDetails.description && isInFields('description') ? listingDetails.description : store.listingDetails.description
-        x.price = listingDetails.price && isInFields('price') ? listingDetails.price : store.listingDetails.price
-        x.quantity = listingDetails.quantity && isInFields('quantity') ? listingDetails.quantity : store.listingDetails.quantity
-        x.images = listingDetails.images.length > 0 && isInFields('images') ? listingDetails.images : store.listingDetails.images
+        if(listingDetails.title && isInFields('title')){
+            x.title = listingDetails.title
+        }
+        
+        if(listingDetails.description 
+        && isInFields('description')){
+            x.description = listingDetails.description
+        }
+
+        if(listingDetails.price 
+        && isInFields('price')){
+            x.price = listingDetails.price > 500 ? listingDetails.price : store.listingDetails.price
+        }
+        
+        if(listingDetails.quantity 
+        && isInFields('quantity')){
+            x.quantity = listingDetails.quantity
+        }
+
+        if(listingDetails.images.length > 0 
+        && isInFields('images')){
+            x.images = listingDetails.images 
+        }
+        
         x.previewImages = x.images.map(x => URL.createObjectURL(x))
-        x.sku = listingDetails.sku && isInFields('sku') ?  listingDetails.sku : null
+        if(listingDetails.sku 
+        && isInFields('sku')){
+            x.sku = listingDetails.sku
+        }
         let reqSpecs = x.specifications.filter(x => x.is_required)
         x.specifications = [...reqSpecs, ...listingDetails.specifications]
         if(isInFields('dimensions')){
@@ -157,6 +179,7 @@ const filterValue = (e: any) => {
             v-model="listingDetails.title" 
             name='title' 
             :rules="[ 
+                (v: any) => !! v  || 'Title is required',
                 (v: any) => v.length <= 90 || 'Must be 90 characters or less', 
             ]"
             type='text'
@@ -174,6 +197,7 @@ const filterValue = (e: any) => {
             v-model="listingDetails.description" 
             name='description' 
             :rules="[ 
+                (v: any) => !! v  || 'Description is required', 
                 (v: any) => v.length <= 300 || 'Must be 300 characters or less', 
             ]"
             type='text'
@@ -347,6 +371,7 @@ const filterValue = (e: any) => {
         rounded="pill" 
         flat 
         block
+        :disabled="!formIsValid"
     >
         Save
     </v-btn> 

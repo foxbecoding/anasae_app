@@ -100,9 +100,11 @@ const saveVariantModel = async (item: any) => {
     snackbarStore.setSnackbar('Listing default variant updated', true)
 }
 
-const editTitleHandler = (itemPk: any) => {
-    if(editTitlePk.value != itemPk){
-        editTitlePk.value = itemPk
+const editTitleHandler = (item: any) => {
+    if(editTitlePk.value != item.pk){
+        editTitlePk.value = item.pk
+        editTitleModel.value = item.title
+        
     }else{
         editTitlePk.value = null
         editTitleModel.value = ''
@@ -217,7 +219,7 @@ const saveTitleModel = async () => {
                     <td>
                         <div class="d-flex align-center td-title">
                             <v-btn 
-                                @click="editTitleHandler(item.value.pk)"
+                                @click="editTitleHandler(item.value)"
                                 color="primary"
                                 class="mr-1"
                                 min-width="0px" 
