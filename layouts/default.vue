@@ -42,7 +42,6 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
         <v-main class="main-adjust-content" v-scroll="onScroll">
-            <CategoryBar v-if="$route.name === 'index'"/>
             <v-container v-if="ShowBannerComps" class="px-sm-8" fluid>
                 <BannerSlider />
             </v-container>

@@ -2,6 +2,7 @@
 </script>
 
 <template>
+    <CategoryBar />
     <v-container class="px-sm-8" fluid>
         <v-row>
             <v-col
