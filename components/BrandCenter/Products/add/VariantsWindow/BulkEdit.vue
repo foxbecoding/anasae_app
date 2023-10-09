@@ -321,12 +321,12 @@ const filterValue = (e: any) => {
     <div v-if="isInFields('images')">
         <v-card-title class="px-0">Images</v-card-title>
         <v-card-subtitle class="px-0">You can upload up to {{ store.imgFilesMax }} images</v-card-subtitle>
-        <v-card-subtitle class="px-0">Recommened image size: 600 x 600</v-card-subtitle>
+        <v-card-subtitle class="px-0">Recommened image size: 1200 x 1200</v-card-subtitle>
         <v-file-input
             @update:model-value="setImages"
             class="d-none" 
             ref="fileRef" 
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg, image/avif"
             multiple
         />
         <div class="d-flex images-container ">

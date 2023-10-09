@@ -106,7 +106,7 @@ watch(brandLogoFile, (newFile) => { uploadImage(newFile[0]) })
             v-model="brandLogoFile" 
             class="d-none" 
             ref="brandLogoFileRef" 
-            accept="image/png, image/jpeg, image/bmp"
+            accept="image/png, image/jpeg, image/avif"
         />
         <div class="brand-logo-size mx-auto mx-sm-0" style="position: relative">
             <v-img 

@@ -43,7 +43,7 @@ const save = (): void => {
         @update:model-value="setImages"
         class="d-none" 
         ref="fileRef" 
-        accept="image/png, image/jpeg"
+        accept="image/png, image/jpeg, image/avif"
         multiple
     />
     <v-card-title class="pl-0 text-wrap">Edit Images</v-card-title>

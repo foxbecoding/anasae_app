@@ -30,7 +30,7 @@ const remove = (i: number): void => {
                 @update:model-value="setImages"
                 class="d-none" 
                 ref="fileRef" 
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/avif"
                 multiple
             />
             <div class="d-flex images-container px-6">

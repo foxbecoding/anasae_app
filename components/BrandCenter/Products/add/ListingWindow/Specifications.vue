@@ -5,7 +5,7 @@ const store = useBrandCenterProductListingStore()
 const formRef = ref()
 const filterValue = (e: any) => {
     let char = String.fromCharCode(e.keyCode);
-    if(/^[a-zA-Z0-9 /]+$/.test(char)) return true; 
+    if(/^[a-zA-Z0-9-/ ]+$/.test(char)) return true; 
     else e.preventDefault();
 }
 

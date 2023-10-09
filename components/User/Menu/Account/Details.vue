@@ -134,7 +134,7 @@ watch(profileImgFile, (newFile) => { uploadImage(newFile[0]) })
             v-model="profileImgFile" 
             class="d-none" 
             ref="profileImgFileRef" 
-            accept="image/png, image/jpeg, image/bmp"
+            accept="image/png, image/jpeg, image/avif"
         />
         <v-container class="mx-auto pt-0" style="position: relative; width: 120px">
             <v-img 

@@ -26,7 +26,8 @@ onMounted(async () => {
         })
         paymentMethods.value = data.value
         isPending.value = pending.value
-
+    }else{
+        isPending.value = false
     }
 })
 

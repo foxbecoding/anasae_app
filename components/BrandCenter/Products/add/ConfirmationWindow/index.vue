@@ -101,6 +101,16 @@ const ProductTitle = computed(() => {
     return CurrentVariant.value.title
 })
 
+const ProductPrice = computed(() => {
+    if(!store.hasVariants) return setPrice(store.listingDetails.price)
+    return setPrice(CurrentVariant.value.price)
+})
+
+const ProductDescription = computed(() => {
+    if(!store.hasVariants) return store.listingDetails.description
+    return CurrentVariant.value.description
+})
+
 const ProductImage = computed(() => {
     if(currentImg.value) return currentImg.value
     if(!store.hasVariants) return store.previewImages[0]
@@ -151,9 +161,9 @@ watch(selectedVariantColor, (newValue) => {
             <v-col cols="12" sm="6" md="6" lg="7">
                 <v-card color="background">
                     <v-card-title class="pt-0 px-0 text-wrap">{{ ProductTitle }}</v-card-title>
-                    <v-card-title class="px-0">${{store.listingDetails.price ? setPrice(store.listingDetails.price) : '' }}</v-card-title>
+                    <v-card-title class="px-0">${{ ProductPrice }}</v-card-title>
                     <v-card-text class="px-0">
-                        {{ store.listingDetails.description }}<br>
+                        {{ ProductDescription }}<br>
                         <div 
                             v-if="store.requiredProductSpecs.length > 0 && !store.hasVariants"
                             class="py-4"
