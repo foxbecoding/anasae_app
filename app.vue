@@ -42,7 +42,7 @@ vTheme.global.name.value = useCookie('theme', {
 const initialize = async (): Promise<void> => {
   sliderStore.init()
   userStore.init()
-  categoryStore.init()
+  // categoryStore.init()
   nextTick(() => {
     $fetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)
   }) 

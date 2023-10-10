@@ -25,14 +25,20 @@ if(!cachedCategories.value){
     v-for="(category, i) in categories" 
     :key="i"
   >
-    <div class="d-flex px-4 px-sm-8">
+    <v-container class="d-flex py-0 px-sm-8" fluid>
       <h2 class="text-h6 text-sm-h5">
         {{ category.title }}
       </h2>
       <v-spacer />
-      <v-btn class="d-none d-md-block" color="primary-alt" variant="text" text="View More"/>
-    </div>
-    <v-container class="d-flex d-md-none images-container px-4 px-sm-8" fluid>
+      <v-btn 
+        :to="{name: `category-uid`, params: {uid: category.uid}}"
+        class="d-none d-md-flex" 
+        color="primary-alt" 
+        variant="text" 
+        text="View More"
+      />
+    </v-container>
+    <v-container class="d-flex d-md-none images-container px-sm-8" fluid>
       <div class="d-flex flex-md-wrap justify-space-between">
         <v-card 
           v-for="(listing, l) in category['product_listings']" 
@@ -49,7 +55,7 @@ if(!cachedCategories.value){
         </v-card>
       </div>
     </v-container>
-    <v-container class="d-none d-md-block px-4 px-sm-8" fluid>
+    <v-container class="d-none d-md-block px-sm-8" fluid>
       <v-row>
         <v-col
           v-for="(listing, l) in category['product_listings']" 
@@ -68,7 +74,14 @@ if(!cachedCategories.value){
         </v-col>
       </v-row>
     </v-container>
-    <v-btn class="mx-auto d-block d-md-none" color="primary-alt" variant="text" text="View More"/>
+    <v-btn 
+      :to="{name: `category-uid`, params: {uid: category.uid}}"
+      class="mx-auto d-flex d-md-none" 
+      color="primary-alt" 
+      variant="text" 
+      width="120px"
+      text="View More"
+    />
   </div>
 </template> 
 
