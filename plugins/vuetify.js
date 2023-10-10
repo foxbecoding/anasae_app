@@ -167,6 +167,7 @@ export default defineNuxtPlugin(nuxtApp => {
         aliases: {
             NanaBtn: VBtn,
             NanaBtnOutlined: VBtn,
+            NanaAppBtn: VBtn,
             NanaAppBarBtn: VBtn,
             NanaSliderNavBtn: VBtn
         },
@@ -185,6 +186,10 @@ export default defineNuxtPlugin(nuxtApp => {
             NanaAppBarBtn: {
                 variant: 'flat',
                 class: ['surface-bg'],
+            },
+            NanaAppBtn: {
+                variant: 'flat',
+                class: ['nana-app-btn'],
             },
             NanaSliderNavBtn: {
                 variant: 'flat',

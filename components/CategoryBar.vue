@@ -39,7 +39,7 @@ if(!cachedCategories.value){
       />
     </v-container>
     <v-container class="d-flex d-md-none images-container px-sm-8" fluid>
-      <div class="d-flex flex-md-wrap justify-space-between">
+      <div class="d-flex justify-space-between">
         <v-card 
           v-for="(listing, l) in category['product_listings']" 
           :key="l"
@@ -47,9 +47,16 @@ if(!cachedCategories.value){
           color="transparent"
           width="150px"
         >
-          <div class="w-100 bg-surface-el rounded px-2" >
-            <v-img :src="config.public.CDN_URL+listing.image" />
-          </div>
+          <v-img 
+            :src="config.public.CDN_URL+listing.image" 
+            class="pb-2 rounded-lg product-listing-img" 
+            cover 
+            aspect-ratio="1"
+          >
+            <NanaAppBtn active icon class="cart-btn">
+                <v-icon>mdi-cart-plus</v-icon>
+            </NanaAppBtn>
+          </v-img>
           <v-card-title class="text-body-2 px-0 pb-0">{{ listing.title }}</v-card-title>
           <span>${{ listing.base_variant.price.price/100 }}</span>
         </v-card>
@@ -58,16 +65,23 @@ if(!cachedCategories.value){
     <v-container class="d-none d-md-block px-sm-8" fluid>
       <v-row>
         <v-col
-          v-for="(listing, l) in category['product_listings']" 
+          v-for="(listing, l) in category['product_listings'].slice(0, 4)" 
           :key="l"
           :cols="12"
-          :sm="2"
+          :sm="3"
         >
           
           <v-card color="transparent">
-            <div class="w-100 bg-surface-el rounded px-2" >
-              <v-img :src="config.public.CDN_URL+listing.image" />
-            </div>
+            <v-img 
+              :src="config.public.CDN_URL+listing.image" 
+              class="pb-2 rounded-lg product-listing-img" 
+              cover 
+              aspect-ratio="1"
+            >
+              <NanaAppBtn active icon class="cart-btn">
+                  <v-icon>mdi-cart-plus</v-icon>
+              </NanaAppBtn>
+            </v-img>
             <v-card-title class="text-body-2 px-0 pb-0">{{ listing.title }}</v-card-title>
             <span>${{ listing.base_variant.price.price/100 }}</span>
           </v-card>
