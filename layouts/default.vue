@@ -41,14 +41,6 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <MobileTopBar />
         </v-container>
         <BannerSliderBg v-if="ShowBannerComps" />
-        <!-- <v-navigation-drawer
-            v-if="$route.name == 'category-uid' && $vuetify.display.mdAndUp"
-            color="background"
-            expand-on-hover
-            permanent
-        >
-        <h2 class="text-center">Filter Goes Here</h2>
-        </v-navigation-drawer> -->
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <v-container v-if="ShowBannerComps" class="px-sm-8" fluid>
                 <BannerSlider />

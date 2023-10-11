@@ -15,7 +15,6 @@ if(!cachedCategories.value){
   categories.value = data.value
 }
 
-// console.table(categories.value)
 </script>
 
 <template>
@@ -40,26 +39,14 @@ if(!cachedCategories.value){
     </v-container>
     <v-container class="d-flex d-md-none images-container px-sm-8" fluid>
       <div class="d-flex justify-space-between">
-        <v-card 
+        <div 
           v-for="(listing, l) in category['product_listings']" 
           :key="l"
           class="ml-4"
-          color="transparent"
-          width="150px"
+          style="width: 180px;"
         >
-          <v-img 
-            :src="config.public.CDN_URL+listing.image" 
-            class="pb-2 rounded-lg product-listing-img" 
-            cover 
-            aspect-ratio="1"
-          >
-            <NanaAppBtn active icon class="cart-btn">
-                <v-icon>mdi-cart-plus</v-icon>
-            </NanaAppBtn>
-          </v-img>
-          <v-card-title class="text-body-2 px-0 pb-0">{{ listing.title }}</v-card-title>
-          <span>${{ listing.base_variant.price.price/100 }}</span>
-        </v-card>
+          <ProductListing :listing="listing" />
+        </div>
       </div>
     </v-container>
     <v-container class="d-none d-md-block px-sm-8" fluid>
@@ -70,21 +57,7 @@ if(!cachedCategories.value){
           :cols="12"
           :sm="3"
         >
-          
-          <v-card color="transparent">
-            <v-img 
-              :src="config.public.CDN_URL+listing.image" 
-              class="pb-2 rounded-lg product-listing-img" 
-              cover 
-              aspect-ratio="1"
-            >
-              <NanaAppBtn active icon class="cart-btn">
-                  <v-icon>mdi-cart-plus</v-icon>
-              </NanaAppBtn>
-            </v-img>
-            <v-card-title class="text-body-2 px-0 pb-0">{{ listing.title }}</v-card-title>
-            <span>${{ listing.base_variant.price.price/100 }}</span>
-          </v-card>
+          <ProductListing :listing="listing" />
         </v-col>
       </v-row>
     </v-container>
