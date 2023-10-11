@@ -29,6 +29,8 @@ const LayoutTheme = computed(() => {
     return 'add-your-brand-layout'
   }else if(String(useRoute().name).includes('brand-center')){
     return 'brand-center-layout'
+  }else if(useRoute().name == 'product-lid'){
+    return 'product-listing-page-layout'
   }
   return 'default'
 })
