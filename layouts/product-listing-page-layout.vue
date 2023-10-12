@@ -5,6 +5,7 @@ import { useAuthStore } from '@/store/Auth'
 
 const authStore = useAuthStore()
 const route = useRoute()
+const isOpen = ref<boolean>(true)
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
 const { smAndDown } = useDisplay()
 const scrollY = ref<number>(0)
@@ -18,6 +19,10 @@ const SetTransparent = computed((): string => scrollY.value == 0 ? 'transparent'
 const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route.name as RouteName) )
 
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
+
+if (!smAndDown.value){
+    isOpen.value = true
+}
 
 </script>
 
@@ -40,37 +45,61 @@ const onScroll = (e: any): void => { scrollY.value = window.scrollY }
             <MobileTopBar />
         </v-container>
         <v-navigation-drawer
-            class="d-none d-md-block"
+            v-model="isOpen"
             color="background"
             location="right"
             floating
             :permanent="!smAndDown"
         >
-            <v-btn 
-                class="my-4"
-                rounded="pill"
-                color="primary"
-                text="Add Cart"
-                flat
-                block
-            />
-            <div class="nana-primary-bg-color rounded-xl ">
+            <v-container class="pt-0">
+                <div class="d-flex  align-center justify-center">
+                    <v-btn 
+                        class="my-4"
+                        variant="outlined"
+                        color="primary"
+                        flat
+                        size="40"
+                        icon
+                    >
+                        <v-icon>mdi-minus</v-icon>
+                    </v-btn>
+                    <span class="text-h5 px-4">1</span>
+                    <v-btn 
+                        class="my-4"
+                        color="primary"
+                        variant="outlined"
+                        flat
+                        size="40"
+                        icon
+                    >
+                        <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                </div>
                 <v-btn 
+                    class="my-4"
                     rounded="pill"
-                    color="surface-el"
-                    text="Buy Now"
+                    color="primary"
+                    text="Add To Cart"
                     flat
                     block
                 />
-            </div>
-            
+                <div class="nana-primary-bg-color rounded-xl ">
+                    <v-btn 
+                        rounded="pill"
+                        color="background"
+                        text="Buy Now"
+                        flat
+                        block
+                    />
+                </div>
+            </v-container>
         </v-navigation-drawer>
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
 
         <Snackbar />
-        <BottomNav v-if="smAndDown" class="d-md-none w-100" />
+        <!-- <BottomNav v-if="smAndDown" class="d-md-none w-100" /> -->
         <Auth v-if="ShowAuthForm" >
             <component :is="AuthFormComponent" />
         </Auth> 

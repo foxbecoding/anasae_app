@@ -1,9 +1,17 @@
 <script lang="ts" setup>
 import { useProductListingStore } from '@/store'
 
-const productListingStore = useProductListingStore()
+const store = useProductListingStore()
 </script>
 
 <template>
-    <h1>{{productListingStore.listing.title}}</h1>
+    <v-card color="background">
+        <v-card-title class="pt-0 px-0 text-wrap">{{ store.ProductTitle }}</v-card-title>
+        <v-card-title class="px-0 font-weight-black text-h5">${{ store.ProductPrice }}</v-card-title>
+        
+        <v-card-text class="px-0">
+            <v-card-subtitle class="px-0">Description</v-card-subtitle>
+            {{ store.ProductDescription }}
+        </v-card-text>
+    </v-card>
 </template>

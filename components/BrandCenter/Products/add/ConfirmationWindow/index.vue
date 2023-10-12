@@ -45,7 +45,6 @@ variantSizes.value.map(size => {
     })
 })
 
-
 const CurrentVariant = computed(() => {
     let variant = store.productVariants.filter(x => x.variant == [selectedVariantColor.value, selectedVariantSize.value].toString())
     return variant[0]
@@ -76,25 +75,7 @@ const setSizes = (color: any = ''): void => {
     }
 }
 
-// const setColors = (size: any = ''): void => {
-//     let selectedSize = size || selectedVariantSize.value
-//     let sizes: any[] = []
-//     store.productVariants.map(
-//         prod => prod.specifications
-//         .map(spec => {
-//             if(spec.label == 'Size' && spec.value == selectedSize){
-//                 sizes.push(prod.is_active)
-//             }
-//         })
-//     )
-
-//     for(let i = 0; i < variantColorOptions.value.length; i++){
-//         variantColorOptions.value[i].disabled = !sizes[i]
-//     }
-// }
-
 setSizes()
-// setColors()
 
 const ProductTitle = computed(() => {
     if(!store.hasVariants) return store.listingDetails.title
@@ -128,10 +109,6 @@ watch(selectedVariantColor, (newValue) => {
     currentImg.value = URL.createObjectURL(CurrentVariant.value.images[0])
     setSizes(newValue)
 })
-
-// watch(selectedVariantSize, (newValue, oldValue) => {
-//     setColors(newValue)
-// })
 
 </script>
 
