@@ -2,7 +2,11 @@
 </script>
 
 <template>
-    <UserProfile />
+    <div>
+        <NuxtLayout name="default">
+            <UserProfile />
+        </NuxtLayout>
+    </div>
 </template>
 
 <style scoped>

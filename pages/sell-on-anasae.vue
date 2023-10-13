@@ -1,10 +1,12 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'sell-on-anasae-layout'
-})
+
 </script>
 
 <template>
-    <SellOnAnasaeHero />
-    <SellOnAnasaeBenefits />
+  <div>
+    <NuxtLayout name="sell-on-anasae-layout">
+      <SellOnAnasaeHero />
+      <SellOnAnasaeBenefits />
+    </NuxtLayout>
+  </div>
 </template>

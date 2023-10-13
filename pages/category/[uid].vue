@@ -28,20 +28,24 @@ if(!cachedCategory.value){
 </script>
 
 <template>
-    <v-container class="px-sm-8" fluid>
-        <h1 class="text-h5 text-sm-h4">{{category.title}}</h1>
-    </v-container>
-    <v-container class=" pt-0 px-sm-8" fluid>
-      <v-row>
-        <v-col
-          v-for="(listing, l) in category['product_listings']" 
-          :key="l"
-          :cols="12"
-          :sm="6"
-          :md="3"
-        > 
-          <ProductListing :listing="listing" />
-        </v-col>
-      </v-row>
-    </v-container>
+  <div>
+      <NuxtLayout name="default">
+        <v-container class="px-sm-8" fluid>
+          <h1 class="text-h5 text-sm-h4">{{category.title}}</h1>
+        </v-container>
+        <v-container class=" pt-0 px-sm-8" fluid>
+          <v-row>
+            <v-col
+              v-for="(listing, l) in category['product_listings']" 
+              :key="l"
+              :cols="12"
+              :sm="6"
+              :md="3"
+            > 
+              <ProductListing :listing="listing" />
+            </v-col>
+          </v-row>
+        </v-container>
+      </NuxtLayout>
+  </div>
 </template>

@@ -6,18 +6,14 @@ const route = useRoute()
 const store = useProductListingStore()
 const authStore = useAuthStore()
 
-definePageMeta({
-    layout:  false
-})
-
 const LID = computed(() => {
     if (route.fullPath.includes('auth')){
         //finish fixing this shit
-        var path = authStore.prevRoute.split('/').slice(-1)[0]
-        if(path.includes('?')){
-            console.log(path)
+        var lid = authStore.prevRoute.split('/').slice(-1)[0]
+        if(lid.includes('?')){
+            lid = lid.split('?').slice(0)[0]
         }
-        return authStore.prevRoute.split('/').slice(-1)[0]   
+        return lid 
     }
     return route.params.lid
 })

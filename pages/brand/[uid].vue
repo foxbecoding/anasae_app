@@ -3,5 +3,9 @@
 </script>
 
 <template>
-    <Brand />
+    <div>
+        <NuxtLayout name="default">
+            <Brand />
+        </NuxtLayout>
+    </div>
 </template>

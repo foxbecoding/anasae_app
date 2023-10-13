@@ -53,16 +53,16 @@ const LayoutTheme = computed(() => {
   if(authStore.prevRouteName === 'sell-on-anasae' && IsAuthRoute.value) return 'sell-on-anasae-layout'
   else if(authStore.prevRouteName == 'add-your-brand' && IsAuthRoute.value) return 'add-your-brand-layout'
   else if(authStore.prevRouteName == 'product-lid' && IsAuthRoute.value) return 'product-listing-page-layout'
-  if(routeName == 'sell-on-anasae'){
-    return 'sell-on-anasae-layout'
-  }else if(routeName == 'add-your-brand'){
-    return 'add-your-brand-layout'
-  }else if(String(routeName).includes('brand-center')){
-    return 'brand-center-layout'
-  }
-  else if(routeName == 'product-lid'){
-    return 'product-listing-page-layout'
-  }
+  // if(routeName == 'sell-on-anasae'){
+  //   return 'sell-on-anasae-layout'
+  // }else if(routeName == 'add-your-brand'){
+  //   return 'add-your-brand-layout'
+  // }else if(String(routeName).includes('brand-center')){
+  //   return 'brand-center-layout'
+  // }
+  // else if(routeName == 'product-lid'){
+  //   return 'product-listing-page-layout'
+  // }
   return 'default'
 })
 
@@ -92,9 +92,10 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <NuxtLayout >
+  <!-- <NuxtLayout>
     <NuxtPage/>
-  </NuxtLayout>
+  </NuxtLayout> -->
+  <NuxtPage/>
 </template>
 
 <style>

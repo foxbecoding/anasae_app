@@ -2,7 +2,11 @@
 </script>
 
 <template>
-    <v-container class="px-sm-8" fluid>
-        <h1>Terms of agreement</h1>
-    </v-container>
+    <div>
+        <NuxtLayout name="default">
+            <v-container class="px-sm-8" fluid>
+                <h1>Terms of agreement</h1>
+            </v-container>
+        </NuxtLayout>
+    </div>
 </template>

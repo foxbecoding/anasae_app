@@ -7,10 +7,6 @@ import {
 } from '@/store'
 import { FormTextField, FormButton } from '@/utils/types'
 
-definePageMeta({
-  layout: 'add-your-brand-layout'
-})
-
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const snackbarStore = useSnackbarStore()
@@ -101,39 +97,43 @@ if(userStore.user.owned_brands.length > 0) { navigateTo('/brand-center') }
 </script>
 
 <template>
-    <v-card 
-        class="px-4 mx-auto align-center"
-        color="background" 
-        flat 
-        max-width="400" 
-    >
-        <v-card-title class="px-0">Add your brand</v-card-title>
-        <v-card-text class="px-0">
-            Let's get started by adding some quick details about your brand.
-        </v-card-text>
-        <FormFields
-            @submit="submitEmitter"
-            :fields="fields" 
-            :formButton="formButton"
-            :apiPath="`${config.public.API_BRAND}`"
-            apiMethod="POST"
-        />
-        <p class="text-center mt-4 text-caption">By adding your brand you agree to our 
-            <NuxtLink 
-                class="text-primary-alt text-decoration-none" 
-                to="/terms"
+    <div>
+        <NuxtLayout name="add-your-brand-layout">
+            <v-card 
+                class="px-4 mx-auto align-center"
+                color="background" 
+                flat 
+                max-width="400" 
             >
-                terms of agreement.
-            </NuxtLink>
-        </p>
-        <v-alert
-            v-model="formError.isError"
-            :closable="true"
-            class="mt-4"
-            type="error"
-            title="Something went wrong"
-            rounded="xl"
-            :text="formError.message"
-        />
-    </v-card>    
+                <v-card-title class="px-0">Add your brand</v-card-title>
+                <v-card-text class="px-0">
+                    Let's get started by adding some quick details about your brand.
+                </v-card-text>
+                <FormFields
+                    @submit="submitEmitter"
+                    :fields="fields" 
+                    :formButton="formButton"
+                    :apiPath="`${config.public.API_BRAND}`"
+                    apiMethod="POST"
+                />
+                <p class="text-center mt-4 text-caption">By adding your brand you agree to our 
+                    <NuxtLink 
+                        class="text-primary-alt text-decoration-none" 
+                        to="/terms"
+                    >
+                        terms of agreement.
+                    </NuxtLink>
+                </p>
+                <v-alert
+                    v-model="formError.isError"
+                    :closable="true"
+                    class="mt-4"
+                    type="error"
+                    title="Something went wrong"
+                    rounded="xl"
+                    :text="formError.message"
+                />
+            </v-card>    
+        </NuxtLayout>
+    </div>
 </template>

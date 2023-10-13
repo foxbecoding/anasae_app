@@ -11,8 +11,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <UserProfileEditDetails v-model="model" @update:model-value="model = false"/>
-    <UserProfile />
+  <div>
+    <NuxtLayout name="default">
+      <UserProfileEditDetails v-model="model" @update:model-value="model = false"/>
+      <UserProfile />
+    </NuxtLayout>
+  </div>
 </template>
 
 <style scoped>

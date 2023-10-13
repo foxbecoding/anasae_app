@@ -9,8 +9,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <BrandEditDetails v-model="model" @update:model-value="model = false"/>
-  <Brand  />
+  <div>
+      <NuxtLayout name="default">
+        <BrandEditDetails v-model="model" @update:model-value="model = false"/>
+        <Brand  />
+      </NuxtLayout>
+  </div>
 </template>
 
 <style scoped>

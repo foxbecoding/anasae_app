@@ -4,8 +4,9 @@ import { useDisplay } from 'vuetify'
 
 const route = useRoute()
 const authStore = useAuthStore()
-const dialog = ref<boolean>(true)
+const dialog = ref<boolean>(false)
 const IsFullscreen = computed((): boolean => useDisplay().xs.value ) 
+onMounted(() => dialog.value = true)
 
 const close = async (): Promise<void> => { 
     dialog.value = false

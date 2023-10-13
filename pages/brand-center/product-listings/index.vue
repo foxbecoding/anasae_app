@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { useBrandStore } from '@/store'
-definePageMeta({
-  layout: 'brand-center-layout'
-})
+
 useBrandStore().middleware()
 </script>
 
 <template>
-    <v-container class="pa-sm-8" fluid>
-        <BrandCenterProducts />
-    </v-container>
+  <div>
+      <NuxtLayout name="brand-center-layout">
+        <v-container class="pa-sm-8" fluid>
+          <BrandCenterProducts />
+        </v-container>
+      </NuxtLayout>
+  </div>
 </template>
