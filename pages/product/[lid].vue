@@ -12,6 +12,7 @@ definePageMeta({
 
 const LID = computed(() => {
     if (route.fullPath.includes('auth')){
+        //finish fixing this shit
         var path = authStore.prevRoute.split('/').slice(-1)[0]
         if(path.includes('?')){
             console.log(path)
