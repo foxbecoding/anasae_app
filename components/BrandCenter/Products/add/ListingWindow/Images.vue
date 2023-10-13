@@ -76,8 +76,7 @@ const remove = (i: number): void => {
     overflow-x: auto;
     position: relative;
     -ms-overflow-style: none; 
-    scrollbar-width: none;  
-    z-index: 1000
+    scrollbar-width: none;
 }
 
 .images-container::-webkit-scrollbar {

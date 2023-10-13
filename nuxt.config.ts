@@ -49,6 +49,7 @@ export default defineNuxtConfig({
         }
     },
     app: {
+        // layoutTransition: { name: 'slide' },
         head: { 
             htmlAttrs: {
                 lang: 'en'

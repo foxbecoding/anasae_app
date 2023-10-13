@@ -74,14 +74,13 @@ if(!cachedCategories.value){
 
 <style scoped>
 .images-container{
-    overflow-x: auto;
-    position: relative;
-    -ms-overflow-style: none; 
-    scrollbar-width: none;  
-    z-index: 1000
+  overflow-x: auto;
+  position: relative;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
 }
 
 .images-container::-webkit-scrollbar {
-    display: none
+  display: none
 }
 </style>

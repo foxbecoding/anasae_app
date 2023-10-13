@@ -1,17 +1,26 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
+const authStore = useAuthStore()
 const route = useRoute()
 const category = ref()
 
-const {data: cachedCategory} = await useNuxtData(`${config.public.API_CATEGORY_PAGE}${route.params.uid}/`)
+const UID = computed(() => {
+    if (route.fullPath.includes('auth')){
+        return authStore.prevRoute.split('/').slice(-1)[0]   
+    }
+    return route.params.uid
+})
+
+const {data: cachedCategory} = await useNuxtData(`${config.public.API_CATEGORY_PAGE}${UID.value}/`)
 if(cachedCategory.value) category.value = cachedCategory.value
 
 if(!cachedCategory.value){
   const {data} = await useApi({
       method: 'GET', 
-      path: `${config.public.API_CATEGORY_PAGE}${route.params.uid}/`,
-      key: `${config.public.API_CATEGORY_PAGE}${route.params.uid}/`
+      path: `${config.public.API_CATEGORY_PAGE}${UID.value}/`,
+      key: `${config.public.API_CATEGORY_PAGE}${UID.value}/`
   })
   category.value = data.value
 }

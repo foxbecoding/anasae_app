@@ -32,7 +32,9 @@ export const useAuthStore = defineStore("auth-store", () => {
     const signUpFormStep = ref<number>(1)
     const signUpFormGenderOptions = ref<{id: string | number, title: string, value: string | number}[]>([])
     
-    const setPrevRouteData = (routePath: string, routeName: RouteRecordName | null | undefined) => {
+    const setPrevRouteData = (
+        routePath: string, 
+        routeName: RouteRecordName | null | undefined) => {
         prevRoute.value = routePath
         prevRouteName.value = routeName
     } 

@@ -10,6 +10,9 @@ import Profile from '@/pages/profile/index.vue'
 import ProfileUID from '@/pages/profile/[uid].vue'
 import Brand from '@/pages/brand/index.vue' 
 import BrandUID from '@/pages/brand/[uid].vue' 
+import Category from '@/pages/category/index.vue'
+import CategoryUID from '@/pages/category/[uid].vue'
+import ProductLID from '@/pages/product/[lid].vue'
 import { AuthRouteName as RouteName } from '@/utils/types'
 import { useAuthStore } from '@/store/Auth'
 
@@ -77,11 +80,20 @@ export const useAuthPageFactory = () => {
             case 'profile-uid':
                 component = ProfileUID  
                 break;
+            case 'product-lid':
+                component = ProductLID  
+                break;
             case 'brand':
                 component = Brand
                 break;
             case 'brand-uid':
                 component = BrandUID  
+                break;
+            case 'category':
+                component = Category  
+                break;
+            case 'category-uid':
+                component = CategoryUID  
                 break;
             case 'sell-on-anasae':
                 component = SellOnAnasae  

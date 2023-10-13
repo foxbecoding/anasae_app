@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useBrandStore } from '@/store'
+definePageMeta({
+  layout: 'brand-center-layout'
+})
 useBrandStore().middleware()
 </script>
 

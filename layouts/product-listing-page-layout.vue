@@ -20,8 +20,8 @@ const ShowAuthForm = computed((): boolean => authRouteNames.value.includes(route
 
 const onScroll = (e: any): void => { scrollY.value = window.scrollY }
 
-if (!smAndDown.value){
-    isOpen.value = true
+if (smAndDown.value){
+    isOpen.value = false
 }
 
 </script>

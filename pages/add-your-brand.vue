@@ -7,6 +7,10 @@ import {
 } from '@/store'
 import { FormTextField, FormButton } from '@/utils/types'
 
+definePageMeta({
+  layout: 'add-your-brand-layout'
+})
+
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const snackbarStore = useSnackbarStore()

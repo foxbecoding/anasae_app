@@ -5,7 +5,7 @@ const store = useProductListingStore()
 </script>
 
 <template>
-    <v-container class="px-sm-8" fluid>
+    <v-container  class="px-sm-8" fluid>
         <v-row>
             <v-col cols="6">
                 <ProductListingPageImageViewer />

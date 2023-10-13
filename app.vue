@@ -16,20 +16,51 @@ const categoryStore = useCategoryStore()
 const brandStore = useBrandStore()
 const vTheme = useTheme()
 
+const IsAuthRoute = computed(() => {
+  var routeName = useRoute().name
+  if(routeName == 'auth-login' 
+    || routeName == 'auth-sign-up' 
+    || routeName == 'auth-forgot-password') 
+    {
+      return true
+    }else{
+      return false
+    }
+
+})
+
+// const LayoutTheme = computed(() => {
+//   var routeName = useRoute().name
+//   if(authStore.prevRouteName === 'sell-on-anasae' 
+//     && IsAuthRoute.value) {
+//     return 'sell-on-anasae-layout'
+//   }
+//   if(routeName == 'sell-on-anasae'){
+//     return 'sell-on-anasae-layout'
+//   }else if(routeName == 'add-your-brand'){
+//     return 'add-your-brand-layout'
+//   }else if(String(routeName).includes('brand-center')){
+//     return 'brand-center-layout'
+//   }
+//   else if(routeName == 'product-lid'){
+//     return 'product-listing-page-layout'
+//   }
+//   return 'default'
+// })
+
 const LayoutTheme = computed(() => {
-  if(authStore.prevRouteName === 'sell-on-anasae' 
-    && (useRoute().name == 'auth-login' 
-    || useRoute().name == 'auth-sign-up' 
-    || useRoute().name == 'auth-forgot-password')) {
+  var routeName = useRoute().name
+  if(authStore.prevRouteName === 'sell-on-anasae' && IsAuthRoute.value) return 'sell-on-anasae-layout'
+  else if(authStore.prevRouteName == 'add-your-brand' && IsAuthRoute.value) return 'add-your-brand-layout'
+  else if(authStore.prevRouteName == 'product-lid' && IsAuthRoute.value) return 'product-listing-page-layout'
+  if(routeName == 'sell-on-anasae'){
     return 'sell-on-anasae-layout'
-  }
-  if(useRoute().name == 'sell-on-anasae'){
-    return 'sell-on-anasae-layout'
-  }else if(useRoute().name == 'add-your-brand'){
+  }else if(routeName == 'add-your-brand'){
     return 'add-your-brand-layout'
-  }else if(String(useRoute().name).includes('brand-center')){
+  }else if(String(routeName).includes('brand-center')){
     return 'brand-center-layout'
-  }else if(useRoute().name == 'product-lid'){
+  }
+  else if(routeName == 'product-lid'){
     return 'product-listing-page-layout'
   }
   return 'default'
@@ -61,7 +92,24 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <NuxtLayout :name="LayoutTheme">
+  <NuxtLayout >
     <NuxtPage/>
   </NuxtLayout>
 </template>
+
+<style>
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform .3s linear; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.slide-enter-from {
+    transform: translateX(-100%);
+}
+.slide-leave-to {
+    transform: translateX(100%);
+}
+</style>
