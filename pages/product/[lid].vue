@@ -8,7 +8,6 @@ const authStore = useAuthStore()
 
 const LID = computed(() => {
     if (route.fullPath.includes('auth')){
-        //finish fixing this shit
         var lid = authStore.prevRoute.split('/').slice(-1)[0]
         if(lid.includes('?')){
             lid = lid.split('?').slice(0)[0]

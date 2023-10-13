@@ -11,7 +11,7 @@ onMounted(() => dialog.value = true)
 const close = async (): Promise<void> => { 
     dialog.value = false
     setTimeout(() => {
-        useRouter().push({path: authStore.prevRoute})
+        navigateTo(authStore.prevRoute)
     }, 300) 
 }
 
