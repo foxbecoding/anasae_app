@@ -3,3 +3,4 @@ export const numbersOnly = (e: any) => {
     if(/^[0-9]+$/.test(char)) return true; 
     else e.preventDefault();
 }
+

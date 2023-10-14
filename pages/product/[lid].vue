@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useProductListingStore, useAuthStore } from '@/store'
+import { useProductListingPageStore, useAuthStore } from '@/store'
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const store = useProductListingStore()
+const store = useProductListingPageStore()
 const authStore = useAuthStore()
 
 const LID = computed(() => {

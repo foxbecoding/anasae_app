@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { useProductListingStore } from '@/store'
+import { useProductListingPageStore } from '@/store'
 
 const config = useRuntimeConfig()
+const store = useProductListingPageStore()
 const route = useRoute()
-const store = useProductListingStore()
+const { IsAuthRoute, ProductVariant } = useProductListingPage()
 const variantColors = ref<any[]>([])
 const variantSizes = ref<any[]>([])
 const selectedVariantColor = ref()
@@ -27,30 +28,35 @@ const setSizes = (color: any = ''): void => {
     for(let i = 0; i < variantSizeOptions.value.length; i++){
         variantSizeOptions.value[i].disabled = !colors[i]
     }
-    var opts = variantSizeOptions.value.filter(x => !x.disabled)
+    
+    var opts = variantSizeOptions.value.filter(x => !x.disabled).map(x => x.value)
     if(opts.length > 0){
-        selectedVariantSize.value = opts[0].value
+        let productVariantSize = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
+        if(opts.includes(productVariantSize)){
+            selectedVariantSize.value = productVariantSize
+        }else{
+            selectedVariantSize.value = opts[0]
+        }
     }
-    // console.log(selectedColor)
-    // console.log(selectedVariantSize.value)
 }
 
-const ProductTitle = computed(() => {
-    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-    return product_variant.title
-})
-const ProductPrice = computed(() => {
-    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-    return setPrice(product_variant.price)
-})
-const ProductDescription = computed(() =>{
-    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-    return product_variant.description
-})
+const ProductTitle = computed(() => ProductVariant.value.title)
+const ProductPrice = computed(() => setPrice(ProductVariant.value.price))
+const ProductDescription = computed(() => ProductVariant.value.description)
 
 const setVariant = (color: string, size: string): void => {
     let variant = store.listing.products.find((x: any) => String(x.variant).toLowerCase() == [color,size].toString().toLowerCase())
-    navigateTo(`/product/${store.listing.uid}?v=${variant.uid}`)
+    
+    if(!IsAuthRoute.value){
+        store.currentVariant.color = color
+        store.currentVariant.size = size
+        store.currentVariant.variant_id = variant.uid
+        navigateTo(`/product/${store.listing.uid}?v=${variant.uid}`)
+    }else{
+        store.prevRoute = String(route.name)
+        selectedVariantColor.value = store.currentVariant.color
+        selectedVariantSize.value = store.currentVariant.size
+    }
 }
 
 watch(selectedVariantColor, (newValue) => {
@@ -94,9 +100,18 @@ variantSizes.value.map(size => {
     })
 })
 
-let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-selectedVariantColor.value = product_variant.specifications.find((x: any) => x.label == 'Color')?.value
-selectedVariantSize.value = product_variant.specifications.find((x: any) => x.label == 'Size')?.value
+// if(store.IsPrevRouteAuth){
+//     console.log(store.currentVariant)
+//     selectedVariantColor.value = store.currentVariant.color
+//     selectedVariantSize.value = store.currentVariant.size
+// }else{
+//     selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value
+//     selectedVariantSize.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
+// }
+
+selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value
+selectedVariantSize.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
+
 </script>
 
 <template>
@@ -144,7 +159,7 @@ selectedVariantSize.value = product_variant.specifications.find((x: any) => x.la
     </v-card>
 </template>
 
-<style>
+<style scoped>
 .image-wrapper {
     width: 70px;
     height: 70px;

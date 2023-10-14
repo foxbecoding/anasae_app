@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useProductListingStore } from '@/store'
+import { useProductListingPageStore } from '@/store'
 
-const store = useProductListingStore()
+const store = useProductListingPageStore()
 </script>
 
 <template>

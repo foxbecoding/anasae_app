@@ -1,24 +1,16 @@
 <script lang="ts" setup>
-import { useProductListingStore } from '@/store'
 
 const config = useRuntimeConfig()
-const route = useRoute()
-const store = useProductListingStore()
+const { ProductVariant } = useProductListingPage()
 const currentImg = ref()
 
 const setImg = (img: any) => currentImg.value = img
 
-const ProductVariant = computed(() =>  route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant)
-
 const ProductImage = computed(() => {
-    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
     if(currentImg.value) return currentImg.value
-    return product_variant.images[0]
+    return ProductVariant.value.images[0]
 })
-const ProductPreviewImages = computed(() => {
-    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-    return product_variant.images
-})
+const ProductPreviewImages = computed(() => ProductVariant.value.images)
 
 watch(ProductVariant, () => currentImg.value = '')
 

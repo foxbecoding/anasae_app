@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
-import { useAuthStore, useProductListingStore } from '@/store'
+import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
-const productListingStore = useProductListingStore()
+const { ProductVariant } = useProductListingPage()
 const config = useRuntimeConfig()
 const route = useRoute()
 const isOpen = ref<boolean>(true)
@@ -27,7 +27,6 @@ if (smAndDown.value){
 }
 
 //Selected Product Details
-const ProductVariant = computed(() =>  route.query.v ? productListingStore.listing.products.find((x:any) => x.uid == route.query.v) : productListingStore.listing.base_variant)
 const ProductVariantImage = computed(() => config.public.CDN_URL+ProductVariant.value.images[0])
 const ProductVariantColor = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value.toUpperCase())
 const ProductVariantSize = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value.toUpperCase())
@@ -60,28 +59,30 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
             :permanent="!smAndDown"
         >
             <v-container class="pt-0">
-                <small>Selected product:</small>
-                <v-container class="d-flex pa-0 align-start">
-                    <v-img 
-                        class="bg-surface-el rounded mr-2"
-                        :src="ProductVariantImage" 
-                        width="50px"
-                        max-width="50px"
-                        aspect-ratio="1"
-                    />
-                    <div style="line-height: 0.9rem;">
-                        <p><small>color: {{ ProductVariantColor }}</small></p>
-                        <p><small>size: {{ ProductVariantSize }}</small></p>
-                        <span 
-                            class="font-weight-black" 
-                            style="position: relative; top: 4px"
-                        >
-                            ${{ ProductVariantPrice }}
-                        </span>
+                <v-container class="pa-0">
+                    <small>Selected product:</small>
+                    <div class="d-flex align-start">
+                        <v-img 
+                            class="bg-surface-el rounded mr-2"
+                            :src="ProductVariantImage" 
+                            width="50px"
+                            max-width="50px"
+                            aspect-ratio="1"
+                        />
+                        <div style="line-height: 0.9rem;">
+                            <p><small>color: {{ ProductVariantColor }}</small></p>
+                            <p><small>size: {{ ProductVariantSize }}</small></p>
+                            <span 
+                                class="font-weight-black" 
+                                style="position: relative; top: 4px"
+                            >
+                                ${{ ProductVariantPrice }}
+                            </span>
+                        </div>
                     </div>
                 </v-container>
-                <div class="d-flex flex-column mt-4 align-center justify-center bg-surface-el rounded-xl">
-                    <span>Select qty</span>
+                <v-container class="d-flex flex-column my-8 pa-0 align-center justify-center bg-surface-el rounded-xl">
+                    <span class="pt-2">Select qty</span>
                     <div>
                         <v-btn 
                             class="my-4"
@@ -105,24 +106,26 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                             <v-icon>mdi-plus</v-icon>
                         </v-btn>
                     </div>
-                </div>
-                <v-btn 
-                    class="my-4"
-                    rounded="pill"
-                    color="primary"
-                    text="Add To Cart"
-                    flat
-                    block
-                />
-                <div class="nana-primary-bg-color rounded-xl ">
+                </v-container>
+                <v-container class="pa-0">
                     <v-btn 
+                        class="my-4"
                         rounded="pill"
-                        color="background"
-                        text="Buy Now"
+                        color="primary"
+                        text="Add To Cart"
                         flat
                         block
                     />
-                </div>
+                    <div class="nana-primary-bg-color rounded-xl ">
+                        <v-btn 
+                            rounded="pill"
+                            color="background"
+                            text="Buy Now"
+                            flat
+                            block
+                        />
+                    </div>
+                </v-container>
             </v-container>
         </v-navigation-drawer>
         <v-main class="main-adjust-content" v-scroll="onScroll">
