@@ -8,6 +8,8 @@ const currentImg = ref()
 
 const setImg = (img: any) => currentImg.value = img
 
+const ProductVariant = computed(() =>  route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant)
+
 const ProductImage = computed(() => {
     let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
     if(currentImg.value) return currentImg.value
@@ -17,6 +19,8 @@ const ProductPreviewImages = computed(() => {
     let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
     return product_variant.images
 })
+
+watch(ProductVariant, () => currentImg.value = '')
 
 </script>
 
@@ -36,15 +40,6 @@ const ProductPreviewImages = computed(() => {
                 
             />
         </div>
-        <!-- <v-img 
-            class="bg-surface-el rounded-lg mr-2 cursor-pointer"
-            v-for="(img, i) in store.ProductPreviewImages"
-            :key="i"
-            :src="config.public.CDN_URL+img" 
-            max-width="60px"
-            aspect-ratio="1"
-            @mouseover="store.setImg(img)"
-        /> -->
     </v-container>
 </template>
 

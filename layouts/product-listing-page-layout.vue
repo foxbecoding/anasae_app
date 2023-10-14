@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
-import { useAuthStore } from '@/store/Auth'
+import { useAuthStore, useProductListingStore } from '@/store'
 
 const authStore = useAuthStore()
+const productListingStore = useProductListingStore()
+const config = useRuntimeConfig()
 const route = useRoute()
 const isOpen = ref<boolean>(true)
 const { AuthFormComponent, authRouteNames } = useAuthFormFactory()
@@ -24,6 +26,12 @@ if (smAndDown.value){
     isOpen.value = false
 }
 
+//Selected Product Details
+const ProductVariant = computed(() =>  route.query.v ? productListingStore.listing.products.find((x:any) => x.uid == route.query.v) : productListingStore.listing.base_variant)
+const ProductVariantImage = computed(() => config.public.CDN_URL+ProductVariant.value.images[0])
+const ProductVariantColor = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value.toUpperCase())
+const ProductVariantSize = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value.toUpperCase())
+const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
 </script>
 
 <template>
@@ -52,28 +60,51 @@ if (smAndDown.value){
             :permanent="!smAndDown"
         >
             <v-container class="pt-0">
-                <div class="d-flex  align-center justify-center">
-                    <v-btn 
-                        class="my-4"
-                        variant="outlined"
-                        color="primary"
-                        flat
-                        size="40"
-                        icon
-                    >
-                        <v-icon>mdi-minus</v-icon>
-                    </v-btn>
-                    <span class="text-h5 px-4">1</span>
-                    <v-btn 
-                        class="my-4"
-                        color="primary"
-                        variant="outlined"
-                        flat
-                        size="40"
-                        icon
-                    >
-                        <v-icon>mdi-plus</v-icon>
-                    </v-btn>
+                <small>Selected product:</small>
+                <v-container class="d-flex pa-0 align-start">
+                    <v-img 
+                        class="bg-surface-el rounded mr-2"
+                        :src="ProductVariantImage" 
+                        width="50px"
+                        max-width="50px"
+                        aspect-ratio="1"
+                    />
+                    <div style="line-height: 0.9rem;">
+                        <p><small>color: {{ ProductVariantColor }}</small></p>
+                        <p><small>size: {{ ProductVariantSize }}</small></p>
+                        <span 
+                            class="font-weight-black" 
+                            style="position: relative; top: 4px"
+                        >
+                            ${{ ProductVariantPrice }}
+                        </span>
+                    </div>
+                </v-container>
+                <div class="d-flex flex-column mt-4 align-center justify-center bg-surface-el rounded-xl">
+                    <span>Select qty</span>
+                    <div>
+                        <v-btn 
+                            class="my-4"
+                            variant="outlined"
+                            color="primary"
+                            flat
+                            size="40"
+                            icon
+                        >
+                            <v-icon>mdi-minus</v-icon>
+                        </v-btn>
+                        <span class="text-h5 px-4">1</span>
+                        <v-btn 
+                            class="my-4"
+                            color="primary"
+                            variant="outlined"
+                            flat
+                            size="40"
+                            icon
+                        >
+                            <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                    </div>
                 </div>
                 <v-btn 
                     class="my-4"

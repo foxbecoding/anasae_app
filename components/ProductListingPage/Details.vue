@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { useProductListingStore } from '@/store'
 
-const props = defineProps(['listing'])
-
+const config = useRuntimeConfig()
 const route = useRoute()
 const store = useProductListingStore()
 const variantColors = ref<any[]>([])
@@ -15,42 +14,53 @@ const variantSizeOptions = ref<{value: string, disabled: boolean}[]>([])
 const setPrice = (price: number) => price/100
 
 const setSizes = (color: any = ''): void => {
-        let selectedColor = color || selectedVariantColor.value
-        let colors: any[] = []
-        store.listing.products.map(
-            (prod: any) => prod.specifications
-            .map((spec: any) => {
-                if(spec.label == 'Color' && spec.value == selectedColor){
-                    colors.push(prod.is_active)
-                }
-            })
-        )
-        for(let i = 0; i < variantSizeOptions.value.length; i++){
-            variantSizeOptions.value[i].disabled = !colors[i]
-        }
-        var opts = variantSizeOptions.value.filter(x => !x.disabled)
-        if(opts.length > 0){
-            selectedVariantSize.value = opts[0].value
-        }
+    let selectedColor = color || selectedVariantColor.value
+    let colors: any[] = []
+    store.listing.products.map(
+        (prod: any) => prod.specifications
+        .map((spec: any) => {
+            if(spec.label == 'Color' && spec.value == selectedColor){
+                colors.push(prod.is_active)
+            }
+        })
+    )
+    for(let i = 0; i < variantSizeOptions.value.length; i++){
+        variantSizeOptions.value[i].disabled = !colors[i]
     }
+    var opts = variantSizeOptions.value.filter(x => !x.disabled)
+    if(opts.length > 0){
+        selectedVariantSize.value = opts[0].value
+    }
+    // console.log(selectedColor)
+    // console.log(selectedVariantSize.value)
+}
 
-    const ProductTitle = computed(() => {
-        let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-        return product_variant.title
-    })
-    const ProductPrice = computed(() => {
-        let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-        return setPrice(product_variant.price)
-    })
-    const ProductDescription = computed(() =>{
-        let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
-        return product_variant.description
-    })
+const ProductTitle = computed(() => {
+    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
+    return product_variant.title
+})
+const ProductPrice = computed(() => {
+    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
+    return setPrice(product_variant.price)
+})
+const ProductDescription = computed(() =>{
+    let product_variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
+    return product_variant.description
+})
 
-    
-    watch(selectedVariantColor, (newValue) => {
-        setSizes(newValue)
-    })
+const setVariant = (color: string, size: string): void => {
+    let variant = store.listing.products.find((x: any) => String(x.variant).toLowerCase() == [color,size].toString().toLowerCase())
+    navigateTo(`/product/${store.listing.uid}?v=${variant.uid}`)
+}
+
+watch(selectedVariantColor, (newValue) => {
+    setSizes(newValue)
+    setVariant(newValue, selectedVariantSize.value)
+})
+
+watch(selectedVariantSize, (newValue) => {
+    setVariant(selectedVariantColor.value, newValue)
+})
 
 store.listing.products.forEach((prod: any) => {
     prod.specifications.map((spec: any) => {
@@ -98,5 +108,47 @@ selectedVariantSize.value = product_variant.specifications.find((x: any) => x.la
             <v-card-subtitle class="px-0">Description</v-card-subtitle>
             {{ ProductDescription }}
         </v-card-text>
+        <v-container class="px-0">
+            <p class="mb-2">Select color:</p>
+            <v-container class="d-flex flex-wrap pa-0" fluid>
+                <div
+                    v-for="(color, i) in variantColorOptions"
+                    :key="i" 
+                    @click="!color.disabled ? selectedVariantColor = color.value : ''"
+                    class="rounded-sm image-wrapper bg-surface-el mr-2 mb-12"
+                    :class="[
+                        color.disabled ? 'color-selection--disabled' : 'color-selection',
+                        color.value == selectedVariantColor ? 'border text-primary-alt' : ''
+                    ]"
+                    v-ripple="!color.disabled"
+                >
+                    <v-img :src="config.public.CDN_URL+color.image" />
+                    <small class="d-block">{{ color.value.toUpperCase() }}</small>
+                </div>
+            </v-container>
+            <v-container class="pa-0" fluid>
+                <p>Select size:</p>
+                <v-chip-group mandatory v-model="selectedVariantSize" color="primary-alt">
+                    <v-chip 
+                        v-for="(size, s) in variantSizeOptions"
+                        :key="s"
+                        :value="size.value"
+                        :disabled="size.disabled"
+                        @click="selectedVariantSize = size.value"
+                    >
+                        {{ size.value.toUpperCase() }}
+                    </v-chip>
+                </v-chip-group>
+            </v-container>
+        </v-container>
     </v-card>
 </template>
+
+<style>
+.image-wrapper {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    cursor: pointer;
+}
+</style>

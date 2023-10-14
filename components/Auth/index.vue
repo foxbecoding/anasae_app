@@ -15,7 +15,7 @@ const close = async (): Promise<void> => {
     }, 300) 
 }
 
-const prevStep = (): void => { authStore.signUpFormStep-- }
+const prevStep = () => authStore.signUpFormStep-- 
 
 const DialogButtonFunc = computed((): Function => {
     if (route.name == 'auth-sign-up' 
