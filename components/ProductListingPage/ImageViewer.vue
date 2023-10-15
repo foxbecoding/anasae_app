@@ -17,7 +17,11 @@ watch(ProductVariant, () => currentImg.value = '')
 </script>
 
 <template>
-    <v-img  :src="config.public.CDN_URL+ProductImage" class="bg-surface-el rounded-lg" aspect-ratio="1"/>
+    <v-img  
+        eager
+        :src="{ src: config.public.CDN_URL+ProductImage, lazySrc: config.public.CDN_URL+ProductImage, aspect: 1 }"
+        class="bg-surface-el rounded-lg" aspect-ratio="1"
+    />
     <v-container class="d-flex flex-wrap pa-0 mt-4" fluid>
         <div 
             v-for="(img, i) in ProductPreviewImages"
@@ -28,8 +32,8 @@ watch(ProductVariant, () => currentImg.value = '')
         >
             <v-img 
                 class="product-image"
-                :src="config.public.CDN_URL+img" 
-                
+                eager
+                :src="{ src: config.public.CDN_URL+img, lazySrc: config.public.CDN_URL+img, aspect: 1 }"
             />
         </div>
     </v-container>

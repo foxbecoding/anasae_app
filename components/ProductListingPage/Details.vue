@@ -28,7 +28,7 @@ const setSizes = (color: any = ''): void => {
     for(let i = 0; i < variantSizeOptions.value.length; i++){
         variantSizeOptions.value[i].disabled = !colors[i]
     }
-    
+
     var opts = variantSizeOptions.value.filter(x => !x.disabled).map(x => x.value)
     if(opts.length > 0){
         let productVariantSize = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
@@ -53,7 +53,6 @@ const setVariant = (color: string, size: string): void => {
         store.currentVariant.variant_id = variant.uid
         navigateTo(`/product/${store.listing.uid}?v=${variant.uid}`)
     }else{
-        store.prevRoute = String(route.name)
         selectedVariantColor.value = store.currentVariant.color
         selectedVariantSize.value = store.currentVariant.size
     }
@@ -100,18 +99,8 @@ variantSizes.value.map(size => {
     })
 })
 
-// if(store.IsPrevRouteAuth){
-//     console.log(store.currentVariant)
-//     selectedVariantColor.value = store.currentVariant.color
-//     selectedVariantSize.value = store.currentVariant.size
-// }else{
-//     selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value
-//     selectedVariantSize.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
-// }
 
 selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value
-selectedVariantSize.value = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
-
 </script>
 
 <template>
@@ -137,7 +126,14 @@ selectedVariantSize.value = ProductVariant.value.specifications.find((x: any) =>
                     ]"
                     v-ripple="!color.disabled"
                 >
-                    <v-img :src="config.public.CDN_URL+color.image" />
+                    <v-img
+                        eager
+                        :src="{ 
+                            src: config.public.CDN_URL+color.image, 
+                            lazySrc: config.public.CDN_URL+color.image, 
+                            aspect: 1
+                        }" 
+                    />
                     <small class="d-block">{{ color.value.toUpperCase() }}</small>
                 </div>
             </v-container>

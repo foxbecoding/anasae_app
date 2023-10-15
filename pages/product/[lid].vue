@@ -29,7 +29,6 @@ const {data} = await useApi({
 })
 store.listing = data.value
 
-
 </script>
 
 <template>

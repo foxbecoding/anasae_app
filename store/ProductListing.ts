@@ -5,17 +5,11 @@ export const useProductListingPageStore = defineStore("product-listing-page-stor
         color: '',
         size: ''
     })
-    const prevRoute = ref('')
-    const IsPrevRouteAuth = computed(() => {
-        let routes = ['auth-login', 'auth-sign-up', 'auth-forgot-password']
-         return routes.includes(prevRoute.value)
-    })
+
 
     return {
         listing,
-        currentVariant,
-        prevRoute,
-        IsPrevRouteAuth
+        currentVariant
     }
 })
 
