@@ -1,20 +1,24 @@
 <script lang="ts" setup>
 const props = defineProps(['listing']) 
 const config = useRuntimeConfig()
+const disabled = ref(false)
 </script>
 
 <template>
     <v-card 
+        @click="disabled = true"
         :to="{
             name: 'product-lid', 
             params:{lid: props.listing['uid']}, 
             query: {v: `${props.listing.base_variant.uid}`}
         }"
+        :disabled="disabled"
         color="transparent"
         rounded="lg"
     >
         <v-img 
-            :src="config.public.CDN_URL+props.listing.image" 
+            :src="config.public.CDN_URL+props.listing.image"
+            :lazy-src="config.public.CDN_URL+props.listing.image" 
             class="pb-2 rounded-lg product-listing-img" 
             cover 
             aspect-ratio="1"

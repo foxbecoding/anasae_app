@@ -15,7 +15,7 @@ const userStore = useUserStore()
 const categoryStore = useCategoryStore()
 const brandStore = useBrandStore()
 const vTheme = useTheme()
-
+const showSplashScreen = ref(true)
 
 vTheme.global.name.value = useCookie('theme', {
   default: () => 'anasaeDark',
@@ -40,10 +40,16 @@ onBeforeMount(async () => {
     brandStore.brands = await useGetOwnerBrands(userStore.user.owned_brands)
   }
 })
+
+onMounted(() => showSplashScreen.value = false)
+
 </script>
 
 <template>
-  <NuxtPage/>
+  <div>
+    <SplashScreen v-if="showSplashScreen"/>
+    <NuxtPage :class="showSplashScreen ? 'd-none' : 'd-block'"/>
+  </div>
 </template>
 
 <style>

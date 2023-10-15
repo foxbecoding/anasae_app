@@ -42,8 +42,8 @@ if(!cachedCategories.value){
         <div 
           v-for="(listing, l) in category['product_listings']" 
           :key="l"
-          class="ml-4"
-          style="width: 180px;"
+          class="mr-4"
+          style="width: 280px;"
         >
           <ProductListing :listing="listing" />
         </div>

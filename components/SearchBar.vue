@@ -40,7 +40,9 @@ const { Asset: logoIcon } = useMediaAssets('/media/assets/icon-dark-v1.png')
                         <v-avatar class="pa-1" size="34px">
                             <v-img  
                                 :src="logoIcon" 
+                                :lazy-src="logoIcon"
                                 alt="Anasae logo"
+                                height="34"
                             />
                         </v-avatar>
                     </v-btn>

@@ -108,10 +108,10 @@ selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) =
         <v-card-title class="pt-0 px-0 text-wrap">{{ProductTitle }}</v-card-title>
         <v-card-title class="px-0 font-weight-black text-h5">${{ ProductPrice }}</v-card-title>
         
-        <v-card-text class="px-0">
+        <!-- <v-card-text class="px-0">
             <v-card-subtitle class="px-0">Description</v-card-subtitle>
             {{ ProductDescription }}
-        </v-card-text>
+        </v-card-text> -->
         <v-container class="px-0">
             <p class="mb-2">Select color:</p>
             <v-container class="d-flex flex-wrap pa-0" fluid>
