@@ -4,3 +4,4 @@ export const numbersOnly = (e: any) => {
     else e.preventDefault();
 }
 
+export const isAuthRoute = (routeName: string) => ['auth-login','auth-sign-up','auth-forgot-password'].includes(routeName)

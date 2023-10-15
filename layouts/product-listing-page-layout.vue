@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useProductListingPageStore } from '@/store'
 
 const authStore = useAuthStore()
-const { ProductVariant } = useProductListingPage()
+const productPageStore = useProductListingPageStore()
+const { ProductVariant, qty, qtyHandler } = useProductListingPage()
 const config = useRuntimeConfig()
 const route = useRoute()
 const isOpen = ref<boolean>(true)
@@ -85,6 +86,7 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                     <span class="pt-2">Select qty</span>
                     <div>
                         <v-btn 
+                            @click="qtyHandler('-')"
                             class="my-4"
                             variant="outlined"
                             color="primary"
@@ -94,8 +96,9 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                         >
                             <v-icon>mdi-minus</v-icon>
                         </v-btn>
-                        <span class="text-h5 px-4">1</span>
-                        <v-btn 
+                        <span class="text-h5 px-4">{{ qty }}</span>
+                        <v-btn
+                            @click="qtyHandler('+')" 
                             class="my-4"
                             color="primary"
                             variant="outlined"
@@ -115,6 +118,7 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                         text="Add To Cart"
                         flat
                         block
+                        :disabled="qty == 0"
                     />
                     <div class="nana-primary-bg-color rounded-xl ">
                         <v-btn 
@@ -123,6 +127,7 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                             text="Buy Now"
                             flat
                             block
+                            :disabled="qty == 0"
                         />
                     </div>
                 </v-container>

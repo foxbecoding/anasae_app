@@ -127,12 +127,10 @@ selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) =
                     v-ripple="!color.disabled"
                 >
                     <v-img
+                        :src="config.public.CDN_URL+color.image"
+                        :lazy-src="config.public.CDN_URL+color.image"
+                        aspect-ratio="1" 
                         eager
-                        :src="{ 
-                            src: config.public.CDN_URL+color.image, 
-                            lazySrc: config.public.CDN_URL+color.image, 
-                            aspect: 1
-                        }" 
                     />
                     <small class="d-block">{{ color.value.toUpperCase() }}</small>
                 </div>

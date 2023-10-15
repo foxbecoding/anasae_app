@@ -1,10 +1,18 @@
 <script lang="ts" setup>
 import { useProductListingPageStore, useAuthStore } from '@/store'
+import { isAuthRoute } from '@/utils/helpers'
 
 const config = useRuntimeConfig()
 const route = useRoute()
 const store = useProductListingPageStore()
 const authStore = useAuthStore()
+
+// onBeforeRouteLeave((to, from) => {
+//     if(isAuthRoute(String(from.name)) && String(to.name) == 'product-lid'){
+//         console.log(productPageStore.currentVariant.qty)
+//         qty.value = productPageStore.currentVariant.qty
+//     }
+// })
 
 const LID = computed(() => {
     if (route.fullPath.includes('auth')){
@@ -28,6 +36,10 @@ const {data} = await useApi({
     key: `${config.public.API_PRODUCT_LISTING_PAGE}${LID.value}/`
 })
 store.listing = data.value
+
+if(store.listing.pk != store.listingPk){
+    store.currentVariant.qty = 0
+}
 
 </script>
 
