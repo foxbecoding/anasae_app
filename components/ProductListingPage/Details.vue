@@ -32,7 +32,7 @@ const setSizes = (color: any = ''): void => {
     var opts = variantSizeOptions.value.filter(x => !x.disabled).map(x => x.value)
     if(opts.length > 0){
         let productVariantSize = ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value
-        if(opts.includes(productVariantSize)){
+        if(productVariantSize && opts.includes(productVariantSize)){
             selectedVariantSize.value = productVariantSize
         }else{
             selectedVariantSize.value = opts[0]

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { useCartStore } from '@/store'
+
+const cartStore = useCartStore()
+
+var cartPks = cartStore.cart.map(x => x.pk)
+console.log(cartPks.toString())
 </script>
 
 <template>
@@ -6,19 +12,7 @@
         <NuxtLayout name="default">
             <v-container class="px-sm-8" fluid>
                 <h1>Cart</h1>
-                <v-row>
-                    <v-col
-                        v-for="n in 12"
-                        :key="n"
-                        cols="12"
-                        sm="6"
-                        md="3"
-                    >
-                        <v-card height="340">
-                            {{ n }}
-                        </v-card>
-                    </v-col>
-                </v-row>
+                {{ cartStore.cart }}
             </v-container>
         </NuxtLayout>
     </div>

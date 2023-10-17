@@ -7,6 +7,7 @@ import { VApp } from 'vuetify/components/VApp'
 import { VAppBar, VAppBarTitle, VAppBarNavIcon } from 'vuetify/components/VAppBar'
 import { VAlert } from 'vuetify/components/VAlert'
 import { VAvatar } from 'vuetify/components/VAvatar'
+import { VBadge } from 'vuetify/components/VBadge'
 import { VBottomNavigation } from 'vuetify/components/VBottomNavigation'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VCard, VCardActions, VCardItem, VCardText, VCardTitle, VCardSubtitle } from 'vuetify/components/VCard'
@@ -104,6 +105,7 @@ export default defineNuxtPlugin(nuxtApp => {
             VAppBarNavIcon,
             VAlert, 
             VAvatar,
+            VBadge,
             VBottomNavigation,
             VBtn, 
             VCard,

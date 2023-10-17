@@ -10,8 +10,10 @@ const {
         SelectedProductVariantSize,
         SelectedProductVariantPrice,
         qty, 
+        addToCart,
         qtyHandler, 
 } = useProductListingPage()
+
 const config = useRuntimeConfig()
 const route = useRoute()
 const isOpen = ref<boolean>(true)
@@ -46,12 +48,30 @@ if (smAndDown.value){
                 class="d-flex d-md-none justify-space-between px-sm-8" fluid>
                 <AppBarInner />
             </v-container>
-            <v-container v-else class="d-md-none px-sm-8" fluid>
-                <MobileTopBar />
+            <v-container v-else class="d-flex d-md-none px-sm-8" fluid>
+                <MobileTopBar class="flex-fill" />
+                <NanaAppBarBtn
+                    class="rounded-xl ml-2"
+                    :to="{name: 'cart'}"
+                    size="44"
+                    icon
+                    active
+                >
+                    <CartBtnBadgeIcon />
+                </NanaAppBarBtn> 
             </v-container>
         </v-app-bar>
-        <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container d-md-none px-sm-8" :class="AppBarColor" fluid>
+        <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container d-flex d-md-none px-sm-8" :class="AppBarColor" fluid>
             <MobileTopBar />
+            <NanaAppBarBtn
+                class="rounded-xl ml-2"
+                :to="{name: 'cart'}"
+                size="44"
+                icon
+                active
+            >
+                <CartBtnBadgeIcon />
+            </NanaAppBarBtn> 
         </v-container>
         <v-navigation-drawer
             v-model="isOpen"
@@ -113,6 +133,7 @@ if (smAndDown.value){
                 </v-container>
                 <v-container class="pa-0">
                     <v-btn 
+                        @click="addToCart"
                         class="my-4"
                         rounded="pill"
                         color="primary"

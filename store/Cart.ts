@@ -1,5 +1,5 @@
 export const useCartStore = defineStore("cart-store", () => {
-    const cart = ref([])
+    const cart = ref<{pk: string|number, qty: number}[]>([])
 
     return {
         cart

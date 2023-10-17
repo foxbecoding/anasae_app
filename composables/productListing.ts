@@ -1,6 +1,8 @@
-import { useProductListingPageStore } from '@/store'
+import { ProductListingPageProduct } from '@/utils/types'
+import { useCartStore, useProductListingPageStore, useSnackbarStore } from '@/store'
 
 export const useProductListingPage = () => {
+    const config = useRuntimeConfig()
     const store = useProductListingPageStore()
     const route = useRoute()
     const qty = ref(0)
@@ -17,7 +19,7 @@ export const useProductListingPage = () => {
         }
     })
 
-    const ProductVariant = computed(() => {
+    const ProductVariant = computed((): ProductListingPageProduct => {
         var variant: any 
         if(!IsAuthRoute.value){
             variant = route.query.v ? store.listing.products.find((x:any) => x.uid == route.query.v) : store.listing.base_variant
@@ -48,6 +50,15 @@ export const useProductListingPage = () => {
         store.currentVariant.qty = qty.value
     }
 
+    const addToCart = (): void => {
+        useCartStore().cart.push({pk: ProductVariant.value.pk, qty: qty.value})
+        useSnackbarStore().setSnackbar(
+            'Added to cart', 
+            true, 
+            `${config.public.CDN_URL+ProductVariant.value.images[0]}`
+        )
+    }
+
     return {
         qty,
         ProductVariant,
@@ -56,6 +67,7 @@ export const useProductListingPage = () => {
         SelectedProductVariantColor,
         SelectedProductVariantSize,
         SelectedProductVariantPrice,
+        addToCart,
         qtyHandler
     }
 }

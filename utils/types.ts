@@ -164,7 +164,11 @@ export interface ProductListingPageProduct {
     pk: string|number
     price: number
     quantity: number
-    specifications: []
+    specifications: {
+        is_required: boolean
+        label: string
+        value: string
+    }[]
     title: string
     uid: string
     variant: string 

@@ -6,8 +6,10 @@ const {
     SelectedProductVariantSize,
     SelectedProductVariantPrice, 
     qty, 
+    addToCart,
     qtyHandler  
 } = useProductListingPage()
+
 </script>
 
 <template>
@@ -42,6 +44,7 @@ const {
             </v-container>
             <v-container class="py-0 d-flex aling-end justify-space-between" >
                 <v-btn 
+                    @click="addToCart"
                     class="my-4"
                     rounded="pill"
                     color="primary"

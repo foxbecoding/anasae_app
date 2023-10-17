@@ -36,7 +36,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
             Sign In
         </NanaAppBarBtn>
         <div 
-            v-if="authStore.isAuth" 
+            v-if="authStore.isAuth && false" 
             class="nana-primary-bg-color rounded-xl d-none d-md-block"
             data-test-id="app-bar-inner-add-post-btn"
         >
@@ -136,7 +136,7 @@ const ThemeIcon = computed((): string => vTheme.global.current.value.dark ? 'mdi
             icon
             active
         >
-            <v-icon>mdi-cart-outline</v-icon>
+            <CartBtnBadgeIcon />
         </NanaAppBarBtn>   
     </div>
 </template>

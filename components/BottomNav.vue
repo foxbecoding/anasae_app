@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useCartStore } from '@/store'
+
+const cartStore = useCartStore()
 </script>
 
 <template>
@@ -14,12 +17,17 @@
             Home
         </v-btn>
     
-        <v-btn :to="{name: 'cart'}" value="cart" variant="plain" :ripple="false">
-            <v-icon>mdi-cart</v-icon>
+        <v-btn 
+            :to="{name: 'cart'}" 
+            value="cart" 
+            variant="plain" 
+            :ripple="false"
+        >
+            <CartBtnBadgeIcon />
             Cart
         </v-btn>
 
-        <div class="nana-primary-bg-color rounded-xl add-btn">
+        <div v-if="false" class="nana-primary-bg-color rounded-xl add-btn">
             <v-btn 
                 value="add"
                 class="rounded-xl background-bg" 
