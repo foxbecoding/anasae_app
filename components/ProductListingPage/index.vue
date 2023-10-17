@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { useProductListingPageStore } from '@/store'
 
-const store = useProductListingPageStore()
 const { ProductVariant } = useProductListingPage()
 const currentPanel = ref('description')
+
 </script>
 
 <template>

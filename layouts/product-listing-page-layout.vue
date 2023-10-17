@@ -35,11 +35,6 @@ if (smAndDown.value){
     isOpen.value = false
 }
 
-//Selected Product Details
-const ProductVariantImage = computed(() => config.public.CDN_URL+ProductVariant.value.images[0])
-const ProductVariantColor = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value.toUpperCase())
-const ProductVariantSize = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value.toUpperCase())
-const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
 </script>
 
 <template>

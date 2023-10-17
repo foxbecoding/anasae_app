@@ -154,6 +154,38 @@ export interface Product {
     }[] 
 }
 
+export interface ProductListingPageProduct {
+    brand: string|number
+    description: string
+    images: string[]
+    is_active: boolean
+    listing: string|number
+    listing_base_variant: string|number
+    pk: string|number
+    price: number
+    quantity: number
+    specifications: []
+    title: string
+    uid: string
+    variant: string 
+}
+
+export interface ProductListingPage {
+    base_variant: ProductListingPageProduct
+    brand: { 
+        logo: string
+        name: string
+        pk: string|number
+        uid: string
+    }
+    category: string|number
+    image: string
+    pk: string
+    products: ProductListingPageProduct[]
+    title: string
+    uid: string
+}
+
 export interface Slide {
     is_active: boolean
     image: string, 

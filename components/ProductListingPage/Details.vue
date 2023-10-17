@@ -42,12 +42,11 @@ const setSizes = (color: any = ''): void => {
 
 const ProductTitle = computed(() => ProductVariant.value.title)
 const ProductPrice = computed(() => setPrice(ProductVariant.value.price))
-const ProductDescription = computed(() => ProductVariant.value.description)
 
 const setVariant = (color: string, size: string): void => {
     let variant = store.listing.products.find((x: any) => String(x.variant).toLowerCase() == [color,size].toString().toLowerCase())
     
-    if(!IsAuthRoute.value){
+    if(!IsAuthRoute.value && variant){
         store.currentVariant.color = color
         store.currentVariant.size = size
         store.currentVariant.variant_id = variant.uid

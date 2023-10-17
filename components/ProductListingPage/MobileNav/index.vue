@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-// const config = useRuntimeConfig()
+
 const { 
-    ProductVariant,
     SelectedProductVariantImage,
     SelectedProductVariantColor,
     SelectedProductVariantSize,
