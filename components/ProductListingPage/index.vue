@@ -3,6 +3,7 @@ import { useProductListingPageStore } from '@/store'
 
 const store = useProductListingPageStore()
 const { ProductVariant } = useProductListingPage()
+const currentPanel = ref('description')
 </script>
 
 <template>
@@ -17,11 +18,35 @@ const { ProductVariant } = useProductListingPage()
         </v-row>
     </v-container>
     <v-container fluid>
-        <v-card color="bg-surface-el" flat rounded="lg" elevation="0">
-            <v-card-title>Description</v-card-title>
-            <v-card-text >
-                {{ ProductVariant.description }}
-            </v-card-text>
-        </v-card> 
+        <v-expansion-panels 
+            v-model="currentPanel"
+            variant="accordion" 
+            class="elevation-none"
+        >
+            <v-expansion-panel
+                title="Description"
+                value="description"
+                :text="ProductVariant.description"
+                rounded="lg"
+                ripple
+            >
+            </v-expansion-panel>
+            <v-expansion-panel
+                title="Specifications"
+                value="specifications"
+                rounded="lg"
+                ripple
+            >
+                <v-expansion-panel-text>
+                    <div class="border py-3" v-for="(spec, s) in ProductVariant.specifications" :key="s">
+                        <v-row>
+                            <v-col cols="6"><span class="ml-3">{{ spec.label.toUpperCase() }}:</span></v-col>
+                            <v-divider vertical />
+                            <v-col cols="6">{{ spec.value.toUpperCase() }}</v-col>
+                        </v-row>
+                    </div>
+                </v-expansion-panel-text>
+            </v-expansion-panel>
+        </v-expansion-panels>
     </v-container>
 </template>

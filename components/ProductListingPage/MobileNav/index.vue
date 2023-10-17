@@ -41,7 +41,7 @@ const {
                     </div>
                 </div>
             </v-container>
-            <v-container class="py-0 d-flex aling-end" >
+            <v-container class="py-0 d-flex aling-end justify-space-between" >
                 <v-btn 
                     class="my-4"
                     rounded="pill"
@@ -52,7 +52,7 @@ const {
                     variant="flat"
                     :disabled="qty == 0"
                 >
-                    <v-icon>mdi-cart-plus</v-icon>
+                    <v-icon size="20">mdi-cart-plus</v-icon>
                 </v-btn>
                 <div 
                     class=" flex-fill nana-primary-bg-color rounded-xl my-4 mx-2"
@@ -69,7 +69,7 @@ const {
                     </v-btn>
                 </div>
                 <v-spacer />
-                <div class="d-flex flex-fill pa-0 align-center justify-center">
+                <div class="d-flex pa-0 align-center justify-center">
                     <div>
                         <v-btn 
                             @click="qtyHandler('-')"
@@ -82,7 +82,7 @@ const {
                             <v-icon>mdi-minus</v-icon>
                         </v-btn>
                         <span 
-                            class="text-h6 px-2"
+                            class="text-h6 px-1"
                             style="position: relative; top: 3px;"
                         >
                             {{ qty }}

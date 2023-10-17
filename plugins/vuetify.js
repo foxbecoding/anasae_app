@@ -18,6 +18,7 @@ import { VCol, VContainer, VRow, VSpacer  } from 'vuetify/components/VGrid'
 import { VCombobox } from 'vuetify/components/VCombobox'
 import { VDialog } from 'vuetify/components/VDialog'
 import { VDivider } from 'vuetify/components/VDivider'
+import { VExpansionPanel, VExpansionPanels, VExpansionPanelTitle, VExpansionPanelText } from 'vuetify/components/VExpansionPanel'
 import { VFileInput } from 'vuetify/components/VFileInput'
 import { VForm } from 'vuetify/components/VForm'
 import { VIcon } from 'vuetify/components/VIcon'
@@ -123,6 +124,10 @@ export default defineNuxtPlugin(nuxtApp => {
             VDataTable,
             VDialog,
             VDivider,
+            VExpansionPanel,
+            VExpansionPanels, 
+            VExpansionPanelTitle, 
+            VExpansionPanelText,
             VFileInput,
             VForm,
             VIcon,
