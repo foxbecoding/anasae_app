@@ -1,5 +1,3 @@
-
-
 export const useCartStore = defineStore("cart-store", () => {
     const cart = ref([])
 
