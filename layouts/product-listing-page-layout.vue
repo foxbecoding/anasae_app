@@ -5,7 +5,15 @@ import { useAuthStore, useProductListingPageStore } from '@/store'
 
 const authStore = useAuthStore()
 const productPageStore = useProductListingPageStore()
-const { ProductVariant, qty, qtyHandler } = useProductListingPage()
+const { 
+        ProductVariant, 
+        SelectedProductVariantImage,
+        SelectedProductVariantColor,
+        SelectedProductVariantSize,
+        SelectedProductVariantPrice,
+        qty, 
+        qtyHandler, 
+} = useProductListingPage()
 const config = useRuntimeConfig()
 const route = useRoute()
 const isOpen = ref<boolean>(true)
@@ -65,19 +73,19 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
                     <div class="d-flex align-start">
                         <v-img 
                             class="bg-surface-el rounded mr-2"
-                            :src="ProductVariantImage" 
+                            :src="config.public.CDN_URL+SelectedProductVariantImage" 
                             width="50px"
                             max-width="50px"
                             aspect-ratio="1"
                         />
                         <div style="line-height: 0.9rem;">
-                            <p><small>color: {{ ProductVariantColor }}</small></p>
-                            <p><small>size: {{ ProductVariantSize }}</small></p>
+                            <p><small>color: {{ SelectedProductVariantColor }}</small></p>
+                            <p><small>size: {{ SelectedProductVariantSize }}</small></p>
                             <span 
                                 class="font-weight-black" 
                                 style="position: relative; top: 4px"
                             >
-                                ${{ ProductVariantPrice }}
+                                ${{ SelectedProductVariantPrice }}
                             </span>
                         </div>
                     </div>
@@ -138,11 +146,11 @@ const ProductVariantPrice = computed(() => ProductVariant.value.price/100 )
         </v-main>
 
         <Snackbar />
-        <!-- <BottomNav v-if="smAndDown" class="d-md-none w-100" /> -->
         <Auth v-if="ShowAuthForm" >
             <component :is="AuthFormComponent" />
         </Auth> 
         <UserMenuMobile />
+        <ProductListingPageMobileNav v-if="smAndDown" class="d-md-none w-100" />
     </v-app>
 </template>
 

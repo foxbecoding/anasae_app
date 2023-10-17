@@ -105,13 +105,23 @@ selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) =
 
 <template>
     <v-card color="background">
+        <NuxtLink 
+            class="text-decoration-none text-primary"
+            :to="{name: `brand-uid`, params: {uid: store.listing.brand.uid}}"
+        >
+            brand: 
+            <v-avatar class="ml-2 border">
+                <v-img 
+                    :src="config.public.CDN_URL+store.listing.brand.logo" 
+                    :lazy-src="config.public.CDN_URL+store.listing.brand.logo"
+                    eager
+                    aspect-ratio="1"
+                />
+            </v-avatar>
+            <span class="brand-name">{{ store.listing.brand.name }}</span>
+        </NuxtLink>
         <v-card-title class="pt-0 px-0 text-wrap">{{ProductTitle }}</v-card-title>
         <v-card-title class="px-0 font-weight-black text-h5">${{ ProductPrice }}</v-card-title>
-        
-        <!-- <v-card-text class="px-0">
-            <v-card-subtitle class="px-0">Description</v-card-subtitle>
-            {{ ProductDescription }}
-        </v-card-text> -->
         <v-container class="px-0">
             <p class="mb-2">Select color:</p>
             <v-container class="d-flex flex-wrap pa-0" fluid>
@@ -159,5 +169,17 @@ selectedVariantColor.value = ProductVariant.value.specifications.find((x: any) =
     height: 70px;
     position: relative;
     cursor: pointer;
+}
+
+.brand-name{
+    margin-left: 4px;
+}
+
+.brand-name:hover{
+    opacity: 0.8;
+}
+
+.brand-name:active{
+    opacity: 0.6;
 }
 </style>

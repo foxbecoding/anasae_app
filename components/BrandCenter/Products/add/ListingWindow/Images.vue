@@ -83,12 +83,6 @@ const remove = (i: number): void => {
     display: none
 }
 
-/* @media screen and (max-width: 959px) {
-    .images-container::-webkit-scrollbar {
-        display: none;
-    }
-} */
-
 .image-wrapper {
     width: 90px;
     height: 90px;

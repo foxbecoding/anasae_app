@@ -1,0 +1,107 @@
+ 
+$background: rgb(var(--v-theme-background));
+$surface: rgb(var(--v-theme-surface));
+$scrollbar: rgba(var(--v-theme-primary), 0.85);
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar $scrollbar;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $background;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $scrollbar;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+.nana-primary-color {
+  background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
+  color: rgba(255,255,255, 0.87) !important;
+  opacity: 1 !important;
+}
+
+.nana-primary-bg-color {
+  background: linear-gradient(to right, rgb(156,39,176), rgb(255,193,7)) !important;
+  padding: 2px;
+  opacity: 0.8 !important;
+}
+
+.nana-app-btn {
+  background: rgba(255,255,255, 0.07) !important;
+  color: #000 !important;
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.surface-bg {
+  background: rgba(var(--v-theme-glass-bg), 0.07) !important;
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.surface-bg--searchbar {
+  background: rgba(var(--v-theme-glass-bg), 0.07) !important;
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.background-bg {
+  background: rgba(var(--v-theme-background), 0.9) !important;
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.mask {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.mask-squircle {
+    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
+    mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
+}
+
+.banner-slider {
+  z-index: 0;
+  position: absolute;
+  inset: 0px 0px -1px;
+  background-size: cover;
+  transition: background 0.3s linear 0s;
+  height: 600px;
+}
+
+.banner-slider::after {
+  backdrop-filter: blur(60px);
+  background: linear-gradient(0deg, $background 5%, rgba(var(--v-theme-slider), 0) 60%) rgba(var(--v-theme-slider), 0.5);
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.auth-form-logo-container {
+  max-width: 120px;
+}
+
+.mobile-dialog-card {
+  background: rgba(var(--v-theme-background), 0.95) !important;
+  -webkit-backdrop-filter: blur(5px);
+  -moz-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}

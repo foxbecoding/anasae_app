@@ -34,6 +34,11 @@ export const useProductListingPage = () => {
         return variant
     })
 
+    const SelectedProductVariantImage = computed(() => ProductVariant.value.images[0])
+    const SelectedProductVariantColor = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Color')?.value.toUpperCase())
+    const SelectedProductVariantSize = computed(() => ProductVariant.value.specifications.find((x: any) => x.label == 'Size')?.value.toUpperCase())
+    const SelectedProductVariantPrice = computed(() => ProductVariant.value.price/100 )
+
     const qtyHandler = (type: '+'|'-'): void => {
         if(type == '+' && qty.value < ProductVariant.value.quantity){
             qty.value++
@@ -47,6 +52,10 @@ export const useProductListingPage = () => {
         qty,
         ProductVariant,
         IsAuthRoute,
+        SelectedProductVariantImage,
+        SelectedProductVariantColor,
+        SelectedProductVariantSize,
+        SelectedProductVariantPrice,
         qtyHandler
     }
 }

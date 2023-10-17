@@ -4,6 +4,7 @@ const config = useRuntimeConfig()
 const { ProductVariant } = useProductListingPage()
 const currentImg = ref()
 const imgModel = ref(0)
+const isImgLoaded = ref<boolean>(false)
 
 const setImg = (img: any) => currentImg.value = img
 
@@ -13,6 +14,19 @@ const ProductImage = computed(() => {
 })
 const ProductPreviewImages = computed(() => ProductVariant.value.images)
 
+const AspectRatio = computed(() =>{
+    if(!isImgLoaded.value) return 1
+    var img = new Image();
+    img.src = config.public.CDN_URL+ProductImage
+    let imgW:number = 0
+    let imgH: number = 0
+    img.onload = () => {
+        imgW = img.width
+        imgH = img.height
+    }
+    return imgW/imgH
+})     
+
 watch(ProductVariant, () => {
     currentImg.value = '',
     imgModel.value = 0
@@ -21,11 +35,12 @@ watch(ProductVariant, () => {
 </script>
 
 <template>
-    <v-img  
+    <v-img 
         class="bg-surface-el rounded-lg d-none d-sm-block" 
         :src="config.public.CDN_URL+ProductImage"
         :lazy-src="config.public.CDN_URL+ProductImage"
-        aspect-ratio="1"
+        @load="(e:any) => isImgLoaded = true"
+        :aspect-ratio="AspectRatio"
         eager
     />
     <v-carousel
@@ -34,7 +49,7 @@ watch(ProductVariant, () => {
         :show-arrows="false"
         hide-delimiter-background
         delimiter-icon="mdi-circle"
-        height="300"
+        height="350"
         v-model="imgModel"
         mandatory
     >

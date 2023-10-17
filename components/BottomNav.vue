@@ -46,20 +46,7 @@
 </template>
 
 <style scoped>
-.bottom-nav {
-    background: rgba(var(--v-theme-background),0.3);
-}
-.bottom-nav::before{
-    content: "";
-    background: inherit;
-    position: absolute;
-    width : 100%;
-    height: 100%;
-    z-index: -1;
-    -webkit-backdrop-filter: blur(10px);
-    -moz-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
+
 
 .add-btn {
     position: relative;
