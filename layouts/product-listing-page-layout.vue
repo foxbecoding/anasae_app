@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 import { AuthRouteName as RouteName } from '@/utils/types'
-import { useAuthStore, useProductListingPageStore } from '@/store'
+import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
-const productPageStore = useProductListingPageStore()
 const { 
-        ProductVariant, 
         SelectedProductVariantImage,
         SelectedProductVariantColor,
         SelectedProductVariantSize,
