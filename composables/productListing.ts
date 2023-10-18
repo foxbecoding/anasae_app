@@ -1,9 +1,10 @@
 import { ProductListingPageProduct } from '@/utils/types'
-import { useCartStore, useProductListingPageStore, useSnackbarStore } from '@/store'
+import {  useAuthStore, useCartStore, useProductListingPageStore, useSnackbarStore } from '@/store'
 
 export const useProductListingPage = () => {
     const config = useRuntimeConfig()
     const store = useProductListingPageStore()
+    const authStore = useAuthStore()
     const route = useRoute()
     const qty = ref(0)
     
@@ -51,6 +52,11 @@ export const useProductListingPage = () => {
     }
 
     const addToCart = (): void => {
+        if(!authStore.isAuth) {
+            authStore.setPrevRouteData(route.fullPath, route.name)
+            navigateTo({name: 'auth-login'})
+            return 
+        }
         useCartStore().cart.push({pk: ProductVariant.value.pk, qty: qty.value})
         useSnackbarStore().setSnackbar(
             'Added to cart', 
