@@ -62,7 +62,7 @@ if (smAndDown.value){
             </v-container>
         </v-app-bar>
         <v-container v-if="!authStore.isAuth" class="mobile-top-bar-container d-flex d-md-none px-sm-8" :class="AppBarColor" fluid>
-            <MobileTopBar />
+            <MobileTopBar class="flex-fill" />
             <NanaAppBarBtn
                 class="rounded-xl ml-2"
                 :to="{name: 'cart'}"
@@ -158,7 +158,6 @@ if (smAndDown.value){
         <v-main class="main-adjust-content" v-scroll="onScroll">
             <slot></slot>
         </v-main>
-
         <Snackbar />
         <Auth v-if="ShowAuthForm" >
             <component :is="AuthFormComponent" />
