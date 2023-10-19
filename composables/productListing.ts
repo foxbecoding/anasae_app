@@ -4,6 +4,7 @@ import {  useAuthStore, useCartStore, useProductListingPageStore, useSnackbarSto
 export const useProductListingPage = () => {
     const config = useRuntimeConfig()
     const store = useProductListingPageStore()
+    const cartStore = useCartStore()
     const authStore = useAuthStore()
     const route = useRoute()
     const qty = ref(0)
@@ -51,18 +52,34 @@ export const useProductListingPage = () => {
         store.currentVariant.qty = qty.value
     }
 
-    const addToCart = (): void => {
+    const addToCart = async (): Promise<void> => {
         if(!authStore.isAuth) {
             authStore.setPrevRouteData(route.fullPath, route.name)
             navigateTo({name: 'auth-login'})
             return 
         }
-        useCartStore().cart.push({pk: ProductVariant.value.pk, qty: qty.value})
-        useSnackbarStore().setSnackbar(
-            'Added to cart', 
-            true, 
-            `${config.public.CDN_URL+ProductVariant.value.images[0]}`
-        )
+        const requestData = {cart: cartStore.cartId, item: ProductVariant.value.pk, quantity: qty.value}
+        const {data, error, status} = await useApi({
+            method: 'POST',
+            path: `${config.public.API_CART_ITEM}`,
+            data: requestData
+        })
+        if(status.value != 'error'){
+            cartStore.cart = [...data.value.items]
+            useSnackbarStore().setSnackbar(
+                'Added to cart', 
+                true, 
+                `${config.public.CDN_URL+ProductVariant.value.images[0]}`
+            )
+        }else{
+            useSnackbarStore().setSnackbar(
+                'Error please try again', 
+                true, 
+                ``,
+                'error'
+            )
+        }
+        
     }
 
     return {

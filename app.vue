@@ -4,7 +4,8 @@ import {
   useBrandStore, 
   useCategoryStore,
   useSliderStore, 
-  useUserStore 
+  useUserStore,
+  useCartStore 
 } from '@/store'
 import { useTheme } from 'vuetify'
 
@@ -12,6 +13,7 @@ const config = useRuntimeConfig()
 const sliderStore = useSliderStore()
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const cartStore = useCartStore()
 const categoryStore = useCategoryStore()
 const brandStore = useBrandStore()
 const vTheme = useTheme()
@@ -26,6 +28,7 @@ vTheme.global.name.value = useCookie('theme', {
 const initialize = async (): Promise<void> => {
   sliderStore.init()
   userStore.init()
+  cartStore.init()
   // categoryStore.init()
   nextTick(() => {
     $fetch(`${config.public.API_BASE_URL}${config.public.API_X_FCT}`)

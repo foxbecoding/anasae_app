@@ -3,8 +3,6 @@ import { useCartStore } from '@/store'
 
 const cartStore = useCartStore()
 
-var cartPks = cartStore.cart.map(x => x.pk)
-console.log(cartPks.toString())
 </script>
 
 <template>

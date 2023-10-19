@@ -15,7 +15,7 @@ const {
 <template>
     <v-app-bar 
         :height="$vuetify.display.xs ? 140 : 100"
-        class="bottom-nav d-block" 
+        class="bottom-nav d-block pb-4" 
         elevation="0"
         location="bottom"
     >
