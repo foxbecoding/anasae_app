@@ -26,6 +26,8 @@ import { VIcon } from 'vuetify/components/VIcon'
 import { VImg } from 'vuetify/components/VImg'
 import { 
     VList, 
+    VListImg,
+    VListItemMedia,
     VListItem, 
     VListItemTitle, 
     VListItemSubtitle, 
@@ -135,6 +137,8 @@ export default defineNuxtPlugin(nuxtApp => {
             VIcon,
             VImg,
             VList,
+            VListImg,
+            VListItemMedia,
             VListItem,
             VListItemAction,
             VListItemTitle,

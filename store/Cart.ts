@@ -1,8 +1,8 @@
-import { ApiData } from '@/utils/types'
+import { ApiData, Cart } from '@/utils/types'
 
 export const useCartStore = defineStore("cart-store", () => {
     const cartId = ref<string|number>('')
-    const cart = ref<{cart: string|number, item: string|number, quantity: number}[]>([])
+    const cart = ref<Cart[]>([])
 
     const init = async (): Promise<void>  => {
         const config = useRuntimeConfig()

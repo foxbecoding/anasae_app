@@ -27,6 +27,15 @@ export interface BrandOwner {
     user: string|number
 }
 
+export interface Cart{
+    items: { 
+        pk: string|number, 
+        cart: string|number, 
+        item: ProductListingPageProduct[], 
+        quantity: number
+    }[]
+}
+
 export interface Category {
     pk: string|number
     uid:  string
@@ -96,7 +105,6 @@ export interface FormButton extends FormInputBase {
     rounded?: string 
     show: boolean
 }
-
 
 export interface MenuItem {
     id: number
@@ -227,6 +235,7 @@ export interface User {
     uid: string
     username: string
 }
+
 
 export interface UserAddress {
     pk: string | number;
